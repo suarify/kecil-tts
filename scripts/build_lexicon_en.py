@@ -13,7 +13,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, 'data', 'lex_src')
 
 WORDS = """
-meeting meetings booking book booked online offline check checking checked confirm confirmed confirmation
+meeting router restart group groups report reports member members renew laptop meetings booking book booked online offline check checking checked confirm confirmed confirmation
 cancel cancelled delivery deliver order orders payment pay paid password okay sorry thanks thank you please
 account update updated system phone call calling called internet email website link click login logout
 register app apps download upload file files screenshot message messages voice customer customers service

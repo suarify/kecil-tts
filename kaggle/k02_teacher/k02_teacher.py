@@ -24,6 +24,8 @@ def sh(cmd):
 
 sh('pip install -q chatterbox-tts')
 sh('pip install -q speechbrain')
+sh('pip uninstall -y -q torchvision || true')
+sh('pip list 2>/dev/null | grep -iE "^(torch|torchaudio|transformers|numpy|chatterbox)"')
 
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402

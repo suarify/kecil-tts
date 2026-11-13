@@ -1,0 +1,10 @@
+__pycache__/
+*.wav
+*.flac
+*.pth
+*.onnx
+export/*.bin
+node_modules/
+.venv/
+data/audio/
+notebooks/*/output/

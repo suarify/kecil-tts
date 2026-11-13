@@ -1,0 +1,32 @@
+# Hand-written Malay (Malaysia) e-vowel labels. Highest priority in build_lexicon_e.py.
+# Write each word as it should be read: é = e taling [e], plain e = e pepet [ə].
+# Comma-separated, any number per line. '#' starts a comment.
+
+# --- taling words common in Malaysian speech ---
+méja, keréta, kerétapi, boléh, oléh, léhér, séwa, béza, mérah, élok, ésok, ékor, énak
+désa, lébar, saté, téh, cék, bég, kék, sén, péta, pésta, lésén, résit, rékod, téma, réla, léga, péka, léka
+déwan, déwasa, déwi, déwa, kecéwa, kekecéwaan, léwat, méwah, réhat, beréhat, péha, seléra, bendéra, merdéka
+selésai, menyelésaikan, penyelésaian, selésa, kendéraan, téngok, élak, éjék, ékar, éhsan, énjin, épal, éjén, éra
+étika, ékonomi, éléktrik, émél, éksport, fésyen, téléfon, télévisyen, téksi, téknologi, téknik, geréja, méter
+sétém, résipi, réstoran, vidéo, héro, kafé, gél, bérés, pendék, lépak, géng, hérét, bélok, béngkél, lébuh
+lébuhraya, jéti, mériah, cérék, jéli, jéling, lecéh, reméh, témpé, sépét, kaédah, faédah, projék, objék, subjék
+sél, pén, ceréwét, krédit, débit, déposit, pélan, prémium, meréka, nénék, éh, wéh, héi
+présidén, moden, modél, hotél, panél, lével, pakéj, résort, résépsi
+tégar, séksyen, séktor, éfisien, énergi, ékspres, éksklusif, émosi, éstét, ései
+
+# --- pepet words the Indonesian sources may mislabel or miss ---
+ke, je, perang, pekan, emak, empat, enam, teman, besar, semua, sekarang, sebenarnya, selepas, sebelum, betul
+berapa, terima, encik, cerita, kecil, kenapa, tengah, dengar, senang, kerja, pergi, jemput, rendah, tempat
+beli, pesan, beritahu, sedikit, segera, sedang, keluar, lebih, pejabat, telah, belum, pernah, selalu, seorang
+pekerja, keperluan, perempuan, lelaki, bekas, gelas, keluarga, sesuai, setuju, seluar, kemas, bersih, tenang
+sejuk, hendak, sebab, kerana, tetapi, penting, peluang, pengalaman, kesihatan, bertemu, mesyuarat, temujanji
+cerah, gelap, merdu, petang, semalam, depan, belakang, sebelah, tepi, mesra, kelabu, jelas, kemudian, pelbagai, kedai, geram
+sekolah, pelajar, pensyarah, demam, sesak, ceramah, seronok, sebut, teruk, teruskan, tekan, percuma, pesanan
+negeri, negara, pelanggan, perkhidmatan, kecemasan, sedap, periksa, memeriksa, pertanyaan, keputusan
+kelulusan, permohonan, dokumen, tempoh, sehingga, selama, sebanyak, jenis, segala, selamat, sepanjang
+sementara, semasa, menerusi, melalui, terus, berhenti, tetap, mesti, dekat, sistem, filem, keju, remaja
+jerebu, ketua, gembira, senarai, sejarah, seperti, sentiasa, tempat, lepas, lekas, cepat, kenal, kenalan
+benar, sebenar, beberapa, setiap, bersama, sendiri, sedia, bersedia, sekali, semula, tersebut, tertentu
+
+# --- corrections from review of the 1,500 most frequent e-words (2026-11-13) ---
+beri, memberi, seluruh, keseluruhan, pegang, berpegang, memegang, pengesan, opérasi, média, idéntiti, univérsiti, éropah

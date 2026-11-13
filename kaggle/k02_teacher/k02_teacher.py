@@ -14,6 +14,7 @@ import sys
 import time
 
 T0 = time.time()
+os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'expandable_segments:True'
 
 
 def sh(cmd):
@@ -30,8 +31,9 @@ import soundfile as sf  # noqa: E402
 import torch  # noqa: E402
 import torchaudio  # noqa: E402
 
-DS = '/kaggle/input/kokoro-malay-g2p'
-K01 = '/kaggle/input/kmb-01-baseline'
+DS = os.path.dirname(glob.glob('/kaggle/input/**/ms_g2p.py', recursive=True)[0])
+K01 = os.path.dirname(glob.glob('/kaggle/input/**/baseline_report.json', recursive=True)[0])
+print('DS', DS, 'K01', K01)
 sys.path.insert(0, DS)
 from ms_norm import normalize  # noqa: E402
 
@@ -159,7 +161,7 @@ try:
     asr = pipeline('automatic-speech-recognition', model='openai/whisper-large-v3',
                    torch_dtype=torch.float16, device=0)
     batch = [{'raw': load16(p).numpy(), 'sampling_rate': 16000} for p in df.path]
-    out = asr(batch, batch_size=16, generate_kwargs={'language': 'malay', 'task': 'transcribe'})
+    out = asr(batch, batch_size=4, generate_kwargs={'language': 'malay', 'task': 'transcribe', 'max_new_tokens': 200})
     df['hyp'] = [o['text'].strip() for o in out]
     df['cer'] = [lev(clean(r), clean(h)) / max(1, len(clean(r))) for r, h in zip(df.ref_text, df.hyp)]
     del asr

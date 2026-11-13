@@ -11,6 +11,7 @@ import time
 import types
 
 T0 = time.time()
+os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'expandable_segments:True'
 
 
 def sh(cmd):
@@ -47,7 +48,9 @@ for sub in ('en', 'espeak'):
 from huggingface_hub import hf_hub_download  # noqa: E402
 from kokoro import KModel  # noqa: E402
 
-DS = '/kaggle/input/kokoro-malay-g2p'
+import glob
+DS = os.path.dirname(glob.glob('/kaggle/input/**/ms_g2p.py', recursive=True)[0])
+print('DS', DS)
 sys.path.insert(0, DS)
 from ms_g2p import G2P  # noqa: E402
 from ms_norm import normalize  # noqa: E402
@@ -138,7 +141,7 @@ def transcribe(paths):
     for p in paths:
         a, sr = sf.read(p, dtype='float32')
         batch.append({'raw': a, 'sampling_rate': sr})
-    out = asr(batch, batch_size=16, generate_kwargs={'language': 'malay', 'task': 'transcribe'})
+    out = asr(batch, batch_size=4, generate_kwargs={'language': 'malay', 'task': 'transcribe', 'max_new_tokens': 200})
     return [o['text'].strip() for o in out]
 
 

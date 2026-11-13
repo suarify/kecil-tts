@@ -126,6 +126,22 @@ def load_overrides():
     return out
 
 
+def _roots(g, w):
+    roots = []
+    for encl in [''] + ['nya', 'lah', 'kah', 'tah', 'ku', 'mu']:
+        if encl and not w.endswith(encl):
+            continue
+        w1 = w[:len(w) - len(encl)]
+        for der in ['', 'kan', 'an', 'i']:
+            if der and not w1.endswith(der):
+                continue
+            w2 = w1[:len(w1) - len(der)]
+            for prefix, root, drop in g._prefix_splits(w2):
+                if (prefix or der or encl) and len(root) >= 3:
+                    roots.append(root)
+    return roots
+
+
 def main():
     ov = load_overrides()
     msa = load_wikipron('msa_latn_broad.tsv')
@@ -139,6 +155,20 @@ def main():
             lex[w] = s
             source[w] = name
     lex = {w: s for w, s in lex.items() if 'e' in w}
+
+    # An Indonesian entry for an affixed form must not beat a Malay override of its root
+    # (e.g. ind 'selesaikan' all-pepet vs override 'selésai').
+    from ms_g2p import G2P as _G
+    probe = _G()
+    probe.lex_e = {w: s for w, s in ov.items()}
+    dropped = []
+    for w in list(lex):
+        if source[w] in ('ind', 'schwa') and w not in ov:
+            d = probe._decompose(w)
+            if d is not None and d != w and any(r in ov for r in _roots(probe, w)):
+                del lex[w]
+                dropped.append(w)
+    print('dropped affixed ind/schwa entries in favour of root overrides:', len(dropped), dropped[:15])
     with open(os.path.join(ROOT, 'g2p', 'lexicon_e.json'), 'w', encoding='utf-8') as f:
         json.dump(dict(sorted(lex.items())), f, ensure_ascii=False, indent=0)
     print('lexicon_e.json entries:', len(lex))

@@ -5,10 +5,10 @@
 {"text": "Mesyuarat 10:00 am, 2pm dan 8.15 malam.", "opts": {}, "norm": "Mesyuarat pukul sepuluh pagi, pukul dua petang dan pukul lapan lima belas malam.", "ph": "məʃuˈarat pˈukul səpˈuluh pˈaɡi, pˈukul dˈua pətˈaŋ dan pˈukul lˈapan lˈima bəlˈas mˈalam."}
 {"text": "Hubungi 012-345 6789 atau +6012 345 6789.", "opts": {}, "norm": "Hubungi kosong satu dua tiga empat lima enam tujuh lapan sembilan atau tambah enam kosong satu dua tiga empat lima enam tujuh lapan sembilan.", "ph": "hubˈuŋi kˈosoŋ sˈatu dˈua tˈiɡa əmpˈat lˈima ənˈam tˈuʤuh lˈapan səmbˈilan ataw tˈambah ənˈam kˈosoŋ sˈatu dˈua tˈiɡa əmpˈat lˈima ənˈam tˈuʤuh lˈapan səmbˈilan."}
 {"text": "No. IC 900101-14-5678, kod OTP 482913.", "opts": {}, "norm": "nombor IC sembilan kosong kosong satu kosong satu satu empat lima enam tujuh lapan, kod OTP empat lapan dua sembilan satu tiga.", "ph": "nˈombor ˈI sˈi səmbˈilan kˈosoŋ kˈosoŋ sˈatu kˈosoŋ sˈatu sˈatu əmpˈat lˈima ənˈam tˈuʤuh lˈapan, kˈod ˈO tˈi pˈi əmpˈat lˈapan dˈua səmbˈilan sˈatu tˈiɡa."}
-{"text": "Jarak 15km, berat 2.5kg, suhu 30°C.", "opts": {}, "norm": "Jarak lima belas kilometer, berat dua perpuluhan lima kilogram, suhu tiga puluh darjah Celsius.", "ph": "ʤˈaraʔ lˈima bəlˈas kilomˈetər, bərˈat dˈua pərpulˈuhan lˈima kilˈoɡram, sˈuhu tˈiɡa pˈuluh dˈarʤah ʧəlsˈius."}
+{"text": "Jarak 15km, berat 2.5kg, suhu 30°C.", "opts": {}, "norm": "Jarak lima belas kilometer, berat dua perpuluhan lima kilogram, suhu tiga puluh darjah Celsius.", "ph": "ʤˈaraʔ lˈima bəlˈas kilomˈetər, bərˈat dˈua pərpulˈuhan lˈima kilˈoɡram, sˈuhu tˈiɡa pˈuluh dˈarʤah sˈelsius."}
 {"text": "Dr. Ahmad dan En. Ali dari ABC Sdn. Bhd. dll.", "opts": {}, "norm": "doktor Ahmad dan encik Ali dari ABC sendirian berhad dan lain-lain.", "ph": "dˈoʔtor ˈahmad dan ənʧˈiʔ ˈali dari ˈA bˈi sˈi səndirˈian bərhˈad dan lˈain lˈain."}
 {"text": "Tahun 1998 dan 2026, 100 orang, 21000 ringgit.", "opts": {}, "norm": "Tahun seribu sembilan ratus sembilan puluh lapan dan dua ribu dua puluh enam, seratus orang, dua puluh satu ribu ringgit.", "ph": "tˈahun sərˈibu səmbˈilan rˈatus səmbˈilan pˈuluh lˈapan dan dˈua rˈibu dˈua pˈuluh ənˈam, sərˈatus ˈoraŋ, dˈua pˈuluh sˈatu rˈibu rˈiŋɡit."}
-{"text": "Tarikh 5 Mac 2025 dan 2 Disember.", "opts": {}, "norm": "Tarikh lima Mac dua ribu dua puluh lima dan dua Disember.", "ph": "tˈarix lˈima mˈaʧ dˈua rˈibu dˈua pˈuluh lˈima dan dˈua disəmbˈer."}
+{"text": "Tarikh 5 Mac 2025 dan 2 Disember.", "opts": {}, "norm": "Tarikh lima Mac dua ribu dua puluh lima dan dua Disember.", "ph": "tˈarix lˈima mˈaʧ dˈua rˈibu dˈua pˈuluh lˈima dan dˈua disˈembər."}
 {"text": "Umur 10-20 tahun, harga 0.75 sen, 1000000 unit, 3.14159.", "opts": {}, "norm": "Umur sepuluh hingga dua puluh tahun, harga kosong perpuluhan tujuh lima sen, satu juta unit, tiga perpuluhan satu empat satu lima sembilan.", "ph": "ˈumur səpˈuluh hˈiŋɡa dˈua pˈuluh tˈahun, hˈarɡa kˈosoŋ pərpulˈuhan tˈuʤuh lˈima sˈen, sˈatu ʤˈuta ˈunit, tˈiɡa pərpulˈuhan sˈatu əmpˈat sˈatu lˈima səmbˈilan."}
 {"text": "yg ni x boleh, tq!", "opts": {}, "norm": "yang ni tak boleh, terima kasih!", "ph": "jaŋ ni taʔ bˈoleh, tərˈima kˈasih!"}
 {"text": "Kereta api akan tiba pukul 3.30 petang di Stesen Sentral.", "opts": {}, "norm": "Kereta api akan tiba pukul tiga tiga puluh petang di Stesen Sentral.", "ph": "kərˈeta ˈapi akan tˈiba pˈukul tˈiɡa tˈiɡa pˈuluh pətˈaŋ di stˈesen sˈentral."}
@@ -248,7 +248,7 @@
 {"text": "Mereka perlu mengemaskan bilik itu.", "opts": {}, "norm": "Mereka perlu mengemaskan bilik itu.", "ph": "mərˈeka pərlˈu məŋəmˈaskan bˈiliʔ itu."}
 {"text": "واجه مريک بردوا ايت سروڤا بنر، باڬاي ڤلندوق دوا سروڤا.", "opts": {}, "norm": "واجه مريک بردوا ايت سروڤا بنر، باڬاي ڤلندوق دوا سروڤا.", "ph": "."}
 {"text": "Apakah itu yang saya fikirkan?", "opts": {}, "norm": "Apakah itu yang saya fikirkan?", "ph": "apˈakah itu jaŋ sˈaja fikˈirkan?"}
-{"text": "Masalah itu sukar untuk diselesaikan.", "opts": {}, "norm": "Masalah itu sukar untuk diselesaikan.", "ph": "masˈalah itu sˈukar untuʔ disələsˈajkan."}
+{"text": "Masalah itu sukar untuk diselesaikan.", "opts": {}, "norm": "Masalah itu sukar untuk diselesaikan.", "ph": "masˈalah itu sˈukar untuʔ disəlesˈajkan."}
 {"text": "Mana satu lagi?", "opts": {}, "norm": "Mana satu lagi?", "ph": "mˈana sˈatu lˈaɡi?"}
 {"text": "Apa lagi yang dia cakap?", "opts": {}, "norm": "Apa lagi yang dia cakap?", "ph": "ˈapa lˈaɡi jaŋ dˈia ʧˈakap?"}
 {"text": "Saya pernah melawat ke Hokkaido sebelum ini.", "opts": {}, "norm": "Saya pernah melawat ke Hokkaido sebelum ini.", "ph": "sˈaja pərnˈah məlˈawat kə hoʔkaˈido səbəlˈum ini."}
@@ -1579,7 +1579,7 @@
 {"text": "Kata-katanya sangat kesat apabila terlalu marah.", "opts": {}, "norm": "Kata-katanya sangat kesat apabila terlalu marah.", "ph": "kˈata katˈaɲa sˈaŋat kəsˈat apabˈila tərlˈalu mˈarah."}
 {"text": "Dia berpakaian seperti seorang pendekar.", "opts": {}, "norm": "Dia berpakaian seperti seorang pendekar.", "ph": "dˈia bərpakˈajan səpərtˈi səʔˈoraŋ pəndˈekar."}
 {"text": "Awak sedang buat apa?", "opts": {}, "norm": "Awak sedang buat apa?", "ph": "ˈawaʔ sədˈaŋ bˈuat ˈapa?"}
-{"text": "Masalah itu tidak akan boleh diselesaikan dengan mudah.", "opts": {}, "norm": "Masalah itu tidak akan boleh diselesaikan dengan mudah.", "ph": "masˈalah itu tˈidaʔ akan bˈoleh disələsˈajkan dəŋan mˈudah."}
+{"text": "Masalah itu tidak akan boleh diselesaikan dengan mudah.", "opts": {}, "norm": "Masalah itu tidak akan boleh diselesaikan dengan mudah.", "ph": "masˈalah itu tˈidaʔ akan bˈoleh disəlesˈajkan dəŋan mˈudah."}
 {"text": "Nantilah kita bincang kemudian.", "opts": {}, "norm": "Nantilah kita bincang kemudian.", "ph": "nantˈilah kˈita bˈinʧaŋ kəmudˈian."}
 {"text": "Kami sedang menyemak peti surat kami.", "opts": {}, "norm": "Kami sedang menyemak peti surat kami.", "ph": "kˈami sədˈaŋ məɲˈemaʔ pətˈi sˈurat kˈami."}
 {"text": "Saya gemar menonton anime.", "opts": {}, "norm": "Saya gemar menonton anime.", "ph": "sˈaja ɡəmˈar mənˈonton anˈime."}

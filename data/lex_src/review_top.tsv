@@ -326,7 +326,7 @@
 796	seharusnya	seharusnya	ind		ind=seharusnya
 799	berusaha	berusaha	root		
 801	membunuhnya	membunuhnya	root		
-805	selesaikan	selesaikan	ind		ind=selesaikan
+805	selesaikan	selésaikan	ind	CONFLICT	ind=selesaikan
 806	terbuka	terbuka	ind		ind=terbuka
 808	tersebut	tersebut	override		ind=tersebut
 809	berguna	berguna	root		
@@ -1331,7 +1331,7 @@
 2786	subjek	subjék	override		ind=subjék
 2790	mewah	méwah	override		msa=méwah ind=méwah
 2791	belanja	belanja	msa		msa=belanja schwa=belanja ind=belanja
-2792	diselesaikan	diselesaikan	root		
+2792	diselesaikan	diselésaikan	root		
 2794	lesen	lésén	override		msa=lésén
 2795	beredar	berédar	root		
 2796	seberang	seberang	schwa		schwa=seberang
@@ -1357,7 +1357,7 @@
 2832	melebihi	melebihi	root		
 2833	ceritanya	ceritanya	root		
 2836	gementar	gementar	schwa		schwa=gementar
-2837	selesaikannya	selesaikannya	root		
+2837	selesaikannya	selésaikannya	root		
 2838	menghapuskan	menghapuskan	root		
 2839	roger	roger	heuristic		
 2840	pergaduhan	pergaduhan	root		
@@ -2314,7 +2314,7 @@
 4704	helen	helen	heuristic		
 4706	pendaftaran	pendaftaran	ind		ind=pendaftaran
 4707	hee	heé	heuristic		
-4708	september	séptémber	schwa		schwa=séptémber ind=séptémber
+4708	september	septémber	override	CONFLICT	schwa=séptémber ind=séptémber
 4709	memesan	memesan	root		
 4710	note	noté	heuristic		
 4711	terjemahan	terjemahan	msa		msa=terjemahan ind=terjemahan
@@ -2624,7 +2624,7 @@
 5355	tekak	tekak	msa		msa=tekak schwa=tekak ind=tekak
 5358	melampaui	melampaui	root		
 5359	terimakasih	terimakasih	root		
-5362	melepak	melepak	ind		ind=melepak
+5362	melepak	melépak	ind	CONFLICT	ind=melepak
 5363	pentingnya	pentingnya	root		
 5364	panel	panél	override		ind=panél
 5368	jersey	jerséy	heuristic		
@@ -2808,7 +2808,7 @@
 5702	teks	téks	ind		ind=téks
 5703	kebodohan	kebodohan	ind		ind=kebodohan
 5706	berpihak	berpihak	root		
-5714	november	novémber	msa		msa=novémber schwa=novémber ind=novémber
+5714	november	novémber	override		msa=novémber schwa=novémber ind=novémber
 5715	reese	reesé	heuristic		
 5718	mengagumi	mengagumi	root		
 5720	menginginkannya	menginginkannya	root		
@@ -3610,7 +3610,7 @@
 7304	help	hélp	heuristic		
 7305	pemandian	pemandian	ind		ind=pemandian
 7306	kemahuan	kemahuan	root		
-7307	disember	disembér	root		
+7307	disember	disémber	override		
 7308	pelancar	pelancar	schwa		schwa=pelancar
 7311	meremehkan	mereméhkan	root		
 7312	berambuslah	berambuslah	root		
@@ -4577,7 +4577,7 @@
 9140	ponteng	ponténg	msa	CONFLICT	msa=ponténg schwa=ponteng
 9144	memperlakukan	memperlakukan	ind		ind=memperlakukan
 9145	pensiun	pensiun	root		
-9146	geli	geli	schwa		schwa=geli
+9146	geli	géli	schwa	CONFLICT	schwa=geli
 9147	kesejahteraan	kesejahteraan	ind		ind=kesejahteraan
 9148	memanaskan	memanaskan	root		
 9149	persaraan	persaraan	root		
@@ -4610,7 +4610,7 @@
 9204	kerabat	kerabat	schwa		schwa=kerabat ind=kerabat
 9205	denise	denisé	heuristic		
 9208	tekken	tekken	heuristic		
-9210	kelewatan	kelewatan	root		
+9210	kelewatan	keléwatan	root		
 9211	fuhrer	fuhrer	heuristic		
 9212	sebelahnya	sebelahnya	root		
 9213	berpendidikan	berpendidikan	root		
@@ -5056,7 +5056,7 @@
 10093	berpura	berpura	root		
 10094	ketatkan	ketatkan	root		
 10095	menggelikan	menggelikan	root		
-10096	bereskan	béréskan	ind		ind=béréskan
+10096	bereskan	beréskan	ind	CONFLICT	ind=béréskan
 10099	berjumpanya	berjumpanya	root		
 10102	pengintipan	pengintipan	root		
 10103	gale	galé	ind		ind=galé
@@ -5422,7 +5422,7 @@
 10786	cien	cien	heuristic		
 10787	morales	moralés	heuristic		
 10788	dipertimbangkan	dipertimbangkan	root		
-10789	segel	ségel	schwa		schwa=ségel ind=ségel
+10789	segel	segél	schwa	CONFLICT	schwa=ségel ind=ségel
 10792	sure	suré	heuristic		
 10794	penyelam	penyelam	root		
 10795	change	changé	heuristic		
@@ -5824,7 +5824,7 @@
 11528	terkalahkan	terkalahkan	ind		ind=terkalahkan
 11529	tercabut	tercabut	root		
 11531	liberty	libérty	heuristic		
-11532	ekspresi	éksprési	ind		ind=éksprési
+11532	ekspresi	ékspresi	ind	CONFLICT	ind=éksprési
 11533	serat	serat	schwa		schwa=serat ind=serat
 11534	everyone	everyoné	heuristic		
 11536	kutemui	kutemui	heuristic		
@@ -7927,7 +7927,7 @@
 15619	bertentang	bertentang	root		
 15621	pertuduhan	pertuduhan	root		
 15622	mengadap	mengadap	root		
-15623	pemetaan	pemétaan	ind		ind=pemétaan
+15623	pemetaan	pemetaan	ind	CONFLICT	ind=pemétaan
 15624	quarter	quarter	heuristic		
 15626	behmen	behmen	heuristic		
 15627	leung	leung	heuristic		
@@ -10704,7 +10704,7 @@
 20986	prasert	prasért	heuristic		
 20987	segarkan	segarkan	root		
 20988	penyembah	penyembah	msa		msa=penyembah
-20989	membereskannya	membéréskannya	root		
+20989	membereskannya	memberéskannya	root		
 20991	berkonsentrasi	berkonséntrasi	ind		ind=berkonséntrasi
 20992	mayer	mayer	heuristic		
 20997	terlepasnya	terlepasnya	root		
@@ -11722,7 +11722,7 @@
 23039	menyerlah	menyerlah	root		
 23040	leiand	leiand	heuristic		
 23042	camner	camner	heuristic		
-23043	mengekspresikan	mengéksprésikan	root		
+23043	mengekspresikan	mengekspresikan	heuristic		
 23046	corporate	corporaté	heuristic		
 23047	keceriaan	keceriaan	root		
 23049	mencabul	mencabul	root		
@@ -11978,7 +11978,7 @@
 23541	finnerty	finnérty	heuristic		
 23546	kepolisan	kepolisan	root		
 23547	shere	sheré	heuristic		
-23551	memendekkan	meméndékkan	ind		ind=meméndékkan
+23551	memendekkan	memendékkan	ind	CONFLICT	ind=meméndékkan
 23553	ketuaku	ketuaku	root		
 23554	hearts	hearts	heuristic		
 23555	suresh	surésh	heuristic		
@@ -12862,7 +12862,7 @@
 25258	geo	geo	heuristic		
 25261	berpuisi	berpuisi	root		
 25262	peron	péron	ind		ind=péron
-25264	membereskan	membéréskan	ind		ind=membéréskan
+25264	membereskan	memberéskan	ind	CONFLICT	ind=membéréskan
 25268	rafael	rafaél	ind		ind=rafaél
 25270	shavers	shavérs	heuristic		
 25272	mcewen	mcewen	heuristic		
@@ -14168,7 +14168,7 @@
 27781	mengendahkannya	mengendahkannya	root		
 27783	menyelak	menyélak	root		
 27784	peduii	peduii	root		
-27787	gelinya	gelinya	root		
+27787	gelinya	gélinya	root		
 27788	berteriaklah	berteriaklah	root		
 27790	anestetik	anéstétik	ind		ind=anéstétik
 27791	kehabolehn	kehabolehn	heuristic		
@@ -15355,7 +15355,7 @@
 29979	mengenyit	mengenyit	root		
 29980	indonesian	indonesian	heuristic		
 29981	menganalisisnya	menganalisisnya	root		
-29983	melecehkan	melecehkan	ind		ind=melecehkan
+29983	melecehkan	melecéhkan	ind	CONFLICT	ind=melecehkan
 29985	delicious	delicious	heuristic		
 29987	verdona	verdona	heuristic		
 29988	jeda	jéda	msa	CONFLICT	msa=jéda schwa=jeda ind=jeda
@@ -15557,7 +15557,7 @@
 30380	merias	merias	root		
 30381	ketajaman	ketajaman	root		
 30385	kecantikkan	kecantikkan	root		
-30390	selesaikanlah	selesaikanlah	root		
+30390	selesaikanlah	selésaikanlah	root		
 30393	wijen	wijen	heuristic		
 30394	watertown	watertown	heuristic		
 30395	menjauhiku	menjauhiku	root		
@@ -15715,7 +15715,7 @@
 30682	keror	keror	heuristic		
 30685	babineaux	babineaux	heuristic		
 30686	relical	relical	heuristic		
-30687	terselesaikan	terselesaikan	ind		ind=terselesaikan
+30687	terselesaikan	terselésaikan	ind	CONFLICT	ind=terselesaikan
 30689	bedong	bedong	schwa		schwa=bedong
 30692	peso	peso	heuristic		
 30693	starter	starter	schwa		schwa=starter ind=starter
@@ -16193,7 +16193,7 @@
 31574	swedish	swedish	heuristic		
 31575	esugei	esugei	heuristic		
 31576	sabel	sabel	schwa		schwa=sabel ind=sabel
-31579	gelilah	gelilah	root		
+31579	gelilah	gélilah	root		
 31581	kelompoknya	kelompoknya	root		
 31582	ashen	ashen	heuristic		
 31583	celoteh	celotéh	schwa		schwa=celotéh
@@ -16866,7 +16866,7 @@
 32833	penyadap	penyadap	root		
 32837	rerambut	rerambut	heuristic		
 32839	sepeninggalanku	sepeninggalanku	root		
-32841	dibereskan	dibéréskan	ind		ind=dibéréskan
+32841	dibereskan	diberéskan	ind	CONFLICT	ind=dibéréskan
 32842	disergap	disergap	root		
 32844	ferrington	ferrington	heuristic		
 32845	rocker	rocker	heuristic		
@@ -17022,7 +17022,7 @@
 33136	penyelesai	penyelésai	root		
 33138	berambisi	berambisi	root		
 33140	messi	messi	heuristic		
-33141	menyegel	menyégel	root		
+33141	menyegel	menyegél	heuristic		
 33142	yesterday	yesterday	heuristic		
 33143	suitcase	suitcasé	heuristic		
 33145	valencia	valencia	heuristic		
@@ -17173,7 +17173,7 @@
 33419	perencanaan	perencanaan	ind		ind=perencanaan
 33422	bermunculan	bermunculan	root		
 33423	fontane	fontané	heuristic		
-33424	began	began	schwa		schwa=began
+33424	began	bégan	schwa	CONFLICT	schwa=began
 33425	reddit	reddit	heuristic		
 33427	monteiro	monteiro	heuristic		
 33429	directly	diréctly	heuristic		
@@ -18997,7 +18997,7 @@
 36814	persepakatan	persepakatan	root		
 36815	peragawati	peragawati	schwa		schwa=peragawati
 36816	senarionya	senarionya	root		
-36819	pelebaran	pelebaran	root		
+36819	pelebaran	pelébaran	root		
 36820	ledward	ledward	heuristic		
 36821	demonnya	demonnya	heuristic		
 36824	percakapanmu	percakapanmu	root		
@@ -20709,7 +20709,7 @@
 40062	penyagak	penyagak	root		
 40063	melangsaikan	melangsaikan	root		
 40064	merubahmu	merubahmu	root		
-40069	kegel	kégel	schwa		schwa=kégel
+40069	kegel	kegél	schwa	CONFLICT	schwa=kégel
 40072	kemuliaanmu	kemuliaanmu	root		
 40073	normandie	normandié	heuristic		
 40075	mendasari	mendasari	root		
@@ -20765,7 +20765,7 @@
 40177	ekuiti	ekuiti	heuristic		
 40178	takder	takder	heuristic		
 40179	pathetic	pathetic	heuristic		
-40180	selebaran	selebaran	schwa		schwa=selebaran ind=selebaran
+40180	selebaran	selébaran	schwa	CONFLICT	schwa=selebaran ind=selebaran
 40181	ketempatnya	ketempatnya	root		
 40182	triceratops	triceratops	heuristic		
 40184	plier	plier	heuristic		
@@ -21254,7 +21254,7 @@
 41110	kerugiannya	kerugiannya	root		
 41112	zinged	zingéd	heuristic		
 41114	stuckey	stuckéy	heuristic		
-41118	dilecehkan	dilecehkan	ind		ind=dilecehkan
+41118	dilecehkan	dilecéhkan	ind	CONFLICT	ind=dilecehkan
 41119	rekon	rekon	heuristic		
 41120	zipper	zipper	heuristic		
 41122	jenuh	jenuh	msa		msa=jenuh schwa=jenuh ind=jenuh
@@ -22419,7 +22419,7 @@
 43238	stooge	stoogé	heuristic		
 43241	investments	investménts	heuristic		
 43245	manuela	manuela	heuristic		
-43246	lebaran	lebaran	schwa		schwa=lebaran ind=lebaran
+43246	lebaran	lébaran	schwa	CONFLICT	schwa=lebaran ind=lebaran
 43251	ossetia	ossetia	heuristic		
 43252	snooker	snooker	heuristic		
 43254	kebelet	kebelet	schwa		schwa=kebelet ind=kebelet
@@ -22647,7 +22647,7 @@
 43694	ketrampilan	ketrampilan	root		
 43695	alfabet	alfabét	heuristic		
 43696	pencerai	pencerai	root		
-43698	tersegel	terségel	ind		ind=terségel
+43698	tersegel	tersegél	ind	CONFLICT	ind=terségel
 43699	penggemarmu	penggemarmu	root		
 43701	pekkala	pekkala	root		
 43703	bluefish	bluefish	heuristic		
@@ -23677,7 +23677,7 @@
 45705	wrightsville	wrightsvillé	heuristic		
 45707	palindrome	palindromé	heuristic		
 45709	menikahkanku	menikahkanku	root		
-45710	lecehkan	lecehkan	ind		ind=lecehkan
+45710	lecehkan	lecéhkan	ind	CONFLICT	ind=lecehkan
 45713	menyegerakkan	menyegerakkan	heuristic		
 45717	bashed	bashéd	heuristic		
 45720	pensiunmu	pensiunmu	root		
@@ -23692,7 +23692,7 @@
 45737	leveraj	leveraj	heuristic		
 45743	tweener	tweener	heuristic		
 45746	penjanakuasa	penjanakuasa	root		
-45750	ketegaran	ketegaran	root		
+45750	ketegaran	ketégaran	root		
 45752	kehausanku	kehausanku	root		
 45753	jenismu	jenismu	root		
 45755	vier	vier	heuristic		

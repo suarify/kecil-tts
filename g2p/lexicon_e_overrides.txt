@@ -30,3 +30,4 @@ benar, sebenar, beberapa, setiap, bersama, sendiri, sedia, bersedia, sekali, sem
 
 # --- corrections from review of the 1,500 most frequent e-words (2026-11-13) ---
 beri, memberi, seluruh, keseluruhan, pegang, berpegang, memegang, pengesan, opérasi, média, idéntiti, univérsiti, éropah
+disémber, novémber, septémber

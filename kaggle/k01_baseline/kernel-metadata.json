@@ -1,0 +1,16 @@
+{
+  "id": "seanlon/kmb-01-baseline",
+  "title": "kmb 01 baseline",
+  "code_file": "k01_baseline.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "dataset_sources": ["seanlon/kokoro-malay-g2p"],
+  "kernel_sources": [],
+  "competition_sources": [],
+  "model_sources": [],
+  "machine_shape": "NvidiaTeslaT4"
+}

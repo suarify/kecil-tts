@@ -1,0 +1,41 @@
+id	category	text
+g01	general	Selamat pagi, boleh saya bantu encik hari ini?
+g02	general	Terima kasih kerana menghubungi kami, sila tunggu sebentar.
+g03	general	Saya nak tempah meja untuk dua orang malam ini.
+g04	general	Keadaan jalan raya agak sesak pada waktu petang.
+g05	general	Rakyat Malaysia tidak perlu risau tentang perkara ini.
+g06	general	Pakaian di pantai itu sangat cantik dan murah.
+g07	general	Kami akan menghantar dokumen tersebut melalui emel esok.
+g08	general	Nyanyian nenek kedengaran sayup-sayup dari dapur.
+g09	general	Sila pastikan maklumat peribadi anda adalah tepat.
+g10	general	Kereta api terakhir bertolak dari stesen sebelum tengah malam.
+g11	general	Pelanggan yang dihormati, permohonan anda sedang diproses.
+g12	general	Saya faham, dan saya minta maaf atas kesulitan ini.
+g13	general	Cuaca hari ini panas dan lembap, jangan lupa minum air.
+g14	general	Kedai itu buka setiap hari kecuali hari Jumaat.
+g15	general	Sekolah kami menang pertandingan bola sepak peringkat negeri.
+g16	general	Doktor menasihatkan pesakit supaya berehat secukupnya.
+g17	general	Perkhidmatan ini percuma untuk semua ahli berdaftar.
+g18	general	Anak-anak bermain di taman sambil ketawa riang.
+g19	general	Pejabat kami terletak di tingkat tiga bangunan tersebut.
+g20	general	Selesaikan pembayaran anda sebelum tarikh akhir untuk mengelakkan caj lewat.
+n01	numbers	Jumlah bayaran anda ialah RM1,250.50.
+n02	numbers	Temujanji anda pada 13/11/2026 pukul 3.30 petang.
+n03	numbers	Sila hubungi kami di 03-2345 6789.
+n04	numbers	Diskaun 25% untuk pembelian melebihi RM200.
+n05	numbers	Kod OTP anda ialah 482913.
+n06	numbers	Penghantaran mengambil masa 3-5 hari bekerja.
+n07	numbers	Mesyuarat bermula pada 9.00 pagi di bilik ke-2.
+n08	numbers	Suhu esok dijangka mencecah 34°C.
+n09	numbers	Seramai 1,500 peserta menyertai larian 10km itu.
+n10	numbers	Baki akaun anda ialah RM87.20 setakat 1 Disember 2026.
+q01	question	Boleh saya tahu nama penuh encik?
+q02	question	Adakah puan masih berminat dengan tawaran ini?
+q03	question	Bila masa yang sesuai untuk saya hubungi semula?
+q04	question	Kenapa pesanan saya belum sampai lagi?
+q05	question	Berapa harga tiket ke Pulau Pinang?
+c01	codeswitch	Maaf, boleh saya check booking awak untuk meeting esok?
+c02	codeswitch	Sila update password anda melalui app kami.
+c03	codeswitch	Payment awak dah confirm, terima kasih.
+c04	codeswitch	Saya akan send link tu melalui WhatsApp sekejap lagi.
+c05	codeswitch	Kalau ada problem, call saja customer service kami.

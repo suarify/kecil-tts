@@ -10,3 +10,4 @@ data/audio/
 notebooks/*/output/
 runs/
 kaggle/ds_pilot_raw/
+data/text/src/wiki/

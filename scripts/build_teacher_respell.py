@@ -14,13 +14,13 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Malaysian everyday spellings (as used in casual Malay writing / speech).
 OVERRIDES = {
-    'confirm': 'konfem', 'confirmed': 'konfem', 'celsius': 'selsius', 'cancel': 'kensel',
+    'confirm': 'konferm', 'confirmed': 'konferm', 'celsius': 'selsius', 'cancel': 'kensel',
     'cancelled': 'kensel', 'check': 'cek', 'booking': 'buking', 'book': 'buk',
     'meeting': 'miting', 'update': 'apdet', 'password': 'paswed', 'app': 'ep', 'apps': 'eps',
     'send': 'sen', 'link': 'link', 'whatsapp': 'wasap', 'problem': 'problem',
-    'call': 'kol', 'customer': 'kastemer', 'service': 'servis', 'payment': 'pemen',
+    'call': 'kol', 'customer': 'kastemer', 'service': 'servis', 'payment': 'peimen',
     'online': 'onlain', 'offline': 'oflain', 'email': 'imel', 'wifi': 'waifai',
-    'delivery': 'deliveri', 'order': 'oder', 'okay': 'okei', 'ok': 'okei', 'sorry': 'sori',
+    'delivery': 'deliveri', 'order': 'oda', 'okay': 'okei', 'ok': 'okei', 'sorry': 'sori',
     'please': 'plis', 'thank': 'tenk', 'thanks': 'tenks', 'phone': 'fon', 'computer': 'komputer',
     'internet': 'internet', 'website': 'websait', 'login': 'login', 'account': 'akaun',
     'feedback': 'fidbek', 'schedule': 'syedul', 'free': 'fri', 'sale': 'sel', 'deal': 'dil',
@@ -28,9 +28,9 @@ OVERRIDES = {
     'code': 'kod', 'video': 'video', 'chat': 'cet', 'share': 'syer', 'save': 'sev',
     'download': 'daunlod', 'upload': 'aplod', 'install': 'instol', 'manager': 'menejer',
     'staff': 'staf', 'boss': 'bos', 'office': 'ofis', 'claim': 'klem', 'refund': 'rifan',
-    'discount': 'diskaun', 'voucher': 'vaucer', 'promo': 'promo', 'register': 'rejister',
-    'appointment': 'apointmen', 'available': 'avelabel', 'confirmation': 'konfemesyen',
-    'reminder': 'rimainder', 'slot': 'slot', 'status': 'status', 'member': 'member', 'report': 'ripot',
+    'discount': 'diskaun', 'voucher': 'baucer', 'promo': 'promo', 'register': 'rejister',
+    'appointment': 'apointmen', 'available': 'avelabel', 'confirmation': 'konfermesyen',
+    'reminder': 'rimainder', 'slot': 'slot', 'status': 'status', 'member': 'member', 'report': 'riport',
     'group': 'grup', 'router': 'rauter', 'restart': 'ristat', 'laptop': 'leptop', 'renew': 'rinyu', 'actually': 'ekcueli', 'sales': 'sels',
     'expired': 'ekspaiad', 'think': 'tink', 'of': 'of', 'for': 'for', 'colour': 'kaler', 'follow': 'folo', 'support': 'sapot', 'team': 'tim',
 }

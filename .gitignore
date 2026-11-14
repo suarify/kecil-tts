@@ -11,3 +11,4 @@ notebooks/*/output/
 runs/
 kaggle/ds_pilot_raw/
 data/text/src/wiki/
+kaggle/ds_ref/

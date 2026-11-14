@@ -72,6 +72,8 @@ DIGRAPHS = {
 }
 DIPHTHONGS = {'ai': ('aj', 'I'), 'au': ('aw', 'W'), 'oi': ('oj', 'Y'), 'éi': ('ej', 'A')}
 PUNCT = ',.!?;:…—'
+KEEP_FINAL_A = set('ya data drama kamera formula agenda media visa pizza opera asia indonesia astro '
+                   'sofa kuota zebra panda lava'.split())
 
 TOKEN_RE = re.compile(r"[A-Za-zé']+|[,.!?;:…—]")
 
@@ -83,7 +85,8 @@ def strip_accents(text):
 
 
 class G2P:
-    def __init__(self, stress=True, r='r', diph='glide'):
+    def __init__(self, stress=True, r='r', diph='glide', final_a='a'):
+        self.final_a = final_a          # 'a' = spelling reading, 'ə' = Johor-Riau reading (saya -> sajə)
         self.stress = stress
         self.r = r                      # 'r' or 'ɾ'
         self.diph = 0 if diph == 'glide' else 1
@@ -231,7 +234,7 @@ class G2P:
             k = nuc[-1]
         return ph[:k] + ['ˈ'] + ph[k:]
 
-    def word(self, tok):
+    def word(self, tok, first=True):
         if len(tok) >= 2 and tok.isupper() and tok.isalpha() and tok.lower() not in self.lex_x:
             return ' '.join(LETTERS[c] for c in tok.lower() if c in LETTERS)
         w = tok.lower().strip("'")
@@ -242,17 +245,24 @@ class G2P:
         if w in self.lex_en:
             return self.lex_en[w]
         ph = self._letters(self.respell(w))
+        if (self.final_a == 'ə' and ph and ph[-1] == 'a' and sum(p in NUCLEI for p in ph) >= 2
+                and w not in KEEP_FINAL_A and not (tok[0].isupper() and not first)):
+            ph[-1] = 'ə'
         return ''.join(self._stress(ph, w))
 
     # ---------- sentence ----------
     def __call__(self, text):
         text = strip_accents(text).replace('-', ' ')
         out = ''
+        first = True
         for tok in TOKEN_RE.findall(text):
             if tok in PUNCT:
                 out = out.rstrip(' ') + tok + ' '
+                if tok in '.!?…':
+                    first = True
                 continue
-            ph = self.word(tok)
+            ph = self.word(tok, first)
+            first = False
             if ph:
                 out += ph + ' '
         return out.strip()

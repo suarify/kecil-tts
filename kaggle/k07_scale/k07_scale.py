@@ -50,7 +50,7 @@ sys.path.insert(0, f'{OUT}/stubs')
 DS = os.path.dirname(glob.glob('/kaggle/input/**/ms_g2p.py', recursive=True)[0])
 REF = os.path.dirname(glob.glob('/kaggle/input/**/pilot_150.tsv', recursive=True)[0])
 PMS = os.path.dirname(glob.glob('/kaggle/input/**/ms_rows.py', recursive=True)[0])
-CLIPS = os.path.dirname(glob.glob('/kaggle/input/**/T2v/*.wav', recursive=True)[0])
+CLIPS = os.path.dirname(glob.glob('/kaggle/input/**/p000.wav', recursive=True)[0])   # the dataset's single folder is flattened on upload
 print('DS', DS, '\nREF', REF, '\nPMS', PMS, '\nCLIPS', CLIPS, flush=True)
 
 os.makedirs(W, exist_ok=True)

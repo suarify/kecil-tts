@@ -84,6 +84,7 @@ NORM_CASES = [
     ('2pm', 'pukul dua petang'), ('12pm', 'pukul dua belas tengah hari'), ('8pm', 'pukul lapan malam'),
     ('012-345 6789', 'kosong satu dua tiga empat lima enam tujuh lapan sembilan'),
     ('kod OTP 482913', 'kod OTP empat lapan dua sembilan satu tiga'),
+    ('Baki akaun anda ialah RM87.20', 'Baki akaun anda ialah lapan puluh tujuh ringgit dua puluh sen'),
     ('15km', 'lima belas kilometer'), ('2.5kg', 'dua perpuluhan lima kilogram'),
     ('30°C', 'tiga puluh darjah Celsius'),
     ('Dr. Ahmad', 'doktor Ahmad'), ('ABC Sdn. Bhd.', 'ABC sendirian berhad.'),

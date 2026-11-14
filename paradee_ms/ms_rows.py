@@ -208,11 +208,11 @@ for r in tsv.head(8).itertuples():
         F0k, Nk = m.predictor.F0Ntrain(I['d'].transpose(-1, -2) @ aln, I['r'][:, 128:])
         ak = m.decoder(I['t_en'] @ aln, F0k, Nk, I['r'][:, :128]).squeeze().cpu().numpy()
     offs.append(float((measure_n(ak, Nk.shape[1]) - Nk[0].cpu().numpy()).mean()))
-    vm = (F0k[0].cpu().numpy() > 50)
-    nvoiced.append(float(Nk[0].cpu().numpy()[vm].mean()) if vm.any() else float('nan'))
+    nm_k = measure_n(ak, Nk.shape[1])
+    nvoiced.append(float(nm_k[nm_k > nm_k.max() - 3].mean()))      # level of the loudest frames, measured on audio
 N_OFF = float(np.mean(offs))
-N_TARGET = float(np.nanmean(nvoiced))   # mean N on voiced frames of Kokoro renders
-print(f'N offset {N_OFF:.3f} (per-sentence std {np.std(offs):.3f}); Kokoro voiced N mean {N_TARGET:.2f}', flush=True)
+N_TARGET = float(np.mean(nvoiced))   # loudest-frame level (mel log-norm) of Kokoro renders
+print(f'N offset {N_OFF:.3f} (per-sentence std {np.std(offs):.3f}); Kokoro loud-frame level {N_TARGET:.2f}', flush=True)
 
 rows, stats = [], []
 for r in tsv.itertuples():
@@ -248,14 +248,14 @@ for r in tsv.itertuples():
     if len(au) < F * 600:
         au = np.pad(au, (0, F * 600 - len(au)))
     f0c = measure_f0(au, 2 * F)
-    n_raw = measure_n(au, 2 * F) - N_OFF
-    vmask = f0c > 50
-    # bring the clip to Kokoro's loudness: scaling audio by g adds ln(g) to N (N is a log norm)
-    shift = N_TARGET - float(n_raw[vmask].mean()) if vmask.any() else 0.0
+    n_raw = measure_n(au, 2 * F)
+    # bring the clip to Kokoro's loudness, comparing the same statistic (level of the loudest frames):
+    # scaling audio by g adds ln(g) to a log norm
+    shift = N_TARGET - float(n_raw[n_raw > n_raw.max() - 3].mean())
     peak0 = float(np.abs(au).max()) + 1e-9
     gain = float(min(np.exp(shift), 0.99 / peak0))
     au = au * gain
-    nc = n_raw + np.log(gain)
+    nc = n_raw + np.log(gain) - N_OFF
     rows.append(dict(ids=I['ids'].squeeze(0).cpu(), dur=torch.from_numpy(fr.astype(np.float32)),
                      pred_dur=torch.from_numpy(fr).long(), t_en=I['t_en'].squeeze(0).half().cpu(),
                      F0=torch.from_numpy(f0c), N=torch.from_numpy(nc.astype(np.float32)),

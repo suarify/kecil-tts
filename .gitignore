@@ -16,3 +16,7 @@ kaggle/ds_ref/
 kaggle/ds_pms/
 runs/e2e_local/
 kaggle/ds_pilot_t2v/
+python/**/__pycache__/
+web/node_modules/
+web/package-lock.json
+export/ms_bella_8m/onnx/

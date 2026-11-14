@@ -1,0 +1,16 @@
+[project]
+name = "kokoro-malay"
+version = "0.1.0"
+description = "Tiny Malay text-to-speech (8M-parameter ONNX), onnxruntime + numpy only"
+requires-python = ">=3.9"
+dependencies = ["onnxruntime>=1.16", "numpy"]
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["kokoro_malay"]
+
+[tool.setuptools.package-data]
+kokoro_malay = ["*.json", "*.onnx"]

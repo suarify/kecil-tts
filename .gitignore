@@ -13,3 +13,5 @@ kaggle/ds_pilot_raw/
 data/text/src/wiki/
 kaggle/ds_ref/
 .stubs/
+kaggle/ds_pms/
+runs/e2e_local/

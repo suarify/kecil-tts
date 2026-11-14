@@ -1,0 +1,16 @@
+{
+  "id": "seanlon/kmb-06-e2e",
+  "title": "kmb 06 e2e",
+  "code_file": "k06_e2e.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "dataset_sources": ["seanlon/kokoro-malay-g2p", "seanlon/kmb-ref", "seanlon/kmb-paradee-ms"],
+  "kernel_sources": [],
+  "competition_sources": [],
+  "model_sources": [],
+  "machine_shape": "NvidiaTeslaT4"
+}

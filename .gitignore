@@ -9,3 +9,4 @@ node_modules/
 data/audio/
 notebooks/*/output/
 runs/
+kaggle/ds_pilot_raw/

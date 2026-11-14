@@ -64,7 +64,20 @@ for d in ('raw', 'T2', 'T2v'):
 from chatterbox.mtl_tts import ChatterboxMultilingualTTS  # noqa: E402
 
 
+import gc  # noqa: E402
+import shutil  # noqa: E402
+
+PREV = glob.glob('/kaggle/input/**/raw/p000_s1234.wav', recursive=True)
+if PREV:
+    for f in glob.glob(os.path.join(os.path.dirname(PREV[0]), '*.wav')):
+        shutil.copy(f, f'{OUT}/pilot/raw/')
+    print('reused', len(os.listdir(f'{OUT}/pilot/raw')), 'raw clips', flush=True)
+
+
 def generate(ids, seed, temp):
+    ids = [i for i in ids if not os.path.exists(f'{OUT}/pilot/raw/{i}_s{seed}.wav')]
+    if not ids:
+        return 24000, 1.0, 0.0
     tts = ChatterboxMultilingualTTS.from_pretrained(device=DEV)
     t = time.time()
     secs = 0.0
@@ -83,11 +96,13 @@ def generate(ids, seed, temp):
     wall = time.time() - t
     sr = tts.sr
     del tts
+    gc.collect()
     torch.cuda.empty_cache()
     return sr, wall, secs
 
 
 SR, wall1, secs1 = generate(pilot.id.tolist(), 1234, 0.8)
+GEN_RTF = 1.42 if secs1 == 0 else round(wall1 / secs1, 3)  # 1.42 measured in v1
 print(f'gen pass 1: {wall1:.0f}s wall for {secs1:.0f}s audio, RTF {wall1 / max(secs1, 1):.2f}', flush=True)
 
 # ---------------- Whisper with word timestamps ----------------
@@ -108,8 +123,8 @@ def load16(p):
 
 
 def transcribe(paths, words=True):
-    batch = [{'raw': load16(p), 'sampling_rate': 16000} for p in paths]
-    kw = dict(batch_size=4, generate_kwargs={'language': 'malay', 'task': 'transcribe', 'max_new_tokens': 200})
+    batch = [{'raw': load16(p)[:16000 * 29], 'sampling_rate': 16000} for p in paths]
+    kw = dict(batch_size=1 if words else 4, generate_kwargs={'language': 'malay', 'task': 'transcribe', 'max_new_tokens': 200})
     if words:
         kw['return_timestamps'] = 'word'
     return asr(batch, **kw)
@@ -272,8 +287,8 @@ report = {
     'sim_T2': round(df.sim.mean(), 3), 'sim_T2v': round(df.v_sim.mean(), 3),
     'cer_T2v': round(df.v_cer.mean(), 4),
     'by_category_cer': df.groupby('category').cer.mean().round(4).to_dict(),
-    'gen_rtf': round(wall1 / max(secs1, 1), 3), 'vc_rtf': round(vc_wall / max(df.sec.sum(), 1), 3),
-    'est_gpu_hours_for_11h_audio': round(11 * wall1 / max(secs1, 1) * 1.15, 1),
+    'gen_rtf': GEN_RTF, 'vc_rtf': round(vc_wall / max(df.sec.sum(), 1), 3),
+    'est_gpu_hours_for_11h_audio': round(11 * GEN_RTF * 1.15, 1),
     'runtime_s': round(time.time() - T0),
 }
 json.dump(report, open(f'{OUT}/pilot_report.json', 'w'), indent=1)

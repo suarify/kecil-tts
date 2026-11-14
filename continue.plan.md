@@ -1,5 +1,8 @@
 # kokoro-malay-bella — continuation plan (v2, low-compute route)
 
+> **Superseded in part on 2026-11-14.** Gate A failed. `continue.plan.v3.md` replaces sections
+> 6–9, 12 and 14 of this file and lists corrections to section 5. Read v3 first.
+
 Written 2026-11-14 for an agent that has **no memory of the earlier sessions**. Read sections 0–5
 before touching anything. `plan.md` is the original plan; this file **replaces its Phases 4–12**.
 Phases 0–3 of `plan.md` are done and their results are in section 2.

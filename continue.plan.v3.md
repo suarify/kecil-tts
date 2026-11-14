@@ -1,5 +1,8 @@
 # kokoro-malay-bella — plan v3 (validated, under 6 GPU-hours)
 
+> **Superseded in part on 2026-11-14 (Gate R).** The owner rejected the Kokoro/Dora sound.
+> `continue.plan.v4.md` replaces sections 2-5 and 8 of this file. Sections 1 and 7 still apply.
+
 Written 2026-11-14 after Gate A failed. This file **replaces sections 6–9, 12 and 14 of
 `continue.plan.md`** (the search, corpus, training, fallback and budget). Sections 1–5 (goal,
 repo map, background facts, rules, traps) and 10, 11, 13 (export, runtimes, acceptance) of

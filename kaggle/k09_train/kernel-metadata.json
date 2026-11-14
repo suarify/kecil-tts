@@ -1,0 +1,21 @@
+{
+  "id": "seanlon/kmb-09-train",
+  "title": "kmb 09 train",
+  "code_file": "k09_train.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "dataset_sources": [
+    "seanlon/kokoro-malay-g2p",
+    "seanlon/kmb-paradee-ms"
+  ],
+  "kernel_sources": [
+    "seanlon/kmb-08-cbgen"
+  ],
+  "competition_sources": [],
+  "model_sources": [],
+  "machine_shape": "NvidiaTeslaT4"
+}

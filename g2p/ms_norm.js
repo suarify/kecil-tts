@@ -172,7 +172,7 @@ export function normalize(text) {
 
   t = sub('\\+?\\b6?0\\d{1,2}[- ]?\\d{3,4}[- ]?\\d{3,4}\\b', cb((m) => ' ' + digits(m(0)) + ' '), t);
   t = sub('\\b\\d{6}-\\d{2}-\\d{4}\\b', cb((m) => ' ' + digits(m(0)) + ' '), t);
-  t = sub('\\b(' + DIGIT_CONTEXT + ')((?:\\s+[A-Za-z]+){0,3}\\s*:?\\s*)(\\d[\\d\\- ]*\\d|\\d)\\b',
+  t = sub('\\b(' + DIGIT_CONTEXT + ')((?:\\s+(?!RM|USD|US\\$)[A-Za-z]+){0,3}\\s*:?\\s*)(?!RM|USD|US\\$)(\\d[\\d\\- ]*\\d|\\d)\\b(?![.,]\\d)',
     cb((m) => m(1) + m(2) + digits(m(3))), t, true);
 
   t = sub('\\b(RM|USD|US\\$)\\s?(' + NUM + ')(?:\\s?(juta|bilion|ribu|trilion)\\b)?', money, t, true);

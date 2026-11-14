@@ -189,7 +189,7 @@ def normalize(text):
     # 1. Phone, IC and digit-context numbers: digit by digit.
     t = sub(r'\+?\b6?0\d{1,2}[- ]?\d{3,4}[- ]?\d{3,4}\b', lambda m: ' ' + digits(m.group(0)) + ' ', t)
     t = sub(r'\b\d{6}-\d{2}-\d{4}\b', lambda m: ' ' + digits(m.group(0)) + ' ', t)
-    t = sub(r'\b(' + DIGIT_CONTEXT + r')((?:\s+[A-Za-z]+){0,3}\s*:?\s*)(\d[\d\- ]*\d|\d)\b',
+    t = sub(r'\b(' + DIGIT_CONTEXT + r')((?:\s+(?!RM|USD|US\$)[A-Za-z]+){0,3}\s*:?\s*)(?!RM|USD|US\$)(\d[\d\- ]*\d|\d)\b(?![.,]\d)',
             lambda m: g(m, 1) + g(m, 2) + digits(g(m, 3)), t, ci=True)
 
     # 2. Currency.

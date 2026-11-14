@@ -36,6 +36,11 @@ ap.add_argument('--lr', type=float, default=None)
 ap.add_argument('--seg', type=int, default=64)
 ap.add_argument('--max-minutes', type=float, default=1e9)
 ap.add_argument('--out', required=True)
+ap.add_argument('--smooth', action='store_true', help='median/moving-average the F0 and N targets (text side)')
+ap.add_argument('--aug', type=float, default=0.0, help='decoder: strength of smooth F0/N jitter on the inputs (0 = off)')
+ap.add_argument('--eval-every', type=int, default=250)
+ap.add_argument('--patience', type=int, default=8)
+ap.add_argument('--wd', type=float, default=0.01)
 ap.add_argument('--device', default='cuda' if torch.cuda.is_available() else 'cpu')
 A = ap.parse_args()
 DEV = A.device
@@ -44,6 +49,12 @@ os.makedirs(A.out, exist_ok=True)
 rows = []
 for p in sorted(glob.glob(os.path.join(A.data, 'shard_*.pt'))):
     rows += torch.load(p)
+if A.smooth:
+    import numpy as _np
+    from scipy.signal import medfilt
+    for _r in rows:
+        _r['F0'] = torch.from_numpy(medfilt(_r['F0'].numpy(), 5).astype('float32'))
+        _r['N'] = torch.from_numpy(_np.convolve(_np.pad(_r['N'].numpy(), 2, mode='edge'), _np.ones(5) / 5, mode='valid').astype('float32'))
 held, train = rows[:A.held], rows[A.held:]
 print(f'{len(train)} train / {len(held)} held-out rows', flush=True)
 T0 = time.time()
@@ -94,7 +105,7 @@ if A.which == 'text':
 
     model = TextStudent('s+mlp').to(DEV)
     model.load_state_dict(torch.load(A.init, map_location=DEV)['model'])
-    opt = torch.optim.AdamW(model.parameters(), lr=LR, weight_decay=0.01)
+    opt = torch.optim.AdamW(model.parameters(), lr=LR, weight_decay=A.wd)
 
     @torch.no_grad()
     def evaluate():
@@ -114,6 +125,7 @@ if A.which == 'text':
                     length_ratio=sum(ratio) / len(ratio))
 
     step = 0
+    best = [float('inf'), 0, None]
     model.train()
     print('before:', json.dumps(evaluate()), flush=True)
     while step < A.steps and (time.time() - T0) / 60 < A.max_minutes:
@@ -127,10 +139,21 @@ if A.which == 'text':
         torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
         opt.step()
         step += 1
+        if step % A.eval_every == 0:
+            ev_ = evaluate()
+            sc_ = ev_['l_dur'] + ev_['l_f0'] + ev_['l_n'] + ev_['l_asr']
+            print('EVAL', step, json.dumps({k: round(v, 3) for k, v in ev_.items()}), 'score', round(sc_, 3), flush=True)
+            if sc_ < best[0]:
+                best[:] = [sc_, step, {k: v.detach().clone() for k, v in model.state_dict().items()}]
+            elif step - best[1] >= A.patience * A.eval_every:
+                print('early stop, best step', best[1], flush=True)
+                break
         if step % 100 == 0:
             print(f'step {step} loss {loss.item():.4f} dur {ls[0].item():.3f} f0 {ls[1].item():.3f} n {ls[2].item():.3f} asr {ls[3].item():.3f} {(time.time() - T0) / step:.2f}s/step', flush=True)
+    if best[2] is not None:
+        model.load_state_dict(best[2])
     ev = evaluate()
-    ev.update(step=step, minutes=(time.time() - T0) / 60)
+    ev.update(step=best[1] or step, trained_steps=step, minutes=(time.time() - T0) / 60)
     print('after:', json.dumps(ev), flush=True)
     log.write(json.dumps(ev) + '\n')
     torch.save({'model': model.state_dict(), 'step': step}, os.path.join(A.out, 'last.pt'))
@@ -227,7 +250,14 @@ def mod_loss(y, t, cyc, uv, n=64, hop=16, win=75):
 
 model = VDecoder(head='v2', dim=160, blocks=4).to(DEV)
 model.load_ckpt(A.init, DEV)
-opt = torch.optim.AdamW(model.parameters(), lr=LR, betas=(0.8, 0.99), weight_decay=0.01)
+opt = torch.optim.AdamW(model.parameters(), lr=LR, betas=(0.8, 0.99), weight_decay=A.wd)
+
+
+def jitter(x, sigma, voiced=None):
+    """Smooth random multiplicative (voiced) / additive jitter, a few hundred ms wide."""
+    B, L = x.shape
+    z = F.interpolate(torch.randn(B, 1, max(2, L // 24), device=x.device), size=L, mode='linear', align_corners=False)[:, 0]
+    return z * sigma
 
 
 @torch.no_grad()
@@ -257,7 +287,12 @@ while step < A.steps and (time.time() - T0) / 60 < A.max_minutes:
     asr, F0, N, au, c0 = collate_dec(random.sample(train, min(A.bs, len(train))) if len(train) >= A.bs else [random.choice(train) for _ in range(A.bs)], A.seg)
     for g in opt.param_groups:
         g['lr'] = LR * cosine(step, A.steps)
-    y = model(asr, F0, N, c0=c0)
+    if A.aug > 0:
+        F0_in = F0 * torch.exp(jitter(F0, 0.08 * A.aug)) * (F0 > 0)
+        N_in = N + jitter(N, 0.4 * A.aug)
+    else:
+        F0_in, N_in = F0, N
+    y = model(asr, F0_in, N_in, c0=c0)
     lm, ls = spec_losses(y, au)
     lh = harm_loss(y, au, F0)
     lmod = mod_loss(y, au, model.head.last['cyc'], model.head.last['uv'])

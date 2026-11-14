@@ -22,10 +22,13 @@ for r in sc.itertuples():
     a = f'{r.split}_{r.id}_onnx_int8.wav'
     t = f'{r.split}_{r.id}_target.wav'
     shutil.copy(os.path.join(src, 'audio', a), os.path.join(out, a))
-    shutil.copy(os.path.join(src, 'audio', t), os.path.join(out, t))
+    has_t = os.path.exists(os.path.join(src, 'audio', t))
+    if has_t:
+        shutil.copy(os.path.join(src, 'audio', t), os.path.join(out, t))
     rows.append(dict(id=r.id, split=r.split, text=r.text, heard=str(r.heard), cer=round(float(r.cer_onnx), 3),
-                     student=f'{tag}/{a}', target=f'{tag}/{t}'))
-rows.sort(key=lambda x: (x['split'] != 'held', x['id']))
+                     student=f'{tag}/{a}', target=f'{tag}/{t}' if has_t else ''))
+order = {'test': 0, 'held': 1, 'train': 2}
+rows.sort(key=lambda x: (order.get(x['split'], 3), x['id']))
 html = '''<!doctype html><html><head><meta charset="utf-8"><title>8M student check</title>
 <meta name="viewport" content="width=device-width,initial-scale=1"><style>
 :root{--bg:#fafaf8;--fg:#1d1d1b;--mut:#6b6b66;--line:#e2e1dc}
@@ -38,7 +41,7 @@ h1{font-size:22px;margin:0 0 4px}p{color:var(--mut)}.row{border-top:1px solid va
 <script>const R=__R__;const L=document.getElementById("l");
 for(const r of R){const d=document.createElement("div");d.className="row";
 d.innerHTML=`<div class="s">${r.split} · ${r.id} · CER ${(r.cer*100).toFixed(0)}%</div><div class="t"></div><div class="s">Whisper heard: <span class="h"></span></div>
-<div class="g"><div>8M student<audio controls preload="none" src="${r.student}"></audio></div><div>Chatterbox target<audio controls preload="none" src="${r.target}"></audio></div></div>`;
+<div class="g"><div>8M student<audio controls preload="none" src="${r.student}"></audio></div>${r.target?`<div>Chatterbox target<audio controls preload="none" src="${r.target}"></audio></div>`:""}</div>`;
 d.querySelector(".t").textContent=r.text;d.querySelector(".h").textContent=r.heard;L.appendChild(d)}</script></body></html>'''
 open(os.path.join(ROOT, 'runs', 'listen', f'{tag}.html'), 'w', encoding='utf-8').write(html.replace('__R__', json.dumps(rows, ensure_ascii=False)))
 print(len(rows), 'rows ->', os.path.join(ROOT, 'runs', 'listen', f'{tag}.html'))

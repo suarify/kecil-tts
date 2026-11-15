@@ -45,3 +45,10 @@
 - eq_test.py: student average spectrum within +1 to +2.5 dB of its target at 1-4 kHz; a fixed EQ cannot fix the smear. Page runs/listen/eq.html.
 - timing_test.py (24 clips, pretrained v1.3 decoder, no training): guessed phoneme timings median CER 13.2% / mean 15.0%; letter-aligned 7.7% / 11.5%; better on 18, worse on 5. ms_rows.py --letters times 167/169 words from letters.
 - v5 proposes one run (kmb-12, about 0.85 GPU-h) with gates fixed in advance and a stop rule. Not started; needs the owner's yes (total would be about 6.6 GPU-h).
+
+## 2026-11-15 Suaradee v0.1 shipped (k09 model) + v5 run started
+- Model repo https://huggingface.co/lseanlon/suaradee-v0.1 (public): onnx/model_quantized.onnx 8.46 MB (k09 int8, WebGPU-safe patch via scripts/webgpu_patch.py), suaradee/ Python package + wheel in dist/, js/ transformers.js front end, examples/ (python, node, gradio), samples/, NOTICE (lexicon_e.json is CC BY-SA 4.0). Whole repo 11 MB.
+- Static Space https://huggingface.co/spaces/lseanlon/suaradee-web: verified in a real Chromium: WebGPU (auto default) 3.27 s audio in 0.22 s after warm-up (6.4x on first call), WASM also works.
+- Gradio Space NOT created: free HF accounts cannot host Gradio Spaces (402 Payment Required). hf/space_gradio is ready; examples/gradio_app.py ships in the model repo.
+- Findings: pip install git+https://huggingface.co/... fails (HF git rejects pip's partial clone) -> wheel URL instead. WebGPU failed at /head/Mul_41 because ORT-web WebGPU Slice drops one element of a reversing slice; the one reversing random noise is now an Identity, plus float64 -> float32 and 64-bit slice bounds clamped. 125 head tensors have identical shapes on WASM and WebGPU.
+- kmb-12-v5 (plan v5: letter-level timings, Kokoro-read text prior, gates D1/D2/S1) pushed and RUNNING.

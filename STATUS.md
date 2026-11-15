@@ -167,3 +167,9 @@
 - Space verified in a real browser: 'Model ready on webgpu in 18.6 s', Speak -> 3.15 s audio in 2.27 s, zero kernel errors. Space blurb updated to v0.3.
 - k16_train_c4.py now runs scripts/webgpu_patch.py right after the export and ships the patched file, so v0.4 cannot repeat this.
 - Lesson: any new export must pass scripts/webgpu_patch.py before build_hf/publish (double ops + int64 slice bounds).
+
+## 2026-11-15 k15 v1 failed AFTER generating everything: audio lost, v2 fixes it
+- v1 generated all 1,118 clips in 102 min on TWO T4s (two workers, 559 clips each) and then crashed in the Whisper scoring step: chatterbox-tts upgrades transformers, and the ASR pipeline dict input {'raw': ...} then imports torchcodec (needs FFmpeg) -> RuntimeError. Same call worked in k14's image; the pip install changed the behaviour.
+- Worse: workers wrote wavs to /tmp/raw2, so the generated audio died with the session. Nothing of the 1.7 h GPU was salvageable.
+- v2 (pushed, version 4): (1) raw wavs are written straight into /kaggle/working/raw2 and workers skip existing files (resume), (2) Whisper runs as a direct model call (WhisperProcessor + WhisperGenerationModel.generate, language 'ms' with 'malay' fallback) with no pipeline, (3) cb_raw_all.pt saved before scoring as a second safety net, (4) VC chunks saved every 100 clips, (5) scores_all.csv written for C2/C3 reuse.
+- k16 unchanged apart from the webgpu_patch step; it will consume cb_clips2.pt + chosen.csv + gen_plan.csv from dataset seanlon/kmb-15-clips.

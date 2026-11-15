@@ -1,25 +1,29 @@
-# kokoro-malay-bella / continue.plan.v7.md C4: more training speech (kmb-15-cbgen2).
-# 1. Sentences: the 398 rows of cb_1100.tsv that kmb-08 never generated (it hit its time cap),
-#    then 400 new rows from corpus_train.tsv weighted to the weak categories: general 200,
-#    code-switch 120 (ranked by how many lexicon_en English words the sentence carries), numbers 80.
-# 2. Generation: Chatterbox Multilingual (same settings as kmb-08) -> raw audio kept, one seed for
-#    leftovers/numbers, TWO seeds (1234, 5678) for new general + code-switch sentences.
-# 3. Whisper large-v3 scores every variant; the better seed wins; a two-seed sentence is dropped
-#    when BOTH variants exceed 15% CER (only general/code-switch get this filter).
-# 4. Voice conversion toward Bella (same as kmb-08) -> cb_clips2.pt (int16, 24 kHz), cb_raw2.pt
-#    (chosen raw audio before conversion, for the package D second voice), gen_report.json,
-#    chosen.csv (id, category, seeds, per-seed CER, winner, dropped) for C2/C3.
-# If nvidia-smi shows two GPUs the sentence list is split across two worker processes.
-# Outputs are saved every 100 clips so a timeout never loses work.
+# kokoro-malay-bella / continue.plan.v7.md C4: more training speech (kmb-15-cbgen2, v2).
+# 1. Sentences: the 398 rows of cb_1100.tsv that kmb-08 never generated, then 400 new rows from
+#    corpus_train.tsv weighted to the weak categories: general 200, code-switch 120 (ranked by how many
+#    lexicon_en English words the sentence carries, template-deduped), numbers 80.
+# 2. Generation: Chatterbox Multilingual (same settings as kmb-08) -> raw wavs written straight into
+#    /kaggle/working/raw2 so a later crash never loses audio. One seed for leftovers/numbers, TWO seeds
+#    (1234, 5678) for new general + code-switch sentences.
+# 3. Whisper large-v3 scores every variant with a DIRECT model call: the ASR pipeline breaks here because
+#    chatterbox-tts upgrades transformers and the pipeline dict input then wants torchcodec/FFmpeg
+#    (v1 died there after generating all 1,118 clips). Better seed wins; two-seed sentences are dropped
+#    when BOTH variants exceed 15% CER.
+# 4. Voice conversion toward Bella -> cb_clips2.pt (chunks every 100 clips), cb_raw2.pt (chosen raws,
+#    for the package D second voice), chosen.csv, dropped.csv, gen_report.json.
+# 5. Splits sentences across two workers when two GPUs are visible (v1 measured 1,118 clips in 102 min
+#    on 2 T4s); workers skip wavs already on disk (resume).
 import glob
 import json
 import os
+import re
 import subprocess
 import sys
 import time
 
 T0 = time.time()
 OUT = '/kaggle/working'
+RAW = f'{OUT}/raw2'
 os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'expandable_segments:True'
 GEN_CAP_MIN = float(os.environ.get('GEN_CAP_MIN', 390))
 VC_CAP_MIN = float(os.environ.get('VC_CAP_MIN', 90))
@@ -29,11 +33,12 @@ def sh(cmd, tag):
     print(f'== {tag}: {cmd}', flush=True)
     p = subprocess.run(cmd, shell=True, capture_output=True, text=True)
     open(f'{OUT}/log_{tag}.txt', 'w').write(p.stdout + '\n---\n' + p.stderr)
-    print((p.stdout + p.stderr)[-1500:], flush=True)
+    print((p.stdout + p.stderr)[-1200:], flush=True)
     if p.returncode != 0:
         raise RuntimeError(f'{tag} failed rc={p.returncode}')
 
 
+os.makedirs(RAW, exist_ok=True)
 sh('pip install -q chatterbox-tts', 'pip_cb')
 sh('pip uninstall -y -q torchvision || true', 'pip_tv')
 
@@ -92,12 +97,13 @@ plan.to_csv(f'{OUT}/gen_plan.csv', index=False)
 print('plan:', len(plan), 'sentences |', plan.category.value_counts().to_dict(),
       '| generations:', sum(len(str(s).split(';')) for s in plan.seeds), flush=True)
 
-# ---------------- worker (one GPU per process) ----------------
+# ---------------- workers (one GPU each) ----------------
 open(f'{OUT}/gen_worker.py', 'w').write('''
 import json, os, sys, time
 import pandas as pd
 import torch
 OUT = '/kaggle/working'
+RAW = f'{OUT}/raw2'
 part, nparts = int(sys.argv[1]), int(sys.argv[2])
 plan = pd.read_csv(f'{OUT}/gen_plan.csv', dtype=str, keep_default_na=False).to_dict('records')
 mine = plan[part::nparts]
@@ -106,17 +112,18 @@ os.environ.setdefault('PYTORCH_CUDA_ALLOC_CONF', 'expandable_segments:True')
 import soundfile as sf
 from chatterbox.mtl_tts import ChatterboxMultilingualTTS
 tts = ChatterboxMultilingualTTS.from_pretrained(device='cuda')
-os.makedirs('/tmp/raw2', exist_ok=True)
+os.makedirs(RAW, exist_ok=True)
 t0 = time.time()
-meta = []
+n = skip = 0
 for k, r in enumerate(mine):
     if (time.time() - t0) / 60 > float(os.environ.get('GEN_CAP_MIN', 390)):
         print('GEN CAP at', k, flush=True)
         break
     for seed in str(r['seeds']).split(';'):
         key = r['id'] + '#' + seed
-        path = f'/tmp/raw2/{key}.wav'
+        path = f'{RAW}/{key}.wav'
         if os.path.exists(path):
+            skip += 1
             continue
         torch.manual_seed(int(seed))
         try:
@@ -127,38 +134,47 @@ for k, r in enumerate(mine):
             continue
         a = wav.squeeze(0).float().cpu().numpy()
         sf.write(path, a, tts.sr)
-        meta.append(dict(key=key, id=r['id'], seed=int(seed), category=r['category'], seconds=len(a) / tts.sr))
-        if len(meta) % 50 == 0:
-            print(f'gen part {part}: {len(meta)} clips | {(time.time() - t0) / 60:.1f} min', flush=True)
-json.dump(meta, open(f'{OUT}/gen_meta_part{part}.json', 'w'))
-print('part', part, 'done', len(meta), 'clips', flush=True)
+        n += 1
+        if n % 50 == 0:
+            print(f'gen part {part}: {n} new clips | {(time.time() - t0) / 60:.1f} min', flush=True)
+print('part', part, 'done: generated', n, 'skipped existing', skip, flush=True)
 ''')
 
 nproc = max(1, min(len(gpus), 2))
-procs = []
-for i in range(nproc):
-    env = dict(os.environ, CUDA_VISIBLE_DEVICES=str(i))
-    procs.append(subprocess.Popen([sys.executable, f'{OUT}/gen_worker.py', str(i), str(nproc)], env=env))
+procs = [subprocess.Popen([sys.executable, f'{OUT}/gen_worker.py', str(i), str(nproc)],
+                          env=dict(os.environ, CUDA_VISIBLE_DEVICES=str(i))) for i in range(nproc)]
 for p in procs:
     p.wait()
 if any(p.returncode != 0 for p in procs):
     raise RuntimeError('a generator worker failed')
 
-meta = []
-for f in sorted(glob.glob(f'{OUT}/gen_meta_part*.json')):
-    meta += json.load(open(f))
-print('generated', len(meta), 'clips', flush=True)
+wavs = sorted(glob.glob(f'{RAW}/*.wav'))
+print('raw wavs on disk:', len(wavs), flush=True)
+json.dump({os.path.basename(w)[:-4]: sf.info(w).duration for w in wavs}, open(f'{OUT}/raw_seconds.json', 'w'))
 
-# ---------------- Whisper picks the better seed ----------------
-sys.path.insert(0, DS)
-import librosa  # noqa: E402
+# ---------------- Whisper large-v3, direct call ----------------
 import torchaudio  # noqa: E402
-from transformers import pipeline  # noqa: E402
+from transformers import WhisperForConditionalGeneration, WhisperProcessor  # noqa: E402
+
+sys.path.insert(0, DS)
 from ms_norm import normalize  # noqa: E402
+
+wp = WhisperProcessor.from_pretrained('openai/whisper-large-v3')
+wm = WhisperForConditionalGeneration.from_pretrained('openai/whisper-large-v3',
+                                                     torch_dtype=torch.float16).to('cuda').eval()
+
+
+def transcribe(a):
+    f = wp(a, sampling_rate=16000, return_tensors='pt').input_features.to('cuda', dtype=torch.float16)
+    with torch.no_grad():
+        try:
+            ids = wm.generate(f, language='ms', task='transcribe', max_new_tokens=200)
+        except Exception:
+            ids = wm.generate(f, language='malay', task='transcribe', max_new_tokens=200)
+    return wp.batch_decode(ids, skip_special_tokens=True)[0].strip()
 
 
 def clean(s):
-    import re
     return re.sub(r'[^a-z]', '', normalize(s).lower())
 
 
@@ -174,19 +190,19 @@ def lev(a, b):
 
 cer = lambda ref, hyp: min(1.0, lev(clean(ref), clean(hyp)) / max(1, len(clean(ref))))
 
-asr = pipeline('automatic-speech-recognition', model='openai/whisper-large-v3',
-               torch_dtype=torch.float16, device=0)
 plan_by_id = {r['id']: r for r in plan.to_dict('records')}
 scores = []
-for k, m in enumerate(meta):
-    a, sr = sf.read(f'/tmp/raw2/{m["key"]}.wav', dtype='float32')
-    w = torchaudio.functional.resample(torch.from_numpy(a), sr, 16000).numpy()
-    heard = asr({'raw': w[:16000 * 29], 'sampling_rate': 16000}, batch_size=1,
-                generate_kwargs={'language': 'malay', 'task': 'transcribe', 'max_new_tokens': 200})['text'].strip()
-    scores.append(dict(m, cer=cer(plan_by_id[m['id']]['text'], heard), heard=heard))
+for k, w in enumerate(wavs):
+    key = os.path.basename(w)[:-4]
+    iid, seed = key.split('#')
+    a, sr = sf.read(w, dtype='float32')
+    a16 = torchaudio.functional.resample(torch.from_numpy(a), sr, 16000).numpy()[:16000 * 29]
+    heard = transcribe(a16)
+    scores.append(dict(key=key, id=iid, seed=int(seed), category=plan_by_id[iid]['category'],
+                       seconds=len(a) / sr, cer=cer(plan_by_id[iid]['text'], heard), heard=heard))
     if k % 100 == 0:
-        print('score', k, '/', len(meta), flush=True)
-del asr
+        print('score', k, '/', len(wavs), flush=True)
+del wm
 torch.cuda.empty_cache()
 
 by_id = {}
@@ -194,19 +210,21 @@ for s in scores:
     by_id.setdefault(s['id'], []).append(s)
 chosen, dropped = [], []
 for i, ss in by_id.items():
-    row = plan_by_id[i]
     best = min(ss, key=lambda x: x['cer'])
-    if ';' in str(row['seeds']) and best['cer'] > 0.15:
+    if ';' in str(plan_by_id[i]['seeds']) and best['cer'] > 0.15:
         dropped.append(dict(id=i, best_cer=round(best['cer'], 3)))
         continue
     chosen.append(best)
 print('chosen', len(chosen), 'dropped (both seeds >15% CER)', len(dropped), flush=True)
 
-raw = {}
-for c in chosen:
-    a, sr = sf.read(f'/tmp/raw2/{c["key"]}.wav', dtype='float32')
-    raw[c['id']] = torch.from_numpy((np.clip(a, -1, 1) * 32767).astype(np.int16))
-torch.save(raw, f'{OUT}/cb_raw2.pt')
+# chosen raw audio (package D second voice) + all raws as a safety net
+raw_all = {}
+for w in wavs:
+    a, sr = sf.read(w, dtype='float32')
+    raw_all[os.path.basename(w)[:-4]] = torch.from_numpy((np.clip(a, -1, 1) * 32767).astype(np.int16))
+torch.save(raw_all, f'{OUT}/cb_raw_all.pt')
+torch.save({c['id']: raw_all[c['key']] for c in chosen}, f'{OUT}/cb_raw2.pt')
+del raw_all
 
 # ---------------- voice conversion toward Bella ----------------
 from chatterbox.vc import ChatterboxVC  # noqa: E402
@@ -219,7 +237,7 @@ for k, c in enumerate(chosen):
         print('VC cap at', k, flush=True)
         break
     try:
-        w = vc.generate(audio=f'/tmp/raw2/{c["key"]}.wav', target_voice_path=REF_EN)
+        w = vc.generate(audio=f'{RAW}/{c["key"]}.wav', target_voice_path=REF_EN)
     except Exception as e:
         print('VC FAIL', c['id'], repr(e)[:120], flush=True)
         continue
@@ -234,13 +252,14 @@ pd.DataFrame([dict(id=c['id'], category=c['category'], seeds=plan_by_id[c['id']]
                    cer=round(c['cer'], 3), winner_seed=c['seed'], heard=c['heard'])
               for c in chosen]).to_csv(f'{OUT}/chosen.csv', index=False)
 pd.DataFrame(dropped).to_csv(f'{OUT}/dropped.csv', index=False)
+pd.DataFrame(scores).to_csv(f'{OUT}/scores_all.csv', index=False)
 
-cer_by_cat = pd.DataFrame(chosen)
-report = dict(sentences=len(plan), generated=len(meta), chosen=len(chosen), converted=len(clips),
+cat = pd.DataFrame(chosen)
+report = dict(sentences=len(plan), wavs=len(wavs), chosen=len(chosen), converted=len(clips),
               dropped_15=len(dropped), gpus=len(gpus), workers=nproc,
-              per_category=cer_by_cat.groupby('category').agg(
-                  n=('id', 'size'), median_cer=('cer', 'median'), mean_cer=('cer', 'mean')).round(3).to_dict('index'),
-              audio_min=round(sum(m['seconds'] for m in meta) / 60, 1),
+              per_category=cat.groupby('category').agg(n=('id', 'size'), median_cer=('cer', 'median'),
+                                                       mean_cer=('cer', 'mean')).round(3).to_dict('index'),
+              audio_min=round(sum(s['seconds'] for s in scores) / 60, 1),
               runtime_min=round((time.time() - T0) / 60, 1))
 json.dump(report, open(f'{OUT}/gen_report.json', 'w'), indent=1)
 print(json.dumps(report, indent=1), flush=True)

@@ -52,3 +52,10 @@
 - Gradio Space NOT created: free HF accounts cannot host Gradio Spaces (402 Payment Required). hf/space_gradio is ready; examples/gradio_app.py ships in the model repo.
 - Findings: pip install git+https://huggingface.co/... fails (HF git rejects pip's partial clone) -> wheel URL instead. WebGPU failed at /head/Mul_41 because ORT-web WebGPU Slice drops one element of a reversing slice; the one reversing random noise is now an Identity, plus float64 -> float32 and 64-bit slice bounds clamped. 125 head tensors have identical shapes on WASM and WebGPU.
 - kmb-12-v5 (plan v5: letter-level timings, Kokoro-read text prior, gates D1/D2/S1) pushed and RUNNING.
+
+## 2026-11-15 v5 result and Suaradee v0.2 shipped
+- kmb-12-v5 (3,261 s): rows with letter-level phoneme timings (6,050/6,318 words timed from letters). Gates: D1 PASS (decoder-only median CER 5.9% vs 9.1% for the k09 decoder, 35% lower); D2 PARTIAL (held spectral loss 2.482 < 2.545 pass; flatness 0.695 vs 0.66 target FAIL, brightness unchanged); S1 PASS (variant A: test median 4.8%, capped mean 6.5%, 70% <= 8%; held median 6.3%); S2 (owner's ears) not yet rated.
+- Variant A (k09 recipe text side) beat variant B (Kokoro-read prior): B test median 8.0%, held 9.3%.
+- By type, held-out median CER: call-centre 2.9% (was 12.5%), numbers 2.9% (21%), general 12% (17%), code-switch 18% (17%).
+- Published lseanlon/suaradee-v0.2 (A, WebGPU-patched, 8.46 MB, wheel 0.2.0); web Space now has a version selector, v0.2 verified on WebGPU in a browser (4.97 s audio in 0.34 s); clean-venv Python install verified.
+- Still open: the damp/smeared sound (flatness 0.69 vs 0.62, >4 kHz energy 0.031 vs 0.045). The timing fix did not touch it; the decoder needs more than spectral-loss training (adversarial stage cost 1.6 s/step on a T4) or cleaner source audio.

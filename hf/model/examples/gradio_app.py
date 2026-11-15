@@ -1,4 +1,4 @@
-"""Suaradee v0.1 — Malay text to speech. Runs the 8.5 MB ONNX model on CPU with onnxruntime."""
+"""Suaradee v0.2 — Malay text to speech. Runs the 8.5 MB ONNX model on CPU with onnxruntime."""
 import time
 
 import gradio as gr
@@ -6,7 +6,7 @@ import numpy as np
 
 from suaradee import SAMPLE_RATE, Suaradee
 
-tts = Suaradee.from_pretrained('lseanlon/suaradee-v0.1')
+tts = Suaradee.from_pretrained('lseanlon/suaradee-v0.2')
 
 EXAMPLES = [
     'Selamat pagi, boleh saya bantu encik hari ini?',
@@ -30,9 +30,9 @@ def speak(text, speed):
     return (SAMPLE_RATE, (np.clip(y, -1, 1) * 32767).astype(np.int16)), ' | '.join(tts.phonemize(text)), info
 
 
-with gr.Blocks(title='Suaradee v0.1') as demo:
-    gr.Markdown('# Suaradee v0.1\nAn 8.5 MB Malay text-to-speech model. First release: understandable, a little muffled, '
-                'and roughly one sentence in ten has a wrong word. [Model card](https://huggingface.co/lseanlon/suaradee-v0.1)')
+with gr.Blocks(title='Suaradee v0.2') as demo:
+    gr.Markdown('# Suaradee v0.2\nAn 8.5 MB Malay text-to-speech model. First release: understandable, a little muffled, '
+                'and roughly one sentence in ten has a wrong word. [Model card](https://huggingface.co/lseanlon/suaradee-v0.2)')
     text = gr.Textbox(label='Teks (Malay)', lines=3, value=EXAMPLES[0])
     speed = gr.Slider(0.7, 1.3, value=1.0, step=0.05, label='Speed')
     btn = gr.Button('Speak', variant='primary')

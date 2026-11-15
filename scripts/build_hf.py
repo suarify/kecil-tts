@@ -70,16 +70,32 @@ shutil.copy(A.card, os.path.join(M, 'README.md'))
 copy('hf/space_gradio/app.py', os.path.join(M, 'examples', 'gradio_app.py'))
 
 # samples from the exported model (never edited): 3 call-centre sentences it got right, 3 typical held-out ones
-sc = pd.read_csv(os.path.join(ROOT, A.samples_from, 'e2e_scores.csv'))
-good = sc[(sc.split == 'test') & (sc.cer_onnx <= 0.08)].sort_values('id').iloc[[0, 2, 4]]
-typ = sc[sc.split == 'held'].sort_values('cer_onnx')
-typ = typ.iloc[[len(typ) // 3, len(typ) // 2, 2 * len(typ) // 3]]
-lines = []
 os.makedirs(os.path.join(M, 'samples'), exist_ok=True)
-for k, r in enumerate(pd.concat([good, typ]).itertuples(), 1):
-    shutil.copy(os.path.join(ROOT, A.samples_from, 'audio', f'{r.split}_{r.id}_onnx_int8.wav'), os.path.join(M, 'samples', f'{k}_suaradee.wav'))
-    lines.append(f'{k}\t{r.split}\tCER {r.cer_onnx:.0%}\t{r.text}')
-open(os.path.join(M, 'samples', 'sentences.txt'), 'w', encoding='utf-8').write('\n'.join(lines) + '\n')
+lines = []
+v5 = os.path.join(ROOT, A.samples_from, 'v5_scores.csv')
+if os.path.exists(v5):                                  # v0.2 layout (kernel k12): model A is the shipped one
+    d5 = pd.read_csv(v5)
+    d5 = d5[d5.model == 'A']
+    audio_dir = os.path.join(ROOT, A.samples_from, 'audio')
+    have = lambda r: os.path.exists(os.path.join(audio_dir, f'A_{r.split}_{r.id}.wav'))                 # noqa: E731
+    cand = d5[[have(r) for r in d5.itertuples()]]
+    good = cand[(cand.split == 'test') & (cand.cer <= 0.05)].sort_values('id').iloc[[0, 2, 4]]
+    typ = cand[cand.split == 'held'].sort_values('cer')
+    typ = typ.iloc[[len(typ) // 3, len(typ) // 2, 2 * len(typ) // 3]]
+    for k, r in enumerate(pd.concat([good, typ]).itertuples(), 1):
+        shutil.copy(os.path.join(audio_dir, f'A_{r.split}_{r.id}.wav'), os.path.join(M, 'samples', f'{k}_suaradee.wav'))
+        lines.append(f'{k}\t{r.split}\tCER {r.cer:.0%}\t{r.text}')
+    open(os.path.join(M, 'samples', 'sentences.txt'), 'w', encoding='utf-8').write('\n'.join(lines) + '\n')
+else:
+    sc = pd.read_csv(os.path.join(ROOT, A.samples_from, 'e2e_scores.csv'))
+    good = sc[(sc.split == 'test') & (sc.cer_onnx <= 0.08)].sort_values('id').iloc[[0, 2, 4]]
+    typ = sc[sc.split == 'held'].sort_values('cer_onnx')
+    typ = typ.iloc[[len(typ) // 3, len(typ) // 2, 2 * len(typ) // 3]]
+    for k, r in enumerate(pd.concat([good, typ]).itertuples(), 1):
+        shutil.copy(os.path.join(ROOT, A.samples_from, 'audio', f'{r.split}_{r.id}_onnx_int8.wav'), os.path.join(M, 'samples', f'{k}_suaradee.wav'))
+        lines.append(f'{k}\t{r.split}\tCER {r.cer_onnx:.0%}\t{r.text}')
+    open(os.path.join(M, 'samples', 'sentences.txt'), 'w', encoding='utf-8').write('\n'.join(lines) + '\n')
+
 
 # ---------------- static Space ----------------
 S = os.path.join(ROOT, 'hf', 'space_web')
@@ -88,12 +104,10 @@ for f in os.listdir(S):
     if f not in ('index.html',):
         p = os.path.join(S, f)
         shutil.rmtree(p) if os.path.isdir(p) else os.remove(p)
-html = open(os.path.join(S, 'index.html'), encoding='utf-8').read().replace('lseanlon/suaradee-v0.1', REPO)
-open(os.path.join(S, 'index.html'), 'w', encoding='utf-8').write(html)
 copy('web/suaradee.js', os.path.join(S, 'suaradee.js'))
 js_front(os.path.join(S, 'g2p'))
 open(os.path.join(S, 'README.md'), 'w', encoding='utf-8').write(f"""---
-title: Suaradee {A.version} (web)
+title: Suaradee (web)
 emoji: 🔊
 colorFrom: green
 colorTo: gray
@@ -102,10 +116,11 @@ pinned: false
 license: apache-2.0
 short_description: 8.5 MB Malay text-to-speech running in your browser
 models:
-  - {REPO}
+  - lseanlon/suaradee-v0.2
+  - lseanlon/suaradee-v0.1
 ---
 Malay text to speech in the browser with transformers.js and ONNX (WebGPU when available, otherwise WASM).
-Model: [{REPO}](https://huggingface.co/{REPO}).
+Models: [v0.2](https://huggingface.co/lseanlon/suaradee-v0.2) and [v0.1](https://huggingface.co/lseanlon/suaradee-v0.1).
 """)
 
 # ---------------- Gradio Space ----------------

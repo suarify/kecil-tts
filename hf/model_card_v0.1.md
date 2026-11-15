@@ -20,6 +20,8 @@ tags:
 
 A **Malay text-to-speech model that is 8.5 MB**. One ONNX file, one voice, runs in a browser tab (transformers.js, WebGPU or WASM) or on a single CPU thread in Python, at about 25 times real time.
 
+**A newer, more accurate version exists: [Suaradee v0.2](https://huggingface.co/lseanlon/suaradee-v0.2)** (typical error roughly halved; the muffled sound is the same). This page describes v0.1.
+
 **This is a first release.** It is understandable, but it sounds slightly muffled, and roughly one sentence in ten has a wrong word. Details and numbers are below, so you can judge whether it is good enough for your use.
 
 - **Demo in the browser (nothing leaves your device):** [Suaradee web Space](https://huggingface.co/spaces/lseanlon/suaradee-web)

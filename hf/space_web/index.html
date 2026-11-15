@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ms"><head><meta charset="utf-8"><title>Suaradee v0.1 — Malay TTS in your browser</title>
+<html lang="ms"><head><meta charset="utf-8"><title>Suaradee — Malay TTS in your browser</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <script type="importmap">{"imports":{"@huggingface/transformers":"https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1"}}</script>
 <style>
@@ -13,13 +13,14 @@ button.primary{border-color:var(--acc);color:var(--acc)}button:disabled{opacity:
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0}.chips button{font-size:13px;padding:3px 10px}
 code{font-size:13px;word-break:break-all}audio{width:100%;margin-top:8px}
 </style></head><body>
-<h1>Suaradee v0.1</h1>
-<p class="m">An 8.5 MB Malay voice that runs entirely in this tab (transformers.js + ONNX; WebGPU when your browser has it, otherwise WASM). Nothing you type leaves your device. <a href="https://huggingface.co/lseanlon/suaradee-v0.1">Model card</a> · v0.1 is a first release: understandable, but a little muffled, and about one sentence in ten has a wrong word.</p>
+<h1>Suaradee</h1>
+<p class="m">An 8.5 MB Malay voice that runs entirely in this tab (transformers.js + ONNX; WebGPU when your browser has it, otherwise WASM). Nothing you type leaves your device. <a href="https://huggingface.co/lseanlon/suaradee-v0.2">Model card</a> · Understandable, but a little muffled. v0.2 has about half the wrong words of v0.1.</p>
 <textarea id="t" rows="3">Selamat pagi, boleh saya bantu encik hari ini?</textarea>
 <div class="row chips" id="chips"></div>
 <div class="row">
   <button id="go" class="primary" disabled>Loading model…</button>
   <label class="m">speed <input id="sp" type="range" min="0.7" max="1.3" step="0.05" value="1"></label>
+  <label class="m">model <select id="ver"><option value="lseanlon/suaradee-v0.2">v0.2 (newer, more accurate)</option><option value="lseanlon/suaradee-v0.1">v0.1</option></select></label>
   <label class="m">device <select id="dev"><option value="auto">auto</option><option value="webgpu">WebGPU</option><option value="wasm">WASM (CPU)</option></select></label>
 </div>
 <p class="m" id="info"></p>
@@ -37,7 +38,7 @@ async function load() {
   const t0 = performance.now();
   try {
     const so = new URLSearchParams(location.search).get('opt');   // debugging aid: ?opt=disabled|basic|extended|all
-    tts = await Suaradee.load({ model: 'lseanlon/suaradee-v0.1', g2pBase: './g2p/', device: $('dev').value, sessionOptions: so ? { graphOptimizationLevel: so } : undefined });
+    tts = await Suaradee.load({ model: $('ver').value, g2pBase: './g2p/', device: $('dev').value, sessionOptions: so ? { graphOptimizationLevel: so } : undefined });
     $('info').textContent = `Model ready on ${tts.device} in ${((performance.now() - t0) / 1000).toFixed(1)} s.`;
     $('go').textContent = 'Speak'; $('go').disabled = false;
   } catch (e) { $('info').textContent = 'Could not load the model: ' + (e.message || e); $('go').textContent = 'Failed'; }
@@ -59,7 +60,8 @@ $('go').onclick = async () => {
   $('au').src = URL.createObjectURL(wav(audio, sampleRate)); $('au').play(); $('go').disabled = false;
 };
 const qd = new URLSearchParams(location.search).get('device'); if (qd) $('dev').value = qd;
-$('dev').onchange = () => { const u = new URL(location.href); u.searchParams.set('device', $('dev').value); location.href = u; };   // a fresh page, so a failed WebGPU session cannot linger
+const qv = new URLSearchParams(location.search).get('model'); if (qv) $('ver').value = qv;
+$('dev').onchange = $('ver').onchange = () => { const u = new URL(location.href); u.searchParams.set('device', $('dev').value); u.searchParams.set('model', $('ver').value); location.href = u; };   // a fresh page, so a failed WebGPU session cannot linger
 window.__suaradee = { load, get tts() { return tts; } };
 load();
 </script></body></html>

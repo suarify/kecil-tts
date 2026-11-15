@@ -9,7 +9,7 @@ from .ms_g2p import G2P, VOCAB, chunk
 from .ms_norm import normalize
 
 SAMPLE_RATE = 24000
-REPO = 'lseanlon/suaradee-v0.1'
+REPO = 'lseanlon/suaradee-v0.2'
 MAX_PHONEMES = 400          # the student was trained on single sentences of at most 400 phonemes
 G2P_OPTIONS = dict(stress=False, r='r', diph='glide', final_a='a')   # must match how the training rows were made
 SENT_END = re.compile(r'(?<=[.!?…])\s+|\n+')

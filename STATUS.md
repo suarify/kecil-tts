@@ -109,3 +109,10 @@
 - Objective check: the fp32 render (A) matches the shipped int8 ONNX at 0.994-0.997 envelope correlation in 0-1 kHz, 2-8 kHz and loudness - quantisation/export is not the damp.
 - Standing evidence: Chatterbox clip fine, Kokoro fine, decoder + measured inputs fine (1/5), shipped text side damp (4/5), contour surgery worse. Conclusion: closing the gap needs better F0/N PREDICTION, i.e. training work - the text side already shows poor held-out f0/N generalisation in k10/k12 logs (held 0.56/2.34 vs train 0.12/0.37). No-training fix for the damp: NOT FOUND, documented; do not propose further contour transforms.
 - GPU budget: 7.77 h of 30 h used this week (resets 2026-11-21). Waiting on the owner: B2 comparison kernel (0.2-0.5 h) and/or a text-side retrain targeting f0/N generalisation (package C2/C5 style, about 0.5 h).
+
+## 2026-11-15 Package C started: kernel kmb-14-clean pushed (C0 + C1 + C2 in one run)
+- Owner chose package C (v0.3 to reduce CER); B2 comparison kernel stays paused.
+- New dataset seanlon/kmb-rows-v02: rows/shard_0000.pt from kmb-12-v5 (250 MB, held = first 60) + the shipped runs/k12/ms_A_int8_gpu.onnx.
+- Kernel seanlon/kmb-14-clean (T4, internet on): C0 = v0.2 scored on ALL 200 test rows per category (the missing baseline); teacher scan = Whisper large-v3 on all 742 clips -> teacher_clips.csv (also the raw material for C3 word lists); C1 = decoder learning curve on 25/50/100% of train rows (data-lever gate: 50->100 median gain >= 15%); C2 = drop clips > 15% CER or rate outliers, retrain decoder + text A (k12 recipe 6k+6k steps), export int8, score held 60 + all 200 per category. Gates fixed in the kernel: keep cleaning only if capped mean improves and no category is worse.
+- Deviation from the plan noted: the '< 90% words timed' filter is not applied (that count is not stored in the rows; the CER + rate filters stand in). Version 2 push RUNNING after the dataset finished processing; v1 had been pushed before the dataset was ready (source dropped).
+- Estimated GPU 1.5-2 h (Whisper transcriptions ~1,440 clips, 3 curve trainings, 1 retrain).

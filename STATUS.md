@@ -173,3 +173,9 @@
 - Worse: workers wrote wavs to /tmp/raw2, so the generated audio died with the session. Nothing of the 1.7 h GPU was salvageable.
 - v2 (pushed, version 4): (1) raw wavs are written straight into /kaggle/working/raw2 and workers skip existing files (resume), (2) Whisper runs as a direct model call (WhisperProcessor + WhisperGenerationModel.generate, language 'ms' with 'malay' fallback) with no pipeline, (3) cb_raw_all.pt saved before scoring as a second safety net, (4) VC chunks saved every 100 clips, (5) scores_all.csv written for C2/C3 reuse.
 - k16 unchanged apart from the webgpu_patch step; it will consume cb_clips2.pt + chosen.csv + gen_plan.csv from dataset seanlon/kmb-15-clips.
+
+## 2026-11-15 Space embed fix (owner: huggingface.co/spaces URL dead, static URL fine)
+- Cause: HF serves the Space inside an iframe. There navigator.gpu exists but the adapter request fails, and the page is NOT cross-origin isolated (crossOriginIsolated false, SharedArrayBuffer undefined), so ORT threaded WASM could never start. Result: 'Loading model...' forever; only the top-level static URL worked.
+- Fix in web/suaradee.js load(): probe navigator.gpu.requestAdapter() before choosing WebGPU, and when the page is not cross-origin isolated set env.backends.onnx.wasm.numThreads = 1 (single-thread WASM needs no SAB).
+- Verified in the embedded HF page (fresh load): 'Model ready on webgpu in 9.1 s', Speak -> first audio 1.95 s, 3.15 s audio on webgpu, no errors. Node parity still PASS.
+- Uploaded to the Space and to Suarify/suaradee-v0.3 js/suaradee.js.

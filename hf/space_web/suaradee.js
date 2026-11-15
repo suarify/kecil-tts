@@ -27,7 +27,18 @@ export class Suaradee {
   static async load({ model = 'lseanlon/suaradee-v0.3', g2p, g2pBase = './g2p/', dtype = 'q8', device = 'auto', local = false, modelRoot, sessionOptions } = {}) {
     if (local) { env.allowLocalModels = true; env.allowRemoteModels = false; env.localModelPath = modelRoot; }
     const inNode = typeof window === 'undefined';
-    const tries = device !== 'auto' ? [device] : inNode ? ['cpu'] : (typeof navigator !== 'undefined' && navigator.gpu ? ['webgpu', 'wasm'] : ['wasm']);
+    // Embedded pages (e.g. the Hugging Face Space iframe) are not cross-origin isolated, so
+    // SharedArrayBuffer is unavailable and ORT's threaded WASM cannot start. Single-threaded WASM
+    // needs no SAB and is the only backend an embed can use when WebGPU is denied.
+    if (!inNode && typeof self !== 'undefined' && !self.crossOriginIsolated && env.backends?.onnx?.wasm) {
+      env.backends.onnx.wasm.numThreads = 1;
+    }
+    // navigator.gpu can exist while the page is denied an adapter (embedded frames), so ask for one.
+    const webgpuOk = async () => {
+      if (inNode || typeof navigator === 'undefined' || !navigator.gpu) return false;
+      try { return !!(await navigator.gpu.requestAdapter()); } catch { return false; }
+    };
+    const tries = device !== 'auto' ? [device] : inNode ? ['cpu'] : ((await webgpuOk()) ? ['webgpu', 'wasm'] : ['wasm']);
     const rules = g2p || (await loadG2P(g2pBase, G2P_OPTIONS));
     let lastErr;
     for (const d of tries) {

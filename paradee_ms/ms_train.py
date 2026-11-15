@@ -39,6 +39,8 @@ ap.add_argument('--out', required=True)
 ap.add_argument('--smooth', action='store_true', help='median/moving-average the F0 and N targets (text side)')
 ap.add_argument('--aug', type=float, default=0.0, help='decoder: strength of smooth F0/N jitter on the inputs (0 = off)')
 ap.add_argument('--eval-every', type=int, default=250)
+ap.add_argument('--gan', action='store_true', help='decoder: adversarial stage (Paradee stage two)')
+ap.add_argument('--mel-weight', type=float, default=3.0)
 ap.add_argument('--patience', type=int, default=8)
 ap.add_argument('--wd', type=float, default=0.01)
 ap.add_argument('--device', default='cuda' if torch.cuda.is_available() else 'cpu')
@@ -250,6 +252,10 @@ def mod_loss(y, t, cyc, uv, n=64, hop=16, win=75):
 
 model = VDecoder(head='v2', dim=160, blocks=4).to(DEV)
 model.load_ckpt(A.init, DEV)
+if A.gan:
+    from discriminators import Discriminators, d_loss, g_loss
+    D = Discriminators().to(DEV)
+    optD = torch.optim.AdamW(D.parameters(), lr=LR, betas=(0.8, 0.99), weight_decay=A.wd)
 opt = torch.optim.AdamW(model.parameters(), lr=LR, betas=(0.8, 0.99), weight_decay=A.wd)
 
 
@@ -296,14 +302,22 @@ while step < A.steps and (time.time() - T0) / 60 < A.max_minutes:
     lm, ls = spec_losses(y, au)
     lh = harm_loss(y, au, F0)
     lmod = mod_loss(y, au, model.head.last['cyc'], model.head.last['uv'])
-    loss = lm + ls + 2.0 * lh + 5.0 * lmod
+    if A.gan:
+        ld = d_loss(D, au, y)
+        optD.zero_grad()
+        ld.backward()
+        optD.step()
+        adv, fm = g_loss(D, au, y)
+        loss = A.mel_weight * (lm + ls) + adv + 2.0 * fm + 2.0 * lh + 5.0 * lmod
+    else:
+        loss = lm + ls + 2.0 * lh + 5.0 * lmod
     opt.zero_grad()
     loss.backward()
     torch.nn.utils.clip_grad_norm_(model.parameters(), 5.0)
     opt.step()
     step += 1
     if step % 100 == 0:
-        print(f'step {step} loss {loss.item():.4f} mel {lm.item():.3f} stft {ls.item():.3f} harm {lh.item():.3f} mod {lmod.item():.3f} {(time.time() - T0) / step:.2f}s/step', flush=True)
+        print(f'step {step} loss {loss.item():.4f} mel {lm.item():.3f} stft {ls.item():.3f} harm {lh.item():.3f} mod {lmod.item():.3f}' + (f' adv {adv.item():.3f} fm {fm.item():.3f} d {ld.item():.3f}' if A.gan else '') + f' {(time.time() - T0) / step:.2f}s/step', flush=True)
     if step % 500 == 0:
         print('EVAL', json.dumps(evaluate()), flush=True)
 after = evaluate(save=True)

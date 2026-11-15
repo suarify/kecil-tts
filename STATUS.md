@@ -83,3 +83,12 @@
 - Owner listened to runs/listen/v03.html: the three settings (v0.2, half noise, quarter noise) "no different the quality". So the 2-6 kHz flatness measure is not what he hears as damp; do not gate on it again.
 - Decisions: v0.2 stays the release; its card gets more samples, a Kokoro comparison and streaming examples; test whether a no-training effect can fix the damp sound (he will listen); consolidated CER plan and a second voice (am_michael).
 - All of it is specified in continue.plan.v7.md (packages A effect, B card, C CER, D Michael) for another agent to execute. Nothing in it has been started. No GPU used today after kmb-12.
+
+## 2026-11-15 Package B started (plan v7); B1 streaming done locally
+- Suarify HF token restored as profile "Suarify Malaysia" in ~/.cache/huggingface/stored_tokens (publish_hf.py unblocked); lseanlon token still the default.
+- python/suaradee/tts.py: pieces() + _split_commas() (comma-only cutting, first piece <= 60 phonemes, later <= 160; a comma-free piece is never cut, so piece boundaries of comma-free texts are unchanged) and stream() generator; __call__ is now stream() concatenated. JS port in web/suaradee.js (splitCommas/pieces/async *stream), speak() unchanged in behaviour.
+- Tests: python/tests/test_suaradee.py +5 stream tests (11 pass, model runs/k12/ms_A_int8_gpu.onnx); web/tests/ref.json now carries pieces and was regenerated against export/ms_bella_8m (the model the Node test loads; the old fixture was built from a different file); node_parity.mjs checks pieces and stream==speak; NODE PARITY PASS (envelope corr 1.000 on all 5).
+- Examples hf/stream_python.py (sounddevice) and hf/stream_node.mjs (16-bit PCM to stdout, header claims a large size); Space gets a Stream switch: chunks scheduled gap-free on one AudioContext, time to first audio shown (hf/space_web/index.html).
+- Measured time to first audio, 3-sentence paragraph, after warm-up: Python 0.12 s (total 0.41 s, blocking call 0.42 s), Node 0.08 s (total 0.27 s). Browser WASM/WebGPU numbers to be measured on the live Space in B4.
+- Package bumped to 0.2.1. Disk was 100% full; npm-cache 4.65 GB + old Temp dirs cleaned, now 2.5-3 GB free.
+- Next: B2 Kokoro comparison kernel (GPU 0.2 h, owner yes needed), B3 card, B4 publish.

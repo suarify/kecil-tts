@@ -63,3 +63,8 @@
 ## 2026-11-15 Gate S2 passed
 - Owner listened to Suaradee v0.2 and accepted it ("Yes, acceptable"). All v5 gates are closed: D1 pass, S1 pass, S2 pass, D2 (smear) not achieved and documented as a known limitation in the model card.
 - Open for a later release: the muffled/smeared sound (needs decoder work beyond spectral losses) and English-word accuracy.
+
+## 2026-11-15 Deployed under the Suarify account
+- scripts/publish_hf.py retargets cards, examples, web demo and the wheel's default repo, then uploads with the stored token profile "Suarify Malaysia" (user Suarify).
+- Live: Suarify/suaradee-v0.1, Suarify/suaradee-v0.2 (models) and Suarify/suaradee-web (static Space, v0.1/v0.2 selector). Verified: v0.2 on WebGPU in a browser (3.25 s audio in 0.25 s); clean-venv Python install from Suarify/suaradee-v0.2 wheel defaults to Suarify/suaradee-v0.2 and runs at 21x real time.
+- The earlier lseanlon/ repos and Space were left in place (not deleted).

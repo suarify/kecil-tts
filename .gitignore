@@ -24,3 +24,4 @@ kaggle/ds_k09ckpt/
 python/build/
 python/*.egg-info/
 python/dist/
+hf_*/

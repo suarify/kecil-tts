@@ -1,0 +1,9 @@
+{
+ "model_type": "style_text_to_speech_2",
+ "architectures": [
+  "StyleTextToSpeech2Model"
+ ],
+ "sample_rate": 24000,
+ "n_token": 178,
+ "note": "single voice, no style input; inputs input_ids and speed"
+}

@@ -7,7 +7,7 @@ import { readFileSync } from 'node:fs';
 const load = (f) => JSON.parse(readFileSync(new URL('../js/g2p/' + f, import.meta.url), 'utf8'));
 const g2p = new G2P({ vocab: load('vocab.json'), lexE: load('lexicon_e.json'), lexX: load('lexicon_exceptions.json'), lexEn: load('lexicon_en.json') },
   { stress: false, r: 'r', diph: 'glide' });
-const tts = await Suaradee.load({ model: 'lseanlon/suaradee-v0.2', g2p });
+const tts = await Suaradee.load({ model: 'lseanlon/suaradee-v0.3', g2p });
 const { audio } = await tts.speak('Selamat pagi, boleh saya bantu encik hari ini?');
 const pcm = Buffer.alloc(44 + audio.length * 2);
 pcm.write('RIFF', 0); pcm.writeUInt32LE(36 + audio.length * 2, 4); pcm.write('WAVEfmt ', 8); pcm.writeUInt32LE(16, 16); pcm.writeUInt16LE(1, 20);

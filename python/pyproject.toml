@@ -1,6 +1,6 @@
 [project]
 name = "suaradee"
-version = "0.2.1"
+version = "0.3.0"
 description = "Tiny Malay text-to-speech (8M-parameter ONNX), onnxruntime + numpy only"
 requires-python = ">=3.9"
 dependencies = ["onnxruntime>=1.16", "numpy"]

@@ -1,6 +1,6 @@
-1	test	CER 0%	Kontrak sewa perlu ditandatangani sebelum hari Jumaat.
-2	test	CER 1%	Juruteknik kami akan sampai di Klang antara pukul lapan malam hingga tengah hari.
-3	test	CER 0%	Adakah encik membuat transaksi di Putrajaya semalam?
-4	held	CER 2%	Kod pengesahan anda ialah 169484.
-5	held	CER 12%	Delivery cik akan sampai sebelum pukul empat setengah petang.
-6	held	CER 19%	Tolong save nombor ni dalam phone Dato.
+1	test	CER 0%	Selamat pagi doktor Mei Ling, saya Kamal dari Hospital Pakar Damai.
+2	test	CER 4%	Rawatan susulan doktor dijadualkan di Restoran Selera Kampung.
+3	test	CER 0%	Kami ingin menjemput tuan ke majlis pelancaran di Seremban.
+4	held	CER 2%	Diskaun sebanyak 27% untuk semua barang.
+5	held	CER 6%	Kedai dibuka dari 5:15 hingga 6:45 pagi.
+6	held	CER 12%	Pakej air encik akan dinaik taraf secara percuma.

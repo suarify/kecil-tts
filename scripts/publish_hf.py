@@ -36,6 +36,7 @@ print('authenticated as', who['name'], '(token not shown)')
 VERSIONS = [
     ('0.1', 'runs/k09/ms_int8_gpu.onnx', 'hf/model_card_v0.1.md', 'runs/k09'),
     ('0.2', 'runs/k12/ms_A_int8_gpu.onnx', 'hf/model_card_v0.2.md', 'runs/k12'),
+    ('0.3', 'runs/k14_final/ms_clean_int8.onnx', 'hf/model_card_v0.3.md', 'runs/k14_final'),
 ]
 TEXT = ('.md', '.py', '.js', '.mjs', '.html', '.toml', '.txt', '.json')
 OUT = os.path.join(ROOT, 'hf_' + A.user.lower())
@@ -101,4 +102,4 @@ for ver, *_ in VERSIONS:
                             commit_message=f'Suaradee v{ver}: 8.5 MB Malay TTS (ONNX int8), Python and transformers.js'))
 sp = f'{A.user}/suaradee-web'
 api.create_repo(sp, repo_type='space', space_sdk='static', exist_ok=True)
-print(api.upload_folder(folder_path=os.path.join(OUT, 'space_web'), repo_id=sp, repo_type='space', commit_message='Suaradee web demo (WebGPU/WASM, v0.1 and v0.2)'))
+print(api.upload_folder(folder_path=os.path.join(OUT, 'space_web'), repo_id=sp, repo_type='space', commit_message='Suaradee web demo (WebGPU/WASM, v0.3 added)'))

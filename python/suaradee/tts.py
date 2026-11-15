@@ -9,7 +9,7 @@ from .ms_g2p import G2P, VOCAB, chunk
 from .ms_norm import normalize
 
 SAMPLE_RATE = 24000
-REPO = 'lseanlon/suaradee-v0.2'
+REPO = 'lseanlon/suaradee-v0.3'
 MAX_PHONEMES = 400          # the student was trained on single sentences of at most 400 phonemes
 FIRST_MAX = 60              # streaming: the first piece is at most this many phonemes, so sound starts early
 LATER_MAX = 160             # streaming: every later piece is at most this many phonemes

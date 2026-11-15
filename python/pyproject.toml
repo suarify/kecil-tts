@@ -1,5 +1,5 @@
 [project]
-name = "kokoro-malay"
+name = "suaradee"
 version = "0.1.0"
 description = "Tiny Malay text-to-speech (8M-parameter ONNX), onnxruntime + numpy only"
 requires-python = ">=3.9"
@@ -10,7 +10,7 @@ requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-packages = ["kokoro_malay"]
+packages = ["suaradee"]
 
 [tool.setuptools.package-data]
-kokoro_malay = ["*.json", "*.onnx"]
+suaradee = ["*.json", "*.onnx"]

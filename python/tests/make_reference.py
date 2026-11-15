@@ -6,9 +6,9 @@ import sys
 import numpy as np
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
-from kokoro_malay import KokoroMalay  # noqa: E402
+from suaradee import Suaradee  # noqa: E402
 
-tts = KokoroMalay(os.environ['KOKORO_MALAY_MODEL'])
+tts = Suaradee(os.environ['SUARADEE_MODEL'])
 SENT = ['Selamat pagi, boleh saya bantu encik hari ini?', 'Jumlah bayaran anda ialah RM1,250.50.',
         'Boleh tolong confirm appointment saya pada hari Isnin?', 'Terima kasih kerana menghubungi kami, sila tunggu sebentar.',
         'Kod OTP anda ialah 482913.']

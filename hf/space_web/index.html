@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ms"><head><meta charset="utf-8"><title>Suaradee v0.1 — Malay TTS in your browser</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script type="importmap">{"imports":{"@huggingface/transformers":"https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1"}}</script>
+<style>
+:root{--bg:#fafaf8;--fg:#1d1d1b;--mut:#6b6b66;--line:#e2e1dc;--acc:#2f6f5e}
+@media (prefers-color-scheme:dark){:root{--bg:#161615;--fg:#ecebe6;--mut:#9a9993;--line:#2c2c2a;--acc:#6fbfa6}}
+body{background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,sans-serif;max-width:720px;margin:0 auto;padding:24px 16px}
+h1{font-size:24px;margin:0 0 4px}.m{color:var(--mut);font-size:14px}
+textarea{width:100%;box-sizing:border-box;font:inherit;padding:10px;background:transparent;color:inherit;border:1px solid var(--line);border-radius:8px}
+button,select{font:inherit;padding:6px 14px;border:1px solid var(--line);background:transparent;color:inherit;border-radius:8px;cursor:pointer}
+button.primary{border-color:var(--acc);color:var(--acc)}button:disabled{opacity:.5;cursor:default}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0}.chips button{font-size:13px;padding:3px 10px}
+code{font-size:13px;word-break:break-all}audio{width:100%;margin-top:8px}
+</style></head><body>
+<h1>Suaradee v0.1</h1>
+<p class="m">An 8.5 MB Malay voice that runs entirely in this tab (transformers.js + ONNX; WebGPU when your browser has it, otherwise WASM). Nothing you type leaves your device. <a href="https://huggingface.co/lseanlon/suaradee-v0.1">Model card</a> · v0.1 is a first release: understandable, but a little muffled, and about one sentence in ten has a wrong word.</p>
+<textarea id="t" rows="3">Selamat pagi, boleh saya bantu encik hari ini?</textarea>
+<div class="row chips" id="chips"></div>
+<div class="row">
+  <button id="go" class="primary" disabled>Loading model…</button>
+  <label class="m">speed <input id="sp" type="range" min="0.7" max="1.3" step="0.05" value="1"></label>
+  <label class="m">device <select id="dev"><option value="auto">auto</option><option value="webgpu">WebGPU</option><option value="wasm">WASM (CPU)</option></select></label>
+</div>
+<p class="m" id="info"></p>
+<audio id="au" controls></audio>
+<p class="m">Phonemes: <code id="ph"></code></p>
+<script type="module">
+import { Suaradee } from './suaradee.js';
+const $ = (id) => document.getElementById(id);
+const EX = ['Selamat pagi, boleh saya bantu encik hari ini?', 'Jumlah bayaran anda ialah RM1,250.50.', 'Boleh tolong confirm appointment saya pada hari Isnin?',
+  'Terima kasih kerana menghubungi kami, sila tunggu sebentar.', 'Kod OTP anda ialah 482913.', 'Temu janji tuan dijadualkan pada hari Khamis, pukul empat petang.'];
+for (const e of EX) { const b = document.createElement('button'); b.textContent = e.slice(0, 28) + '…'; b.title = e; b.onclick = () => { $('t').value = e; }; $('chips').appendChild(b); }
+let tts;
+async function load() {
+  $('go').disabled = true; $('go').textContent = 'Loading model…'; $('info').textContent = '';
+  const t0 = performance.now();
+  try {
+    tts = await Suaradee.load({ model: 'lseanlon/suaradee-v0.1', g2pBase: './g2p/', device: $('dev').value });
+    $('info').textContent = `Model ready on ${tts.device} in ${((performance.now() - t0) / 1000).toFixed(1)} s.`;
+    $('go').textContent = 'Speak'; $('go').disabled = false;
+  } catch (e) { $('info').textContent = 'Could not load the model: ' + (e.message || e); $('go').textContent = 'Failed'; }
+}
+function wav(audio, sr) {
+  const b = new ArrayBuffer(44 + audio.length * 2), v = new DataView(b);
+  const w = (o, s) => [...s].forEach((c, i) => v.setUint8(o + i, c.charCodeAt(0)));
+  w(0, 'RIFF'); v.setUint32(4, 36 + audio.length * 2, true); w(8, 'WAVEfmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true);
+  v.setUint16(22, 1, true); v.setUint32(24, sr, true); v.setUint32(28, sr * 2, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true); w(36, 'data'); v.setUint32(40, audio.length * 2, true);
+  audio.forEach((x, i) => v.setInt16(44 + i * 2, Math.max(-1, Math.min(1, x)) * 32767, true));
+  return new Blob([b], { type: 'audio/wav' });
+}
+$('go').onclick = async () => {
+  $('go').disabled = true; const t0 = performance.now();
+  $('ph').textContent = tts.phonemize($('t').value).join(' | ');
+  const { audio, sampleRate } = await tts.speak($('t').value, { speed: +$('sp').value });
+  const s = (performance.now() - t0) / 1000, sec = audio.length / sampleRate;
+  $('info').textContent = `${sec.toFixed(2)} s of audio in ${s.toFixed(2)} s on ${tts.device} (${(sec / s).toFixed(1)}x real time).`;
+  $('au').src = URL.createObjectURL(wav(audio, sampleRate)); $('au').play(); $('go').disabled = false;
+};
+$('dev').onchange = load;
+window.__suaradee = { load, get tts() { return tts; } };
+load();
+</script></body></html>

@@ -1,31 +1,42 @@
-// Malay text -> phonemes (ms_norm + ms_g2p, same code as Python) -> 8M ONNX model via transformers.js -> 24 kHz audio.
+// Suaradee: Malay text -> phonemes (ms_norm + ms_g2p) -> 8 MB ONNX model through transformers.js -> 24 kHz audio.
 //
-//   import { KokoroMalay } from './kokoro-malay.js';
-//   const tts = await KokoroMalay.load({ modelDir: './export/ms_bella_8m', g2pBase: './g2p/' });
+//   import { Suaradee } from './suaradee.js';
+//   const tts = await Suaradee.load({ model: 'lseanlon/suaradee-v0.1', g2pBase: './g2p/' });   // WebGPU if available, else WASM
 //   const { audio, sampleRate } = await tts.speak('Selamat pagi, boleh saya bantu?');
 //
 // The graph has two inputs, input_ids (int64 [1,T]) and speed (float32 [1]); one voice, no style input.
 import { StyleTextToSpeech2Model, Tensor, env } from '@huggingface/transformers';
 import { normalize } from './g2p/ms_norm.js';
-import { G2P, chunk, loadG2P } from './g2p/ms_g2p.js';
+import { chunk, loadG2P } from './g2p/ms_g2p.js';
 
 export const SAMPLE_RATE = 24000;
-const MAX_PHONEMES = 400;                       // the student was trained on single sentences of at most 400 phonemes
+const MAX_PHONEMES = 400;                       // trained on single sentences of at most 400 phonemes
 export const G2P_OPTIONS = { stress: false, r: 'r', diph: 'glide' };   // must match how the training rows were made
 
 export function splitSentences(text) {
   return text.split(/(?<=[.!?…])\s+|\n+/).map((s) => s.trim()).filter(Boolean);
 }
 
-export class KokoroMalay {
-  constructor(model, g2p) { this.model = model; this.g2p = g2p; }
+export class Suaradee {
+  constructor(model, g2p, device) { this.model = model; this.g2p = g2p; this.device = device; }
 
-  // g2p: either an already built G2P instance or { base } to fetch the lexicons (browser) .
-  static async load({ modelDir, g2p, g2pBase = './g2p/', dtype = 'q8', device = typeof window === 'undefined' ? 'cpu' : 'wasm', local = false } = {}) {
-    if (local) { env.allowLocalModels = true; env.allowRemoteModels = false; env.localModelPath = modelDir.replace(/[^/\\]+[/\\]?$/, ''); }
-    const name = local ? modelDir.replace(/[/\\]+$/, '').split(/[/\\]/).pop() : modelDir;
-    const model = await StyleTextToSpeech2Model.from_pretrained(name, { dtype, device });
-    return new KokoroMalay(model, g2p || (await loadG2P(g2pBase, G2P_OPTIONS)));
+  // model: Hugging Face repo id, or a folder name under modelRoot when local is true.
+  // device: 'auto' (WebGPU when the browser has it and it works, else WASM), 'webgpu', 'wasm' or 'cpu' (Node).
+  static async load({ model = 'lseanlon/suaradee-v0.1', g2p, g2pBase = './g2p/', dtype = 'q8', device = 'auto', local = false, modelRoot } = {}) {
+    if (local) { env.allowLocalModels = true; env.allowRemoteModels = false; env.localModelPath = modelRoot; }
+    const inNode = typeof window === 'undefined';
+    const tries = device !== 'auto' ? [device] : inNode ? ['cpu'] : (typeof navigator !== 'undefined' && navigator.gpu ? ['webgpu', 'wasm'] : ['wasm']);
+    const rules = g2p || (await loadG2P(g2pBase, G2P_OPTIONS));
+    let lastErr;
+    for (const d of tries) {
+      try {
+        const m = await StyleTextToSpeech2Model.from_pretrained(model, { dtype, device: d });
+        const inst = new Suaradee(m, rules, d);
+        await inst.synth(inst.phonemize('Selamat pagi.')[0]);       // warm-up: surfaces unsupported operators now, not on first use
+        return inst;
+      } catch (e) { lastErr = e; console.warn(`Suaradee: device ${d} failed`, e); }
+    }
+    throw lastErr;
   }
 
   phonemize(text) {

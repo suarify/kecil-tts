@@ -1,0 +1,18 @@
+{
+ "model_type": "style_text_to_speech_2",
+ "architectures": [
+  "StyleTextToSpeech2Model"
+ ],
+ "sample_rate": 24000,
+ "n_token": 178,
+ "voices": [
+  "default"
+ ],
+ "note": "Single voice. Inputs: input_ids (int64 [1,T], phoneme ids with 0 at both ends, T <= 402) and speed (float32 [1]). No style input. Phonemes come from the Malay front end in suaradee/ (Python) or js/ (JavaScript).",
+ "g2p": {
+  "stress": false,
+  "r": "r",
+  "diph": "glide",
+  "final_a": "a"
+ }
+}

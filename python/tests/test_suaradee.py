@@ -1,4 +1,4 @@
-"""Runtime tests. Set KOKORO_MALAY_MODEL to an exported int8 .onnx file, then:  pytest python/tests"""
+"""Runtime tests. Set SUARADEE_MODEL to an exported int8 .onnx file, then:  pytest python/tests"""
 import os
 import sys
 
@@ -6,15 +6,15 @@ import numpy as np
 import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
-from kokoro_malay import SAMPLE_RATE, KokoroMalay  # noqa: E402
+from suaradee import SAMPLE_RATE, Suaradee  # noqa: E402
 
-MODEL = os.environ.get('KOKORO_MALAY_MODEL')
-pytestmark = pytest.mark.skipif(not MODEL or not os.path.exists(MODEL), reason='KOKORO_MALAY_MODEL not set')
+MODEL = os.environ.get('SUARADEE_MODEL')
+pytestmark = pytest.mark.skipif(not MODEL or not os.path.exists(MODEL), reason='SUARADEE_MODEL not set')
 
 
 @pytest.fixture(scope='module')
 def tts():
-    return KokoroMalay(MODEL)
+    return Suaradee(MODEL)
 
 
 def test_sentence(tts):

@@ -1,0 +1,22 @@
+{
+  "id": "seanlon/kmb-12-v5",
+  "title": "kmb 12 v5",
+  "code_file": "k12_v5.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "dataset_sources": [
+    "seanlon/kokoro-malay-g2p",
+    "seanlon/kmb-paradee-ms",
+    "seanlon/kmb-k09-ckpt"
+  ],
+  "kernel_sources": [
+    "seanlon/kmb-08-cbgen"
+  ],
+  "competition_sources": [],
+  "model_sources": [],
+  "machine_shape": "NvidiaTeslaT4"
+}

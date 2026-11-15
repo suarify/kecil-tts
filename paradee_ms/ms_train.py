@@ -39,6 +39,7 @@ ap.add_argument('--out', required=True)
 ap.add_argument('--smooth', action='store_true', help='median/moving-average the F0 and N targets (text side)')
 ap.add_argument('--aug', type=float, default=0.0, help='decoder: strength of smooth F0/N jitter on the inputs (0 = off)')
 ap.add_argument('--eval-every', type=int, default=250)
+ap.add_argument('--score', choices=['sum', 'dur_asr'], default='sum', help='text side: which held-out losses pick the checkpoint')
 ap.add_argument('--gan', action='store_true', help='decoder: adversarial stage (Paradee stage two)')
 ap.add_argument('--mel-weight', type=float, default=3.0)
 ap.add_argument('--patience', type=int, default=8)
@@ -143,7 +144,7 @@ if A.which == 'text':
         step += 1
         if step % A.eval_every == 0:
             ev_ = evaluate()
-            sc_ = ev_['l_dur'] + ev_['l_f0'] + ev_['l_n'] + ev_['l_asr']
+            sc_ = ev_['l_dur'] + ev_['l_asr'] if A.score == 'dur_asr' else ev_['l_dur'] + ev_['l_f0'] + ev_['l_n'] + ev_['l_asr']
             print('EVAL', step, json.dumps({k: round(v, 3) for k, v in ev_.items()}), 'score', round(sc_, 3), flush=True)
             if sc_ < best[0]:
                 best[:] = [sc_, step, {k: v.detach().clone() for k, v in model.state_dict().items()}]

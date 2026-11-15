@@ -1,0 +1,6 @@
+1	test	CER 0%	Kontrak sewa perlu ditandatangani sebelum hari Jumaat.
+2	test	CER 6%	Rawatan susulan doktor dijadualkan di Restoran Selera Kampung.
+3	test	CER 8%	Saya Kavitha, pegawai yang menguruskan kes puan.
+4	held	CER 13%	Kami ingin menjemput encik ke majlis pelancaran di Cyberjaya.
+5	held	CER 17%	Jumlah bayaran anda ialah dua ribu sembilan ratus tujuh belas ringgit lima puluh lapan sen.
+6	held	CER 28%	Pelbagai kota kecil muncul di sepanjang sungai Nil.

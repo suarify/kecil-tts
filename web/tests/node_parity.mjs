@@ -4,7 +4,7 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { G2P } from '../g2p/ms_g2p.js';
 import { normalize } from '../g2p/ms_norm.js';
-import { KokoroMalay, G2P_OPTIONS, SAMPLE_RATE } from '../kokoro-malay.js';
+import { Suaradee, G2P_OPTIONS, SAMPLE_RATE } from '../suaradee.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const load = (f) => JSON.parse(readFileSync(join(here, '..', 'g2p', f), 'utf8'));
@@ -12,7 +12,7 @@ const g2p = new G2P({ vocab: load('vocab.json'), lexE: load('lexicon_e.json'), l
 const modelDir = resolve(here, '..', '..', 'export', 'ms_bella_8m');
 const ref = JSON.parse(readFileSync(join(here, 'ref.json'), 'utf8'));
 
-const tts = await KokoroMalay.load({ modelDir, g2p, local: true, dtype: process.env.DTYPE || 'q8' });
+const tts = await Suaradee.load({ model: 'ms_bella_8m', g2p, local: true, modelRoot: resolve(here, '..', '..', 'export') + '/', dtype: process.env.DTYPE || 'q8' });
 let bad = 0;
 for (const r of ref) {
   const ph = tts.phonemize(r.text)[0];

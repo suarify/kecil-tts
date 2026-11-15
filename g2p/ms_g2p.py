@@ -166,11 +166,15 @@ class G2P:
         return self._heuristic(w)
 
     # ---------- letters to phonemes ----------
-    def _letters(self, s):
+    def _letters(self, s, spans=None):
+        """spans (optional list) receives (letter index, phoneme count so far) at every step, so each
+        phoneme can be traced back to the letter that produced it."""
         out = []
         n = len(s)
         i = 0
         while i < n:
+            if spans is not None:
+                spans.append((i, len(out)))
             c = s[i]
             two = s[i:i + 2]
             if c in 'aoé' and two in DIPHTHONGS and s[i + 2:] in SUFFIX_STRINGS:

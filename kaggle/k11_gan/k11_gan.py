@@ -53,7 +53,17 @@ sys.path.insert(0, f'{OUT}/stubs')
 DS = os.path.dirname(glob.glob('/kaggle/input/**/ms_g2p.py', recursive=True)[0])
 REF = os.path.dirname(glob.glob('/kaggle/input/**/cb_1100.tsv', recursive=True)[0])
 PMS = os.path.dirname(glob.glob('/kaggle/input/**/ms_rows.py', recursive=True)[0])
-CLIPS = ''   # not needed: rows come from kmb-10-robust
+CLIPS = f'{OUT}/cbwav'
+
+
+def unpack_clips():
+    os.makedirs(CLIPS, exist_ok=True)
+    import soundfile as sf0
+    import torch as torch0
+    pt = torch0.load(glob.glob('/kaggle/input/**/cb_clips.pt', recursive=True)[0])
+    for i_, a_ in pt.items():
+        sf0.write(f'{CLIPS}/{i_}.wav', a_.numpy().astype('float32') / 32767, 24000)
+    print('unpacked', len(pt), 'clips', flush=True)
 print('DS', DS, '\nREF', REF, '\nPMS', PMS, '\nCLIPS', CLIPS, flush=True)
 
 os.makedirs(W, exist_ok=True)
@@ -65,15 +75,20 @@ tsv.to_csv(f'{W}/ref_shuffled.tsv', sep='\t', index=False)
 
 HELD = 60
 PY = sys.executable
-rsrc = glob.glob('/kaggle/input/**/rows/shard_0000.pt', recursive=True)[0]
 os.makedirs(f'{W}/data/teacher', exist_ok=True)
-shutil.copy(rsrc, f'{W}/data/teacher/shard_0000.pt')
-dec0 = glob.glob('/kaggle/input/**/ckpt/dec/last.pt', recursive=True)[0]
-txt0 = glob.glob('/kaggle/input/**/ckpt/text/last.pt', recursive=True)[0]
+rcand = glob.glob('/kaggle/input/**/rows/shard_0000.pt', recursive=True)
+if rcand:
+    shutil.copy(rcand[0], f'{W}/data/teacher/shard_0000.pt')
+    print('rows reused from', rcand[0], flush=True)
+else:
+    unpack_clips()
+    sh(f'{PY} scripts/ms_rows.py --clips {CLIPS} --tsv ref_shuffled.tsv --g2p {DS} --out data/teacher/shard_0000.pt --device cuda', 'rows', W)
+dec0 = glob.glob('/kaggle/input/**/k09_dec_last.pt', recursive=True)[0]      # k09 checkpoints: the better text side and decoder
+txt0 = glob.glob('/kaggle/input/**/k09_text_last.pt', recursive=True)[0]
 os.makedirs(f'{W}/ckpt/text', exist_ok=True)
 shutil.copy(txt0, f'{W}/ckpt/text/last.pt')
 txt = ''
-dec = sh(f'{PY} scripts/ms_train.py dec --init {dec0} --held {HELD} --steps 5000 --bs 8 --max-minutes 25 --aug 1.0 --gan --mel-weight 3 --out ckpt/dec', 'train_decoder_gan', W)
+dec = sh(f'{PY} scripts/ms_train.py dec --init {dec0} --held {HELD} --steps 4000 --bs 8 --max-minutes 22 --aug 1.0 --gan --mel-weight 3 --out ckpt/dec', 'train_decoder_gan', W)
 exp = sh(f'{PY} scripts/export_paradee_v1_1.py ckpt/dec/last.pt --text ckpt/text/last.pt --out models/ms', 'export', W)
 
 # ---------------- score the exported int8 model, free-running text -> audio ----------------

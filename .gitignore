@@ -20,3 +20,4 @@ python/**/__pycache__/
 web/node_modules/
 web/package-lock.json
 export/ms_bella_8m/onnx/
+kaggle/ds_k09ckpt/

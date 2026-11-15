@@ -10,9 +10,11 @@
   "enable_internet": true,
   "dataset_sources": [
     "seanlon/kokoro-malay-g2p",
-    "seanlon/kmb-paradee-ms"
+    "seanlon/kmb-paradee-ms",
+    "seanlon/kmb-k09-ckpt"
   ],
   "kernel_sources": [
+    "seanlon/kmb-08-cbgen",
     "seanlon/kmb-10-robust"
   ],
   "competition_sources": [],

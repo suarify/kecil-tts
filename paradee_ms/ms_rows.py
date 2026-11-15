@@ -28,6 +28,7 @@ ap.add_argument('--g2p', required=True)
 ap.add_argument('--out', required=True)
 ap.add_argument('--device', default='cuda' if torch.cuda.is_available() else 'cpu')
 ap.add_argument('--max', type=int, default=10 ** 9)
+ap.add_argument('--letters', action='store_true', help='phoneme timings inside Malay words from the letter alignment')
 A = ap.parse_args()
 sys.path.insert(0, A.g2p)
 
@@ -107,7 +108,35 @@ def word_times(w16, words):
         if len(idx) == 0:
             return None
         out.append((idx[0] * sec, (idx[-1] + 1) * sec))
+    # start time of every aligned letter, per word (None where a letter has no frame)
+    CHARS.clear()
+    for w, f in zip(words, first):
+        ts, k = [], f
+        for c in w:
+            if c in LAB:
+                hit = np.where(path == 2 * k + 1)[0]
+                ts.append(float(hit[0] * sec) if len(hit) else None)
+                k += 1
+            else:
+                ts.append(None)
+        CHARS.append(ts)
     return out
+
+
+CHARS = []      # filled by word_times: per word, the start time of each letter
+
+
+def phoneme_starts(tok, spoken_word, n_ph):
+    """Start time of each phoneme of a Malay-path word from the letter alignment, or None when the word
+    is read from the English lexicon / exceptions / as an acronym, or the mapping is not clean."""
+    w = tok.lower().strip("'")
+    if (len(tok) >= 2 and tok.isupper()) or w in G.lex_x or w in G.lex_en or spoken_word != w or n_ph < 2:
+        return None
+    spans = []
+    ph = G._letters(G.respell(w), spans)
+    if len(ph) != n_ph:
+        return None
+    return [max(i for i, k in spans if k <= p) for p in range(n_ph)]      # letter index that produced each phoneme
 
 
 def segments_of(ps):
@@ -153,7 +182,9 @@ def align_matrix(T, frames):
     return aln[None]
 
 
-def frames_from_clip(kd, segs, times, total_sec):
+def frames_from_clip(kd, segs, times, total_sec, letter_src=None, stat=None):
+    """letter_src: per word, the letter index behind each phoneme (from phoneme_starts) or None.
+    With it, phoneme boundaries inside a word come from the aligned letters instead of Kokoro's proportions."""
     new = np.maximum(1, np.round(kd)).astype(int)
     new[0] = max(1, int(round(times[0][0] * FPS)))
     for j, (sg, (st_, en)) in enumerate(zip(segs, times)):
@@ -169,6 +200,33 @@ def frames_from_clip(kd, segs, times, total_sec):
             en_eff = en + 0.05
         scale = float(np.clip((en_eff - st_) * FPS / max(kd[a:b].sum(), 1e-3), 0.3, 4.0))
         new[a:b] = np.maximum(1, np.round(kd[a:b] * scale)).astype(int)
+        src = letter_src[j] if letter_src is not None else None
+        if src is not None and j < len(CHARS):
+            n = b - a
+            total = int(new[a:b].sum())
+            cs = CHARS[j]
+            t0 = [cs[i] if i < len(cs) else None for i in src]
+            if total >= n and all(t is not None for t in t0) and all(t0[k] <= t0[k + 1] for k in range(n - 1)):
+                starts = list(t0)
+                k = 0
+                while k < n:                                  # phonemes that share one letter split its span evenly
+                    e = k
+                    while e + 1 < n and src[e + 1] == src[k]:
+                        e += 1
+                    if e > k:
+                        nxt = t0[e + 1] if e + 1 < n else en_eff
+                        for q in range(k, e + 1):
+                            starts[q] = t0[k] + (nxt - t0[k]) * (q - k) / (e - k + 1)
+                    k = e + 1
+                bnd = [int(round((s - st_) * FPS)) for s in starts] + [total]
+                bnd[0] = 0
+                for q in range(1, n):                         # strictly increasing, room left for the rest
+                    bnd[q] = min(max(bnd[q], bnd[q - 1] + 1), total - (n - q))
+                new[a:b] = np.diff(bnd)
+                if stat is not None:
+                    stat[0] += 1
+        if stat is not None:
+            stat[1] += 1
         if sg['space'] is not None:
             new[sg['space']] = max(1, int(round(pause * FPS)) - sum(new[p] for p in sg['punct']))
     want = int(round(total_sec * FPS))
@@ -215,6 +273,7 @@ N_TARGET = float(np.mean(nvoiced))   # loudest-frame level (mel log-norm) of Kok
 print(f'N offset {N_OFF:.3f} (per-sentence std {np.std(offs):.3f}); Kokoro loud-frame level {N_TARGET:.2f}', flush=True)
 
 rows, stats = [], []
+LSTAT = [0, 0]      # words timed from letters, all words
 for r in tsv.itertuples():
     if len(rows) >= A.max:
         break
@@ -242,7 +301,12 @@ for r in tsv.itertuples():
         continue
     I = kokoro_text(ps)
     total = min(len(a) / SR, times[-1][1] + 0.15)
-    fr = frames_from_clip(I['dur'].numpy(), segs, times, total)
+    src = None
+    if A.letters:
+        toks = [t for t in TOKEN_RE.findall(strip_accents(norm).replace('-', ' ')) if t not in PUNCT]
+        if len(toks) == len(segs):
+            src = [phoneme_starts(t, w, sg['b'] - sg['a']) for t, w, sg in zip(toks, words, segs)]
+    fr = frames_from_clip(I['dur'].numpy(), segs, times, total, src, LSTAT)
     F = int(fr.sum())
     au = a[:F * 600]
     if len(au) < F * 600:
@@ -269,5 +333,6 @@ torch.save(rows, A.out)
 st = pd.DataFrame(stats)
 print(f'rows {len(rows)}/{len(tsv)} | {st.sec.sum() / 60:.1f} min audio | voiced {st.voiced.mean():.2f} | '
       f'kokoro/cb pace {st.pace.mean():+.3f} | N mean {st.n_mean.mean():.2f} | gain {st.gain.mean():.2f} | {time.time() - T0:.0f}s', flush=True)
+print(f'words timed from letters: {LSTAT[0]}/{LSTAT[1]}', flush=True)
 json.dump(dict(rows=len(rows), n_offset=N_OFF, minutes=float(st.sec.sum() / 60), seconds_run=time.time() - T0),
           open(os.path.splitext(A.out)[0] + '_report.json', 'w'))

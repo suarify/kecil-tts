@@ -39,3 +39,9 @@
 - Diagnosis on CPU (scripts/align_check.py, 40 clips, 1,204 inner phoneme boundaries of Malay words): the rows' within-word phoneme timings (Kokoro-proportional guess) differ from letter-level forced alignment by median 27 ms, mean 42 ms, 90th pct 98 ms; 53% are off by more than one decoder frame (25 ms), 25% by more than 50 ms, 10% by more than 100 ms. The decoder is trained with phoneme features that often do not match the audio, which explains both the smeared sound and the plateau at held spec loss 2.545 within ~1,000 steps. Plan v4 step C0.1 (letter-level phoneme timings) was specified but never implemented in paradee_ms/ms_rows.py.
 - G2P._letters now takes an optional spans list (letter index per phoneme); default behaviour unchanged, Gate 1 tests pass.
 - GPU spent since the pivot: about 5.7 h of the 6 h limit. Best model so far: k09 (runs/k09/ms_int8.onnx, 8.46 MB).
+
+## 2026-11-15 Validation on CPU (no GPU): continue.plan.v5.md
+- diagnose_k09.py (30 held-out, Whisper-small): Chatterbox clip median CER 7%, decoder with measured inputs 18%, full student 31%. Smear numbers identical for decoder-only and full student (flatness 0.69 vs target 0.62): the damp sound is the decoder's.
+- eq_test.py: student average spectrum within +1 to +2.5 dB of its target at 1-4 kHz; a fixed EQ cannot fix the smear. Page runs/listen/eq.html.
+- timing_test.py (24 clips, pretrained v1.3 decoder, no training): guessed phoneme timings median CER 13.2% / mean 15.0%; letter-aligned 7.7% / 11.5%; better on 18, worse on 5. ms_rows.py --letters times 167/169 words from letters.
+- v5 proposes one run (kmb-12, about 0.85 GPU-h) with gates fixed in advance and a stop rule. Not started; needs the owner's yes (total would be about 6.6 GPU-h).

@@ -24,8 +24,9 @@ OUT = '/kaggle/working'
 W = f'{OUT}/e2e'
 DS = os.path.dirname(glob.glob('/kaggle/input/**/ms_g2p.py', recursive=True)[0])
 PMS = os.path.dirname(glob.glob('/kaggle/input/**/ms_rows.py', recursive=True)[0])
-ROWS_IN = glob.glob('/kaggle/input/**/rows/shard_0000.pt', recursive=True)[0]
-V02 = glob.glob('/kaggle/input/**/ms_A_int8_gpu.onnx', recursive=True)[0]
+ROWS_IN = glob.glob('/kaggle/input/**/shard_0000.pt', recursive=True)[0]
+V02 = glob.glob('/kaggle/input/**/ms_A_int8_gpu.onnx', recursive=True)
+V02 = V02[0] if V02 else glob.glob('/kaggle/input/**/model_quantized.onnx', recursive=True)[0]
 HELD = 60
 PY = sys.executable
 
@@ -42,14 +43,19 @@ def sh(cmd, tag, cwd=W):
     return p.stdout
 
 
-stub_dirs = [d for d in glob.glob('/kaggle/input/**/stubs', recursive=True) if os.path.isdir(d)]
-if stub_dirs:
-    os.environ['PYTHONPATH'] = stub_dirs[0] + ':' + os.environ.get('PYTHONPATH', '')
-
 os.makedirs(W, exist_ok=True)
 shutil.copytree(PMS, f'{W}/scripts', dirs_exist_ok=True)
 os.makedirs(f'{W}/data/teacher', exist_ok=True)
 shutil.copy(ROWS_IN, f'{W}/data/teacher/shard_0000.pt')
+sh('pip install -q --no-deps --ignore-requires-python "kokoro==0.9.4"', 'pip_kokoro')
+sh('pip install -q loguru onnx onnxruntime', 'pip_misc')
+stubs = f'{OUT}/stubs/misaki'
+os.makedirs(stubs, exist_ok=True)
+for name in ('en', 'espeak'):
+    open(f'{stubs}/{name}.py', 'w').write('def __getattr__(name):\n    return type(name, (), {})\n')
+open(f'{stubs}/__init__.py', 'w').write('from . import en, espeak\n')
+os.environ['PYTHONPATH'] = f'{OUT}/stubs:' + os.environ.get('PYTHONPATH', '')
+sys.path.insert(0, f'{OUT}/stubs')
 sh(f'{PY} scripts/ms_init.py init', 'init_weights', W)
 
 import librosa  # noqa: E402

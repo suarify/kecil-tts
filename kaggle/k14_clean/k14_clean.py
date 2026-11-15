@@ -187,6 +187,7 @@ n_held = len([r for r in clean_rows if r['id'] in {x['id'] for x in rows[:HELD]}
 print('clean set:', len(clean_rows), 'rows (held kept:', n_held, ')', flush=True)
 os.makedirs(f'{W}/data/teacher_clean', exist_ok=True)
 torch.save(clean_rows, f'{W}/data/teacher_clean/shard_0000.pt')
+os.makedirs(f'{OUT}/rows_clean', exist_ok=True)
 shutil.copy(f'{W}/data/teacher_clean/shard_0000.pt', f'{OUT}/rows_clean/shard_0000.pt')
 
 # ---------------- C1: learning curve (decoder on 25 / 50 / 100 % of train rows) ----------------

@@ -130,3 +130,7 @@
 - Whisper digit-normalization artifact: empat/sepuluh 'missing' because Whisper writes 4/10 (RM->orm). Scoring stays as the plan fixed it; noted as bias that inflates numbers-category CER.
 - teacher_clips.csv uploaded as version 2 of dataset kmb-rows-v02 (cached scan); kernel now loads it and skips ~30 min of Whisper transcription. v9 pushed RUNNING.
 - C3.1 scripts/error_words.py written: token-level mishearing extraction with MISS/CLOSE kind and tags; teacher-scan pass saved to runs/c3_error_words.tsv. English-side candidates from the teacher scan are few; the real list comes from test_scores.csv when v9 lands.
+
+## 2026-11-15 k14 v9: crash #2 (missing rows_clean dir), v10 running
+- v9 confirmed the cached teacher scan works (LOADED CACHED, 742 rows, ~30 min saved) and re-ran C0: median 7.6 / capped 11.7, codeswitch 18.6 median (v8 said 23.0). Whisper decoding is not perfectly deterministic across runs -> gate comparisons must keep a noise margin; we now have two baseline samples.
+- Crash: shutil.copy to {OUT}/rows_clean/ without os.makedirs. Fixed; v10 pushed RUNNING (full pipeline: C0 + clean retrain + curve + gates).

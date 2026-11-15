@@ -122,7 +122,9 @@ sh(f'{PY} scripts/ms_train.py dec --init init/dec_row0.pt --data data/merged --h
 sh(f'{PY} scripts/ms_train.py text --init init/text_row0.pt --data data/merged --held {HELD} '
    f'--steps 10000 --bs 16 --eval-every 500 --score dur_asr --max-minutes 32 --out ckpt/textA', 'train_text', W)
 sh(f'{PY} scripts/export_paradee_v1_1.py ckpt/dec/last.pt --text ckpt/textA/last.pt --out models/C4', 'export_C4', W)
-shutil.copy(f'{W}/models/C4/paradee_int8.onnx', f'{OUT}/ms_c4_int8.onnx')
+# WebGPU has no float64: patch the export before shipping (same as v0.1/v0.2, see scripts/webgpu_patch.py)
+sh(f'{PY} scripts/webgpu_patch.py {W}/models/C4/paradee_int8.onnx {W}/models/C4/paradee_int8_webgpu.onnx', 'webgpu_patch', W)
+shutil.copy(f'{W}/models/C4/paradee_int8_webgpu.onnx', f'{OUT}/ms_c4_int8.onnx')
 shutil.copy(f'{W}/ckpt/dec/last.pt', f'{OUT}/dec_c4_last.pt')
 shutil.copy(f'{W}/ckpt/textA/last.pt', f'{OUT}/textA_c4_last.pt')
 os.makedirs(f'{OUT}/rows_merged', exist_ok=True)

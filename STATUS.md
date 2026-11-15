@@ -159,3 +159,11 @@
 - publish_hf.py VERSIONS gained the 0.3 entry; package default repo bumped to lseanlon/suaradee-v0.3 (python, js, examples, gradio app); pyproject 0.3.0.
 - C4 naming: kmb-15-cbgen2 (generation) + kmb-16-train-c4 (train) will produce v0.4.
 - k15 note: the run showed CANCEL_ACKNOWLEDGED once then RUNNING again (Kaggle preempted the session); watcher restarted. Plan CSV = 798 sentences / 1,118 generations.
+
+## 2026-11-15 v0.3 WebGPU fix (owner reported 'Can't perform binary op' in the Space)
+- Cause: the k14 export was published WITHOUT scripts/webgpu_patch.py. It contained 1 Cast-to-double op (pitch-phase accumulator); every shipped model since v0.1 was patched (runs/k12/ms_A_int8_gpu.onnx has 0 doubles, the k14 file had 1). ORT-web WebGPU cannot do that op -> '[Mul] /head/Mul_41 failed'.
+- Fix: runs/k14_final/ms_clean_webgpu_int8.onnx = webgpu_patch applied (24 double items switched). Verified: audio corr 0.994 / same length / same rms vs unpatched; Python tests 11/11; node web-stack probe OK; Hub copy re-downloaded shows 0 doubles; remote load OK.
+- Samples re-rendered from the patched model before re-upload (make_v03_samples.py now takes the model path, default patched). publish_hf.py VERSIONS 0.3 points at the patched file.
+- Space verified in a real browser: 'Model ready on webgpu in 18.6 s', Speak -> 3.15 s audio in 2.27 s, zero kernel errors. Space blurb updated to v0.3.
+- k16_train_c4.py now runs scripts/webgpu_patch.py right after the export and ships the patched file, so v0.4 cannot repeat this.
+- Lesson: any new export must pass scripts/webgpu_patch.py before build_hf/publish (double ops + int64 slice bounds).

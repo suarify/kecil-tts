@@ -14,6 +14,7 @@ import pandas as pd
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'g2p'))
 KD = os.path.join(ROOT, 'runs', 'k14_final')
+MODEL = sys.argv[1] if len(sys.argv) > 1 else os.path.join(KD, 'ms_clean_webgpu_int8.onnx')
 
 import onnxruntime as ort  # noqa: E402
 import soundfile as sf  # noqa: E402
@@ -30,7 +31,7 @@ for r in d[d.model == 'clean_held'].itertuples():
 g2p = G2P(stress=False, r='r', diph='glide', final_a='a')
 so = ort.SessionOptions()
 so.intra_op_num_threads = 4
-sess = ort.InferenceSession(os.path.join(KD, 'ms_clean_int8.onnx'), so, providers=['CPUExecutionProvider'])
+sess = ort.InferenceSession(MODEL, so, providers=['CPUExecutionProvider'])
 os.makedirs(os.path.join(KD, 'audio'), exist_ok=True)
 out = []
 for k, r in enumerate(rows, 1):

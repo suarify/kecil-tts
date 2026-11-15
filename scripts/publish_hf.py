@@ -36,7 +36,7 @@ print('authenticated as', who['name'], '(token not shown)')
 VERSIONS = [
     ('0.1', 'runs/k09/ms_int8_gpu.onnx', 'hf/model_card_v0.1.md', 'runs/k09'),
     ('0.2', 'runs/k12/ms_A_int8_gpu.onnx', 'hf/model_card_v0.2.md', 'runs/k12'),
-    ('0.3', 'runs/k14_final/ms_clean_int8.onnx', 'hf/model_card_v0.3.md', 'runs/k14_final'),
+    ('0.3', 'runs/k14_final/ms_clean_webgpu_int8.onnx', 'hf/model_card_v0.3.md', 'runs/k14_final'),
 ]
 TEXT = ('.md', '.py', '.js', '.mjs', '.html', '.toml', '.txt', '.json')
 OUT = os.path.join(ROOT, 'hf_' + A.user.lower())

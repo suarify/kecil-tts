@@ -92,3 +92,9 @@
 - Measured time to first audio, 3-sentence paragraph, after warm-up: Python 0.12 s (total 0.41 s, blocking call 0.42 s), Node 0.08 s (total 0.27 s). Browser WASM/WebGPU numbers to be measured on the live Space in B4.
 - Package bumped to 0.2.1. Disk was 100% full; npm-cache 4.65 GB + old Temp dirs cleaned, now 2.5-3 GB free.
 - Next: B2 Kokoro comparison kernel (GPU 0.2 h, owner yes needed), B3 card, B4 publish.
+
+## 2026-11-15 Package A started; A1 built, waiting on the owner's ears
+- B2 (Kokoro comparison kernel) paused: the owner chose to run package A first ("kokoro has no malay"). B1 streaming stays done.
+- rows/shard_0000.pt (742 rows, held = first 60) pulled from seanlon/kmb-12-v5 to runs/k12_rows (250 MB).
+- scripts/listen_damp_where.py built runs/listen/damp_where.html: 8 held-out rows x 4 open-labelled versions (1 Chatterbox clip, 2 v0.2 decoder fed the clip's measured inputs via t_en @ alignment(pred_dur) with measured F0/N, seed 0; 3 v0.2 from text on the int8 ONNX; 4 Kokoro af_bella on the row's phonemes, local CPU). 32 wavs in runs/listen/damp_where. Owner ticks every version that sounds damp; headphones.
+- scripts/damp_profile.py (30 held-out rows per system, CPU) wrote runs/listen/damp_profile/profile.json + profile_table.txt. Medians: rolloff 95% energy 961 Hz (Chatterbox) / 732 (decoder) / 879 (v0.2) / 1576 (Kokoro); energy >4 kHz 0.01 / 0.01 / 0.01 / 0.04 share; onset rise 2-8 kHz 17.0 / 10.2 / 8.9 / 19.8 dB per 10 ms; decay 10 dB 0.03 / 0.07 / 0.06 / 0.04 s; pitch span 6.2 / 6.0 / 5.4 / 5.5 st. First suspect: the slow, soft onsets (8.9 vs 19.8 dB/10 ms) plus longer decay - consistent with the owner's "damp" even though the long-term third-octave spectra of 1/3/4 sit within about 1-3 dB above 500 Hz (Kokoro is 4-5 dB hotter at 2.5-6 kHz).

@@ -36,7 +36,8 @@ async function load() {
   $('go').disabled = true; $('go').textContent = 'Loading model…'; $('info').textContent = '';
   const t0 = performance.now();
   try {
-    tts = await Suaradee.load({ model: 'lseanlon/suaradee-v0.1', g2pBase: './g2p/', device: $('dev').value });
+    const so = new URLSearchParams(location.search).get('opt');   // debugging aid: ?opt=disabled|basic|extended|all
+    tts = await Suaradee.load({ model: 'lseanlon/suaradee-v0.1', g2pBase: './g2p/', device: $('dev').value, sessionOptions: so ? { graphOptimizationLevel: so } : undefined });
     $('info').textContent = `Model ready on ${tts.device} in ${((performance.now() - t0) / 1000).toFixed(1)} s.`;
     $('go').textContent = 'Speak'; $('go').disabled = false;
   } catch (e) { $('info').textContent = 'Could not load the model: ' + (e.message || e); $('go').textContent = 'Failed'; }
@@ -57,7 +58,8 @@ $('go').onclick = async () => {
   $('info').textContent = `${sec.toFixed(2)} s of audio in ${s.toFixed(2)} s on ${tts.device} (${(sec / s).toFixed(1)}x real time).`;
   $('au').src = URL.createObjectURL(wav(audio, sampleRate)); $('au').play(); $('go').disabled = false;
 };
-$('dev').onchange = load;
+const qd = new URLSearchParams(location.search).get('device'); if (qd) $('dev').value = qd;
+$('dev').onchange = () => { const u = new URL(location.href); u.searchParams.set('device', $('dev').value); location.href = u; };   // a fresh page, so a failed WebGPU session cannot linger
 window.__suaradee = { load, get tts() { return tts; } };
 load();
 </script></body></html>

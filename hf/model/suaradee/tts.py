@@ -23,6 +23,7 @@ class Suaradee:
         so = ort.SessionOptions()
         so.intra_op_num_threads = threads
         so.inter_op_num_threads = 1
+        so.log_severity_level = 3          # the exported graph has a few unused constants; ONNX Runtime warns about them
         self.session = ort.InferenceSession(model_path, so, providers=['CPUExecutionProvider'])
         self.g2p = G2P(**G2P_OPTIONS)
 

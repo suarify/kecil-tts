@@ -23,16 +23,20 @@ A **Malay text-to-speech model that is 8.5 MB**. One ONNX file, one voice, runs 
 **This is a first release.** It is understandable, but it sounds slightly muffled, and roughly one sentence in ten has a wrong word. Details and numbers are below, so you can judge whether it is good enough for your use.
 
 - **Demo in the browser (nothing leaves your device):** [Suaradee web Space](https://huggingface.co/spaces/lseanlon/suaradee-web)
-- **Demo with Gradio:** [Suaradee Gradio Space](https://huggingface.co/spaces/lseanlon/suaradee-gradio)
+- **Gradio demo:** `examples/gradio_app.py` (`pip install gradio`, then `python examples/gradio_app.py`). A hosted Gradio Space needs a paid Hugging Face plan; the code is ready in `hf/space_gradio` of the project if you want to host one.
 
 | | |
 |---|---|
 | Model file | `onnx/model_quantized.onnx`, **8.46 MB** (int8 weights) |
 | Parameters | 7.9 M |
 | Output | 24 kHz mono |
-| Speed | about 25x real time on one CPU thread (onnxruntime) |
+| Speed | about 25x real time on one CPU thread (onnxruntime); about 15x in a browser tab on WebGPU (6x on the first call) |
 | Language | Bahasa Melayu (Malaysia), with common English words used in Malaysian speech |
 | Inputs | `input_ids` (int64 `[1,T]`, phoneme ids with a 0 at each end, `T` up to 402) and `speed` (float32 `[1]`) |
+
+## Runs on
+
+Tested for this release: Python 3.12 with onnxruntime on CPU (Windows, clean install from this repo's wheel), Node 24 with transformers.js 3.8 (output matches Python sample for sample), and a Chromium browser with **both WebGPU and WASM** through the web Space. The ONNX file is built to be WebGPU-safe: a double-precision phase accumulator was moved to float32 and 64-bit slice bounds were clamped, because ONNX Runtime Web's WebGPU backend cannot run them. The audio is unchanged by this (measured against the unpatched export, within the sampling noise of the model).
 
 ## Quick start
 
@@ -40,7 +44,7 @@ A **Malay text-to-speech model that is 8.5 MB**. One ONNX file, one voice, runs 
 
 ```bash
 pip install onnxruntime numpy huggingface_hub soundfile
-pip install "git+https://huggingface.co/lseanlon/suaradee-v0.1"
+pip install https://huggingface.co/lseanlon/suaradee-v0.1/resolve/main/dist/suaradee-0.1.0-py3-none-any.whl
 ```
 ```python
 import soundfile as sf

@@ -1,0 +1,7 @@
+Metadata-Version: 2.4
+Name: suaradee
+Version: 0.1.0
+Summary: Tiny Malay text-to-speech (8M-parameter ONNX), onnxruntime + numpy only
+Requires-Python: >=3.9
+Requires-Dist: onnxruntime>=1.16
+Requires-Dist: numpy

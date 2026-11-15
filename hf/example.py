@@ -1,5 +1,5 @@
 """pip install onnxruntime numpy huggingface_hub soundfile
-   pip install "git+https://huggingface.co/lseanlon/suaradee-v0.1"        (or run this file from a clone of the repo)"""
+   pip install https://huggingface.co/lseanlon/suaradee-v0.1/resolve/main/dist/suaradee-0.1.0-py3-none-any.whl"""
 import soundfile as sf
 
 from suaradee import SAMPLE_RATE, Suaradee

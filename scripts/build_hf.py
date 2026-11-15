@@ -62,9 +62,12 @@ copy('web/suaradee.js', os.path.join(M, 'js', 'suaradee.js'))
 copy('python/pyproject.toml', os.path.join(M, 'pyproject.toml'))
 copy('hf/LICENSE', os.path.join(M, 'LICENSE'))
 copy('hf/NOTICE', os.path.join(M, 'NOTICE'))
+for _w in os.listdir(os.path.join(ROOT, 'hf', 'wheel')):
+    copy(os.path.join('hf', 'wheel', _w), os.path.join(M, 'dist', _w))
 copy('hf/example.py', os.path.join(M, 'examples', 'python_example.py'))
 copy('hf/example_node.mjs', os.path.join(M, 'examples', 'node_example.mjs'))
 shutil.copy(A.card, os.path.join(M, 'README.md'))
+copy('hf/space_gradio/app.py', os.path.join(M, 'examples', 'gradio_app.py'))
 
 # samples from the exported model (never edited): 3 call-centre sentences it got right, 3 typical held-out ones
 sc = pd.read_csv(os.path.join(ROOT, A.samples_from, 'e2e_scores.csv'))

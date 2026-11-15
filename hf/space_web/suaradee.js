@@ -22,7 +22,7 @@ export class Suaradee {
 
   // model: Hugging Face repo id, or a folder name under modelRoot when local is true.
   // device: 'auto' (WebGPU when the browser has it and it works, else WASM), 'webgpu', 'wasm' or 'cpu' (Node).
-  static async load({ model = 'lseanlon/suaradee-v0.1', g2p, g2pBase = './g2p/', dtype = 'q8', device = 'auto', local = false, modelRoot } = {}) {
+  static async load({ model = 'lseanlon/suaradee-v0.1', g2p, g2pBase = './g2p/', dtype = 'q8', device = 'auto', local = false, modelRoot, sessionOptions } = {}) {
     if (local) { env.allowLocalModels = true; env.allowRemoteModels = false; env.localModelPath = modelRoot; }
     const inNode = typeof window === 'undefined';
     const tries = device !== 'auto' ? [device] : inNode ? ['cpu'] : (typeof navigator !== 'undefined' && navigator.gpu ? ['webgpu', 'wasm'] : ['wasm']);
@@ -30,7 +30,7 @@ export class Suaradee {
     let lastErr;
     for (const d of tries) {
       try {
-        const m = await StyleTextToSpeech2Model.from_pretrained(model, { dtype, device: d });
+        const m = await StyleTextToSpeech2Model.from_pretrained(model, { dtype, device: d, ...(sessionOptions ? { session_options: sessionOptions } : {}) });
         const inst = new Suaradee(m, rules, d);
         await inst.synth(inst.phonemize('Selamat pagi.')[0]);       // warm-up: surfaces unsupported operators now, not on first use
         return inst;

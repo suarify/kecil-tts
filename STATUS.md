@@ -134,3 +134,14 @@
 ## 2026-11-15 k14 v9: crash #2 (missing rows_clean dir), v10 running
 - v9 confirmed the cached teacher scan works (LOADED CACHED, 742 rows, ~30 min saved) and re-ran C0: median 7.6 / capped 11.7, codeswitch 18.6 median (v8 said 23.0). Whisper decoding is not perfectly deterministic across runs -> gate comparisons must keep a noise margin; we now have two baseline samples.
 - Crash: shutil.copy to {OUT}/rows_clean/ without os.makedirs. Fixed; v10 pushed RUNNING (full pipeline: C0 + clean retrain + curve + gates).
+
+## 2026-11-15 k14 v10 COMPLETE (1.04 h GPU): C2 keeps with caveats, C1 says data IS the lever
+- Kernel gate code had TWO bugs (results recomputed locally from test_scores.csv): per-category gate compared clean against clean (v02/clean columns identical -> 'no_cat_worse: false' is meaningless); C1 gain formula inverted (1 - c50/c100 instead of 1 - c100/c50), so 'c1_data_lever: false' is also wrong.
+- REAL C2 result (capped mean, 200 rows): v02 11.4% -> clean 9.7% (-15.3% relative), median 7.5% -> 6.2%; 92 rows better / 68 worse / 40 same. Per category: general 14.7 -> 10.0 (big win, n=70), numbers 8.3 -> 6.3, short 14.3 -> 10.4, question 3.0 -> 2.7, conversational 6.3 -> 7.1 (nominally worse; baseline noise band 6.3-7.3 across runs), codeswitch 23.0 -> 24.6 (noise band 18.6-27.8).
+- Honest note: conversational + codeswitch are within run-to-run Whisper noise, BUT per-row regressions exist (te00094 'Driver dah on the way ke Kota Kinabalu': v02 0.00 -> clean 0.26 'andi wayi'; te00063 numbers digit drift). Likely cause: the 120 dropped clips included useful code-switch/numbers clips.
+- C1 learning curve (decoder-only, held 60 median): 25% 12.8% -> 50% 9.1% -> 100% 6.2%. TRUE 50->100 gain = 32% >= 15% -> data IS the lever -> C4 (more generated clips, ~3.5 GPU-h/1000) is justified.
+- Brightness watch: over-4k energy 0.0398 (v02) -> 0.0313 (clean) - less harsh high-frequency energy, no smear regression.
+- Held 60 (clean model): median 5.3% / capped 10.5%.
+- C3.1 error list from the clean model's test rows (runs/c3_error_words_clean.tsv): remaining English errors (way, lunch, on, in, the, status, booking, confirmed) are ALREADY in lexicon_en -> text side is not the bottleneck anymore; audio/decoder side for English phrases is, which C4 targets. Malay-side artifacts are Whisper digit normalization (setengah->4.30) and teacher-accent words.
+- Artifacts in runs/k14_final: ms_clean_int8.onnx, dec_clean_last.pt, textA_clean_last.pt, report.json, test_scores.csv, rows_clean/shard_0000.pt. GPU week usage ~9.8 h of 30 (resets 2026-11-21).
+- PENDING OWNER DECISION: (a) accept clean model as v0.3 despite nominal conversational/codeswitch noise-band regressions, or (b) treat C4 (more data, retrain bigger) as the real v0.3. Strict plan gate 'no category worse' technically fails; overall gate passes.

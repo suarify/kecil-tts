@@ -157,14 +157,20 @@ print('C0 baseline v0.2:', json.dumps(baseline), flush=True)
 json.dump(baseline, open(f'{OUT}/baseline_v02.json', 'w'), indent=1)
 
 # ---------------- teacher clip quality (feeds C2 cleaning and C3 word lists) ----------------
-teach_rows = []
-for r in rows:
-    a = r['audio'].float().numpy() / 32767
-    h = hear(a)
-    c = cer(r['text'], h)
-    sec = len(a) / 24000
-    teach_rows.append(dict(id=r['id'], text=r['text'], cer=c, heard=h, seconds=round(sec, 2),
-                           rate=len(r['ps']) / sec))
+# cached scan from a previous version skips ~30 min of Whisper transcriptions
+_tcsv = glob.glob('/kaggle/input/**/teacher_clips.csv', recursive=True)
+if _tcsv:
+    teach_rows = pd.read_csv(_tcsv[0], dtype={'id': str}).to_dict('records')
+    print('teacher scan: LOADED CACHED', _tcsv[0], len(teach_rows), flush=True)
+else:
+    teach_rows = []
+    for r in rows:
+        a = r['audio'].float().numpy() / 32767
+        h = hear(a)
+        c = cer(r['text'], h)
+        sec = len(a) / 24000
+        teach_rows.append(dict(id=r['id'], text=r['text'], cer=c, heard=h, seconds=round(sec, 2),
+                               rate=len(r['ps']) / sec))
 pd.DataFrame(teach_rows).to_csv(f'{OUT}/teacher_clips.csv', index=False)
 cers_t = np.array([r['cer'] for r in teach_rows])
 rates = np.array([r['rate'] for r in teach_rows])
@@ -176,7 +182,7 @@ keep_ids = {teach_rows[i]['id'] for i in np.where(~drop)[0]}
 print(f'teacher clips: {int(drop_cer.sum())} above 15% CER, {int(drop_rate.sum())} rate outliers, '
       f'{int(drop.sum())} dropped of {len(rows)}', flush=True)
 
-clean_rows = [r for r in rows if r['id'] in keep_ids or rows.index(r) < HELD]
+clean_rows = [r for i, r in enumerate(rows) if r['id'] in keep_ids or i < HELD]
 n_held = len([r for r in clean_rows if r['id'] in {x['id'] for x in rows[:HELD]}])
 print('clean set:', len(clean_rows), 'rows (held kept:', n_held, ')', flush=True)
 os.makedirs(f'{W}/data/teacher_clean', exist_ok=True)

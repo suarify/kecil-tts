@@ -1,0 +1,21 @@
+{
+  "id": "seanlon/kmb-15-cbgen2",
+  "title": "kmb 15 cbgen2",
+  "code_file": "k15_cbgen2.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "dataset_sources": [
+    "seanlon/kokoro-malay-g2p",
+    "seanlon/kmb-rows-v02"
+  ],
+  "kernel_sources": [
+    "seanlon/kmb-01-baseline"
+  ],
+  "competition_sources": [],
+  "model_sources": [],
+  "machine_shape": "NvidiaTeslaT4"
+}

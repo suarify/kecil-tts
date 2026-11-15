@@ -1,0 +1,21 @@
+{
+  "id": "seanlon/kmb-16-train-c4",
+  "title": "kmb 16 train c4",
+  "code_file": "k16_train_c4.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "dataset_sources": [
+    "seanlon/kokoro-malay-g2p",
+    "seanlon/kmb-paradee-ms",
+    "seanlon/kmb-rows-v02",
+    "seanlon/kmb-15-clips"
+  ],
+  "kernel_sources": [],
+  "competition_sources": [],
+  "model_sources": [],
+  "machine_shape": "NvidiaTeslaT4"
+}

@@ -51,3 +51,36 @@ def test_speed(tts):
     slow = len(tts('Selamat pagi semua.', speed=0.8))
     fast = len(tts('Selamat pagi semua.', speed=1.25))
     assert slow > fast
+
+
+def test_stream_matches_call_structure(tts):
+    # The model has a random-noise head, so separate runs differ in samples; the invariant is the
+    # piece structure and the total length (and __call__ is stream() concatenated, by construction).
+    text = 'Selamat pagi, boleh saya bantu encik? Jumlah bayaran akaun anda ialah RM1,250.50, sila semak.'
+    pieces = tts.pieces(text)
+    ys = list(tts.stream(text))
+    assert len(ys) == 2 * len(pieces) - 1          # piece audio + gap between pieces
+    assert sum(a.shape[-1] for a in ys) == len(tts(text))
+    assert all(a.dtype == np.float32 for a in ys)
+
+
+def test_stream_first_piece_short(tts):
+    text = 'Selamat pagi encik, saya nak tanya pasal akaun simpanan bersama pihak bank ini, boleh atau tidak?'
+    first = next(iter(tts.stream(text)))
+    assert len(tts.pieces(text)[0]) <= 60          # at most first_max phonemes
+    assert len(first) / SAMPLE_RATE < 1.5          # the first sound comes early
+
+
+def test_stream_pieces_commafree_unchanged(tts):
+    text = 'Saya akan menghantar dokumen itu melalui emel esok pagi kepada pihak pentadbiran utama syarikat.'
+    assert tts.pieces(text) == tts.phonemize(text)   # no commas, so no new boundaries
+
+
+def test_stream_long_piece_cut_at_commas(tts):
+    ph = tts.phonemize('Selamat pagi, boleh saya bantu encik hari ini?')[0]
+    assert len(ph) <= 60 or tts.pieces('Selamat pagi, boleh saya bantu encik hari ini?') != [ph]
+
+
+def test_stream_empty(tts):
+    assert list(tts.stream('')) == []
+    assert len(tts('')) == 0

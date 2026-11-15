@@ -11,6 +11,8 @@ from .ms_norm import normalize
 SAMPLE_RATE = 24000
 REPO = 'lseanlon/suaradee-v0.2'
 MAX_PHONEMES = 400          # the student was trained on single sentences of at most 400 phonemes
+FIRST_MAX = 60              # streaming: the first piece is at most this many phonemes, so sound starts early
+LATER_MAX = 160             # streaming: every later piece is at most this many phonemes
 G2P_OPTIONS = dict(stress=False, r='r', diph='glide', final_a='a')   # must match how the training rows were made
 SENT_END = re.compile(r'(?<=[.!?…])\s+|\n+')
 
@@ -58,13 +60,51 @@ class Suaradee:
     def ids(self, phonemes):
         return np.array([self.g2p.tokens(phonemes)], dtype=np.int64)
 
-    def __call__(self, text, speed=1.0, pause=0.12):
-        pieces = self.phonemize(text)
-        if not pieces:
-            return np.zeros(0, dtype=np.float32)
+    @staticmethod
+    def _split_commas(phonemes, first_limit, later_limit):
+        """Cut a phoneme string at commas only: the first piece at most first_limit symbols, later pieces at
+        most later_limit. A piece with no comma inside its limit is kept whole, so piece boundaries of
+        comma-free texts never change."""
+        out = []
+        rest = phonemes.strip()
+        first = True
+        while True:
+            limit = first_limit if first else later_limit
+            if len(rest) <= limit:
+                out.append(rest)
+                return out
+            cut = rest.rfind(',', 0, limit + 1)
+            if cut < 0:
+                out.append(rest)
+                return out
+            out.append(rest[:cut].strip())
+            rest = rest[cut:].strip()
+            first = False
+            if not rest:
+                return out
+
+    def pieces(self, text, first_max=FIRST_MAX):
+        """Phoneme pieces for streaming: sentences as phonemize() makes them, with pieces that exceed the
+        streaming limit cut at commas."""
+        out = []
+        for ph in self.phonemize(text):
+            out.extend(self._split_commas(ph, first_max, LATER_MAX))
+        return out
+
+    def stream(self, text, speed=1.0, pause=0.12, first_max=FIRST_MAX):
+        """Yield one float32 array per piece (sample rate SAMPLE_RATE); a pause-length gap is yielded
+        between pieces. The consumer gets the first piece before the rest is synthesised."""
         gap = np.zeros(int(pause * SAMPLE_RATE), dtype=np.float32)
-        audio = []
-        for p in pieces:
+        emitted = False
+        for p in self.pieces(text, first_max=first_max):
+            if not any(c.isalpha() and c in VOCAB for c in p):      # punctuation alone is not speech
+                continue
             y = self.session.run(None, {'input_ids': self.ids(p), 'speed': np.array([speed], dtype=np.float32)})[0][0]
-            audio += [y.astype(np.float32), gap]
-        return np.concatenate(audio[:-1])
+            if emitted:
+                yield gap.copy()
+            yield y.astype(np.float32)
+            emitted = True
+
+    def __call__(self, text, speed=1.0, pause=0.12):
+        audio = list(self.stream(text, speed=speed, pause=pause))
+        return np.concatenate(audio) if audio else np.zeros(0, dtype=np.float32)

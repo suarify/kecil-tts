@@ -68,3 +68,18 @@
 - scripts/publish_hf.py retargets cards, examples, web demo and the wheel's default repo, then uploads with the stored token profile "Suarify Malaysia" (user Suarify).
 - Live: Suarify/suaradee-v0.1, Suarify/suaradee-v0.2 (models) and Suarify/suaradee-web (static Space, v0.1/v0.2 selector). Verified: v0.2 on WebGPU in a browser (3.25 s audio in 0.25 s); clean-venv Python install from Suarify/suaradee-v0.2 wheel defaults to Suarify/suaradee-v0.2 and runs at 21x real time.
 - The earlier lseanlon/ repos and Space were left in place (not deleted).
+
+## 2026-11-15 Why Paradee v1.1 is clear, and plan v6 (pitch accuracy)
+- Read the Paradee-8M-v1.1 card: head works at 80 frames/s from sine waves at the pitch plus shaped noise; 23.9 h of Kokoro-read audio; 40k spectral + 15k adversarial steps; its pitch input is exactly the one the teacher used.
+- scripts/f0_check.py (CPU, 24 clips each): 2-4 kHz harmonic contrast of the Chatterbox clips is 3.0 dB with the stored pYIN pitch but 7.4 dB with the pitch nudged to fit (38% of strong frames need more than 1%). Same error on Kokoro audio (4.8 vs 10.1 dB), so it is the pitch measurement. v0.2 output: 5.2 dB at best. The harmonic loss in the k12 log never fell (0.53-0.55).
+- continue.plan.v6.md: refine the stored pitch per frame, one gated run kmb-13 (0.55 GPU-h to the gate, 0.9 GPU-h in full), candidate for v0.3. Not started; needs the owner's yes.
+
+## 2026-11-15 Pitch fix NOT confirmed; zero-training noise-to-harmonic test instead (owner listening)
+- scripts/f0_refine_test.py: refining the pitch on 1-2.5 kHz does not raise the contrast on the unseen 2.5-4 kHz band (2.2 vs 2.3 dB); fitted on 1-4 kHz it gives 3.1 dB against a "best single-frame nudge" of 7.2 dB. Low-band and high-band nudges correlate only 0.5. So most of the gap reported by f0_check.py was selection bias (best of 61 nudges). Plan v6's kmb-13 run was NOT started; no GPU used.
+- scripts/tonal_knob.py (CPU, v0.2 PyTorch weights from the kmb-12 output, now in runs/k12/ckpt): in voiced frames above 1.5 kHz the v0.2 decoder puts about half of the energy (46-51%) in its noise part. Multiplying that noise gain by `keep` and raising the harmonic gain to hold the band energy gives flatness 2-6 kHz 0.693 (keep 1 = v0.2) -> 0.649 (0.5) -> 0.625 (0.25); Chatterbox clips are 0.62-0.635. Energy above 4 kHz 0.020 -> 0.023.
+- 20 unseen test sentences at keep 1 / 0.5 / 0.25: runs/listen/v03.html (built by scripts/listen_v03.py). Waiting for the owner's ears. If he picks a setting, bake it into export_paradee_v1_1.py (HeadX) and ship as v0.3; text side and wrong-word rate are unchanged by construction.
+
+## 2026-11-15 Owner verdict on the noise settings; plan v7
+- Owner listened to runs/listen/v03.html: the three settings (v0.2, half noise, quarter noise) "no different the quality". So the 2-6 kHz flatness measure is not what he hears as damp; do not gate on it again.
+- Decisions: v0.2 stays the release; its card gets more samples, a Kokoro comparison and streaming examples; test whether a no-training effect can fix the damp sound (he will listen); consolidated CER plan and a second voice (am_michael).
+- All of it is specified in continue.plan.v7.md (packages A effect, B card, C CER, D Michael) for another agent to execute. Nothing in it has been started. No GPU used today after kmb-12.

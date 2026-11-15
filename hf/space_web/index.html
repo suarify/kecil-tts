@@ -20,6 +20,7 @@ code{font-size:13px;word-break:break-all}audio{width:100%;margin-top:8px}
 <div class="row">
   <button id="go" class="primary" disabled>Loading model…</button>
   <label class="m">speed <input id="sp" type="range" min="0.7" max="1.3" step="0.05" value="1"></label>
+  <label class="m"><input id="st" type="checkbox" checked> stream</label>
   <label class="m">model <select id="ver"><option value="lseanlon/suaradee-v0.2">v0.2 (newer, more accurate)</option><option value="lseanlon/suaradee-v0.1">v0.1</option></select></label>
   <label class="m">device <select id="dev"><option value="auto">auto</option><option value="webgpu">WebGPU</option><option value="wasm">WASM (CPU)</option></select></label>
 </div>
@@ -54,7 +55,28 @@ function wav(audio, sr) {
 $('go').onclick = async () => {
   $('go').disabled = true; const t0 = performance.now();
   $('ph').textContent = tts.phonemize($('t').value).join(' | ');
-  const { audio, sampleRate } = await tts.speak($('t').value, { speed: +$('sp').value });
+  const speed = +$('sp').value;
+  if ($('st').checked) {
+    // Stream mode: pieces are scheduled gap-free on one AudioContext as they arrive.
+    const sr = 24000;
+    const ctx = new AudioContext({ sampleRate: sr });
+    await ctx.resume();
+    let next = ctx.currentTime + 0.06, firstT = null, samples = 0;
+    for await (const c of tts.stream($('t').value, { speed })) {
+      const buf = ctx.createBuffer(1, c.length, sr);
+      buf.copyToChannel(c, 0);
+      const src = ctx.createBufferSource(); src.buffer = buf; src.connect(ctx.destination);
+      const at = Math.max(next, ctx.currentTime);
+      src.start(at); next = at + c.length / sr;
+      if (firstT === null) firstT = (performance.now() - t0) / 1000;
+      samples += c.length;
+    }
+    const s = (performance.now() - t0) / 1000, sec = samples / sr;
+    $('info').textContent = `first audio after ${firstT.toFixed(2)} s; ${sec.toFixed(2)} s of audio in ${s.toFixed(2)} s on ${tts.device} (${(sec / s).toFixed(1)}x real time).`;
+    $('go').disabled = false;
+    return;
+  }
+  const { audio, sampleRate } = await tts.speak($('t').value, { speed });
   const s = (performance.now() - t0) / 1000, sec = audio.length / sampleRate;
   $('info').textContent = `${sec.toFixed(2)} s of audio in ${s.toFixed(2)} s on ${tts.device} (${(sec / s).toFixed(1)}x real time).`;
   $('au').src = URL.createObjectURL(wav(audio, sampleRate)); $('au').play(); $('go').disabled = false;

@@ -18,6 +18,6 @@ for s in SENT:
     ids = tts.ids(ph)[0].tolist()
     y = tts.session.run(None, {'input_ids': np.array([ids], dtype=np.int64), 'speed': np.ones(1, np.float32)})[0][0]
     env = [float(np.sqrt((y[i:i + 2400] ** 2).mean())) for i in range(0, len(y) - 2400, 2400)]
-    out.append(dict(text=s, ph=ph, ids=ids, samples=len(y), env=env))
+    out.append(dict(text=s, ph=ph, ids=ids, samples=len(y), env=env, pieces=tts.pieces(s)))
 json.dump(out, open(sys.argv[1], 'w'), ensure_ascii=False)
 print('wrote', sys.argv[1], len(out))

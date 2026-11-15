@@ -11,6 +11,8 @@ import { chunk, loadG2P } from './g2p/ms_g2p.js';
 
 export const SAMPLE_RATE = 24000;
 const MAX_PHONEMES = 400;                       // trained on single sentences of at most 400 phonemes
+export const FIRST_MAX = 60;                    // streaming: first piece at most this many phonemes, sound starts early
+export const LATER_MAX = 160;                   // streaming: every later piece at most this many phonemes
 export const G2P_OPTIONS = { stress: false, r: 'r', diph: 'glide' };   // must match how the training rows were made
 
 export function splitSentences(text) {
@@ -58,15 +60,49 @@ export class Suaradee {
     return out.waveform.data;
   }
 
-  async speak(text, { speed = 1.0, pause = 0.12 } = {}) {
+  // Cut a phoneme string at commas only: first piece at most firstLimit symbols, later pieces at most
+  // laterLimit. A piece with no comma inside its limit is kept whole, so comma-free texts never change.
+  static splitCommas(phonemes, firstLimit, laterLimit) {
+    const out = [];
+    let rest = phonemes.trim();
+    let first = true;
+    for (;;) {
+      const limit = first ? firstLimit : laterLimit;
+      if (rest.length <= limit) { out.push(rest); return out; }
+      const cut = rest.lastIndexOf(',', limit);
+      if (cut < 0) { out.push(rest); return out; }
+      out.push(rest.slice(0, cut).trim());
+      rest = rest.slice(cut + 1).trim();
+      first = false;
+      if (!rest) return out;
+    }
+  }
+
+  // Phoneme pieces for streaming: sentences as phonemize() makes them, with pieces that exceed the
+  // streaming limit cut at commas.
+  pieces(text, firstMax = FIRST_MAX) {
+    const out = [];
+    for (const ph of this.phonemize(text)) out.push(...Suaradee.splitCommas(ph, firstMax, LATER_MAX));
+    return out;
+  }
+
+  // Yields one Float32Array per piece at SAMPLE_RATE; a pause-length gap between pieces. The consumer
+  // gets the first piece before the rest is synthesised.
+  async *stream(text, { speed = 1.0, pause = 0.12, firstMax = FIRST_MAX } = {}) {
+    const gap = new Float32Array(Math.round(pause * SAMPLE_RATE));
+    let emitted = false;
+    for (const p of this.pieces(text, firstMax)) {
+      if (!/\p{L}/u.test(p)) continue;          // punctuation alone is not speech
+      if (emitted) yield gap.slice();
+      yield await this.synth(p, speed);
+      emitted = true;
+    }
+  }
+
+  async speak(text, opts = {}) {
     const parts = [];
     let total = 0;
-    const gap = new Float32Array(Math.round(pause * SAMPLE_RATE));
-    for (const p of this.phonemize(text)) {
-      const y = await this.synth(p, speed);
-      if (parts.length) { parts.push(gap); total += gap.length; }
-      parts.push(y); total += y.length;
-    }
+    for await (const y of this.stream(text, opts)) { parts.push(y); total += y.length; }
     const audio = new Float32Array(total);
     let o = 0;
     for (const p of parts) { audio.set(p, o); o += p.length; }

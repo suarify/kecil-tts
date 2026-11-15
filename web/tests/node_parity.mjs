@@ -18,6 +18,7 @@ for (const r of ref) {
   const ph = tts.phonemize(r.text)[0];
   const ids = tts.ids(ph);
   const sameIds = JSON.stringify(ids) === JSON.stringify(r.ids);
+  const samePieces = r.pieces ? JSON.stringify(tts.pieces(r.text)) === JSON.stringify(r.pieces) : true;
   const y = await tts.synth(ph);
   const env = [];
   for (let i = 0; i + 2400 < y.length; i += 2400) { let s = 0; for (let k = 0; k < 2400; k++) s += y[i + k] ** 2; env.push(Math.sqrt(s / 2400)); }
@@ -28,9 +29,18 @@ for (const r of ref) {
   for (let i = 0; i < n; i++) { sab += (a[i] - ma) * (b[i] - mb); saa += (a[i] - ma) ** 2; sbb += (b[i] - mb) ** 2; }
   const corr = sab / Math.sqrt(saa * sbb);
   const lenOk = Math.abs(y.length - r.samples) <= 0.02 * r.samples;
-  const ok = sameIds && lenOk && corr >= 0.95;
+  const ok = sameIds && samePieces && lenOk && corr >= 0.95;
   if (!ok) bad++;
-  console.log(`${ok ? 'ok ' : 'BAD'} ids ${sameIds ? 'same' : 'DIFFER'} | samples ${y.length} vs ${r.samples} | envelope corr ${corr.toFixed(3)} | ${r.text.slice(0, 40)}`);
+  console.log(`${ok ? 'ok ' : 'BAD'} ids ${sameIds ? 'same' : 'DIFFER'} | pieces ${samePieces ? 'same' : 'DIFFER'} | samples ${y.length} vs ${r.samples} | envelope corr ${corr.toFixed(3)} | ${r.text.slice(0, 40)}`);
+}
+{
+  const t = ref[3].text;
+  let joined = 0;
+  for await (const y of tts.stream(t)) joined += y.length;
+  const { audio } = await tts.speak(t);
+  const ok = joined === audio.length;
+  if (!ok) bad++;
+  console.log(`${ok ? 'ok ' : 'BAD'} stream joins to speak(): ${joined} vs ${audio.length} samples`);
 }
 const { audio } = await tts.speak(ref[3].text);
 console.log(`speak(): ${(audio.length / SAMPLE_RATE).toFixed(2)} s`);

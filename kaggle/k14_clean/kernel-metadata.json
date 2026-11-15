@@ -1,0 +1,20 @@
+{
+  "id": "seanlon/kmb-14-clean",
+  "title": "kmb 14 clean",
+  "code_file": "k14_clean.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "dataset_sources": [
+    "seanlon/kokoro-malay-g2p",
+    "seanlon/kmb-paradee-ms",
+    "seanlon/kmb-rows-v02"
+  ],
+  "kernel_sources": [],
+  "competition_sources": [],
+  "model_sources": [],
+  "machine_shape": "NvidiaTeslaT4"
+}

@@ -197,3 +197,10 @@
 - Dataset seanlon/kmb-15-clips: cb_clips2.pt (767 clips, 68.6 min, 198 MB), chosen.csv, gen_plan.csv, ms_clean_int8.onnx (k14 comparison baseline).
 - k16_train_c4 v2 RUNNING: builds rows for the 767 new clips (ms_rows --letters), merges with the C2-cleaned old rows (held 60 first), trains decoder 12,000 steps + text 10,000 steps (--score dur_asr), applies webgpu_patch after export, then scores v0.2 + k14-clean + v0.4 on the same 200 test + 60 held rows, and evaluates the C4 gate (general and codeswitch median CER >= 25% better than v0.2).
 - k16 v1 crash: slug-based input globs ('/kaggle/input/kokoro-malay-g2p/**') did not match Kaggle's mount; reverted to unique-filename globs, which worked in every earlier kernel.
+
+## 2026-11-16 k16 v2: training finished, export crashed; v3 running
+- Merged set built: 1,281 rows = held 60 + 567 cleaned old + 654 new (from 767 chosen; 86 single-seed clips above 15% CER filtered, 19 alignment failures in ms_rows).
+- Decoder: 12,000 steps, 17.2 min, held spec loss 4.46 -> 2.39. Text: early stop, best step 4000 of 8,000 trained, 15.3 min, dur_mae 0.744 frames, length_ratio 0.927.
+- Crash: export_paradee_v1_1.py wants data/teacher/shard_*.pt for a held-out sanity check; k16 trained from data/merged, so the glob was empty (IndexError). Fix: copy the merged shard to data/teacher/shard_0000.pt before export, and copy dec/text checkpoints to /kaggle/working BEFORE the export so a later failure cannot lose training.
+- k16 v3 pushed RUNNING (rows ~11 min + decoder ~17 + text ~15 + export/patch + 780 Whisper scores).
+- Naming note from owner: project is being renamed to kecil-tts / kokoro (other agent running a Michael voice and rebuilding the Space). HF still has Suarify/suaradee-* and Suarify/suaradee-web with a two-speaker UI (Suaradee + Michael). publish_hf.py MUST NOT be run as-is: it would overwrite the other agent's Space. Plan: publish only the model repo Suarify/suaradee-v0.4 and hand over the one-line version option.

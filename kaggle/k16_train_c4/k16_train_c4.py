@@ -122,6 +122,13 @@ sh(f'{PY} scripts/ms_train.py dec --init init/dec_row0.pt --data data/merged --h
    f'--steps 12000 --bs 16 --max-minutes 32 --out ckpt/dec', 'train_decoder', W)
 sh(f'{PY} scripts/ms_train.py text --init init/text_row0.pt --data data/merged --held {HELD} '
    f'--steps 10000 --bs 16 --eval-every 500 --score dur_asr --max-minutes 32 --out ckpt/textA', 'train_text', W)
+# the exporter peeks at data/teacher/shard_*.pt for a held-out sanity check: point it at the merged shard
+os.makedirs(f'{W}/data/teacher', exist_ok=True)
+shutil.copy(f'{W}/data/merged/shard_0000.pt', f'{W}/data/teacher/shard_0000.pt')
+os.makedirs(f'{OUT}/rows_merged', exist_ok=True)
+shutil.copy(f'{W}/ckpt/dec/last.pt', f'{OUT}/dec_c4_last.pt')
+shutil.copy(f'{W}/ckpt/textA/last.pt', f'{OUT}/textA_c4_last.pt')
+shutil.copy(f'{W}/data/merged/shard_0000.pt', f'{OUT}/rows_merged/shard_0000.pt')
 sh(f'{PY} scripts/export_paradee_v1_1.py ckpt/dec/last.pt --text ckpt/textA/last.pt --out models/C4', 'export_C4', W)
 # WebGPU has no float64: patch the export before shipping (same as v0.1/v0.2, see scripts/webgpu_patch.py)
 sh(f'{PY} scripts/webgpu_patch.py {W}/models/C4/paradee_int8.onnx {W}/models/C4/paradee_int8_webgpu.onnx', 'webgpu_patch', W)

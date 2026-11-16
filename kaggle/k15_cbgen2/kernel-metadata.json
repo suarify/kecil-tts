@@ -10,7 +10,8 @@
   "enable_internet": true,
   "dataset_sources": [
     "seanlon/kokoro-malay-g2p",
-    "seanlon/kmb-rows-v02"
+    "seanlon/kmb-rows-v02",
+    "seanlon/kmb-15-raw"
   ],
   "kernel_sources": [
     "seanlon/kmb-01-baseline"

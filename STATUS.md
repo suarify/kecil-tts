@@ -179,3 +179,9 @@
 - Fix in web/suaradee.js load(): probe navigator.gpu.requestAdapter() before choosing WebGPU, and when the page is not cross-origin isolated set env.backends.onnx.wasm.numThreads = 1 (single-thread WASM needs no SAB).
 - Verified in the embedded HF page (fresh load): 'Model ready on webgpu in 9.1 s', Speak -> first audio 1.95 s, 3.15 s audio on webgpu, no errors. Node parity still PASS.
 - Uploaded to the Space and to Suarify/suaradee-v0.3 js/suaradee.js.
+
+## 2026-11-16 k15 v2 killed mid-run; v3 = batched, resume-first
+- v2 result: part 0 finished all 559 of its clips; part 1's process DIED (no traceback, no OOM text in the log) after ~100 min, so the kernel aborted at 559/1,118. The downloaded log still shows v1's pipeline traceback with 'libavutil.so.60: cannot open shared object file' - confirms no FFmpeg for torchcodec.
+- No traceback + death after ~550 clips points to the process being killed (memory growth), not an exception.
+- v3 (written, compiles): existing wavs are seeded from dataset seanlon/kmb-15-raw and never regenerated; workers now run in BATCHES of 200 sentences with a fresh process (and model) per batch, so a leak cannot accumulate and one dead worker no longer aborts the run; per-clip SIGALRM timeout; scores written every 100; VC checkpoints every 50.
+- Downloaded raw2 wavs from the v2 run are being packaged as seanlon/kmb-15-raw so v3 only generates the missing clips.

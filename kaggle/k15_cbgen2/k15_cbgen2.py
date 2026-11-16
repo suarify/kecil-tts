@@ -1,18 +1,14 @@
-# kokoro-malay-bella / continue.plan.v7.md C4: more training speech (kmb-15-cbgen2, v2).
-# 1. Sentences: the 398 rows of cb_1100.tsv that kmb-08 never generated, then 400 new rows from
-#    corpus_train.tsv weighted to the weak categories: general 200, code-switch 120 (ranked by how many
-#    lexicon_en English words the sentence carries, template-deduped), numbers 80.
-# 2. Generation: Chatterbox Multilingual (same settings as kmb-08) -> raw wavs written straight into
-#    /kaggle/working/raw2 so a later crash never loses audio. One seed for leftovers/numbers, TWO seeds
-#    (1234, 5678) for new general + code-switch sentences.
-# 3. Whisper large-v3 scores every variant with a DIRECT model call: the ASR pipeline breaks here because
-#    chatterbox-tts upgrades transformers and the pipeline dict input then wants torchcodec/FFmpeg
-#    (v1 died there after generating all 1,118 clips). Better seed wins; two-seed sentences are dropped
-#    when BOTH variants exceed 15% CER.
-# 4. Voice conversion toward Bella -> cb_clips2.pt (chunks every 100 clips), cb_raw2.pt (chosen raws,
-#    for the package D second voice), chosen.csv, dropped.csv, gen_report.json.
-# 5. Splits sentences across two workers when two GPUs are visible (v1 measured 1,118 clips in 102 min
-#    on 2 T4s); workers skip wavs already on disk (resume).
+# kokoro-malay-bella / continue.plan.v7.md C4: more training speech (kmb-15-cbgen2, v3).
+# v1: generated everything, died in scoring (ASR pipeline -> torchcodec, no FFmpeg), /tmp audio lost.
+# v2: saved wavs under /kaggle/working/raw2, but worker 1 was killed mid-run and the kernel aborted
+#     (559/1,118 clips). No traceback -> the process died rather than raised (memory growth).
+# v3 is resume-first:
+#   * existing wavs come in from dataset seanlon/kmb-15-raw and are never regenerated;
+#   * workers run in BATCHES (one model load per batch) so a leak cannot accumulate; a dead worker
+#     does not abort the kernel - whatever reached disk is used and gaps are reported;
+#   * per-clip SIGALRM timeout; scores written incrementally; conversion checkpoints every 50;
+#   * scoring uses a direct Whisper call (no ASR pipeline: it needs torchcodec + FFmpeg here).
+# Pipeline: plan -> batched 2-GPU generation -> Whisper score -> best seed -> VC -> cb_clips2.pt
 import glob
 import json
 import os
@@ -25,15 +21,16 @@ T0 = time.time()
 OUT = '/kaggle/working'
 RAW = f'{OUT}/raw2'
 os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'expandable_segments:True'
-GEN_CAP_MIN = float(os.environ.get('GEN_CAP_MIN', 390))
+GEN_CAP_MIN = float(os.environ.get('GEN_CAP_MIN', 360))
 VC_CAP_MIN = float(os.environ.get('VC_CAP_MIN', 90))
+CHUNK = int(os.environ.get('CHUNK', 200))
 
 
 def sh(cmd, tag):
     print(f'== {tag}: {cmd}', flush=True)
     p = subprocess.run(cmd, shell=True, capture_output=True, text=True)
     open(f'{OUT}/log_{tag}.txt', 'w').write(p.stdout + '\n---\n' + p.stderr)
-    print((p.stdout + p.stderr)[-1200:], flush=True)
+    print((p.stdout + p.stderr)[-800:], flush=True)
     if p.returncode != 0:
         raise RuntimeError(f'{tag} failed rc={p.returncode}')
 
@@ -41,6 +38,8 @@ def sh(cmd, tag):
 os.makedirs(RAW, exist_ok=True)
 sh('pip install -q chatterbox-tts', 'pip_cb')
 sh('pip uninstall -y -q torchvision || true', 'pip_tv')
+
+import shutil  # noqa: E402
 
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
@@ -53,6 +52,12 @@ REF_MS = glob.glob('/kaggle/input/**/refs/ref_ms.wav', recursive=True)[0]
 REF_EN = glob.glob('/kaggle/input/**/refs/ref_en.wav', recursive=True)[0]
 LEX = json.load(open(glob.glob('/kaggle/input/**/lexicon_en.json', recursive=True)[0], encoding='utf-8'))
 json.dump(dict(ref_ms=REF_MS, ref_en=REF_EN, sr=24000), open(f'{OUT}/refs.json', 'w'))
+
+for w in glob.glob('/kaggle/input/**/raw2/*.wav', recursive=True):
+    dst = os.path.join(RAW, os.path.basename(w))
+    if not os.path.exists(dst):
+        shutil.copy(w, dst)
+print('raw wavs seeded from inputs:', len(glob.glob(f'{RAW}/*.wav')), flush=True)
 
 gpus = [l for l in subprocess.run('nvidia-smi --query-gpu=index --format=csv,noheader',
                                   shell=True, capture_output=True, text=True).stdout.splitlines() if l.strip()]
@@ -94,63 +99,90 @@ gen_rows.append(stride(nb, 80).assign(source='new', seeds='1234'))
 plan = pd.concat([left[['id', 'category', 'text', 'teacher', 'source', 'seeds']]] + gen_rows, ignore_index=True)[
     ['id', 'category', 'text', 'teacher', 'source', 'seeds']]
 plan.to_csv(f'{OUT}/gen_plan.csv', index=False)
-print('plan:', len(plan), 'sentences |', plan.category.value_counts().to_dict(),
-      '| generations:', sum(len(str(s).split(';')) for s in plan.seeds), flush=True)
+plan_by_id = {r['id']: r for r in plan.to_dict('records')}
 
-# ---------------- workers (one GPU each) ----------------
+
+def wants(i):
+    r = plan.iloc[i]
+    return [f'{RAW}/{r.id}#{s}.wav' for s in str(r.seeds).split(';')]
+
+
+todo = [i for i in range(len(plan)) if any(not os.path.exists(p) for p in wants(i))]
+print('plan:', len(plan), 'sentences | generations wanted:', sum(len(str(s).split(';')) for s in plan.seeds),
+      '| sentences still needing clips:', len(todo), flush=True)
+
+# ---------------- batched workers (one GPU each, fresh process per batch) ----------------
 open(f'{OUT}/gen_worker.py', 'w').write('''
-import json, os, sys, time
+import json, os, signal, sys, time
 import pandas as pd
 import torch
 OUT = '/kaggle/working'
 RAW = f'{OUT}/raw2'
-part, nparts = int(sys.argv[1]), int(sys.argv[2])
-plan = pd.read_csv(f'{OUT}/gen_plan.csv', dtype=str, keep_default_na=False).to_dict('records')
-mine = plan[part::nparts]
+worker, nworkers, batch_file = int(sys.argv[1]), int(sys.argv[2]), sys.argv[3]
+idx = json.load(open(batch_file))[worker::nworkers]
+plan = pd.read_csv(f'{OUT}/gen_plan.csv', dtype=str, keep_default_na=False)
 refs = json.load(open(f'{OUT}/refs.json'))
 os.environ.setdefault('PYTORCH_CUDA_ALLOC_CONF', 'expandable_segments:True')
 import soundfile as sf
 from chatterbox.mtl_tts import ChatterboxMultilingualTTS
 tts = ChatterboxMultilingualTTS.from_pretrained(device='cuda')
-os.makedirs(RAW, exist_ok=True)
+
+def _alarm(signum, frame):
+    raise TimeoutError('clip timeout')
+
+signal.signal(signal.SIGALRM, _alarm)
 t0 = time.time()
-n = skip = 0
-for k, r in enumerate(mine):
-    if (time.time() - t0) / 60 > float(os.environ.get('GEN_CAP_MIN', 390)):
-        print('GEN CAP at', k, flush=True)
-        break
-    for seed in str(r['seeds']).split(';'):
-        key = r['id'] + '#' + seed
-        path = f'{RAW}/{key}.wav'
+n = skip = fail = 0
+for i in idx:
+    r = plan.iloc[i]
+    for seed in str(r.seeds).split(';'):
+        path = f'{RAW}/{r.id}#{seed}.wav'
         if os.path.exists(path):
             skip += 1
             continue
         torch.manual_seed(int(seed))
         try:
-            wav = tts.generate(r['teacher'], language_id='ms', audio_prompt_path=refs['ref_ms'],
+            signal.alarm(int(os.environ.get('CLIP_TIMEOUT', 120)))
+            wav = tts.generate(r.teacher, language_id='ms', audio_prompt_path=refs['ref_ms'],
                                exaggeration=0.5, cfg_weight=0.3, temperature=0.8)
+            signal.alarm(0)
         except Exception as e:
-            print('FAIL', key, repr(e)[:140], flush=True)
+            signal.alarm(0)
+            fail += 1
+            print('FAIL', r.id, seed, type(e).__name__, repr(e)[:100], flush=True)
             continue
         a = wav.squeeze(0).float().cpu().numpy()
         sf.write(path, a, tts.sr)
         n += 1
         if n % 50 == 0:
-            print(f'gen part {part}: {n} new clips | {(time.time() - t0) / 60:.1f} min', flush=True)
-print('part', part, 'done: generated', n, 'skipped existing', skip, flush=True)
+            print(f'worker {worker}: {n} new | {(time.time() - t0) / 60:.1f} min', flush=True)
+print(f'worker {worker} done: new {n} skipped {skip} failed {fail}', flush=True)
 ''')
 
 nproc = max(1, min(len(gpus), 2))
-procs = [subprocess.Popen([sys.executable, f'{OUT}/gen_worker.py', str(i), str(nproc)],
-                          env=dict(os.environ, CUDA_VISIBLE_DEVICES=str(i))) for i in range(nproc)]
-for p in procs:
-    p.wait()
-if any(p.returncode != 0 for p in procs):
-    raise RuntimeError('a generator worker failed')
+codes = []
+batches = [todo[j:j + CHUNK] for j in range(0, len(todo), CHUNK)]
+for b, batch in enumerate(batches):
+    if (time.time() - T0) / 60 > GEN_CAP_MIN:
+        print('GEN CAP reached before batch', b, flush=True)
+        break
+    bf = f'{OUT}/batch_{b}.json'
+    json.dump(batch, open(bf, 'w'))
+    procs = [subprocess.Popen([sys.executable, f'{OUT}/gen_worker.py', str(i), str(nproc), bf],
+                              env=dict(os.environ, CUDA_VISIBLE_DEVICES=str(i))) for i in range(nproc)]
+    for p in procs:
+        p.wait()
+    codes += [p.returncode for p in procs]
+    print(f'batch {b + 1}/{len(batches)} done | codes {codes[-nproc:]} | wavs {len(glob.glob(f"{RAW}/*.wav"))}',
+          flush=True)
+print('worker return codes:', codes, flush=True)
 
 wavs = sorted(glob.glob(f'{RAW}/*.wav'))
-print('raw wavs on disk:', len(wavs), flush=True)
+want = sum(len(str(s).split(';')) for s in plan.seeds)
+print('raw wavs on disk:', len(wavs), 'of', want, flush=True)
 json.dump({os.path.basename(w)[:-4]: sf.info(w).duration for w in wavs}, open(f'{OUT}/raw_seconds.json', 'w'))
+if len(wavs) < 200:
+    raise RuntimeError(f'only {len(wavs)} clips, not enough to train; re-run to fill gaps')
 
 # ---------------- Whisper large-v3, direct call ----------------
 import torchaudio  # noqa: E402
@@ -190,18 +222,21 @@ def lev(a, b):
 
 cer = lambda ref, hyp: min(1.0, lev(clean(ref), clean(hyp)) / max(1, len(clean(ref))))
 
-plan_by_id = {r['id']: r for r in plan.to_dict('records')}
 scores = []
 for k, w in enumerate(wavs):
     key = os.path.basename(w)[:-4]
     iid, seed = key.split('#')
+    if iid not in plan_by_id:
+        continue
     a, sr = sf.read(w, dtype='float32')
     a16 = torchaudio.functional.resample(torch.from_numpy(a), sr, 16000).numpy()[:16000 * 29]
     heard = transcribe(a16)
     scores.append(dict(key=key, id=iid, seed=int(seed), category=plan_by_id[iid]['category'],
                        seconds=len(a) / sr, cer=cer(plan_by_id[iid]['text'], heard), heard=heard))
     if k % 100 == 0:
+        pd.DataFrame(scores).to_csv(f'{OUT}/scores_all.csv', index=False)
         print('score', k, '/', len(wavs), flush=True)
+pd.DataFrame(scores).to_csv(f'{OUT}/scores_all.csv', index=False)
 del wm
 torch.cuda.empty_cache()
 
@@ -217,7 +252,6 @@ for i, ss in by_id.items():
     chosen.append(best)
 print('chosen', len(chosen), 'dropped (both seeds >15% CER)', len(dropped), flush=True)
 
-# chosen raw audio (package D second voice) + all raws as a safety net
 raw_all = {}
 for w in wavs:
     a, sr = sf.read(w, dtype='float32')
@@ -243,7 +277,7 @@ for k, c in enumerate(chosen):
         continue
     a = w.squeeze(0).float().cpu().numpy()
     clips[c['id']] = torch.from_numpy((np.clip(a, -1, 1) * 32767).astype(np.int16))
-    if k % 100 == 99:
+    if k % 50 == 49:
         torch.save(clips, f'{OUT}/cb_clips2.pt')
         print(f'vc {k + 1}/{len(chosen)} | {(time.time() - t_vc) / 60:.1f} min', flush=True)
 torch.save(clips, f'{OUT}/cb_clips2.pt')
@@ -252,11 +286,11 @@ pd.DataFrame([dict(id=c['id'], category=c['category'], seeds=plan_by_id[c['id']]
                    cer=round(c['cer'], 3), winner_seed=c['seed'], heard=c['heard'])
               for c in chosen]).to_csv(f'{OUT}/chosen.csv', index=False)
 pd.DataFrame(dropped).to_csv(f'{OUT}/dropped.csv', index=False)
-pd.DataFrame(scores).to_csv(f'{OUT}/scores_all.csv', index=False)
 
 cat = pd.DataFrame(chosen)
-report = dict(sentences=len(plan), wavs=len(wavs), chosen=len(chosen), converted=len(clips),
-              dropped_15=len(dropped), gpus=len(gpus), workers=nproc,
+report = dict(sentences=len(plan), wavs=len(wavs), wanted=want, chosen=len(chosen),
+              converted=len(clips), dropped_15=len(dropped), gpus=len(gpus), workers=nproc,
+              worker_codes=codes,
               per_category=cat.groupby('category').agg(n=('id', 'size'), median_cer=('cer', 'median'),
                                                        mean_cer=('cer', 'mean')).round(3).to_dict('index'),
               audio_min=round(sum(s['seconds'] for s in scores) / 60, 1),

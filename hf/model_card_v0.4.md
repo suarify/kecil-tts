@@ -22,6 +22,8 @@ A **Malay text-to-speech model that is 8.5 MB**. One ONNX file, one voice, runs 
 
 **v0.4 is trained on roughly twice the speech of [v0.3](https://huggingface.co/lseanlon/suaradee-v0.3)** (1,281 aligned sentences, about 118 minutes, instead of 634 / 49 minutes). General text improves by another 8% relative, the overall error is the lowest of any version, and the held-out score is the best so far. **The muffled sound is unchanged** (see Limitations).
 
+**Voice: Yati** (female, the default voice in the Kecil-TTS demo). The same architecture also drives the male voice, [Michael](https://huggingface.co/lseanlon/suaradee-michael-v0.2).
+
 - **Demo in the browser (nothing leaves your device):** [Suaradee web Space](https://huggingface.co/spaces/lseanlon/suaradee-web) (pick v0.4 in the version box)
 - **Gradio demo:** `examples/gradio_app.py` (`pip install gradio`, then `python examples/gradio_app.py`)
 

@@ -213,3 +213,13 @@
 - k16 now inlines the patch (no external script) for future retrains.
 - Scoring moved to kmb-18-score-c4 (dataset seanlon/kmb-c4-onnx): v0.2 + k14-clean + C4 scored on the same 200 test + 60 held rows, gate computed from v0.2 medians.
 - Minor: Windows PowerShell wrote dataset/kernel metadata with a UTF-8 BOM, which the Kaggle CLI rejects ('Expecting value: line 1 column 1'); stripped the BOM before creating seanlon/kmb-c4-onnx.
+
+## 2026-11-16 C4 RESULT (kmb-18, all three models scored in ONE session on the same rows)
+- Overall (200 test rows, median / capped mean): v0.2 7.5/10.8 | v0.3 clean 5.9/10.5 | C4 5.5/9.5.
+- Held-out 60: v0.2 4.9/8.9 | v0.3 5.6/10.3 | C4 4.8/8.5  (C4 best).
+- Per category median (v0.2 / v0.3 / C4): general 9.9 / 6.4 / 5.9 | codeswitch 18.4 / 19.2 / 17.9 | conversational 5.2 / 4.9 / 4.3 | numbers 5.0 / 0.0 / 2.2 | question 1.7 / 0.0 / 0.0 | short 13.5 / 0.0 / 4.0.
+- GATE (pre-registered): general >= 25% relative better than v0.2 -> 40.4% PASS. codeswitch -> 2.7% FAIL. Overall better -> PASS. So the C4 gate is NOT met.
+- Per-row vs v0.3: 103 better / 95 worse / 62 same; vs v0.2: 115 better / 85 worse / 60 same. Big swings on individual sentences (e.g. te00093 0.00->0.44, te00092 1.00->0.14) show recogniser+model sentence-level variance dominates small-n categories.
+- Interpretation: doubling the speech data gave a real but modest overall gain (capped mean -1.0 point vs v0.3, held-out -0.8) and cleared the general-text gate, but did NOT move code-switch (2.7% vs the 25% required). Code-switch is therefore not a data-volume problem; it is the English text/pronunciation side (C3) plus decoder rendering of English phonemes.
+- Artifacts: runs/k16_final/ms_c4_int8.onnx (v0.4 candidate, webgpu-patched, verified), runs/k18_final/c4_report.json + test_scores_c4.csv.
+- PENDING OWNER: publish v0.4 as a model repo (best overall + best held-out, but two small categories worse than v0.3 and the code-switch gate failed), or hold v0.3 and attack code-switch first (C3 lexicon + text side -> v0.5).

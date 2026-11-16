@@ -230,3 +230,12 @@
 - Loudness/brightness measured properly this time (24 sentences): v0.3 rms 0.0546 / 4 kHz share 0.0129; v0.4 rms 0.0456 / 0.0125. My earlier 'v0.4 is louder' line came from one sentence and was wrong; the card states the measured values.
 - publish_hf.py gained --only and --skip-space so a model repo can be shipped without touching the Space (the Space is now Kecil-TTS 8M, rebuilt by another agent with a speaker picker + effects).
 - Space still lists v0.3/v0.2/v0.1; its version list is JS data (suaradee: {versions: [...]}) and ?model= is ignored, so v0.4 needs one edit by the Space owner (handed over).
+
+## 2026-11-16 Space redesign (owner request): EN/BM switch, dark mode, keywords, edge/IoT, Yati, v0.4
+- Edited the live Kecil-TTS Space surgically (did not overwrite the other agent's effects lab / speaker picker): runs/space_live/index.html is the deployed copy, mirrored into hf/space_web/.
+- EN/BM language switch (data-i18n dictionary, localStorage + ?lang=), dark mode (data-theme + CSS vars, localStorage + ?theme=), both in the header.
+- Keyword cloud section + expanded meta keywords/schema (kecil tts, kokoro tts, smallest TTS, Malay TTS, edge/IoT/kiosk/vending voice, Yati...).
+- New '3 - Runs anywhere: edge, IoT, kiosk, vending machine' card with two hand-drawn SVG scenes (kiosk with speech bubble 'Selamat datang', vending machine with 'Terima kasih') plus four honest capability bullets (10 MB, one CPU thread, Bahasa Melayu, same ONNX everywhere).
+- Female -> Yati in the speaker picker; version list now offers v0.4 (latest) and defaults to it; footer links say 'Yati v0.4'; download filenames yati.wav / yati_effects.wav; module file also available as kecil.js (suaradee.js kept for compatibility), window.__kecil alias.
+- Verified in the browser: loads v0.4 on WebGPU in 2.9 s, first audio 0.55 s (7.9x real time later), no console errors; BM and dark mode both render; fixed a dark-mode contrast bug where card headings and the Michael label used --navy (invisible on dark).
+- Not done yet (needs owner): renaming the HF model repos (Suarify/suaradee-* -> Yati/kecil naming) and pushing source to github.com/suarify/kecil-tts (no suarify.my SSH profile available here).

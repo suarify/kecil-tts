@@ -1,89 +1,437 @@
 <!doctype html>
-<html lang="ms"><head><meta charset="utf-8"><title>Suaradee — Malay TTS in your browser</title>
+<html lang="ms"><head><meta charset="utf-8"><title>Kecil-TTS-8M by Suarify: lightweight Malay (Bahasa Melayu) text-to-speech, 8 MB, in your browser</title>
+<meta name="description" content="Kecil-TTS-8M is a lightweight, Kokoro-style Malaysian Malay (Bahasa Melayu) text-to-speech model: 7.9M parameters, under 10 MB, free and open source (Apache-2.0). Runs in your browser with WebGPU or on one CPU thread. Female and male voices.">
+<meta name="keywords" content="kecil tts, kokoro tts, smallest TTS, 8 MB Malay TTS, Malay TTS, Bahasa Melayu text to speech, Malaysian voice, Yati voice, AI voice Malaysia, edge TTS, IoT TTS, offline TTS, on-device TTS, kiosk voice, vending machine voice, call centre TTS, Raspberry Pi TTS, WebGPU, transformers.js, ONNX int8, Kokoro-82M, Paradee-8M, open source TTS, Suarify">
+<meta property="og:title" content="Kecil-TTS-8M: lightweight Malay text-to-speech (under 10 MB)"><meta property="og:description" content="Kokoro-style Malaysian Malay TTS in 8.5 MB. Runs in your browser. By Suarify (suarify.my).">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Kecil-TTS-8M","applicationCategory":"MultimediaApplication","operatingSystem":"Any (web browser)","description":"Lightweight Kokoro-style Malaysian Malay (Bahasa Melayu) text-to-speech model, 7.9M parameters, 8.5 MB.","license":"https://www.apache.org/licenses/LICENSE-2.0","author":{"@type":"Organization","name":"Suarify","url":"https://suarify.my"},"offers":{"@type":"Offer","price":"0","priceCurrency":"MYR"}}</script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
 <script type="importmap">{"imports":{"@huggingface/transformers":"https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1"}}</script>
 <style>
-:root{--bg:#fafaf8;--fg:#1d1d1b;--mut:#6b6b66;--line:#e2e1dc;--acc:#2f6f5e}
-@media (prefers-color-scheme:dark){:root{--bg:#161615;--fg:#ecebe6;--mut:#9a9993;--line:#2c2c2a;--acc:#6fbfa6}}
-body{background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,sans-serif;max-width:720px;margin:0 auto;padding:24px 16px}
-h1{font-size:24px;margin:0 0 4px}.m{color:var(--mut);font-size:14px}
-textarea{width:100%;box-sizing:border-box;font:inherit;padding:10px;background:transparent;color:inherit;border:1px solid var(--line);border-radius:8px}
-button,select{font:inherit;padding:6px 14px;border:1px solid var(--line);background:transparent;color:inherit;border-radius:8px;cursor:pointer}
-button.primary{border-color:var(--acc);color:var(--acc)}button:disabled{opacity:.5;cursor:default}
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0}.chips button{font-size:13px;padding:3px 10px}
-code{font-size:13px;word-break:break-all}audio{width:100%;margin-top:8px}
+:root{--navy:#0a2342;--navy2:#123a63;--teal:#1f9a9a;--teal-d:#167878;--tint:#e8f5f5;--ink:#0d1b2a;--mut:#5b6b7b;--line:#dbe6ec;--bg:#f4f8fa;--card:#fff}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif}
+header{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:22px 16px 56px}
+.wrap{max-width:860px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:14px}
+.badge{width:60px;height:60px;border-radius:50%;background:#fff;display:grid;place-items:center;flex:none;box-shadow:0 4px 16px rgba(0,0,0,.25)}
+.badge img{width:40px;height:auto;display:block}
+h1{font:800 clamp(26px,5vw,38px)/1.05 Sora,Inter,sans-serif;margin:0;letter-spacing:-.02em}
+.cta{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border:0}.cta h2{color:#fff}.cta p{color:#cfe3ee;margin:6px 0 14px}.cta a.btn{display:inline-block;background:var(--teal);color:#fff;text-decoration:none;font:700 15px Sora,Inter,sans-serif;padding:11px 22px;border-radius:12px}.cta a.btn:hover{background:#27b3b3}
+.by{font:600 12px Sora,Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#7fd6d6;margin-top:4px}
+.lead{margin:14px 0 0;color:#cfe3ee;max-width:640px}
+main{margin:-34px auto 0;padding:0 16px 40px;max-width:892px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 8px 28px rgba(10,35,66,.08);margin-bottom:14px}
+.card h2{font:700 15px Sora,Inter,sans-serif;margin:0 0 10px;letter-spacing:-.01em;color:var(--navy)}
+.spk{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.spk button{text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:12px 14px;cursor:pointer;font:inherit;color:inherit;transition:.15s}
+.spk button b{display:block;font:700 18px Sora,Inter,sans-serif;color:var(--navy)}
+.spk button span{color:var(--mut);font-size:13px}
+.spk button.on{border-color:var(--teal);background:var(--tint)}
+.spk button.on b{color:var(--teal-d)}
+textarea{width:100%;font:inherit;padding:12px;border:2px solid var(--line);border-radius:12px;background:#fff;color:inherit;resize:vertical}
+textarea:focus,select:focus,button:focus-visible{outline:3px solid rgba(31,154,154,.35);border-color:var(--teal)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:12px 0 0}
+.chips{margin-top:10px}.chips button{font-size:13px;padding:4px 11px;border-radius:99px;border:1px solid var(--line);background:#fff;color:var(--navy);cursor:pointer}
+.chips button:hover{border-color:var(--teal);color:var(--teal-d)}
+button.go{background:var(--teal);color:#fff;border:0;border-radius:12px;padding:12px 26px;font:700 16px Sora,Inter,sans-serif;cursor:pointer;box-shadow:0 4px 14px rgba(31,154,154,.35)}
+button.go:hover:not(:disabled){background:var(--teal-d)}button:disabled{opacity:.55;cursor:default}
+button.sec{background:#fff;color:var(--navy);border:2px solid var(--line);border-radius:10px;padding:8px 14px;font:600 14px Inter,sans-serif;cursor:pointer}
+button.sec:hover{border-color:var(--teal)}
+select{font:inherit;font-size:14px;padding:7px 10px;border:2px solid var(--line);border-radius:10px;background:#fff;color:inherit}
+label.m{color:var(--mut);font-size:13px;display:flex;align-items:center;gap:6px}
+input[type=range]{accent-color:var(--teal);width:140px}
+.info{color:var(--mut);font-size:13px;margin:12px 0 0;min-height:1.4em}
+code{font-size:12px;word-break:break-all;color:var(--mut)}
+details summary{cursor:pointer;font:700 15px Sora,Inter,sans-serif;color:var(--navy);list-style:none;display:flex;align-items:center;gap:8px}
+details summary::before{content:"+";display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--tint);color:var(--teal-d);font-weight:800}
+details[open] summary::before{content:"\2212"}
+.fx{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:4px 22px;margin-top:12px}
+.fx .r{display:grid;grid-template-columns:100px 1fr 42px;gap:8px;align-items:center;font-size:13px;color:var(--mut)}
+.fx .r input{width:100%}.fx .r output{text-align:right;font-variant-numeric:tabular-nums}
+.fx h3{grid-column:1/-1;margin:10px 0 0;font:700 12px Sora,Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-d)}
+footer{max-width:860px;margin:0 auto;padding:0 16px 40px;color:var(--mut);font-size:13px}
+footer a{color:var(--teal-d)}
+/* --- language + theme toggles --- */
+.headrow{display:flex;align-items:center;gap:12px}
+.brand{flex:1}
+.topbar{display:flex;gap:8px;flex:none}
+.tg{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:99px;padding:7px 13px;font:600 12px Sora,Inter,sans-serif;cursor:pointer;white-space:nowrap}
+.tg:hover{background:rgba(255,255,255,.22)}
+/* --- dark mode --- */
+html[data-theme=dark]{--bg:#0a141d;--card:#111f2a;--ink:#e7eff5;--mut:#9db1bf;--line:#22384a;--tint:#0f3a40;--teal:#2fb8b8;--teal-d:#5fd6d6}
+html[data-theme=dark] body{background:var(--bg)}
+html[data-theme=dark] .spk button,html[data-theme=dark] textarea,html[data-theme=dark] select,
+html[data-theme=dark] .chips button,html[data-theme=dark] button.sec{background:#0d1a24;color:var(--ink)}
+html[data-theme=dark] .card{box-shadow:0 8px 28px rgba(0,0,0,.45)}
+html[data-theme=dark] .card h2,html[data-theme=dark] .spk button b,html[data-theme=dark] details summary{color:#dcebf4}
+html[data-theme=dark] .spk button.on b{color:var(--teal-d)}
+html[data-theme=dark] .spk button.on{border-color:var(--teal)}
+html[data-theme=dark] header{background:linear-gradient(135deg,#081826,#0c2b45)}
+html[data-theme=dark] details summary::before{background:#0f3a40}
+/* --- keyword cloud --- */
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.tags span{font-size:12px;color:var(--mut);border:1px solid var(--line);border-radius:99px;padding:4px 10px;background:var(--bg)}
+/* --- edge / IoT --- */
+.edge{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:center;margin-top:6px}
+.edge figure{margin:0}
+.edge svg{width:100%;height:auto;display:block;border-radius:12px;border:1px solid var(--line)}
+.edge figcaption{font-size:12px;color:var(--mut);margin-top:6px;text-align:center}
+.edge ul{margin:8px 0 0;padding-left:18px;color:var(--mut);font-size:14px}
+.edge ul li{margin:3px 0}
+@media(max-width:560px){.spk{grid-template-columns:1fr}.badge{width:52px;height:52px}.badge img{width:34px}.edge{grid-template-columns:1fr}.headrow{flex-wrap:wrap}}
 </style></head><body>
-<h1>Suaradee</h1>
-<p class="m">An 8.5 MB Malay voice that runs entirely in this tab (transformers.js + ONNX; WebGPU when your browser has it, otherwise WASM). Nothing you type leaves your device. <a href="https://huggingface.co/lseanlon/suaradee-v0.3">Model card</a> · Understandable, but a little muffled. v0.3 has about 15% fewer wrong characters than v0.2.</p>
-<textarea id="t" rows="3">Selamat pagi, boleh saya bantu encik hari ini?</textarea>
-<div class="row chips" id="chips"></div>
-<div class="row">
-  <button id="go" class="primary" disabled>Loading model…</button>
-  <label class="m">speed <input id="sp" type="range" min="0.7" max="1.3" step="0.05" value="1"></label>
-  <label class="m"><input id="st" type="checkbox" checked> stream</label>
-  <label class="m">model <select id="ver"><option value="lseanlon/suaradee-v0.3">v0.3 (most accurate)</option><option value="lseanlon/suaradee-v0.2">v0.2</option><option value="lseanlon/suaradee-v0.1">v0.1</option></select></label>
-  <label class="m">device <select id="dev"><option value="auto">auto</option><option value="webgpu">WebGPU</option><option value="wasm">WASM (CPU)</option></select></label>
-</div>
-<p class="m" id="info"></p>
-<audio id="au" controls></audio>
-<p class="m">Phonemes: <code id="ph"></code></p>
+<header><div class="wrap">
+  <div class="headrow">
+    <div class="brand"><div class="badge"><img src="./suarify-logo.png" alt="Suarify"></div><div><h1>Kecil-TTS <span style="color:#7fd6d6">8M</span></h1><div class="by" data-i18n="by">by Suarify</div></div></div>
+    <div class="topbar">
+      <button class="tg" id="lang" title="Tukar bahasa / Switch language">BM</button>
+      <button class="tg" id="theme" title="Mod gelap / Dark mode">◐ Dark</button>
+    </div>
+  </div>
+  <p class="lead" data-i18n="lead">Kecil-TTS-8M is a lightweight, Kokoro-style Malaysian Malay (Bahasa Melayu) text-to-speech model: 7.9 million parameters, under 10 MB, running entirely in your browser. No server, nothing you type leaves your device.</p>
+</div></header>
+<main>
+  <section class="card"><h2 data-i18n="h1s">1 · Choose a speaker</h2>
+    <div class="spk" id="spk"></div>
+    <div class="row"><label class="m">version <select id="ver"></select></label>
+      <label class="m">device <select id="dev"><option value="auto">auto</option><option value="webgpu">WebGPU</option><option value="wasm">WASM (CPU)</option></select></label>
+      <a class="m" id="card" href="#" target="_blank" rel="noopener" style="color:var(--teal-d)">Model card ↗</a></div>
+    <p class="info" id="note"></p>
+  </section>
+  <section class="card"><h2 data-i18n="h2s">2 · Type Malay text</h2>
+    <textarea id="t" rows="3">Selamat pagi, boleh saya bantu encik hari ini?</textarea>
+    <div class="chips row" id="chips"></div>
+    <div class="row">
+      <button id="go" class="go" disabled>Loading model…</button>
+      <button id="replay" class="sec" disabled>Replay</button>
+      <label class="m">speed <input id="sp" type="range" min="0.7" max="1.3" step="0.05" value="1"></label>
+      <label class="m"><input id="st" type="checkbox" checked> stream</label>
+    </div>
+    <p class="info" id="info"></p>
+    <p class="info">Phonemes: <code id="ph"></code></p>
+  </section>
+  <section class="card"><details id="fxd"><summary data-i18n="fxh">Effects lab (optional)</summary>
+    <p class="info">Shape the voice after it is made: tone, a delayed second layer (doubling / chorus), an echo tail and a small room. Everything runs in your browser, live while it plays. Pick a preset or move the sliders (double-click a slider to reset it).</p>
+    <div class="row"><select id="pre"></select><button class="sec" id="fxreset">Reset</button><button class="sec" id="dlraw" disabled>Download wav</button><button class="sec" id="dlfx" disabled>Download wav with effects</button></div>
+    <div class="fx" id="fx"></div>
+  </details></section>
+  <section class="card" id="edge"><h2 data-i18n="edgeh">3 · Runs anywhere: edge, IoT, kiosk, vending machine</h2>
+    <div class="edge">
+      <figure>
+        <svg viewBox="0 0 320 240" role="img" aria-label="Kiosk speaking Bahasa Melayu">
+          <rect width="320" height="240" rx="12" fill="#0f2a44"/>
+          <rect x="28" y="26" width="264" height="150" rx="10" fill="#123a63" stroke="#2fb8b8" stroke-width="2"/>
+          <rect x="44" y="42" width="232" height="88" rx="6" fill="#0a2342"/>
+          <text x="60" y="66" fill="#7fd6d6" font-family="Inter,sans-serif" font-size="11">Kecil-TTS 8M</text>
+          <rect x="60" y="76" width="170" height="8" rx="4" fill="#1f9a9a" opacity=".85"/>
+          <rect x="60" y="92" width="130" height="8" rx="4" fill="#1f9a9a" opacity=".55"/>
+          <rect x="60" y="108" width="150" height="8" rx="4" fill="#1f9a9a" opacity=".35"/>
+          <rect x="44" y="140" width="150" height="24" rx="6" fill="#167878"/>
+          <text x="56" y="157" fill="#fff" font-family="Inter,sans-serif" font-size="11">Sentuh untuk mula</text>
+          <rect x="230" y="140" width="46" height="24" rx="6" fill="#1f9a9a"/>
+          <text x="241" y="157" fill="#0a2342" font-family="Inter,sans-serif" font-size="11" font-weight="700">OK</text>
+          <path d="M120 182 v18 h80 v-18" fill="none" stroke="#2fb8b8" stroke-width="3"/>
+          <rect x="96" y="200" width="128" height="10" rx="5" fill="#123a63" stroke="#2fb8b8" stroke-width="2"/>
+          <g>
+            <rect x="196" y="18" width="112" height="40" rx="10" fill="#e8f5f5"/>
+            <path d="M206 58 l8 10 6 -10 z" fill="#e8f5f5"/>
+            <text x="206" y="36" fill="#0a2342" font-family="Inter,sans-serif" font-size="10" font-weight="700">Selamat datang!</text>
+            <text x="206" y="49" fill="#167878" font-family="Inter,sans-serif" font-size="9">Boleh saya bantu?</text>
+          </g>
+        </svg>
+        <figcaption data-i18n="capkiosk">Kiosk: speaks before the screen finishes loading</figcaption>
+      </figure>
+      <figure>
+        <svg viewBox="0 0 320 240" role="img" aria-label="Vending machine speaking Bahasa Melayu">
+          <rect width="320" height="240" rx="12" fill="#0f2a44"/>
+          <rect x="86" y="20" width="148" height="196" rx="10" fill="#123a63" stroke="#2fb8b8" stroke-width="2"/>
+          <rect x="100" y="34" width="86" height="126" rx="6" fill="#0a2342"/>
+          <g fill="#1f9a9a">
+            <rect x="108" y="44" width="14" height="20" rx="3" opacity=".85"/><rect x="128" y="44" width="14" height="20" rx="3" opacity=".5"/>
+            <rect x="148" y="44" width="14" height="20" rx="3" opacity=".7"/><rect x="108" y="72" width="14" height="20" rx="3" opacity=".55"/>
+            <rect x="128" y="72" width="14" height="20" rx="3" opacity=".9"/><rect x="148" y="72" width="14" height="20" rx="3" opacity=".45"/>
+            <rect x="108" y="100" width="14" height="20" rx="3" opacity=".7"/><rect x="128" y="100" width="14" height="20" rx="3" opacity=".6"/>
+            <rect x="148" y="100" width="14" height="20" rx="3" opacity=".8"/><rect x="108" y="128" width="14" height="20" rx="3" opacity=".5"/>
+            <rect x="128" y="128" width="14" height="20" rx="3" opacity=".75"/><rect x="148" y="128" width="14" height="20" rx="3" opacity=".65"/>
+          </g>
+          <rect x="196" y="40" width="26" height="52" rx="4" fill="#0a2342" stroke="#2fb8b8"/>
+          <circle cx="209" cy="62" r="6" fill="#2fb8b8"/>
+          <rect x="196" y="100" width="26" height="34" rx="4" fill="#0a2342" stroke="#2fb8b8"/>
+          <rect x="104" y="170" width="112" height="16" rx="4" fill="#167878"/>
+          <text x="112" y="182" fill="#fff" font-family="Inter,sans-serif" font-size="9">RM 2.50 · Ais Kopi</text>
+          <rect x="104" y="192" width="112" height="12" rx="3" fill="#0a2342"/>
+          <g>
+            <rect x="10" y="34" width="70" height="40" rx="10" fill="#e8f5f5"/>
+            <path d="M68 74 l10 8 0 -10 z" fill="#e8f5f5"/>
+            <text x="20" y="52" fill="#0a2342" font-family="Inter,sans-serif" font-size="10" font-weight="700">Terima kasih!</text>
+            <text x="20" y="65" fill="#167878" font-family="Inter,sans-serif" font-size="9">Selamat kembali</text>
+          </g>
+        </svg>
+        <figcaption data-i18n="capvend">Vending machine: a receipt that says its lines out loud</figcaption>
+      </figure>
+    </div>
+    <ul>
+      <li data-i18n="edge1">Under 10 MB of weights: fits a Raspberry Pi, an Android kiosk, a mini-PC or a browser tab.</li>
+      <li data-i18n="edge2">Runs on one CPU thread — no GPU, no internet, no per-request cost, no audio leaving the device.</li>
+      <li data-i18n="edge3">Speaks in Bahasa Melayu Malaysia, including the English words Malaysians actually use.</li>
+      <li data-i18n="edge4">Same ONNX file everywhere: browser (WebGPU/WASM), Python, Node, .NET, Java, or on-device SDKs.</li>
+    </ul>
+  </section>
+  <section class="card"><h2 data-i18n="kwh">Keywords</h2>
+    <div class="tags">
+      <span>kokoro tts</span><span>smallest TTS</span><span>8 MB TTS</span><span>Malay TTS</span>
+      <span>Bahasa Melayu text to speech</span><span>Malaysian voice</span><span>Yati voice</span>
+      <span>AI voice Malaysia</span><span>offline TTS</span><span>on-device TTS</span>
+      <span>edge TTS</span><span>IoT TTS</span><span>kiosk voice</span><span>vending machine voice</span>
+      <span>call centre TTS</span><span>WebGPU</span><span>transformers.js</span><span>ONNX int8</span>
+      <span>Kokoro-82M</span><span>Paradee-8M</span><span>open source TTS</span><span>Apache-2.0</span>
+      <span>text-to-speech Melayu</span><span>suara Melayu</span><span>Suarify</span>
+    </div>
+  </section>
+  <section class="card cta"><h2 data-i18n="ctah">Need custom software or an enterprise voice-AI system?</h2>
+    <p data-i18n="ctap">Custom voices, on-premise deployment, call-centre agents and integrations for Malaysian businesses. Tell us what you need.</p>
+    <a class="btn" href="https://suarify.my/contact-form" target="_blank" rel="noopener">Contact Suarify &rarr; suarify.my/contact-form</a></section>
+</main>
+<footer>Kecil-TTS-8M is open source (Apache-2.0): free to use, but please credit <b>Suarify (suarify.my)</b>. Voices: <a href="https://huggingface.co/Suarify/suaradee-v0.4" target="_blank" rel="noopener">Yati v0.4</a> ·
+<a href="https://huggingface.co/Suarify/suaradee-michael-v0.2" target="_blank" rel="noopener">Michael v0.2</a>. Built on Paradee-8M, Kokoro-82M and Chatterbox; see the model cards for credits and limits. It is synthetic speech; please say so when you use it.</footer>
 <script type="module">
-import { Suaradee } from './suaradee.js';
+import { Suaradee } from './kecil.js';
 const $ = (id) => document.getElementById(id);
+const SPEAKERS = {
+  yati: { name: 'Yati', sub: 'female voice · default', card: 'https://huggingface.co/Suarify/suaradee-v0.4',
+    note: 'Understandable, with a little muffled sound. v0.4 is the latest version and the most accurate so far.',
+    versions: [['Suarify/suaradee-v0.4', 'v0.4 (latest)'], ['Suarify/suaradee-v0.3', 'v0.3'], ['Suarify/suaradee-v0.2', 'v0.2'], ['Suarify/suaradee-v0.1', 'v0.1']] },
+  michael: { name: 'Michael', sub: 'male voice · new', card: 'https://huggingface.co/Suarify/suaradee-michael-v0.2',
+    note: 'First male voice. Understandable, but it still sounds somewhat robotic in places. Try the Effects lab below.',
+    versions: [['Suarify/suaradee-michael-v0.2', 'v0.2 (current)'], ['Suarify/suaradee-michael-v0.1', 'v0.1']] }
+};
+const qs = new URLSearchParams(location.search);
+let speaker = SPEAKERS[qs.get('speaker')] ? qs.get('speaker') : (qs.get('model') || '').includes('michael') ? 'michael' : (qs.get('speaker') === 'suaradee' ? 'yati' : 'yati');
+function drawSpeakers() {
+  $('spk').innerHTML = '';
+  for (const [k, s] of Object.entries(SPEAKERS)) {
+    const b = document.createElement('button'); b.className = k === speaker ? 'on' : ''; b.innerHTML = `<b>${s.name}</b><span>${s.sub}</span>`;
+    b.onclick = () => { if (k !== speaker) navigate(k, SPEAKERS[k].versions[0][0]); }; $('spk').appendChild(b);
+  }
+  const s = SPEAKERS[speaker]; $('ver').innerHTML = '';
+  for (const [id, lab] of s.versions) { const o = document.createElement('option'); o.value = id; o.textContent = lab; $('ver').appendChild(o); }
+  const qv = qs.get('model'); if (qv && s.versions.some((v) => v[0] === qv)) $('ver').value = qv;
+  $('card').href = s.card; $('note').textContent = s.note;
+}
+function navigate(spk, model) {   // a fresh page, so a failed WebGPU session cannot linger
+  const u = new URL(location.href); u.searchParams.set('speaker', spk); u.searchParams.set('model', model); u.searchParams.set('device', $('dev').value); location.href = u;
+}
+drawSpeakers();
 const EX = ['Selamat pagi, boleh saya bantu encik hari ini?', 'Jumlah bayaran anda ialah RM1,250.50.', 'Boleh tolong confirm appointment saya pada hari Isnin?',
   'Terima kasih kerana menghubungi kami, sila tunggu sebentar.', 'Kod OTP anda ialah 482913.', 'Temu janji tuan dijadualkan pada hari Khamis, pukul empat petang.'];
 for (const e of EX) { const b = document.createElement('button'); b.textContent = e.slice(0, 28) + '…'; b.title = e; b.onclick = () => { $('t').value = e; }; $('chips').appendChild(b); }
+
+// ---------------------------------------------------------------- effects chain (same maths as the FX lab)
+const FXP = [
+  ['Tone', [['bdG', 'Body dB', -9, 9, .1, 0], ['prG', 'Presence dB', -9, 9, .1, 0], ['aiG', 'Air dB', -9, 9, .1, 0], ['exM', 'Exciter', 0, 1, .01, 0]]],
+  ['Second layer (doubling / chorus)', [['l2G', 'Level', 0, .8, .01, 0], ['l2D', 'Delay ms', 4, 60, .5, 18], ['l2M', 'Wobble ms', 0, 6, .05, 1.5], ['l2R', 'Wobble Hz', .1, 9, .05, .7], ['l2P', 'Pan', -1, 1, .01, .4]]],
+  ['Echo tail', [['ecM', 'Mix', 0, .7, .01, 0], ['ecT', 'Time ms', 40, 500, 1, 120], ['ecF', 'Feedback', 0, .8, .01, .3]]],
+  ['Room', [['rvM', 'Mix', 0, .5, .01, 0], ['rvD', 'Decay s', .2, 2.5, .05, .6]]],
+  ['Output', [['mG', 'Gain dB', -9, 6, .1, 0]]]
+];
+const FXD = {}; FXP.forEach(([, rows]) => rows.forEach((r) => { FXD[r[0]] = r[5]; }));
+const PRESETS = {
+  'No effects': {}, 'Warm + presence': { bdG: 3, prG: 3, aiG: 2, mG: -1 }, 'Brighter': { prG: 4, aiG: 5, exM: .35 },
+  'Haas double': { l2G: .45, l2D: 18, l2M: .8, l2R: .6, l2P: .7 }, 'Chorus thick': { l2G: .5, l2D: 24, l2M: 3.5, l2R: .9, l2P: -.5 },
+  'Drag tail': { ecM: .35, ecT: 140, ecF: .45, l2G: .25, l2D: 35, l2M: 2, l2R: .4 }, 'Small room': { rvM: .22, rvD: .45 },
+  'Smooth the robot (try)': { bdG: 2, prG: 2.5, aiG: 2, exM: .25, l2G: .35, l2D: 12, l2M: 2.2, l2R: 1.4, l2P: .5, rvM: .12, rvD: .35 }
+};
+let fp = { ...FXD };
+const curve = (d) => { const n = 1024, c = new Float32Array(n), k = 1 + d * 40; for (let i = 0; i < n; i++) { const x = i * 2 / n - 1; c[i] = Math.tanh(k * x) / Math.tanh(k); } return c; };
+function mkIR(ctx, sec, decay) {
+  const n = Math.max(1, Math.floor(ctx.sampleRate * sec)), ir = ctx.createBuffer(2, n, ctx.sampleRate);
+  for (let c = 0; c < 2; c++) { const d = ir.getChannelData(c); let lp = 0; for (let i = 0; i < n; i++) { const t = i / n; lp += ((Math.random() * 2 - 1) * Math.pow(1 - t, 3) - lp) * .5; d[i] = lp * Math.exp(-3 * t * (1.2 / Math.max(.1, decay))); } }
+  return ir;
+}
+function buildFx(ctx) {
+  const N = {}, bq = (t) => { const b = ctx.createBiquadFilter(); b.type = t; return b; };
+  N.input = ctx.createGain(); N.bd = bq('peaking'); N.pr = bq('peaking'); N.ai = bq('highshelf');
+  N.bd.frequency.value = 350; N.bd.Q.value = 1; N.pr.frequency.value = 2800; N.pr.Q.value = 1; N.ai.frequency.value = 7000;
+  N.input.connect(N.bd); N.bd.connect(N.pr); N.pr.connect(N.ai);
+  N.exHp = bq('highpass'); N.exHp.frequency.value = 3500; N.exSh = ctx.createWaveShaper(); N.exSh.curve = curve(.4); N.exHp2 = bq('highpass'); N.exHp2.frequency.value = 3500; N.exG = ctx.createGain(); N.exG.gain.value = 0;
+  N.ai.connect(N.exHp); N.exHp.connect(N.exSh); N.exSh.connect(N.exHp2); N.exHp2.connect(N.exG);
+  N.mix = ctx.createGain(); N.ai.connect(N.mix); N.exG.connect(N.mix);
+  N.l2d = ctx.createDelay(.2); N.l2h = bq('highpass'); N.l2h.frequency.value = 300; N.l2l = bq('lowpass'); N.l2l.frequency.value = 9000; N.l2g = ctx.createGain(); N.l2g.gain.value = 0; N.l2p = ctx.createStereoPanner();
+  N.ai.connect(N.l2d); N.l2d.connect(N.l2h); N.l2h.connect(N.l2l); N.l2l.connect(N.l2g); N.l2g.connect(N.l2p); N.l2p.connect(N.mix);
+  N.lfo = ctx.createOscillator(); N.lfoG = ctx.createGain(); N.lfo.connect(N.lfoG); N.lfoG.connect(N.l2d.delayTime); N.lfo.start();
+  N.ecd = ctx.createDelay(1); N.ecl = bq('lowpass'); N.ecl.frequency.value = 3500; N.ecf = ctx.createGain(); N.ecm = ctx.createGain(); N.ecm.gain.value = 0;
+  N.ai.connect(N.ecd); N.ecd.connect(N.ecl); N.ecl.connect(N.ecf); N.ecf.connect(N.ecd); N.ecl.connect(N.ecm); N.ecm.connect(N.mix);
+  N.pre = ctx.createDelay(.2); N.pre.delayTime.value = .012; N.rv = ctx.createConvolver(); N.rvl = bq('lowpass'); N.rvl.frequency.value = 7000; N.rvg = ctx.createGain(); N.rvg.gain.value = 0;
+  N.out = ctx.createGain(); N.lim = ctx.createDynamicsCompressor(); N.lim.threshold.value = -1; N.lim.ratio.value = 20; N.lim.attack.value = .003; N.lim.release.value = .08; N.lim.knee.value = 0;
+  N.mix.connect(N.pre); N.pre.connect(N.rv); N.rv.connect(N.rvl); N.rvl.connect(N.rvg); N.rvg.connect(N.out);   // reverb is a parallel send
+  N.mix.connect(N.out); N.out.connect(N.lim);
+  return N;
+}
+function applyFx(ctx, N, q, instant) {
+  const t = ctx.currentTime, s = (prm, v) => { if (instant) prm.value = v; else prm.setTargetAtTime(v, t, .02); };
+  s(N.bd.gain, q.bdG); s(N.pr.gain, q.prG); s(N.ai.gain, q.aiG); s(N.exG.gain, q.exM * 1.5);
+  s(N.l2g.gain, q.l2G); s(N.l2d.delayTime, q.l2D / 1000 + q.l2M / 2000 + .0005); s(N.lfoG.gain, q.l2M / 2000); N.lfo.frequency.value = q.l2R; s(N.l2p.pan, q.l2P);
+  N.ecd.delayTime.value = q.ecT / 1000; s(N.ecf.gain, q.ecF); s(N.ecm.gain, q.ecM);
+  s(N.rvg.gain, q.rvM); if (N.rvD !== q.rvD) { N.rv.buffer = mkIR(ctx, Math.min(4, q.rvD * 1.6), q.rvD); N.rvD = q.rvD; }
+  s(N.out.gain, Math.pow(10, q.mG / 20));
+}
+let AC = null, FX = null, lastAudio = null;
+function ensureAudio() {
+  if (!AC) { AC = new AudioContext({ sampleRate: 24000 }); FX = buildFx(AC); FX.lim.connect(AC.destination); applyFx(AC, FX, fp, true); }
+  return AC.resume();
+}
+function playChunk(c, at) {
+  const buf = AC.createBuffer(1, c.length, 24000); buf.copyToChannel(c, 0);
+  const src = AC.createBufferSource(); src.buffer = buf; src.connect(FX.input);
+  const when = Math.max(at, AC.currentTime); src.start(when); return when + c.length / 24000;
+}
+async function renderFx(audio, q) {
+  const off = new OfflineAudioContext(1, audio.length + 24000 * 3, 24000), N = buildFx(off); N.lim.connect(off.destination); applyFx(off, N, q, true);
+  const b = off.createBuffer(1, audio.length, 24000); b.copyToChannel(audio, 0); const s = off.createBufferSource(); s.buffer = b; s.connect(N.input); s.start(); return (await off.startRendering()).getChannelData(0);
+}
+function wav(audio, sr) {
+  const b = new ArrayBuffer(44 + audio.length * 2), v = new DataView(b), w = (o, s) => [...s].forEach((c, i) => v.setUint8(o + i, c.charCodeAt(0)));
+  w(0, 'RIFF'); v.setUint32(4, 36 + audio.length * 2, true); w(8, 'WAVEfmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true); v.setUint32(24, sr, true); v.setUint32(28, sr * 2, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true); w(36, 'data'); v.setUint32(40, audio.length * 2, true);
+  audio.forEach((x, i) => v.setInt16(44 + i * 2, Math.max(-1, Math.min(1, x)) * 32767, true)); return new Blob([b], { type: 'audio/wav' });
+}
+function download(blob, name) { const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; a.click(); }
+// effects UI
+const outs = {}, ins = {};
+for (const [g, rows] of FXP) {
+  const h = document.createElement('h3'); h.textContent = g; $('fx').appendChild(h);
+  for (const [k, lab, lo, hi, st, df] of rows) {
+    const r = document.createElement('div'); r.className = 'r'; r.innerHTML = `<span>${lab}</span><input type="range" min="${lo}" max="${hi}" step="${st}"><output></output>`;
+    const i = r.querySelector('input'), o = r.querySelector('output'); ins[k] = i; outs[k] = o;
+    i.oninput = () => { fp[k] = +i.value; syncFx(false); }; i.ondblclick = () => { fp[k] = df; syncFx(); }; $('fx').appendChild(r);
+  }
+}
+function syncFx(setInputs = true) { for (const k in ins) { if (setInputs) ins[k].value = fp[k]; outs[k].textContent = (+fp[k]).toFixed(+fp[k] % 1 ? 1 : 0); } if (AC) applyFx(AC, FX, fp, false); }
+for (const n of Object.keys(PRESETS)) { const o = document.createElement('option'); o.textContent = n; $('pre').appendChild(o); }
+$('pre').onchange = () => { fp = { ...FXD, ...PRESETS[$('pre').value] }; syncFx(); };
+$('fxreset').onclick = () => { fp = { ...FXD }; $('pre').selectedIndex = 0; syncFx(); };
+syncFx();
+
+// ---------------------------------------------------------------- model and speaking
 let tts;
 async function load() {
   $('go').disabled = true; $('go').textContent = 'Loading model…'; $('info').textContent = '';
   const t0 = performance.now();
   try {
-    const so = new URLSearchParams(location.search).get('opt');   // debugging aid: ?opt=disabled|basic|extended|all
+    const so = qs.get('opt');   // debugging aid: ?opt=disabled|basic|extended|all
     tts = await Suaradee.load({ model: $('ver').value, g2pBase: './g2p/', device: $('dev').value, sessionOptions: so ? { graphOptimizationLevel: so } : undefined });
     $('info').textContent = `Model ready on ${tts.device} in ${((performance.now() - t0) / 1000).toFixed(1)} s.`;
     $('go').textContent = 'Speak'; $('go').disabled = false;
-  } catch (e) { $('info').textContent = 'Could not load the model: ' + (e.message || e); $('go').textContent = 'Failed'; }
-}
-function wav(audio, sr) {
-  const b = new ArrayBuffer(44 + audio.length * 2), v = new DataView(b);
-  const w = (o, s) => [...s].forEach((c, i) => v.setUint8(o + i, c.charCodeAt(0)));
-  w(0, 'RIFF'); v.setUint32(4, 36 + audio.length * 2, true); w(8, 'WAVEfmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true);
-  v.setUint16(22, 1, true); v.setUint32(24, sr, true); v.setUint32(28, sr * 2, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true); w(36, 'data'); v.setUint32(40, audio.length * 2, true);
-  audio.forEach((x, i) => v.setInt16(44 + i * 2, Math.max(-1, Math.min(1, x)) * 32767, true));
-  return new Blob([b], { type: 'audio/wav' });
+  } catch (e) {
+    if ($('dev').value !== 'wasm') {   // WebGPU can fail on some GPUs or inside the embedded frame: retry on the CPU build in a fresh page
+      $('info').textContent = 'WebGPU did not work here (' + String(e.message || e).slice(0, 90) + '). Switching to CPU (WASM)...';
+      $('dev').value = 'wasm'; setTimeout(() => navigate(speaker, $('ver').value), 900); return;
+    }
+    $('info').textContent = 'Could not load the model: ' + (e.message || e); $('go').textContent = 'Failed';
+  }
 }
 $('go').onclick = async () => {
   $('go').disabled = true; const t0 = performance.now();
+  await ensureAudio();
   $('ph').textContent = tts.phonemize($('t').value).join(' | ');
-  const speed = +$('sp').value;
+  const speed = +$('sp').value, parts = []; let next = AC.currentTime + 0.06, firstT = null;
   if ($('st').checked) {
-    // Stream mode: pieces are scheduled gap-free on one AudioContext as they arrive.
-    const sr = 24000;
-    const ctx = new AudioContext({ sampleRate: sr });
-    await ctx.resume();
-    let next = ctx.currentTime + 0.06, firstT = null, samples = 0;
-    for await (const c of tts.stream($('t').value, { speed })) {
-      const buf = ctx.createBuffer(1, c.length, sr);
-      buf.copyToChannel(c, 0);
-      const src = ctx.createBufferSource(); src.buffer = buf; src.connect(ctx.destination);
-      const at = Math.max(next, ctx.currentTime);
-      src.start(at); next = at + c.length / sr;
-      if (firstT === null) firstT = (performance.now() - t0) / 1000;
-      samples += c.length;
-    }
-    const s = (performance.now() - t0) / 1000, sec = samples / sr;
-    $('info').textContent = `first audio after ${firstT.toFixed(2)} s; ${sec.toFixed(2)} s of audio in ${s.toFixed(2)} s on ${tts.device} (${(sec / s).toFixed(1)}x real time).`;
-    $('go').disabled = false;
-    return;
+    for await (const c of tts.stream($('t').value, { speed })) { next = playChunk(c, next); parts.push(c); if (firstT === null) firstT = (performance.now() - t0) / 1000; }
+  } else {
+    const { audio } = await tts.speak($('t').value, { speed }); parts.push(audio); firstT = (performance.now() - t0) / 1000; playChunk(audio, next);
   }
-  const { audio, sampleRate } = await tts.speak($('t').value, { speed });
-  const s = (performance.now() - t0) / 1000, sec = audio.length / sampleRate;
-  $('info').textContent = `${sec.toFixed(2)} s of audio in ${s.toFixed(2)} s on ${tts.device} (${(sec / s).toFixed(1)}x real time).`;
-  $('au').src = URL.createObjectURL(wav(audio, sampleRate)); $('au').play(); $('go').disabled = false;
+  const n = parts.reduce((a, c) => a + c.length, 0); lastAudio = new Float32Array(n); let o = 0; for (const c of parts) { lastAudio.set(c, o); o += c.length; }
+  const s = (performance.now() - t0) / 1000, sec = n / 24000;
+  $('info').textContent = `${$('st').checked ? `first audio after ${firstT.toFixed(2)} s; ` : ''}${sec.toFixed(2)} s of audio in ${s.toFixed(2)} s on ${tts.device} (${(sec / s).toFixed(1)}x real time).`;
+  for (const id of ['replay', 'dlraw', 'dlfx']) $(id).disabled = false;
+  $('go').disabled = false;
 };
-const qd = new URLSearchParams(location.search).get('device'); if (qd) $('dev').value = qd;
-const qv = new URLSearchParams(location.search).get('model'); if (qv) $('ver').value = qv;
-$('dev').onchange = $('ver').onchange = () => { const u = new URL(location.href); u.searchParams.set('device', $('dev').value); u.searchParams.set('model', $('ver').value); location.href = u; };   // a fresh page, so a failed WebGPU session cannot linger
-window.__suaradee = { load, get tts() { return tts; } };
+$('replay').onclick = async () => { if (!lastAudio) return; await ensureAudio(); playChunk(lastAudio, AC.currentTime + 0.03); };
+$('dlraw').onclick = () => lastAudio && download(wav(lastAudio, 24000), 'yati.wav');
+$('dlfx').onclick = async () => { if (lastAudio) download(wav(await renderFx(lastAudio, fp), 24000), 'yati_effects.wav'); };
+$('dev').value = qs.get('device') || 'auto';
+$('dev').onchange = $('ver').onchange = () => navigate(speaker, $('ver').value);
+window.__kecil = window.__suaradee = { load, get tts() { return tts; }, get speaker() { return speaker; } };
+if (window.self !== window.top) { const a = document.createElement('a'); a.href = 'https://suarify-suaradee-web.static.hf.space/'; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'Open full page (best for WebGPU) ↗'; a.style.cssText = 'color:var(--teal-d);font-size:13px;margin-left:auto'; $('card').parentNode.appendChild(a); }
 load();
-</script></body></html>
+</script>
+<script>
+// ---- language (EN / BM) and dark mode. Stored per browser; ?lang=en|bm and ?theme=dark|light override.
+(function () {
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+  };
+  const D = {
+    en: {
+      by: 'by Suarify',
+      lead: 'Kecil-TTS-8M is a lightweight, Kokoro-style Malaysian Malay (Bahasa Melayu) text-to-speech model: 7.9 million parameters, under 10 MB, running entirely in your browser. No server, nothing you type leaves your device.',
+      h1s: '1 · Choose a speaker', h2s: '2 · Type Malay text', fxh: 'Effects lab (optional)',
+      edgeh: '3 · Runs anywhere: edge, IoT, kiosk, vending machine',
+      capkiosk: 'Kiosk: speaks before the screen finishes loading',
+      capvend: 'Vending machine: a receipt that says its lines out loud',
+      edge1: 'Under 10 MB of weights: fits a Raspberry Pi, an Android kiosk, a mini-PC or a browser tab.',
+      edge2: 'Runs on one CPU thread — no GPU, no internet, no per-request cost, no audio leaving the device.',
+      edge3: 'Speaks in Bahasa Melayu Malaysia, including the English words Malaysians actually use.',
+      edge4: 'Same ONNX file everywhere: browser (WebGPU/WASM), Python, Node, .NET, Java, or on-device SDKs.',
+      kwh: 'Keywords',
+      ctah: 'Need custom software or an enterprise voice-AI system?',
+      ctap: 'Custom voices, on-premise deployment, call-centre agents and integrations for Malaysian businesses. Tell us what you need.',
+      theme: '◐ Dark',
+    },
+    bm: {
+      by: 'oleh Suarify',
+      lead: 'Kecil-TTS-8M ialah model teks-ke-ucapan Bahasa Melayu Malaysia yang ringan dan bergaya Kokoro: 7.9 juta parameter, kurang 10 MB, berjalan sepenuhnya dalam pelayar anda. Tiada pelayan, tiada apa yang anda taip meninggalkan peranti anda.',
+      h1s: '1 · Pilih suara', h2s: '2 · Taip teks Melayu', fxh: 'Makmal kesan (pilihan)',
+      edgeh: '3 · Berjalan di mana-mana: edge, IoT, kiosk, mesin layan diri',
+      capkiosk: 'Kiosk: bercakap sebelum skrin selesai dimuatkan',
+      capvend: 'Mesin layan diri: resit yang menyebut barisnya dengan lantang',
+      edge1: 'Berat kurang 10 MB: muat dalam Raspberry Pi, kiosk Android, mini-PC atau tab pelayar.',
+      edge2: 'Berjalan pada satu teras CPU — tanpa GPU, tanpa internet, tanpa kos setiap permintaan, audio tidak keluar dari peranti.',
+      edge3: 'Bercakap dalam Bahasa Melayu Malaysia, termasuk perkataan Inggeris yang memang digunakan rakyat Malaysia.',
+      edge4: 'Fail ONNX yang sama di merata tempat: pelayar (WebGPU/WASM), Python, Node, .NET, Java atau SDK peranti.',
+      kwh: 'Kata kunci',
+      ctah: 'Perlukan perisian tersuai atau sistem suara-AI perusahaan?',
+      ctap: 'Suara tersuai, penggunaan di premis, ejen pusat panggilan dan integrasi untuk perniagaan Malaysia. Beritahu kami keperluan anda.',
+      theme: '◐ Gelap',
+    },
+  };
+  const qs = new URLSearchParams(location.search);
+  let lang = qs.get('lang') || store.get('kecil-lang') ||
+    ((navigator.language || '').toLowerCase().startsWith('ms') ? 'bm' : 'en');
+  if (!D[lang]) lang = 'en';
+  function applyLang() {
+    document.documentElement.lang = lang === 'bm' ? 'ms' : 'en';
+    for (const el of document.querySelectorAll('[data-i18n]')) {
+      const v = (D[lang] || D.en)[el.dataset.i18n];
+      if (v) el.textContent = v;
+    }
+    const b = document.getElementById('lang');
+    if (b) { b.textContent = lang === 'en' ? 'BM' : 'EN'; b.title = lang === 'en' ? 'Tukar ke Bahasa Melayu' : 'Switch to English'; }
+    document.getElementById('theme').textContent = D[lang].theme;
+  }
+  const themeBtn = document.getElementById('theme');
+  function applyTheme(t) {
+    document.documentElement.dataset.theme = t;
+    themeBtn.textContent = t === 'dark' ? (lang === 'bm' ? '☀ Cerah' : '☀ Light') : D[lang].theme;
+  }
+  let theme = qs.get('theme') || store.get('kecil-theme') ||
+    (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  applyLang();
+  applyTheme(theme);
+  document.getElementById('lang').onclick = () => {
+    lang = lang === 'en' ? 'bm' : 'en';
+    store.set('kecil-lang', lang);
+    applyLang();
+    applyTheme(theme);
+  };
+  themeBtn.onclick = () => {
+    theme = theme === 'dark' ? 'light' : 'dark';
+    store.set('kecil-theme', theme);
+    applyTheme(theme);
+  };
+})();
+</script>
+</body></html>

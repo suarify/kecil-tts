@@ -190,3 +190,10 @@
 - v2 facts: only part 0 appears in the log (559 clips, 90.8 min); worker 1 died before its first clip. Most likely cause: both workers downloading the Chatterbox weights at the same time right after pip install. 559/1,118 done.
 - Filenames used '<id>#<seed>.wav'; Kaggle output download passes the URL to requests, so '#' truncated it and every file arrived as 0 bytes. Recovered by monkey-patching requests.get to encode '#' as %23 in scripts/upload_k15_raw.py's download step (414+ files, real sizes ~115 MB).
 - k15 v3 (compiles): filenames '<id>_<seed>.wav'; seeds from dataset; one-time model cache warm-up before spawning workers; workers get their own log files; chunk loop recomputes missing clips each round (a dead worker's sentences are retried instead of lost); auto-degrade to one GPU after a worker failure; a chunk that adds no wavs is skipped so it cannot loop.
+
+## 2026-11-16 C4 generation COMPLETE (k15 v3), v0.4 training started (k16)
+- k15 v3: 1,118 clips generated (560 resumed from dataset + 558 new), 767 chosen, 31 dropped (both seeds >15% CER), 767 voice-converted. All 8 worker exits 0; 102.6 min of audio; runtime 114.6 min on 2 T4s.
+- Teacher-clip CER (Whisper on the new Chatterbox audio, median/mean): codeswitch 3.5%/7.8%, conversational 0%/8.0%, general 0%/4.3%, numbers 0%/12.1%, question 0%/4.0% - much cleaner than the old 742-clip set (109 clips had been >15%).
+- Dataset seanlon/kmb-15-clips: cb_clips2.pt (767 clips, 68.6 min, 198 MB), chosen.csv, gen_plan.csv, ms_clean_int8.onnx (k14 comparison baseline).
+- k16_train_c4 v2 RUNNING: builds rows for the 767 new clips (ms_rows --letters), merges with the C2-cleaned old rows (held 60 first), trains decoder 12,000 steps + text 10,000 steps (--score dur_asr), applies webgpu_patch after export, then scores v0.2 + k14-clean + v0.4 on the same 200 test + 60 held rows, and evaluates the C4 gate (general and codeswitch median CER >= 25% better than v0.2).
+- k16 v1 crash: slug-based input globs ('/kaggle/input/kokoro-malay-g2p/**') did not match Kaggle's mount; reverted to unique-filename globs, which worked in every earlier kernel.

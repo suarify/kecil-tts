@@ -1,0 +1,799 @@
+id,category,text,teacher,source,seeds
+c0313,general,SAFIRA marah besar tanpa setahu ALIF.,SAFIRA marah besar tanpa setahu ALIF.,leftover,1234
+c0551,general,Pada ketika itu MGS tidak mempunyai guru besar.,Pada ketika itu MGS tidak mempunyai guru besar.,leftover,1234
+c0571,general,"Ini terletak di bawah Jenis III, atau kematian sel sitoplasma.","Ini terletak di bawah Jenis III, atau kematian sel sitoplasma.",leftover,1234
+c0726,general,Dia menghabiskan kira-kira dua jam menonton TV.,Dia menghabiskan kira-kira dua jam menonton TV.,leftover,1234
+c0746,conversational,"Saya Farah, pegawai yang menguruskan kes puan.","Saya Farah, pegawai yang menguruskan kes puan.",leftover,1234
+c0747,conversational,"Saya Nurul, pegawai yang menguruskan kes encik.","Saya Nurul, pegawai yang menguruskan kes encik.",leftover,1234
+c0748,general,Putoh adalah sama ada bahasa tambahan atau mungkin dialek Lundayeh.,Putoh adalah sama ada bahasa tambahan atau mungkin dialek Lundayeh.,leftover,1234
+c0749,general,Saya ingatkan Ahmad nampak teruja.,Saya ingatkan Ahmad nampak teruja.,leftover,1234
+c0750,conversational,"Suara tuan terputus-putus, saya akan cuba hubungi semula.","Suara tuan terputus-putus, saya akan cuba hubungi semula.",leftover,1234
+c0751,conversational,Kami hargai maklum balas daripada cik.,Kami hargai maklum balas daripada cik.,leftover,1234
+c0752,conversational,Tuan boleh membuat bayaran di mana-mana cawangan Klinik Sejahtera.,Tuan boleh membuat bayaran di mana-mana cawangan Klinik Sejahtera.,leftover,1234
+c0753,conversational,Penerbangan puan ke Kajang ditunda selama satu jam.,Penerbangan puan ke Kajang ditunda selama satu jam.,leftover,1234
+c0754,conversational,Saya dari jabatan sumber manusia Bank Rakyat.,Saya dari jabatan sumber manusia Bank Rakyat.,leftover,1234
+c0755,general,Ramai yang masuk atas kehendak sendiri untuk mencari pekerjaan.,Ramai yang masuk atas kehendak sendiri untuk mencari pekerjaan.,leftover,1234
+c0756,conversational,Ejen kami akan menunggu cik di Putrajaya.,Ejen kami akan menunggu cik di Putrajaya.,leftover,1234
+c0757,conversational,Pakej internet puan akan dinaik taraf secara percuma.,Pakej internet puan akan dinaik taraf secara percuma.,leftover,1234
+c0758,general,Rumah ibadat lain seperti Masjid juga boleh didapati di sini.,Rumah ibadat lain seperti Masjid juga boleh didapati di sini.,leftover,1234
+c0759,conversational,Kami ingin menjemput puan ke majlis pelancaran di Ipoh.,Kami ingin menjemput puan ke majlis pelancaran di Ipoh.,leftover,1234
+c0760,general,"Malangnya, mereka lebih berminat untuk menggoda pelayan bar ...","Malangnya, mereka lebih berminat untuk menggoda pelayan bar...",leftover,1234
+c0761,numbers,Kadar faedah tahunan ialah 9.5%.,Kadar faedah tahunan ialah sembilan perpuluhan lima peratus.,leftover,1234
+c0762,conversational,"Majlis akan bermula tepat pukul sepuluh pagi, jangan lewat ya.","Majlis akan bermula tepat pukul sepuluh pagi, jangan lewat ya.",leftover,1234
+c0763,numbers,Baki akaun anda sekarang RM7370.67.,Baki akaun anda sekarang RMtujuh tiga tujuh kosong.enam puluh tujuh.,leftover,1234
+c0764,conversational,Pegawai kami akan melawat Johor Bahru pada hari Jumaat.,Pegawai kami akan melawat Johor Bahru pada hari Jumaat.,leftover,1234
+c0765,conversational,Ejen kami akan menunggu tuan di Klang.,Ejen kami akan menunggu tuan di Klang.,leftover,1234
+c0766,conversational,Bila puan senang untuk melihat rumah tersebut?,Bila puan senang untuk melihat rumah tersebut?,leftover,1234
+c0767,conversational,"Baiklah, saya akan telefon encik semula pada hari Sabtu.","Baiklah, saya akan telefon encik semula pada hari Sabtu.",leftover,1234
+c0768,general,Bolehkah anda membaca tulisan ini?,Bolehkah anda membaca tulisan ini?,leftover,1234
+c0769,general,Gerakan ini kemudian menyebar ke negara-negara Arab lain dan untuk Pakistan.,Gerakan ini kemudian menyebar ke negara-negara Arab lain dan untuk Pakistan.,leftover,1234
+c0770,conversational,"Terima kasih, maklumat tuan telah kami terima.","Terima kasih, maklumat tuan telah kami terima.",leftover,1234
+c0771,conversational,Pesanan Dato akan dihantar ke Kota Bharu esok pagi.,Pesanan Dato akan dihantar ke Kota Bharu esok pagi.,leftover,1234
+c0772,conversational,"Selamat petang, terima kasih kerana menghubungi Hotel Seri Pantai.","Selamat petang, terima kasih kerana menghubungi Hotel Seri Pantai.",leftover,1234
+c0773,conversational,"Saya Aminah, jururawat yang bertugas hari ini.","Saya Aminah, jururawat yang bertugas hari ini.",leftover,1234
+c0774,general,"Ini sering dilakukan dalam cawan, kole, teko, kendi atau takar.","Ini sering dilakukan dalam cawan, kole, teko, kendi atau takar.",leftover,1234
+c0775,general,Ahmad bertanya kepada Siti kalau dia akan berjumpa dengan Hafiz lagi.,Ahmad bertanya kepada Siti kalau dia akan berjumpa dengan Hafiz lagi.,leftover,1234
+c0776,conversational,"Temu janji puan dijadualkan pada hari Rabu, pukul tiga petang.","Temu janji puan dijadualkan pada hari Rabu, pukul tiga petang.",leftover,1234
+c0777,conversational,"Temu janji encik dijadualkan pada hari Rabu, pukul sepuluh pagi.","Temu janji encik dijadualkan pada hari Rabu, pukul sepuluh pagi.",leftover,1234
+c0778,general,Contoh heterodisakarida antaranya ialah laktosa dan sukrosa.,Contoh heterodisakarida antaranya ialah laktosa dan sukrosa.,leftover,1234
+c0779,conversational,Pegawai kami akan melawat Alor Setar pada hari Sabtu.,Pegawai kami akan melawat Alor Setar pada hari Sabtu.,leftover,1234
+c0780,question,Siapa yang akan menguruskan perkara ini?,Siapa yang akan menguruskan perkara ini?,leftover,1234
+c0781,general,Mereka berdua pergi menonton sebuah konsert kumpulan punk rock.,Mereka berdua pergi menonton sebuah konsert kumpulan punk rock.,leftover,1234
+c0782,conversational,"Selamat pagi doktor Nadia, saya Fatimah dari Restoran Selera Kampung.","Selamat pagi doktor Nadia, saya Fatimah dari Restoran Selera Kampung.",leftover,1234
+c0783,conversational,Adakah encik membuat transaksi di Melaka semalam?,Adakah encik membuat transaksi di Melaka semalam?,leftover,1234
+c0784,conversational,Pegawai kami akan melawat Shah Alam pada hari Jumaat.,Pegawai kami akan melawat Shah Alam pada hari Jumaat.,leftover,1234
+c0785,general,Syampu minyak tanah juga boleh membawa maut jika wasapnya disedut.,Syampu minyak tanah juga boleh membawa maut jika wasapnya disedut.,leftover,1234
+c0786,conversational,"Saya Azman, pegawai yang menguruskan kes puan.","Saya Azman, pegawai yang menguruskan kes puan.",leftover,1234
+c0787,conversational,"Selamat datang ke Klinik Sejahtera, bagaimana saya boleh membantu?","Selamat datang ke Klinik Sejahtera, bagaimana saya boleh membantu?",leftover,1234
+c0788,general,"Bagaimanapun, Ferguson tidak dapat hadir kerana masalah penerbangan.","Bagaimanapun, Ferguson tidak dapat hadir kerana masalah penerbangan.",leftover,1234
+c0789,conversational,"Maaf puan, slot pukul sepuluh pagi sudah penuh.","Maaf puan, slot pukul sepuluh pagi sudah penuh.",leftover,1234
+c0790,general,"Untuk majlis khatan/bersunat, biasanya cerita pahlawan akan ditarikan.","Untuk majlis khatan/bersunat, biasanya cerita pahlawan akan ditarikan.",leftover,1234
+c0791,codeswitch,Manager saya nak report itu sebelum hari Isnin.,Menejer saya nak riport itu sebelum hari Isnin.,leftover,1234
+c0792,general,Awak sedang buat apa?,Awak sedang buat apa?,leftover,1234
+c0793,numbers,Diskaun sebanyak 78% untuk semua barang.,Diskaun sebanyak tujuh puluh lapan peratus untuk semua barang.,leftover,1234
+c0794,general,Ini disebabkan Stu mahukan anjing lain.,Ini disebabkan Stu mahukan anjing lain.,leftover,1234
+c0795,numbers,Nombor tempahan anda 780370.,Nombor tempahan anda tujuh lapan kosong tiga tujuh kosong.,leftover,1234
+c0796,conversational,Tuan boleh membuat bayaran di mana-mana cawangan Kolej Bestari.,Tuan boleh membuat bayaran di mana-mana cawangan Kolej Bestari.,leftover,1234
+c0797,codeswitch,Free trial encik akan tamat minggu ini.,Fri traiel encik akan tamat minggu ini.,leftover,1234
+c0798,conversational,"Saya Rizal, pegawai yang menguruskan kes puan.","Saya Rizal, pegawai yang menguruskan kes puan.",leftover,1234
+c0799,conversational,Saya ingin mengingatkan Dato tentang temu janji pada hari Jumaat ini.,Saya ingin mengingatkan Dato tentang temu janji pada hari Jumaat ini.,leftover,1234
+c0800,conversational,"Bilik puan sudah siap, puan boleh daftar masuk sekarang.","Bilik puan sudah siap, puan boleh daftar masuk sekarang.",leftover,1234
+c0801,conversational,Pemandu kami sedang dalam perjalanan ke Kuching.,Pemandu kami sedang dalam perjalanan ke Kuching.,leftover,1234
+c0802,general,Pada waktu lampau biasanya disket floppy akan dihantar melalui pos.,Pada waktu lampau biasanya disket floppy akan dihantar melalui pos.,leftover,1234
+c0803,codeswitch,Parcel encik dah sampai di office kami.,Parcel encik dah sampai di ofis kami.,leftover,1234
+c0804,general,"Membebaskan kelas Cheonmin, dan hentikan menyelar tanda algojo.","Membebaskan kelas Cheonmin, dan hentikan menyelar tanda algojo.",leftover,1234
+c0805,general,Mereka yang menuduhnya rasuah boleh memeriksa buku akaun banknya.,Mereka yang menuduhnya rasuah boleh memeriksa buku akaun banknya.,leftover,1234
+c0806,general,Paco anak laki-laki yang perhatian di kelas sepertinya tidak akan tertumpu.,Paco anak laki-laki yang perhatian di kelas sepertinya tidak akan tertumpu.,leftover,1234
+c0807,codeswitch,Event kami bermula pukul tiga petang di Alor Setar.,Event kami bermula pukul tiga petang di Alor Setar.,leftover,1234
+c0808,conversational,"Baiklah, saya akan telefon puan semula pada hari Isnin.","Baiklah, saya akan telefon puan semula pada hari Isnin.",leftover,1234
+c0809,conversational,Pesanan encik akan dihantar ke Johor Bahru esok pagi.,Pesanan encik akan dihantar ke Johor Bahru esok pagi.,leftover,1234
+c0810,conversational,Adakah encik setuju untuk kami teruskan kerja pembaikan?,Adakah encik setuju untuk kami teruskan kerja pembaikan?,leftover,1234
+c0811,conversational,"Terima kasih atas masa Dato, semoga hari Dato menyenangkan.","Terima kasih atas masa Dato, semoga hari Dato menyenangkan.",leftover,1234
+c0812,general,Mat dan Frankie kemudian menonton wayang bersama-sama.,Mat dan Frankie kemudian menonton wayang bersama-sama.,leftover,1234
+c0813,general,Pertemuan yang bermula dengan kebetulan bakal mengubah takdir mereka bersama.,Pertemuan yang bermula dengan kebetulan bakal mengubah takdir mereka bersama.,leftover,1234
+c0814,conversational,Rawatan susulan cik dijadualkan di Bank Rakyat.,Rawatan susulan cik dijadualkan di Bank Rakyat.,leftover,1234
+c0815,conversational,Adakah Dato setuju untuk kami teruskan kerja pembaikan?,Adakah Dato setuju untuk kami teruskan kerja pembaikan?,leftover,1234
+c0816,conversational,"Saya Arif, jururawat yang bertugas hari ini.","Saya Arif, jururawat yang bertugas hari ini.",leftover,1234
+c0817,general,bermula dari peringkat prasekolah sehingga Tahun 6.,bermula dari peringkat prasekolah sehingga Tahun enam.,leftover,1234
+c0818,general,Giliran kamu untuk bercakap.,Giliran kamu untuk bercakap.,leftover,1234
+c0819,general,Dewa-dewi ini mewakili pelbagai unsur alam.,Dewa-dewi ini mewakili pelbagai unsur alam.,leftover,1234
+c0820,codeswitch,"Sistem tengah down, boleh cuba lagi nanti?","Sistem tengah down, boleh cuba lagi nanti?",leftover,1234
+c0821,codeswitch,Password tuan perlu ditukar setiap tiga bulan.,Paswed tuan perlu ditukar setiap tiga bulan.,leftover,1234
+c0822,conversational,Ejen kami akan menunggu puan di Kota Bharu.,Ejen kami akan menunggu puan di Kota Bharu.,leftover,1234
+c0823,conversational,Bekalan elektrik di kawasan puan akan dipulihkan tidak lama lagi.,Bekalan elektrik di kawasan puan akan dipulihkan tidak lama lagi.,leftover,1234
+c0824,general,"Muhammad I seorang yang begitu sederhana, berani, warak dan bijaksana.","Muhammad Ai seorang yang begitu sederhana, berani, warak dan bijaksana.",leftover,1234
+c0825,conversational,Sila maklumkan kehadiran puan sebelum hari Khamis.,Sila maklumkan kehadiran puan sebelum hari Khamis.,leftover,1234
+c0826,codeswitch,Deadline submission ialah hari Jumaat.,Dedlain submission ialah hari Jumaat.,leftover,1234
+c0827,conversational,Pegawai kami akan melawat Alor Setar pada hari Isnin.,Pegawai kami akan melawat Alor Setar pada hari Isnin.,leftover,1234
+c0828,conversational,Adakah encik membuat transaksi di Cyberjaya semalam?,Adakah encik membuat transaksi di Cyberjaya semalam?,leftover,1234
+c0829,general,Keadaannya semakin nazak dan terbujur kaku.,Keadaannya semakin nazak dan terbujur kaku.,leftover,1234
+c0830,numbers,Jarak ke sana kira-kira 300 km.,Jarak ke sana kira-kira tiga ratus kilometer.,leftover,1234
+c0831,conversational,Puan boleh buat tempahan melalui laman sesawang kami.,Puan boleh buat tempahan melalui laman sesawang kami.,leftover,1234
+c0832,numbers,Kedai dibuka dari 5:45 hingga 6.45 malam.,Kedai dibuka dari pukul lima empat puluh limahingga pukul enam empat puluh lima malam.,leftover,1234
+c0833,conversational,Doktor Ismail akan berjumpa tuan di bilik nombor tiga.,Doktor Ismail akan berjumpa tuan di bilik nombor tiga.,leftover,1234
+c0834,numbers,Nombor telefon pejabat ialah 017-614 7328.,Nombor telefon pejabat ialah kosong satu tujuh enam satu empat tujuh tiga dua lapan.,leftover,1234
+c0835,numbers,Sebanyak 44432 orang hadir ke majlis itu.,Sebanyak empat puluh empat ribu empat ratus tiga puluh dua orang hadir ke majlis itu.,leftover,1234
+c0836,question,Betul ke puan nak pindah ke Cyberjaya?,Betul ke puan nak pindah ke Cyberjaya?,leftover,1234
+c0837,conversational,"Saya Ismail, jururawat yang bertugas hari ini.","Saya Ismail, jururawat yang bertugas hari ini.",leftover,1234
+c0838,conversational,"Selamat pagi cik Nadia, saya Siti dari Hospital Pakar Damai.","Selamat pagi cik Nadia, saya Siti dari Hospital Pakar Damai.",leftover,1234
+c0839,conversational,Adakah puan berminat untuk memperbaharui polisi tersebut?,Adakah puan berminat untuk memperbaharui polisi tersebut?,leftover,1234
+c0840,conversational,Saya hubungi doktor berkenaan bil internet yang masih tertunggak.,Saya hubungi doktor berkenaan bil internet yang masih tertunggak.,leftover,1234
+c0841,question,Sudahkah doktor terima mesej saya?,Sudahkah doktor terima mesej saya?,leftover,1234
+c0842,conversational,Terima kasih kerana memilih Syarikat Insurans Amanah.,Terima kasih kerana memilih Syarikat Insurans Amanah.,leftover,1234
+c0843,general,Ia merupakan laluan alternatif untuk pengguna dan kenderaan berat khasnya.,Ia merupakan laluan alternatif untuk pengguna dan kenderaan berat khasnya.,leftover,1234
+c0844,conversational,Pesanan makanan tuan sedang disediakan di dapur.,Pesanan makanan tuan sedang disediakan di dapur.,leftover,1234
+c0845,conversational,Doktor Rizal akan berjumpa tuan di bilik nombor tiga.,Doktor Rizal akan berjumpa tuan di bilik nombor tiga.,leftover,1234
+c0846,numbers,Nombor telefon pejabat ialah 018-396 6728.,Nombor telefon pejabat ialah kosong satu lapan tiga sembilan enam enam tujuh dua lapan.,leftover,1234
+c0847,conversational,"Baik, saya akan kemas kini rekod cik sekarang.","Baik, saya akan kemas kini rekod cik sekarang.",leftover,1234
+c0848,numbers,Sebanyak 912 orang hadir ke majlis itu.,Sebanyak sembilan ratus dua belas orang hadir ke majlis itu.,leftover,1234
+c0849,conversational,Saya ingin mengingatkan cik tentang temu janji pada hari Rabu ini.,Saya ingin mengingatkan cik tentang temu janji pada hari Rabu ini.,leftover,1234
+c0850,conversational,Doktor Aminah akan berjumpa cik di bilik nombor tiga.,Doktor Aminah akan berjumpa cik di bilik nombor tiga.,leftover,1234
+c0851,numbers,Diskaun sebanyak 58% untuk semua barang.,Diskaun sebanyak lima puluh lapan peratus untuk semua barang.,leftover,1234
+c0852,general,Ia ditanam dengan cara diikatkan pada tali dan  digantung.,Ia ditanam dengan cara diikatkan pada tali dan digantung.,leftover,1234
+c0853,conversational,"Syafiqah di sini, saya mewakili pasukan khidmat pelanggan.","Syafiqah di sini, saya mewakili pasukan khidmat pelanggan.",leftover,1234
+c0854,codeswitch,Saya nak tukar appointment ke hari Sabtu.,Saya nak tukar apointmen ke hari Sabtu.,leftover,1234
+c0855,conversational,"Assalamualaikum encik Arif, boleh saya bercakap sebentar?","Assalamualaikum encik Arif, boleh saya bercakap sebentar?",leftover,1234
+c0856,numbers,"Temu janji anda pada 5 April 2015, pukul 11:00.","Temu janji anda pada lima April dua ribu lima belas, pukul sebelas.",leftover,1234
+c0857,conversational,Boleh cik sahkan nama penuh dan nombor kad pengenalan?,Boleh cik sahkan nama penuh dan nombor kad pengenalan?,leftover,1234
+c0858,general,"M2, dalam keadaan yang sangat baik, hanya boleh dilihat dengan mata kasar.","Mdua, dalam keadaan yang sangat baik, hanya boleh dilihat dengan mata kasar.",leftover,1234
+c0859,numbers,"Temu janji anda pada 14 April, pukul 7:00.","Temu janji anda pada empat belas April, pukul tujuh.",leftover,1234
+c0860,conversational,"Temu duga Dato dijadualkan pada hari Ahad, pukul lapan pagi.","Temu duga Dato dijadualkan pada hari Ahad, pukul lapan pagi.",leftover,1234
+c0861,conversational,Kami telah menerima aduan encik dan sedang menyiasatnya.,Kami telah menerima aduan encik dan sedang menyiasatnya.,leftover,1234
+c0862,codeswitch,Boleh saya tahu status order Dato?,Boleh saya tahu status oda Dato?,leftover,1234
+c0863,codeswitch,Saya nak cancel booking untuk malam Jumaat.,Saya nak kensel buking untuk malam Jumaat.,leftover,1234
+c0864,conversational,Pegawai kami akan melawat Kuching pada hari Khamis.,Pegawai kami akan melawat Kuching pada hari Khamis.,leftover,1234
+c0865,numbers,"Penerbangan berlepas pada 21 April, pukul 12:15.","Penerbangan berlepas pada dua puluh satu April, pukul dua belas lima belas.",leftover,1234
+c0866,codeswitch,Delivery encik akan sampai sebelum pukul sembilan pagi.,Deliveri encik akan sampai sebelum pukul sembilan pagi.,leftover,1234
+c0867,general,Standard kesusilaan sesebuah masyarakat berbeza-beza antara satu sama lain.,Standard kesusilaan sesebuah masyarakat berbeza-beza antara satu sama lain.,leftover,1234
+c0868,general,Tiba-tiba dia rasa bernyawa semula apabila bertemu kembali Ainnura.,Tiba-tiba dia rasa bernyawa semula apabila bertemu kembali Ainnura.,leftover,1234
+c0869,conversational,Pegawai kami akan melawat Klang pada hari Sabtu.,Pegawai kami akan melawat Klang pada hari Sabtu.,leftover,1234
+c0870,conversational,Kontrak sewa perlu ditandatangani sebelum hari Selasa.,Kontrak sewa perlu ditandatangani sebelum hari Selasa.,leftover,1234
+c0871,conversational,"Pada skala satu hingga lima, berapa markah yang doktor berikan?","Pada skala satu hingga lima, berapa markah yang doktor berikan?",leftover,1234
+c0872,general,"Jika awak tidak mahu melakukannya, saya akan bertanya kepada Ahmad.","Jika awak tidak mahu melakukannya, saya akan bertanya kepada Ahmad.",leftover,1234
+c0873,codeswitch,Manager saya nak report itu sebelum hari Selasa.,Menejer saya nak riport itu sebelum hari Selasa.,leftover,1234
+c0874,general,Untuk tujuan itu  mereka menebang hutan tropika.,Untuk tujuan itu mereka menebang hutan tropika.,leftover,1234
+c0875,general,Setiap sudut rumah tradisional Lobo diterangi lampu damar.,Setiap sudut rumah tradisional Lobo diterangi lampu damar.,leftover,1234
+c0876,general,Dia mahu mewujudkan cita-citanya.,Dia mahu mewujudkan cita-citanya.,leftover,1234
+c0877,numbers,Baki akaun anda sekarang RM1601.67.,Baki akaun anda sekarang RMsatu enam kosong satu.enam puluh tujuh.,leftover,1234
+c0878,conversational,Tempahan meja untuk enam orang pada malam Khamis telah disahkan.,Tempahan meja untuk enam orang pada malam Khamis telah disahkan.,leftover,1234
+c0879,conversational,Pemandu kami sedang dalam perjalanan ke Putrajaya.,Pemandu kami sedang dalam perjalanan ke Putrajaya.,leftover,1234
+c0880,general,"Batang pokok serta tangkai daun mempunyai duri, berwarna coklat keperangan.","Batang pokok serta tangkai daun mempunyai duri, berwarna coklat keperangan.",leftover,1234
+c0881,conversational,"Selamat pagi tuan Hakim, saya Wei Jie dari Hotel Seri Pantai.","Selamat pagi tuan Hakim, saya Wei Jie dari Hotel Seri Pantai.",leftover,1234
+c0882,codeswitch,Boleh encik confirm appointment pada hari Isnin?,Boleh encik konferm apointmen pada hari Isnin?,leftover,1234
+c0883,codeswitch,Parcel tuan dah sampai di office kami.,Parcel tuan dah sampai di ofis kami.,leftover,1234
+c0884,codeswitch,"Meeting kita ditunda ke hari Isnin, sorry ya.","Miting kita ditunda ke hari Isnin, sori ya.",leftover,1234
+c0885,numbers,Dia lahir pada 12 Oktober 2030.,Dia lahir pada dua belas Oktober dua ribu tiga puluh.,leftover,1234
+c0886,conversational,Pegawai kami akan melawat Alor Setar pada hari Khamis.,Pegawai kami akan melawat Alor Setar pada hari Khamis.,leftover,1234
+c0887,numbers,Sebanyak 572 orang hadir ke majlis itu.,Sebanyak lima ratus tujuh puluh dua orang hadir ke majlis itu.,leftover,1234
+c0888,general,Boleh saya gunakan pemproses perkataan ini?,Boleh saya gunakan pemproses perkataan ini?,leftover,1234
+c0889,question,Berapa harga tiket ke Putrajaya?,Berapa harga tiket ke Putrajaya?,leftover,1234
+c0890,general,Logam mangan adalah rapuh dan senang pecah serta mudah mengalami pengoksidaan.,Logam mangan adalah rapuh dan senang pecah serta mudah mengalami pengoksidaan.,leftover,1234
+c0891,general,"Tetapi, beliau telah menolaknya atas sebab-sebab yang tertentu.","Tetapi, beliau telah menolaknya atas sebab-sebab yang tertentu.",leftover,1234
+c0892,codeswitch,Event kami bermula pukul empat setengah petang di Melaka.,Event kami bermula pukul empat setengah petang di Melaka.,leftover,1234
+c0893,conversational,Permohonan cuti tuan telah diluluskan oleh penyelia.,Permohonan cuti tuan telah diluluskan oleh penyelia.,leftover,1234
+c0894,numbers,Kod pengesahan anda ialah 742007.,Kod pengesahan anda ialah tujuh empat dua kosong kosong tujuh.,leftover,1234
+c0895,codeswitch,Delivery puan akan sampai sebelum pukul empat setengah petang.,Deliveri puan akan sampai sebelum pukul empat setengah petang.,leftover,1234
+c0896,question,Boleh saya tahu nama encik?,Boleh saya tahu nama encik?,leftover,1234
+c0897,conversational,"Selamat petang, terima kasih kerana menghubungi Pusat Servis Maju.","Selamat petang, terima kasih kerana menghubungi Pusat Servis Maju.",leftover,1234
+c0898,numbers,Nombor telefon pejabat ialah 012-971 6801.,Nombor telefon pejabat ialah kosong satu dua sembilan tujuh satu enam lapan kosong satu.,leftover,1234
+c0899,general,"laman ini: dimana ayat-ayat sentiasa ayat, kecuali apabila ia tidak!","laman ini: dimana ayat-ayat sentiasa ayat, kecuali apabila ia tidak!",leftover,1234
+c0900,conversational,Terima kasih kerana memilih Klinik Sejahtera.,Terima kasih kerana memilih Klinik Sejahtera.,leftover,1234
+c0901,general,Ia digunakan untuk merangsang laktasi pada haiwan.,Ia digunakan untuk merangsang laktasi pada haiwan.,leftover,1234
+c0902,conversational,"Temu duga cik dijadualkan pada hari Sabtu, pukul sebelas setengah pagi.","Temu duga cik dijadualkan pada hari Sabtu, pukul sebelas setengah pagi.",leftover,1234
+c0903,conversational,"Temu duga cik dijadualkan pada hari Jumaat, pukul sembilan pagi.","Temu duga cik dijadualkan pada hari Jumaat, pukul sembilan pagi.",leftover,1234
+c0904,question,Betul ke puan nak pindah ke Kuching?,Betul ke puan nak pindah ke Kuching?,leftover,1234
+c0905,numbers,Berat bungkusan itu 19 kg.,Berat bungkusan itu sembilan belas kilogram.,leftover,1234
+c0906,general,"Walau bagaimanapun, ia masih kurang ditanam secara komersial di Malaysia.","Walau bagaimanapun, ia masih kurang ditanam secara komersial di Malaysia.",leftover,1234
+c0907,general,Namanya mungkin sempena nama pokok asam jawa yang terdapat di situ.,Namanya mungkin sempena nama pokok asam jawa yang terdapat di situ.,leftover,1234
+c0908,numbers,Jarak ke sana kira-kira 65 km.,Jarak ke sana kira-kira enam puluh lima kilometer.,leftover,1234
+c0909,question,Kenapa tuan tidak datang semalam?,Kenapa tuan tidak datang semalam?,leftover,1234
+c0910,general,Awak mesti cuba memecahkan siling kaca.,Awak mesti cuba memecahkan siling kaca.,leftover,1234
+c0911,numbers,Tahun 1983 merupakan tahun yang mencabar.,Tahun seribu sembilan ratus lapan puluh tiga merupakan tahun yang mencabar.,leftover,1234
+c0912,codeswitch,Delivery puan akan sampai sebelum pukul lapan malam.,Deliveri puan akan sampai sebelum pukul lapan malam.,leftover,1234
+c0913,question,Sudahkah encik terima mesej saya?,Sudahkah encik terima mesej saya?,leftover,1234
+c0914,codeswitch,"Tolong reset password saya, saya terlupa.","Tolong reset paswed saya, saya terlupa.",leftover,1234
+c0915,general,"Namun, tarikan hidupan aktif yang berwarna-warni di laut lebih kuat.","Namun, tarikan hidupan aktif yang berwarna-warni di laut lebih kuat.",leftover,1234
+c0916,numbers,Nombor telefon pejabat ialah 03-4523 6951.,Nombor telefon pejabat ialah kosong tiga empat lima dua tiga enam sembilan lima satu.,leftover,1234
+c0917,conversational,Pegawai kami akan melawat Klang pada hari Selasa.,Pegawai kami akan melawat Klang pada hari Selasa.,leftover,1234
+c0918,question,Berapa lama perjalanan ke Kuching?,Berapa lama perjalanan ke Kuching?,leftover,1234
+c0919,numbers,Dia lahir pada 11 Februari 2018.,Dia lahir pada sebelas Februari dua ribu lapan belas.,leftover,1234
+c0920,codeswitch,Boleh puan share location rumah?,Boleh puan syer location rumah?,leftover,1234
+c0921,general,Kaedah ini telah digunakan sejak zaman dahulu lagi.,Kaedah ini telah digunakan sejak zaman dahulu lagi.,leftover,1234
+c0922,conversational,Kelas cik bermula minggu depan di Alor Setar.,Kelas cik bermula minggu depan di Alor Setar.,leftover,1234
+c0923,conversational,Adakah tuan membuat transaksi di Shah Alam semalam?,Adakah tuan membuat transaksi di Shah Alam semalam?,leftover,1234
+c0924,general,Pembaca yang lancar tidak membunyikan perkataan huruf demi huruf.,Pembaca yang lancar tidak membunyikan perkataan huruf demi huruf.,leftover,1234
+c0925,numbers,Anda perlu membayar RM603 sebelum 5 Februari 2009.,Anda perlu membayar enam ratus tiga ringgit sebelum lima Februari dua ribu sembilan.,leftover,1234
+c0926,conversational,"Slot yang masih kosong ialah hari Rabu, pukul lapan pagi.","Slot yang masih kosong ialah hari Rabu, pukul lapan pagi.",leftover,1234
+c0927,numbers,Jarak ke sana kira-kira 339 km.,Jarak ke sana kira-kira tiga ratus tiga puluh sembilan kilometer.,leftover,1234
+c0928,conversational,"Temu duga cik dijadualkan pada hari Isnin, pukul lapan pagi.","Temu duga cik dijadualkan pada hari Isnin, pukul lapan pagi.",leftover,1234
+c0929,conversational,"Selamat pagi cik Nadia, saya Azman dari Syarikat Insurans Amanah.","Selamat pagi cik Nadia, saya Azman dari Syarikat Insurans Amanah.",leftover,1234
+c0930,numbers,Kedai dibuka dari 10:30 petang hingga 2:30 petang.,Kedai dibuka dari pukul sepuluh tiga puluh petang hingga pukul dua tiga puluh petang.,leftover,1234
+c0931,conversational,Mesyuarat ibu bapa dan guru akan diadakan pada hari Jumaat.,Mesyuarat ibu bapa dan guru akan diadakan pada hari Jumaat.,leftover,1234
+c0932,conversational,Adakah puan membuat transaksi di Cyberjaya semalam?,Adakah puan membuat transaksi di Cyberjaya semalam?,leftover,1234
+c0933,general,"Sebelum itu, baginda pernah menolak tawaran untuk menjadi duta di Perancis.","Sebelum itu, baginda pernah menolak tawaran untuk menjadi duta di Perancis.",leftover,1234
+c0934,conversational,Pegawai kami akan melawat Petaling Jaya pada hari Selasa.,Pegawai kami akan melawat Petaling Jaya pada hari Selasa.,leftover,1234
+c0935,conversational,Saya hubungi encik berkenaan bil elektrik yang masih tertunggak.,Saya hubungi encik berkenaan bil elektrik yang masih tertunggak.,leftover,1234
+c0936,numbers,Berat bungkusan itu 17 kg.,Berat bungkusan itu tujuh belas kilogram.,leftover,1234
+c0937,general,"Dhap, versi kurang kering, digunakan untuk menyediakan gulab jamun dan pantua.","Dhap, versi kurang kering, digunakan untuk menyediakan gulab jamun dan pantua.",leftover,1234
+c0938,codeswitch,"Saya dah transfer, tolong check ya.","Saya dah transfer, tolong cek ya.",leftover,1234
+c0939,conversational,"Selamat pulang ke tanah air, Dato.","Selamat pulang ke tanah air, Dato.",leftover,1234
+c0940,general,Ia dianggap satu sistem yang penting kepada pembangunan pesat ilmu matematik.,Ia dianggap satu sistem yang penting kepada pembangunan pesat ilmu matematik.,leftover,1234
+c0941,conversational,Pegawai kami akan melawat Cyberjaya pada hari Jumaat.,Pegawai kami akan melawat Cyberjaya pada hari Jumaat.,leftover,1234
+c0942,conversational,Kelas tuan bermula minggu depan di Klang.,Kelas tuan bermula minggu depan di Klang.,leftover,1234
+c0943,general,Salah seorang daripada anak beliau ialah Dr.,Salah seorang daripada anak beliau ialah doktor.,leftover,1234
+c0944,conversational,"Assalamualaikum encik Danial, boleh saya bercakap sebentar?","Assalamualaikum encik Danial, boleh saya bercakap sebentar?",leftover,1234
+c0945,general,Berjalanlah di hadapan saya.,Berjalanlah di hadapan saya.,leftover,1234
+c0946,conversational,"Terima kasih kerana bersabar, masalah tuan sudah selesai.","Terima kasih kerana bersabar, masalah tuan sudah selesai.",leftover,1234
+c0947,conversational,"Temu janji puan dijadualkan pada hari Ahad, pukul empat setengah petang.","Temu janji puan dijadualkan pada hari Ahad, pukul empat setengah petang.",leftover,1234
+c0948,conversational,"Maaf encik, slot pukul dua petang sudah penuh.","Maaf encik, slot pukul dua petang sudah penuh.",leftover,1234
+c0949,numbers,Kadar faedah tahunan ialah 5.3%.,Kadar faedah tahunan ialah lima perpuluhan tiga peratus.,leftover,1234
+c0950,numbers,Tarikh akhir pendaftaran ialah 15 Disember.,Tarikh akhir pendaftaran ialah lima belas Disember.,leftover,1234
+c0951,general,Beliau berada di Hollywood sepanjang peperangan.,Beliau berada di Hollywood sepanjang peperangan.,leftover,1234
+c0952,conversational,Keputusan ujian darah Dato akan keluar dalam seminggu.,Keputusan ujian darah Dato akan keluar dalam seminggu.,leftover,1234
+c0953,general,Kanak-kanak itu duduk di ribaan ibunya dan mendengar cerita itu.,Kanak-kanak itu duduk di ribaan ibunya dan mendengar cerita itu.,leftover,1234
+c0954,question,Sedapnya makanan di Ipoh!,Sedapnya makanan di Ipoh!,leftover,1234
+c0955,question,Syukurlah cik selamat sampai!,Syukurlah cik selamat sampai!,leftover,1234
+c0956,conversational,Pakej air puan akan dinaik taraf secara percuma.,Pakej air puan akan dinaik taraf secara percuma.,leftover,1234
+c0957,conversational,Kami ada tawaran istimewa untuk pelanggan setia seperti tuan.,Kami ada tawaran istimewa untuk pelanggan setia seperti tuan.,leftover,1234
+c0958,general,"Dia berada di gereja sekarang, bukan?","Dia berada di gereja sekarang, bukan?",leftover,1234
+c0959,conversational,"Temu duga cik dijadualkan pada hari Isnin, pukul empat setengah petang.","Temu duga cik dijadualkan pada hari Isnin, pukul empat setengah petang.",leftover,1234
+c0960,conversational,Kami ingin menjemput cik ke majlis pelancaran di Kota Kinabalu.,Kami ingin menjemput cik ke majlis pelancaran di Kota Kinabalu.,leftover,1234
+c0961,conversational,Penerbangan doktor ke Bangi ditunda selama satu jam.,Penerbangan doktor ke Bangi ditunda selama satu jam.,leftover,1234
+c0962,numbers,Kedai dibuka dari 6.15 malam hingga 10.30 malam.,Kedai dibuka dari pukul enam lima belas malam hingga pukul sepuluh tiga puluh malam.,leftover,1234
+c0963,conversational,Pemeriksaan kenderaan boleh dibuat di Ipoh.,Pemeriksaan kenderaan boleh dibuat di Ipoh.,leftover,1234
+c0964,general,"Kehadiran orang dewasa yang memberikan bimbingan, dorongan, dan dukungan.","Kehadiran orang dewasa yang memberikan bimbingan, dorongan, dan dukungan.",leftover,1234
+c0965,conversational,Mesyuarat ibu bapa dan guru akan diadakan pada hari Sabtu.,Mesyuarat ibu bapa dan guru akan diadakan pada hari Sabtu.,leftover,1234
+c0966,conversational,"Baiklah, saya akan telefon cik semula pada hari Ahad.","Baiklah, saya akan telefon cik semula pada hari Ahad.",leftover,1234
+c0967,codeswitch,Saya nak cancel booking untuk malam Isnin.,Saya nak kensel buking untuk malam Isnin.,leftover,1234
+c0968,question,Berapa harga tiket ke Cyberjaya?,Berapa harga tiket ke Cyberjaya?,leftover,1234
+c0969,general,Berhala itu bukan Tuhan tetapi ia mengingatkan pemuja tentang Tuhan.,Berhala itu bukan Tuhan tetapi ia mengingatkan pemuja tentang Tuhan.,leftover,1234
+c0970,general,Tonggak mempunyai kekuatan untuk berubah menjadi seekor iguana.,Tonggak mempunyai kekuatan untuk berubah menjadi seekor iguana.,leftover,1234
+c0971,conversational,Penerbangan cik ke Putrajaya ditunda selama satu jam.,Penerbangan cik ke Putrajaya ditunda selama satu jam.,leftover,1234
+c0972,numbers,Kadar faedah tahunan ialah 8.2%.,Kadar faedah tahunan ialah lapan perpuluhan dua peratus.,leftover,1234
+c0973,conversational,"Slot yang masih kosong ialah hari Jumaat, pukul lapan pagi.","Slot yang masih kosong ialah hari Jumaat, pukul lapan pagi.",leftover,1234
+c0974,conversational,"Baiklah, saya akan telefon puan semula pada hari Jumaat.","Baiklah, saya akan telefon puan semula pada hari Jumaat.",leftover,1234
+c0975,numbers,Nombor telefon pejabat ialah 011-545 2135.,Nombor telefon pejabat ialah kosong satu satu lima empat lima dua satu tiga lima.,leftover,1234
+c0976,conversational,"Saya faham kebimbangan doktor, biar saya bantu.","Saya faham kebimbangan doktor, biar saya bantu.",leftover,1234
+c0977,conversational,"Saya Ismail, pegawai yang menguruskan kes tuan.","Saya Ismail, pegawai yang menguruskan kes tuan.",leftover,1234
+c0978,numbers,Kod pengesahan anda ialah 071643.,Kod pengesahan anda ialah kosong tujuh satu enam empat tiga.,leftover,1234
+c0979,conversational,Rawatan susulan encik dijadualkan di Restoran Selera Kampung.,Rawatan susulan encik dijadualkan di Restoran Selera Kampung.,leftover,1234
+c0980,numbers,Jarak ke sana kira-kira 13 km.,Jarak ke sana kira-kira tiga belas kilometer.,leftover,1234
+c0981,codeswitch,Boleh Dato WhatsApp gambar resit tu?,Boleh Dato Wasap gambar resit tu?,leftover,1234
+c0982,codeswitch,Tolong share video tu dalam group.,Tolong syer video tu dalam grup.,leftover,1234
+c0983,numbers,Nombor telefon pejabat ialah 018-149 3668.,Nombor telefon pejabat ialah kosong satu lapan satu empat sembilan tiga enam enam lapan.,leftover,1234
+c0984,conversational,Doktor Intan akan berjumpa cik di bilik nombor tiga.,Doktor Intan akan berjumpa cik di bilik nombor tiga.,leftover,1234
+c0985,question,Betul ke encik nak pindah ke Shah Alam?,Betul ke encik nak pindah ke Shah Alam?,leftover,1234
+c0986,numbers,Kod pengesahan anda ialah 758079.,Kod pengesahan anda ialah tujuh lima lapan kosong tujuh sembilan.,leftover,1234
+c0987,conversational,Kad astro baharu encik akan dihantar melalui pos.,Kad astro baharu encik akan dihantar melalui pos.,leftover,1234
+c0988,numbers,Sila hubungi kami di talian 03-2028 2059.,Sila hubungi kami di talian kosong tiga dua kosong dua lapan dua kosong lima sembilan.,leftover,1234
+c0989,codeswitch,Booking puan untuk hari Rabu dah confirmed.,Buking puan untuk hari Rabu dah konferm.,leftover,1234
+c0990,conversational,Kereta encik sudah siap diservis dan boleh diambil petang ini.,Kereta encik sudah siap diservis dan boleh diambil petang ini.,leftover,1234
+c0991,codeswitch,Order encik dah ready untuk pickup.,Oda encik dah ready untuk pickup.,leftover,1234
+c0992,general,Adakah Ahmad dan Siti masih menyukai Boston?,Adakah Ahmad dan Siti masih menyukai Boston?,leftover,1234
+c0993,numbers,"Harga barang ini RM74,005 sahaja.",Harga barang ini tujuh puluh empat ribu lima ringgit sahaja.,leftover,1234
+c0994,conversational,"Anak puan tidak hadir ke sekolah hari ini, adakah dia sihat?","Anak puan tidak hadir ke sekolah hari ini, adakah dia sihat?",leftover,1234
+c0995,conversational,Terima kasih kerana memilih Pejabat Tanah.,Terima kasih kerana memilih Pejabat Tanah.,leftover,1234
+c0996,codeswitch,Event kami bermula pukul sepuluh pagi di Kuantan.,Event kami bermula pukul sepuluh pagi di Kuantan.,leftover,1234
+c0997,general,Mereka meminta toleransi dan penghormatan berhubung bacaan al-Quran.,Mereka meminta toleransi dan penghormatan berhubung bacaan al-Quran.,leftover,1234
+c0998,general,Model konsep mungkin merupakan representasi sistem.,Model konsep mungkin merupakan representasi sistem.,leftover,1234
+c0999,conversational,"Selamat datang ke Restoran Selera Kampung, bagaimana saya boleh membantu?","Selamat datang ke Restoran Selera Kampung, bagaimana saya boleh membantu?",leftover,1234
+c1000,general,Pemain meminjam Sickleworth  untuk mencari anak panah yang hilang itu.,Pemain meminjam Sickleworth untuk mencari anak panah yang hilang itu.,leftover,1234
+c1001,codeswitch,Cashback akan masuk dalam akaun Dato minggu depan.,Cashback akan masuk dalam akaun Dato minggu depan.,leftover,1234
+c1002,numbers,Bil elektrik bulan ini berjumlah RM4717.13.,Bil elektrik bulan ini berjumlah empat ribu tujuh ratus tujuh belas ringgit tiga belas sen.,leftover,1234
+c1003,question,Boleh cik ulang nombor telefon tadi?,Boleh cik ulang nombor telefon tadi?,leftover,1234
+c1004,numbers,Sebanyak 217 orang hadir ke majlis itu.,Sebanyak dua ratus tujuh belas orang hadir ke majlis itu.,leftover,1234
+c1005,general,Ia bertindak balas dengan halogen-halogen lain dan menyerap hidrogen.,Ia bertindak balas dengan halogen-halogen lain dan menyerap hidrogen.,leftover,1234
+c1006,numbers,Dia lahir pada 19/3/2026.,Dia lahir pada sembilan belas Mac dua ribu dua puluh enam.,leftover,1234
+c1007,conversational,Sila maklumkan kehadiran puan sebelum hari Sabtu.,Sila maklumkan kehadiran puan sebelum hari Sabtu.,leftover,1234
+c1008,numbers,"Gaji minimum sekarang RM29,390 sebulan.",Gaji minimum sekarang dua puluh sembilan ribu tiga ratus sembilan puluh ringgit sebulan.,leftover,1234
+c1009,numbers,Kedai dibuka dari 11:30 pagi hingga 3:45 petang.,Kedai dibuka dari pukul sebelas tiga puluh pagi hingga pukul tiga empat puluh lima petang.,leftover,1234
+c1010,conversational,"Terima kasih kerana bersabar, masalah cik sudah selesai.","Terima kasih kerana bersabar, masalah cik sudah selesai.",leftover,1234
+c1011,numbers,Jarak ke sana kira-kira 147 km.,Jarak ke sana kira-kira seratus empat puluh tujuh kilometer.,leftover,1234
+c1012,general,"Selain itu, terdapat rangkaian beli belah Pacific disini.","Selain itu, terdapat rangkaian beli belah Pacific disini.",leftover,1234
+c1013,codeswitch,Booking tuan untuk hari Isnin dah confirmed.,Buking tuan untuk hari Isnin dah konferm.,leftover,1234
+c1014,general,Bolehkah awak tolong saya?,Bolehkah awak tolong saya?,leftover,1234
+c1015,numbers,Sila hubungi kami di talian 012-145 9768.,Sila hubungi kami di talian kosong satu dua satu empat lima sembilan tujuh enam lapan.,leftover,1234
+c1016,numbers,Nombor telefon pejabat ialah 03-4491 2698.,Nombor telefon pejabat ialah kosong tiga empat empat sembilan satu dua enam sembilan lapan.,leftover,1234
+c1017,conversational,"Maaf puan, slot pukul dua petang sudah penuh.","Maaf puan, slot pukul dua petang sudah penuh.",leftover,1234
+c1018,numbers,Tarikh akhir pendaftaran ialah 7/6/2013.,Tarikh akhir pendaftaran ialah tujuh Jun dua ribu tiga belas.,leftover,1234
+c1019,general,Di luar studio pula kelihatan sebuah kereta mewah baru sahaja sampai.,Di luar studio pula kelihatan sebuah kereta mewah baru sahaja sampai.,leftover,1234
+c1020,question,Kenapa puan tidak datang semalam?,Kenapa puan tidak datang semalam?,leftover,1234
+c1021,conversational,Adakah encik masih boleh hadir pada masa tersebut?,Adakah encik masih boleh hadir pada masa tersebut?,leftover,1234
+c1022,numbers,Tahun 1960 merupakan tahun yang mencabar.,Tahun seribu sembilan ratus enam puluh merupakan tahun yang mencabar.,leftover,1234
+c1023,numbers,Baki akaun anda sekarang RM166.,Baki akaun anda sekarang RMsatu enam enam.,leftover,1234
+c1024,conversational,Boleh Dato ulang sekali lagi? Talian kurang jelas.,Boleh Dato ulang sekali lagi? Talian kurang jelas.,leftover,1234
+c1025,conversational,Pakej internet cik akan dinaik taraf secara percuma.,Pakej internet cik akan dinaik taraf secara percuma.,leftover,1234
+c1026,conversational,Doktor Imran akan berjumpa tuan di bilik nombor tiga.,Doktor Imran akan berjumpa tuan di bilik nombor tiga.,leftover,1234
+c1027,conversational,Mohon maaf atas kesulitan yang encik alami.,Mohon maaf atas kesulitan yang encik alami.,leftover,1234
+c1028,general,"Kadang-kadang, ia menjadi sakit yang agak membosankan.","Kadang-kadang, ia menjadi sakit yang agak membosankan.",leftover,1234
+c1029,conversational,"Sebentar ya cik, saya semak dahulu.","Sebentar ya cik, saya semak dahulu.",leftover,1234
+c1030,conversational,Makan ubat ini dua kali sehari selepas makan.,Makan ubat ini dua kali sehari selepas makan.,leftover,1234
+c1031,general,"Tessa Rihards, Dhow building : survival of an ancient craft.","Tessa Rihards, Dhow building: survival of an ancient craft.",leftover,1234
+c1032,conversational,Doktor Kumar akan berjumpa tuan di bilik nombor tiga.,Doktor Kumar akan berjumpa tuan di bilik nombor tiga.,leftover,1234
+c1033,general,Adakah anda memahaminya?,Adakah anda memahaminya?,leftover,1234
+c1034,conversational,"Saya Imran, pegawai yang menguruskan kes encik.","Saya Imran, pegawai yang menguruskan kes encik.",leftover,1234
+c1035,conversational,Tempahan meja untuk enam orang pada malam Isnin telah disahkan.,Tempahan meja untuk enam orang pada malam Isnin telah disahkan.,leftover,1234
+c1036,codeswitch,Line internet rumah saya selalu putus.,Line internet rumah saya selalu putus.,leftover,1234
+c1037,codeswitch,Saya dah upload semua dokumen ke portal.,Saya dah aplod semua dokumen ke portal.,leftover,1234
+c1038,conversational,Adakah puan membuat transaksi di Johor Bahru semalam?,Adakah puan membuat transaksi di Johor Bahru semalam?,leftover,1234
+c1039,codeswitch,Manager saya nak report itu sebelum hari Ahad.,Menejer saya nak riport itu sebelum hari Ahad.,leftover,1234
+c1040,codeswitch,Boleh cik reply mesej ni bila free?,Boleh cik replai mesej ni bila fri?,leftover,1234
+c1041,general,"Jika badan haiwan kurang tumpat daripada air, ia boleh kekal terapung.","Jika badan haiwan kurang tumpat daripada air, ia boleh kekal terapung.",leftover,1234
+c1042,conversational,Bolehkah saya tahu masa yang sesuai untuk menghubungi Dato semula?,Bolehkah saya tahu masa yang sesuai untuk menghubungi Dato semula?,leftover,1234
+c1043,conversational,Penerbangan puan ke Kota Bharu ditunda selama satu jam.,Penerbangan puan ke Kota Bharu ditunda selama satu jam.,leftover,1234
+c1044,conversational,Saya dari jabatan sumber manusia Restoran Selera Kampung.,Saya dari jabatan sumber manusia Restoran Selera Kampung.,leftover,1234
+c1045,conversational,Sila bawa anak doktor untuk suntikan susulan.,Sila bawa anak doktor untuk suntikan susulan.,leftover,1234
+c1046,general,Saya tidak tahu berapa umur Ahmad.,Saya tidak tahu berapa umur Ahmad.,leftover,1234
+c1047,codeswitch,Manager saya nak report itu sebelum hari Jumaat.,Menejer saya nak riport itu sebelum hari Jumaat.,leftover,1234
+c1048,general,"Mereka dapat perlindungan di rumah Sado, seorang penyokong taat.","Mereka dapat perlindungan di rumah Sado, seorang penyokong taat.",leftover,1234
+c1049,conversational,Kami jangka perkhidmatan pulih sebelum pukul empat setengah petang.,Kami jangka perkhidmatan pulih sebelum pukul empat setengah petang.,leftover,1234
+c1050,conversational,"Selamat datang ke Kedai Elektrik Jaya, bagaimana saya boleh membantu?","Selamat datang ke Kedai Elektrik Jaya, bagaimana saya boleh membantu?",leftover,1234
+c1051,conversational,Pesanan puan akan dihantar ke Seremban esok pagi.,Pesanan puan akan dihantar ke Seremban esok pagi.,leftover,1234
+c1052,conversational,Adakah encik membuat transaksi di Shah Alam semalam?,Adakah encik membuat transaksi di Shah Alam semalam?,leftover,1234
+c1053,codeswitch,Boleh cik confirm appointment pada hari Jumaat?,Boleh cik konferm apointmen pada hari Jumaat?,leftover,1234
+c1054,conversational,"Temu janji encik dijadualkan pada hari Sabtu, pukul empat setengah petang.","Temu janji encik dijadualkan pada hari Sabtu, pukul empat setengah petang.",leftover,1234
+c1055,conversational,"Temu janji tuan dijadualkan pada hari Selasa, pukul lapan pagi.","Temu janji tuan dijadualkan pada hari Selasa, pukul lapan pagi.",leftover,1234
+c1056,conversational,Kelas encik bermula minggu depan di Alor Setar.,Kelas encik bermula minggu depan di Alor Setar.,leftover,1234
+c1057,general,Diameter bintang emas ialah  dan bintang platinum adalah  diameter.,Diameter bintang emas ialah dan bintang platinum adalah diameter.,leftover,1234
+c1058,codeswitch,"Saya tak dapat login, password salah.","Saya tak dapat login, paswed salah.",leftover,1234
+c1059,conversational,Kelajuan baharu akan berkuat kuasa mulai hari Ahad.,Kelajuan baharu akan berkuat kuasa mulai hari Ahad.,leftover,1234
+c1060,general,Kuasa kuda hidraulik adalah bersamaan dengan kuasa kuda mekanikal.,Kuasa kuda hidraulik adalah bersamaan dengan kuasa kuda mekanikal.,leftover,1234
+c1061,conversational,"Sebentar ya Dato, saya semak dahulu.","Sebentar ya Dato, saya semak dahulu.",leftover,1234
+c1062,general,Chikmagalur berkembang sebagai pusat pelancongan baru Karnataka.,Chikmagalur berkembang sebagai pusat pelancongan baru Karnataka.,leftover,1234
+c1063,general,Ahmad menghalakan senapang beliau ke arah harimau itu.,Ahmad menghalakan senapang beliau ke arah harimau itu.,leftover,1234
+c1064,numbers,Nombor telefon pejabat ialah 013-667 8130.,Nombor telefon pejabat ialah kosong satu tiga enam enam tujuh lapan satu tiga kosong.,leftover,1234
+c1065,conversational,Sila maklumkan kehadiran doktor sebelum hari Ahad.,Sila maklumkan kehadiran doktor sebelum hari Ahad.,leftover,1234
+c1066,conversational,Doktor boleh buat tempahan melalui laman sesawang kami.,Doktor boleh buat tempahan melalui laman sesawang kami.,leftover,1234
+c1067,conversational,Polisi insurans doktor akan tamat tempoh pada hujung bulan ini.,Polisi insurans doktor akan tamat tempoh pada hujung bulan ini.,leftover,1234
+c1068,codeswitch,Saya nak cancel booking untuk malam Khamis.,Saya nak kensel buking untuk malam Khamis.,leftover,1234
+c1069,codeswitch,Boleh puan scan dokumen dan email kepada saya?,Boleh puan scan dokumen dan imel kepada saya?,leftover,1234
+c1070,conversational,"Temu duga tuan dijadualkan pada hari Khamis, pukul tiga petang.","Temu duga tuan dijadualkan pada hari Khamis, pukul tiga petang.",leftover,1234
+c1071,conversational,Ejen kami akan menunggu cik di Kajang.,Ejen kami akan menunggu cik di Kajang.,leftover,1234
+c1072,conversational,"Temu janji Dato dijadualkan pada hari Sabtu, pukul lapan malam.","Temu janji Dato dijadualkan pada hari Sabtu, pukul lapan malam.",leftover,1234
+c1073,numbers,"Temu janji anda pada 9 Ogos, pukul 8:45 pagi.","Temu janji anda pada sembilan Ogos, pukul lapan empat puluh lima pagi.",leftover,1234
+c1074,conversational,Boleh Dato sahkan nama penuh dan nombor kad pengenalan?,Boleh Dato sahkan nama penuh dan nombor kad pengenalan?,leftover,1234
+c1075,conversational,Ejen kami akan menunggu puan di Cyberjaya.,Ejen kami akan menunggu puan di Cyberjaya.,leftover,1234
+c1076,general,"Menurut kajian pakar, ia mungkin memburu dalam berkumpulan.","Menurut kajian pakar, ia mungkin memburu dalam berkumpulan.",leftover,1234
+c1077,general,"Disebabkan ini, keluarga ini terus gerak selalu.","Disebabkan ini, keluarga ini terus gerak selalu.",leftover,1234
+c1078,general,Serangan utamanya adalah Mega Flame iaitu bebola api yg besar.,Serangan utamanya adalah Mega Flame iaitu bebola api yang besar.,leftover,1234
+c1079,numbers,Baki akaun anda sekarang RM317.,Baki akaun anda sekarang RMtiga satu tujuh.,leftover,1234
+c1080,conversational,"Temu janji tuan dijadualkan pada hari Isnin, pukul empat setengah petang.","Temu janji tuan dijadualkan pada hari Isnin, pukul empat setengah petang.",leftover,1234
+c1081,conversational,Status permohonan insurans encik kini sedang disemak.,Status permohonan insurans encik kini sedang disemak.,leftover,1234
+c1082,conversational,Pegawai kami akan melawat Ipoh pada hari Khamis.,Pegawai kami akan melawat Ipoh pada hari Khamis.,leftover,1234
+c1083,general,Fasa penghuraian merupakan fasa semasa projek mula terlihat bentuknya.,Fasa penghuraian merupakan fasa semasa projek mula terlihat bentuknya.,leftover,1234
+c1084,general,Saya telahpun menanggalkan baju panas saya.,Saya telahpun menanggalkan baju panas saya.,leftover,1234
+c1085,conversational,Penerbangan tuan ke Kuching ditunda selama satu jam.,Penerbangan tuan ke Kuching ditunda selama satu jam.,leftover,1234
+c1086,conversational,Bayaran bulanan tuan sudah melepasi tarikh akhir.,Bayaran bulanan tuan sudah melepasi tarikh akhir.,leftover,1234
+c1087,conversational,Saya hubungi cik berkenaan bil internet yang masih tertunggak.,Saya hubungi cik berkenaan bil internet yang masih tertunggak.,leftover,1234
+c1088,conversational,Kami ingin menjemput encik ke majlis pelancaran di Melaka.,Kami ingin menjemput encik ke majlis pelancaran di Melaka.,leftover,1234
+c1089,codeswitch,Sila update alamat terkini dalam profile tuan.,Sila apdet alamat terkini dalam profail tuan.,leftover,1234
+c1090,general,Sistem Goalkeeper memberikan pertahanan udara jarak dekat.,Sistem Goalkeeper memberikan pertahanan udara jarak dekat.,leftover,1234
+c1091,conversational,"Assalamualaikum puan Liyana, boleh saya bercakap sebentar?","Assalamualaikum puan Liyana, boleh saya bercakap sebentar?",leftover,1234
+c1092,general,"Bentuk, reka bentuk dan penggunaannya berbeza dari tudung biasa.","Bentuk, reka bentuk dan penggunaannya berbeza dari tudung biasa.",leftover,1234
+c1093,numbers,Nombor telefon pejabat ialah 019-126 6866.,Nombor telefon pejabat ialah kosong satu sembilan satu dua enam enam lapan enam enam.,leftover,1234
+c1094,codeswitch,Manager saya nak report itu sebelum hari Khamis.,Menejer saya nak riport itu sebelum hari Khamis.,leftover,1234
+c1095,question,Bila barang saya akan sampai?,Bila barang saya akan sampai?,leftover,1234
+c1096,general,Ahmad berkata bahawa dia berharap dapat pergi bermusafir bersama Siti.,Ahmad berkata bahawa dia berharap dapat pergi bermusafir bersama Siti.,leftover,1234
+c1097,conversational,"Harap maaf, permohonan cik tidak berjaya kali ini.","Harap maaf, permohonan cik tidak berjaya kali ini.",leftover,1234
+c1098,numbers,"Baki akaun anda sekarang RM77,015.","Baki akaun anda sekarang RMtujuh tujuh,kosong satu lima.",leftover,1234
+c1099,conversational,"Selamat pagi encik Kamal, saya Hakim dari Pusat Servis Maju.","Selamat pagi encik Kamal, saya Hakim dari Pusat Servis Maju.",leftover,1234
+c1100,general,Pembangunan kot senjata bandar juga direkodkan dalam kain bangunan.,Pembangunan kot senjata bandar juga direkodkan dalam kain bangunan.,leftover,1234
+c1101,conversational,Saya dari jabatan sumber manusia Kolej Bestari.,Saya dari jabatan sumber manusia Kolej Bestari.,leftover,1234
+c1102,numbers,Baki akaun anda sekarang RM4740.76.,Baki akaun anda sekarang RMempat tujuh empat kosong.tujuh puluh enam.,leftover,1234
+c1103,general,Jofri adalah rakan Nadia ketika di kolej mempunyai agendanya tersendiri.,Jofri adalah rakan Nadia ketika di kolej mempunyai agendanya tersendiri.,leftover,1234
+c1104,conversational,Maaf kerana membuat Dato menunggu.,Maaf kerana membuat Dato menunggu.,leftover,1234
+c1105,general,Dickson meraih paten bagi ciptaan wayang gambar.,Dickson meraih paten bagi ciptaan wayang gambar.,leftover,1234
+c1106,general,"Maaf sayang, saya masih terjebak di pejabat.","Maaf sayang, saya masih terjebak di pejabat.",leftover,1234
+c1107,question,Boleh doktor ulang nombor telefon tadi?,Boleh doktor ulang nombor telefon tadi?,leftover,1234
+c1108,conversational,Pegawai kami akan melawat Petaling Jaya pada hari Ahad.,Pegawai kami akan melawat Petaling Jaya pada hari Ahad.,leftover,1234
+c1109,conversational,"Temu duga encik dijadualkan pada hari Sabtu, pukul sebelas setengah pagi.","Temu duga encik dijadualkan pada hari Sabtu, pukul sebelas setengah pagi.",leftover,1234
+c1110,numbers,Sebanyak 87814 orang hadir ke majlis itu.,Sebanyak lapan puluh tujuh ribu lapan ratus empat belas orang hadir ke majlis itu.,leftover,1234
+c1111,question,Berapa lama perjalanan ke Johor Bahru?,Berapa lama perjalanan ke Johor Bahru?,leftover,1234
+c1112,conversational,Penerbangan encik ke Melaka ditunda selama satu jam.,Penerbangan encik ke Melaka ditunda selama satu jam.,leftover,1234
+c1113,general,Azizi lebih menyenangi kehidupan yang sederhana dan berpijak di bumi yang nyata.,Azizi lebih menyenangi kehidupan yang sederhana dan berpijak di bumi yang nyata.,leftover,1234
+c1114,general,"Dia tidak memiliki keturunan, hanya seorang anak angkat.","Dia tidak memiliki keturunan, hanya seorang anak angkat.",leftover,1234
+c1115,conversational,Pegawai kami akan melawat Melaka pada hari Isnin.,Pegawai kami akan melawat Melaka pada hari Isnin.,leftover,1234
+c1116,conversational,Ejen kami akan menunggu encik di Klang.,Ejen kami akan menunggu encik di Klang.,leftover,1234
+c1117,conversational,"Temu duga puan dijadualkan pada hari Rabu, pukul lapan pagi.","Temu duga puan dijadualkan pada hari Rabu, pukul lapan pagi.",leftover,1234
+c1118,general,Untuk mengelak dari timbul diletakkan batang kayu berat di atas ikatan tadi.,Untuk mengelak dari timbul diletakkan batang kayu berat di atas ikatan tadi.,leftover,1234
+c1119,numbers,Bil elektrik bulan ini berjumlah RM25 juta.,Bil elektrik bulan ini berjumlah dua puluh lima juta ringgit.,leftover,1234
+c1120,conversational,"Kalau ada sebarang pertanyaan, cik boleh hubungi kami pada bila-bila masa.","Kalau ada sebarang pertanyaan, cik boleh hubungi kami pada bila-bila masa.",leftover,1234
+c1121,codeswitch,Event kami bermula pukul lapan pagi di Ipoh.,Event kami bermula pukul lapan pagi di Ipoh.,leftover,1234
+c1122,codeswitch,Delivery doktor akan sampai sebelum pukul sebelas setengah pagi.,Deliveri doktor akan sampai sebelum pukul sebelas setengah pagi.,leftover,1234
+c1123,conversational,"Saya Syahmi, pegawai yang menguruskan kes Dato.","Saya Syahmi, pegawai yang menguruskan kes Dato.",leftover,1234
+c1124,numbers,Nombor telefon pejabat ialah 018-258 2610.,Nombor telefon pejabat ialah kosong satu lapan dua lima lapan dua enam satu kosong.,leftover,1234
+c1125,question,Betul ke encik nak pindah ke Johor Bahru?,Betul ke encik nak pindah ke Johor Bahru?,leftover,1234
+c1126,numbers,Kod pengesahan anda ialah 400296.,Kod pengesahan anda ialah empat kosong kosong dua sembilan enam.,leftover,1234
+c1127,conversational,Pemeriksaan kenderaan boleh dibuat di Cyberjaya.,Pemeriksaan kenderaan boleh dibuat di Cyberjaya.,leftover,1234
+c1128,question,Betul ke encik nak pindah ke Klang?,Betul ke encik nak pindah ke Klang?,leftover,1234
+c1129,numbers,"Gaji minimum sekarang RM95,238 sebulan.",Gaji minimum sekarang sembilan puluh lima ribu dua ratus tiga puluh lapan ringgit sebulan.,leftover,1234
+c1130,general,Iraq ialah sebuah republik demokratik wakil parlimen persekutuan.,Iraq ialah sebuah republik demokratik wakil parlimen persekutuan.,leftover,1234
+c1131,general,Saya menyuruhi kawan saya ambil gambar.,Saya menyuruhi kawan saya ambil gambar.,leftover,1234
+c1132,conversational,Saya pindahkan panggilan Dato kepada bahagian yang berkenaan.,Saya pindahkan panggilan Dato kepada bahagian yang berkenaan.,leftover,1234
+c1133,conversational,Saya ingin mengingatkan doktor tentang temu janji pada hari Selasa ini.,Saya ingin mengingatkan doktor tentang temu janji pada hari Selasa ini.,leftover,1234
+c1134,general,Siapa yang akan menunjukkan anda di mana Boston?,Siapa yang akan menunjukkan anda di mana Boston?,leftover,1234
+c1135,numbers,Bil elektrik bulan ini berjumlah RM165.,Bil elektrik bulan ini berjumlah seratus enam puluh lima ringgit.,leftover,1234
+c1136,conversational,"Majlis akan bermula tepat pukul sembilan pagi, jangan lewat ya.","Majlis akan bermula tepat pukul sembilan pagi, jangan lewat ya.",leftover,1234
+c1137,conversational,Puan boleh membuat bayaran di mana-mana cawangan Hotel Seri Pantai.,Puan boleh membuat bayaran di mana-mana cawangan Hotel Seri Pantai.,leftover,1234
+c1138,general,Saya tinggal di Yokohama.,Saya tinggal di Yokohama.,leftover,1234
+c1139,conversational,Maaf kerana membuat cik menunggu.,Maaf kerana membuat cik menunggu.,leftover,1234
+tr04743,general,Karya itu pada mulanya dikaitkan dengan Prokop Bidasiuk tetapi isu ini dianggap satu kesilapan.,Karya itu pada mulanya dikaitkan dengan Prokop Bidasiuk tetapi isu ini dianggap satu kesilapan.,new,1234;5678
+tr05823,general,Pasukan berikut dari CONMEBOL telah melayakkan diri ke pusingan akhir.,Pasukan berikut dari CONMEBOL telah melayakkan diri ke pusingan akhir.,new,1234;5678
+tr06672,general,Tanaman asparagus di Malaysia perlukan perhatian khusus jika hendak di perluaskan.,Tanaman asparagus di Malaysia perlukan perhatian khusus jika hendak di perluaskan.,new,1234;5678
+tr04307,general,"Sekiranya kepala femur terkeluar, ia harus dikurangkan secepat mungkin, untuk mengelakkan kerosakan pada bekalan darahnya.","Sekiranya kepala femur terkeluar, ia harus dikurangkan secepat mungkin, untuk mengelakkan kerosakan pada bekalan darahnya.",new,1234;5678
+tr05321,general,Nawaz Sharif sepatutnya merasmikan kawasan pelancongan pergunungan tinggi.,Nawaz Sharif sepatutnya merasmikan kawasan pelancongan pergunungan tinggi.,new,1234;5678
+tr07076,general,Danau ini biasa dijadikan masyarakat setempat untuk mencari ikan secara tradisional.,Danau ini biasa dijadikan masyarakat setempat untuk mencari ikan secara tradisional.,new,1234;5678
+tr06867,general,Perkembangan gaya van Gogh biasanya berkait dengan tempat beliau menetap di kawasan-kawasan berbeza di Eropah.,Perkembangan gaya van Gogh biasanya berkait dengan tempat beliau menetap di kawasan-kawasan berbeza di Eropah.,new,1234;5678
+tr04640,general,"Juga, boleh dimaksudkan dengan orang yang mengemudikan kapal atau membantu dalam operasi, penyelenggaraan atau pelayaran dari sebuah kapal.","Juga, boleh dimaksudkan dengan orang yang mengemudikan kapal atau membantu dalam operasi, penyelenggaraan atau pelayaran dari sebuah kapal.",new,1234;5678
+tr04752,general,Pada dasarnya pemindangan ikan merupakan upaya pengawetan sekaligus pengolahan ikan yang menggunakan teknik penggaraman dan pemanasan.,Pada dasarnya pemindangan ikan merupakan upaya pengawetan sekaligus pengolahan ikan yang menggunakan teknik penggaraman dan pemanasan.,new,1234;5678
+tr04799,general,"Setiap kali saya membaca novel ini, saya rasa ia sangat menarik.","Setiap kali saya membaca novel ini, saya rasa ia sangat menarik.",new,1234;5678
+tr06866,general,Osmanya ialah blok Unikod mengandungi aksara untuk menulis bahasa Somali.,Osmanya ialah blok Unikod mengandungi aksara untuk menulis bahasa Somali.,new,1234;5678
+tr05208,general,Banyak juga jalanraya menggunakan lampu berunsurkan tenaga sola terutamanya di kawasan selekoh.,Banyak juga jalanraya menggunakan lampu berunsurkan tenaga sola terutamanya di kawasan selekoh.,new,1234;5678
+tr05287,general,Masyarakat pribumi Tai yang beragama Islam tertumpu di kawasan tengah dan selatan negara tersebut.,Masyarakat pribumi Tai yang beragama Islam tertumpu di kawasan tengah dan selatan negara tersebut.,new,1234;5678
+tr06535,general,Bulan Disember dikategorikan sebagai bulan paling sejuk dengan .,Bulan Disember dikategorikan sebagai bulan paling sejuk dengan.,new,1234;5678
+tr03912,general,"Meskipun beliau berasa risau tentang epilepsinya, Van Gogh sedar bahawa serangan itu tidak menjejaskan hasil seninya.","Meskipun beliau berasa risau tentang epilepsinya, Van Gogh sedar bahawa serangan itu tidak menjejaskan hasil seninya.",new,1234;5678
+tr04721,general,28% tanahnya telah dibeli dan dimiliki organisasi Zionist tambah pula dengan tanah peribadi yang dimiliki Yahudi.,dua puluh lapan peratus tanahnya telah dibeli dan dimiliki organisasi Zionist tambah pula dengan tanah peribadi yang dimiliki Yahudi.,new,1234;5678
+tr05192,general,"Pada dasarnya, setiap individu memiliki ciri-ciri yang berbeza.","Pada dasarnya, setiap individu memiliki ciri-ciri yang berbeza.",new,1234;5678
+tr06953,general,Terdapat juga pertandingan untuk kanak-kanak dan warga emas untuk racangn ini.,Terdapat juga pertandingan untuk kanak-kanak dan warga emas untuk racangn ini.,new,1234;5678
+tr04625,general,Perajurit-perajurit atau unit-unit tentera yang dirujuk oleh Wehrmachtbericht dianggap satu penghormatan besar tentera dan dipandang tinggi.,Perajurit-perajurit atau unit-unit tentera yang dirujuk oleh Wehrmachtbericht dianggap satu penghormatan besar tentera dan dipandang tinggi.,new,1234;5678
+tr07036,general,Menteri pertahanan akan menguruskan hal berkaitan pertahanan Malaysia.,Menteri pertahanan akan menguruskan hal berkaitan pertahanan Malaysia.,new,1234;5678
+tr05261,general,Dua belas pelakon telah membintangi rancangan ini sebagai Doctor.,Dua belas pelakon telah membintangi rancangan ini sebagai Doctor.,new,1234;5678
+tr05376,general,Peranannya di dalam peperangan ini bermula apabila pasukan beliau bersama-sama dengan Chong.,Peranannya di dalam peperangan ini bermula apabila pasukan beliau bersama-sama dengan Chong.,new,1234;5678
+tr06992,general,"Pendingin udara yang besar serta peralatan besar yang lain menggunakan motor tiga fasa atas sebab kecekapan, penjimatan serta ketahanannya.","Pendingin udara yang besar serta peralatan besar yang lain menggunakan motor tiga fasa atas sebab kecekapan, penjimatan serta ketahanannya.",new,1234;5678
+tr04202,general,Program kad PLUSTrack menyediakan kecekapan yang lebih baik dan pemantauan armada yang lebih baik untuk pelanggan armada.,Program kad PLUSTrack menyediakan kecekapan yang lebih baik dan pemantauan armada yang lebih baik untuk pelanggan armada.,new,1234;5678
+tr04504,general,"Seluruhnya berada di pihak para dewa, sedangkan para asura tidak mendapatkan apapun.","Seluruhnya berada di pihak para dewa, sedangkan para asura tidak mendapatkan apapun.",new,1234;5678
+tr04810,general,"Tumpang lalu sekejap, boleh tak?","Tumpang lalu sekejap, boleh tak?",new,1234;5678
+tr04942,general,Satu lagi ciri masakan Dongpo ialah asal-usul kebanyakan hidangan dapat dikesan kembali ke karya sastera Su Shi.,Satu lagi ciri masakan Dongpo ialah asal-usul kebanyakan hidangan dapat dikesan kembali ke karya sastera Su Shi.,new,1234;5678
+tr07396,general,Ia adalah rancangan berkaitan kebudayaan dan makanan yang dihoskan oleh Razif Hashim.,Ia adalah rancangan berkaitan kebudayaan dan makanan yang dihoskan oleh Razif Hashim.,new,1234;5678
+tr06552,general,"Lebih daripada 10 bulan kemudian, beliau terpulang pada tempat yang ke 34.","Lebih daripada sepuluh bulan kemudian, beliau terpulang pada tempat yang ke tiga puluh empat.",new,1234;5678
+tr05080,general,Mereka terdiri daripada pelajar lepasan SPM/SPMV sahaja.,Mereka terdiri daripada pelajar lepasan SPM/SPMV sahaja.,new,1234;5678
+tr06417,general,"Namun, pasukan ini tersingkir pada pusingan pertama oleh Benfica.","Namun, pasukan ini tersingkir pada pusingan pertama oleh Benfica.",new,1234;5678
+tr04281,general,Tolok meter adalah sejenis tolok landasan sempit dengan ukuran 1 meter atau .,Tolok meter adalah sejenis tolok landasan sempit dengan ukuran satu meter atau.,new,1234;5678
+tr06831,general,Formasi ini terdiri daripada batu kapur yang berlapis tebal dan berwarna cerah.,Formasi ini terdiri daripada batu kapur yang berlapis tebal dan berwarna cerah.,new,1234;5678
+tr06236,general,Samadi merupakan murid pertama yang didaftarkan sebagai pelajar di sekolah ini.,Samadi merupakan murid pertama yang didaftarkan sebagai pelajar di sekolah ini.,new,1234;5678
+tr04931,general,Reka bentuk baru menampilkan dewan yang lebih luas dan koridor melengkung.,Reka bentuk baru menampilkan dewan yang lebih luas dan koridor melengkung.,new,1234;5678
+tr06572,general,William dikatakan mengusir sebilangan pemilik tanah Anglo-Saxon dan menjadikan mereka sebagai hamba abdi melalui Bristol.,William dikatakan mengusir sebilangan pemilik tanah Anglo-Saxon dan menjadikan mereka sebagai hamba abdi melalui Bristol.,new,1234;5678
+tr07115,general,"Bagaimanapun, lebih 1.6 juta dipercayai menyertai perarakan haji kali ini.","Bagaimanapun, lebih satu perpuluhan enam juta dipercayai menyertai perarakan haji kali ini.",new,1234;5678
+tr06872,general,Genus tumbuhan seperti Rosa dan Phaseolus memiliki kelopak dan ranggi yang jauh berbeza.,Genus tumbuhan seperti Rosa dan Phaseolus memiliki kelopak dan ranggi yang jauh berbeza.,new,1234;5678
+tr04343,general,Ummu Salamah seorang janda tua mempunyai 4 anak dengan suami pertama yang bernama Abdullah bin Abd al-Asad.,Ummu Salamah seorang janda tua mempunyai empat anak dengan suami pertama yang bernama Abdullah bin Abd al-Asad.,new,1234;5678
+tr04821,general,Aimi memberitahu yang dia tidak sukakan Tasha kerana Tasha agak pelik.,Aimi memberitahu yang dia tidak sukakan Tasha kerana Tasha agak pelik.,new,1234;5678
+tr06722,general,Bagaimana anda menyebut nama akhir anda?,Bagaimana anda menyebut nama akhir anda?,new,1234;5678
+tr04566,general,"55.1 peratus populasi berkulit putih, manakala 28.6 peratus berkulit gelap.","lima puluh lima perpuluhan satu peratus populasi berkulit putih, manakala dua puluh lapan perpuluhan enam peratus berkulit gelap.",new,1234;5678
+tr06382,general,Terdapat sedikit kajian mengenai sebab-sebab tingkah laku dan kepentingan wanita apabila mereka tidak sepadan dengan peranan jantina wanita.,Terdapat sedikit kajian mengenai sebab-sebab tingkah laku dan kepentingan wanita apabila mereka tidak sepadan dengan peranan jantina wanita.,new,1234;5678
+tr05327,general,Gabungan pelbagai saiz dari segelintir doktor berdedikasi dan pelajar perubatan kepada puluhan ribu aktivis dan penyokong mereka.,Gabungan pelbagai saiz dari segelintir doktor berdedikasi dan pelajar perubatan kepada puluhan ribu aktivis dan penyokong mereka.,new,1234;5678
+tr06096,general,Stesen ini juga ialah antara empat stesen MRT untuk dipapar pada edisi Singapura asli permainan Monopoly.,Stesen ini juga ialah antara empat stesen MRT untuk dipapar pada edisi Singapura asli permainan Monopoly.,new,1234;5678
+tr04735,general,Cecair torehan batang pokok ini telah dilaporkan digunakan untuk rawatan herpes serta rasa gatal.,Cecair torehan batang pokok ini telah dilaporkan digunakan untuk rawatan herpes serta rasa gatal.,new,1234;5678
+tr04985,general,"Dalam beberapa tahun yang lepas, FEI telah mengurangkan bilangan keingkaran untuk penyingkiran dari tiga ke dua.","Dalam beberapa tahun yang lepas, FEI telah mengurangkan bilangan keingkaran untuk penyingkiran dari tiga ke dua.",new,1234;5678
+tr04049,general,Jenis daun bawang yang digunakan juga berbeza antara daerah Kansai dan daerah Kanto.,Jenis daun bawang yang digunakan juga berbeza antara daerah Kansai dan daerah Kanto.,new,1234;5678
+tr06830,general,Bangunan sekolah tersebut dibuat dengan 3 buah bilik pembelajaran dan sebuah bilik guru.,Bangunan sekolah tersebut dibuat dengan tiga buah bilik pembelajaran dan sebuah bilik guru.,new,1234;5678
+tr04767,general,Satu jam dalam keadaan tidak berfikir boleh menyebabkan tangisan bertahun-tahun.,Satu jam dalam keadaan tidak berfikir boleh menyebabkan tangisan bertahun-tahun.,new,1234;5678
+tr06832,general,"Mula-mula, mereka perlu mendapatkan semula pisau itu yang disimpan dalam kuil suci yang dijaga oleh Hassansin yang membunuh Garsiv.","Mula-mula, mereka perlu mendapatkan semula pisau itu yang disimpan dalam kuil suci yang dijaga oleh Hassansin yang membunuh Garsiv.",new,1234;5678
+tr05606,general,Sekolah rendah dan sekolah menengah masing-masing mempunyai lagu sekolah yang sama.,Sekolah rendah dan sekolah menengah masing-masing mempunyai lagu sekolah yang sama.,new,1234;5678
+tr07414,general,Balado bawal atau ikan bawal sambal balado merupakan makanan khas Sumatera Barat.,Balado bawal atau ikan bawal sambal balado merupakan makanan khas Sumatera Barat.,new,1234;5678
+tr05739,general,"Saudara perempuan tiri Oscar, Emily dan Mary, kedua-duanya meninggal pada umur 22 dan 24 dalam kemalangan kebakaran.","Saudara perempuan tiri Oscar, Emily dan Mary, kedua-duanya meninggal pada umur dua puluh dua dan dua puluh empat dalam kemalangan kebakaran.",new,1234;5678
+tr05061,general,Hadiah terbaik untuk seorang sahabat adalah doa.,Hadiah terbaik untuk seorang sahabat adalah doa.,new,1234;5678
+tr03969,general,"Lapan hingga sepuluh spesies biasanya diiktiraf, dengan Avicennia marina dibahagikan kepada beberapa subspesies.","Lapan hingga sepuluh spesies biasanya diiktiraf, dengan Avicennia marina dibahagikan kepada beberapa subspesies.",new,1234;5678
+tr07407,general,"Plastik direka dengan kepelbagaian yang sangat banyak dalam ciri-ciri yang dapat menahan panas, keras, kebergantungan dan lain-lain.","Plastik direka dengan kepelbagaian yang sangat banyak dalam ciri-ciri yang dapat menahan panas, keras, kebergantungan dan lain-lain.",new,1234;5678
+tr07350,general,"Indeks itu berdasarkan lima kategori berbeza yang mengukur pluralisme, kebebasan sivil dan budaya politik.","Indeks itu berdasarkan lima kategori berbeza yang mengukur pluralisme, kebebasan sivil dan budaya politik.",new,1234;5678
+tr04445,general,"Pemalar kestabilan, pemalar pembentukan, pemalar pengikat, pemalar perkaitan dan pemalar penceraian adalah semua jenis pemalar keseimbangan.","Pemalar kestabilan, pemalar pembentukan, pemalar pengikat, pemalar perkaitan dan pemalar penceraian adalah semua jenis pemalar keseimbangan.",new,1234;5678
+tr06527,general,"Ramai yang menduga bahawa beliau mungkin firaun pertama Mesir Hilir, atau yang terakhir atau bahawa beliau adalah anggota Dinasti 0.","Ramai yang menduga bahawa beliau mungkin firaun pertama Mesir Hilir, atau yang terakhir atau bahawa beliau adalah anggota Dinasti kosong.",new,1234;5678
+tr07409,general,Sesebuah kereta terdiri daripada beberapa jenis sistem kenderaan untuk membolehkannya berfungsi.,Sesebuah kereta terdiri daripada beberapa jenis sistem kenderaan untuk membolehkannya berfungsi.,new,1234;5678
+tr04074,general,"Umumnya, terdapat dua jenis kayu hitung, iaitu kayu hitung tunggal dan kayu hitung belah.","Umumnya, terdapat dua jenis kayu hitung, iaitu kayu hitung tunggal dan kayu hitung belah.",new,1234;5678
+tr05383,general,"Beliau juga dipertanggungjawabkan untuk menjaga pelabuhan, menyelesaikan masalah jenayah, pasar, jalan, pekan, timbangan dan sukatan.","Beliau juga dipertanggungjawabkan untuk menjaga pelabuhan, menyelesaikan masalah jenayah, pasar, jalan, pekan, timbangan dan sukatan.",new,1234;5678
+tr06300,general,"Bagi mereka yang berumur 15 tahun ke atas, 48.5% telah berkahwin dan 10.3% sama ada bercerai atau berpisah.","Bagi mereka yang berumur lima belas tahun ke atas, empat puluh lapan perpuluhan lima peratus telah berkahwin dan sepuluh perpuluhan tiga peratus sama ada bercerai atau berpisah.",new,1234;5678
+tr04826,general,Satu blok untuk sekolah dan satu blok asrama dibina di atas tanah seluas 2.8 ekar.,Satu blok untuk sekolah dan satu blok asrama dibina di atas tanah seluas dua perpuluhan lapan ekar.,new,1234;5678
+tr06982,general,"Sebaliknya, sesetengah pasar Asai telah dikenali dengan mempunyai harga-garga lebih kurang daripada rantaian arus.","Sebaliknya, sesetengah pasar Asai telah dikenali dengan mempunyai harga-garga lebih kurang daripada rantaian arus.",new,1234;5678
+tr06846,general,Selain itu kod sumber perisian tersebut juga diberikan secara percuma.,Selain itu kod sumber perisian tersebut juga diberikan secara percuma.,new,1234;5678
+tr07106,general,Ted akan pergi ke universiti mana?,Ted akan pergi ke universiti mana?,new,1234;5678
+tr05128,general,Ramai rakyatnya berminat dengan sukan tersebut kerana prestasi pemain yang memberangsangkan di arena antarabangsa.,Ramai rakyatnya berminat dengan sukan tersebut kerana prestasi pemain yang memberangsangkan di arena antarabangsa.,new,1234;5678
+tr06166,general,"Berdasarkan ini, dapatlah dikatakan bahawa karyanya itu tercipta pada awal abad ke-17.","Berdasarkan ini, dapatlah dikatakan bahawa karyanya itu tercipta pada awal abad ketujuh belas.",new,1234;5678
+tr07278,general,"Selain itu,beliau mempunyai sikap yang lucu sehingga baginda tersenyum dengan telatahnya.","Selain itu,beliau mempunyai sikap yang lucu sehingga baginda tersenyum dengan telatahnya.",new,1234;5678
+tr04234,general,"Buku III Organ dalaman, termasuk sistem generatif, urat, urat, tulang dan lain-lain.","Buku III Organ dalaman, termasuk sistem generatif, urat, urat, tulang dan lain-lain.",new,1234;5678
+tr04471,general,Karthigesu pada mulanya dituduh membunuh tetapi kemudian dibebaskan .Pembunuh sebenar tidak diketahui atau masih bebas.,Karthigesu pada mulanya dituduh membunuh tetapi kemudian dibebaskan.Pembunuh sebenar tidak diketahui atau masih bebas.,new,1234;5678
+tr06794,general,Tsunami biasanya dicetuskan oleh gempa bumi dan bukan gunung berapi.,Tsunami biasanya dicetuskan oleh gempa bumi dan bukan gunung berapi.,new,1234;5678
+tr04610,general,"Namun begitu, pejabat KL jatuh ke nasib yang sama dan menyebabkan Mas cedera parah.","Namun begitu, pejabat KL jatuh ke nasib yang sama dan menyebabkan Mas cedera parah.",new,1234;5678
+tr06085,general,"Wanita itu mengatakan kepadanya bahawa dia ingin membalas dendam terhadap Yaeko, kerana anaknya mengalami nasib yang sama seperti Takeshi.","Wanita itu mengatakan kepadanya bahawa dia ingin membalas dendam terhadap Yaeko, kerana anaknya mengalami nasib yang sama seperti Takeshi.",new,1234;5678
+tr04460,general,Terdapat dua jenis migrasi iaitu migrasi antarabangsa dan migrasi dalaman.,Terdapat dua jenis migrasi iaitu migrasi antarabangsa dan migrasi dalaman.,new,1234;5678
+tr07128,general,"Pada peringkat kalah mati, masa tambahan dan penalti digunakan untuk menentukan pemenang jika perlu.","Pada peringkat kalah mati, masa tambahan dan penalti digunakan untuk menentukan pemenang jika perlu.",new,1234;5678
+tr06566,general,"Dalam kes sedemikian, istilah alkil digunakan secara longgar dan bukanya kumpulan berfungsi alkil.","Dalam kes sedemikian, istilah alkil digunakan secara longgar dan bukanya kumpulan berfungsi alkil.",new,1234;5678
+tr05346,general,Semangat kemerdekaan memang telah tertanam di dalam darah daging Syeikh Juned.,Semangat kemerdekaan memang telah tertanam di dalam darah daging Syeikh Juned.,new,1234;5678
+tr05450,general,"Acak biasanya digunakan semasa memenuhi perjanjian dengan makhluk halus  sebagai contoh, saka, bagi memberi jamuan.","Acak biasanya digunakan semasa memenuhi perjanjian dengan makhluk halus sebagai contoh, saka, bagi memberi jamuan.",new,1234;5678
+tr06746,general,Bubblebee ialah rangkaian minuman teh susu dan jenama teh buih Malaysia yang beroperasi di Kuala Lumpur.,Bubblebee ialah rangkaian minuman teh susu dan jenama teh buih Malaysia yang beroperasi di Kuala Lumpur.,new,1234;5678
+tr06624,general,Kata-kata itu bagai satu sumpahan apabila Zack masih tidak berkahwin walaupun kejadian tersebut sudah 8 tahun berlalu.,Kata-kata itu bagai satu sumpahan apabila Zack masih tidak berkahwin walaupun kejadian tersebut sudah lapan tahun berlalu.,new,1234;5678
+tr04881,general,Berikut merupakan senarai harga yang ditetapkan dengan mengikut tempat majalah ini dipasarkan.,Berikut merupakan senarai harga yang ditetapkan dengan mengikut tempat majalah ini dipasarkan.,new,1234;5678
+tr06099,general,Pemimpin mahasiswa Aizat Salleh memberi ucapan ringkas tentang pentingnya pilihan raya yang tranparen agar demokrasi dapat dipulihkan .,Pemimpin mahasiswa Aizat Salleh memberi ucapan ringkas tentang pentingnya pilihan raya yang tranparen agar demokrasi dapat dipulihkan.,new,1234;5678
+tr06747,general,Permukaan laut berhampiran pulau Bukom telah terbakar.,Permukaan laut berhampiran pulau Bukom telah terbakar.,new,1234;5678
+tr06043,general,Neneknya ialah seorang guru piano di Belanda.,Neneknya ialah seorang guru piano di Belanda.,new,1234;5678
+tr05181,general,Tidak pernah beliau menyuruh sebarang pendengar untuk mengikutnya.,Tidak pernah beliau menyuruh sebarang pendengar untuk mengikutnya.,new,1234;5678
+tr05764,general,"Baka anjing jenis spits ini berbadan padat, dengan bulu tidak rapat, ekor melingkar ke atas belakang dan penampilan kepala kerubahan.","Baka anjing jenis spits ini berbadan padat, dengan bulu tidak rapat, ekor melingkar ke atas belakang dan penampilan kepala kerubahan.",new,1234;5678
+tr04059,general,Beliau pernah menculik Viktor dan dijadikan tebusan untuk mendapatkan I.R.I.S.,Beliau pernah menculik Viktor dan dijadikan tebusan untuk mendapatkan Ai.R.Ai.S.,new,1234;5678
+tr07053,general,"Setiap kali menang satu tahap, pemain menerima satu, dua atau tiga bintang mengikut markah yang diraihnya.","Setiap kali menang satu tahap, pemain menerima satu, dua atau tiga bintang mengikut markah yang diraihnya.",new,1234;5678
+tr06278,general,Kolam air itu sering dijadikan sumber mendapat bekalan air seharian dan menjadi tempat bermandi-manda kanak-kanak kampung.,Kolam air itu sering dijadikan sumber mendapat bekalan air seharian dan menjadi tempat bermandi-manda kanak-kanak kampung.,new,1234;5678
+tr05906,general,"Perbuatan tersebut berbeza dengan kebanyakan tukang lain, yang bertelur di tanah kosong.","Perbuatan tersebut berbeza dengan kebanyakan tukang lain, yang bertelur di tanah kosong.",new,1234;5678
+tr06561,general,"Oleh kerana itu, Merkia telah berjanji untuk menghantar seorang lagi karman untuk membantu Artakus.","Oleh kerana itu, Merkia telah berjanji untuk menghantar seorang lagi karman untuk membantu Artakus.",new,1234;5678
+tr05973,general,Kamarul pula yang berniaga di pasar malam tidak dapat berniaga oleh kerana PKP.,Kamarul pula yang berniaga di pasar malam tidak dapat berniaga oleh kerana PKP.,new,1234;5678
+tr04632,general,"Dalam biologi, spora ialah serbuk halus yang dihasilkan oleh bakteria dan tumbuhan tidak berbunga seperti kulat, lumut dan paku pakis.","Dalam biologi, spora ialah serbuk halus yang dihasilkan oleh bakteria dan tumbuhan tidak berbunga seperti kulat, lumut dan paku pakis.",new,1234;5678
+tr06049,general,Dia sedang memeriksa almari penyapu.,Dia sedang memeriksa almari penyapu.,new,1234;5678
+tr05148,general,"Ibu kotanya terletak di Labuhan, kira-kira 20 km dari Medan.","Ibu kotanya terletak di Labuhan, kira-kira dua puluh kilometer dari Medan.",new,1234;5678
+tr04185,general,Oscar lalu melanjutkan perjalanan jelajah ceramahnya ke Ireland dan England.,Oscar lalu melanjutkan perjalanan jelajah ceramahnya ke Ireland dan England.,new,1234;5678
+tr06558,general,"Sphaerocarpium, lebih suka suhu yang sederhana dan malam sejuk, dan tidak boleh berbunga jika suhu yang sangat panas.","Sphaerocarpium, lebih suka suhu yang sederhana dan malam sejuk, dan tidak boleh berbunga jika suhu yang sangat panas.",new,1234;5678
+tr06691,general,Mimpi yang benar-benar menghantuinya kerana mimpinya bersifat deja-vu dan umpama benar-benar berlaku di dalam kehidupannya.,Mimpi yang benar-benar menghantuinya kerana mimpinya bersifat deja-vu dan umpama benar-benar berlaku di dalam kehidupannya.,new,1234;5678
+tr05762,general,"Selanjutnya, Light cuba menggunakan death note untuk membunuh ayahnya sendiri yang membuat Misa sangat ketakutan.","Selanjutnya, Light cuba menggunakan death note untuk membunuh ayahnya sendiri yang membuat Misa sangat ketakutan.",new,1234;5678
+tr05292,general,Beliau juga bukan sahaja lelaki berkebolehan malah mampu menghubungkan Britain dan Perancis.,Beliau juga bukan sahaja lelaki berkebolehan malah mampu menghubungkan Britain dan Perancis.,new,1234;5678
+tr06360,general,Taktik ini memerlukan kerja pembukaan pintu air terusan yang dikendalikan oleh sukarelawan yang berani.,Taktik ini memerlukan kerja pembukaan pintu air terusan yang dikendalikan oleh sukarelawan yang berani.,new,1234;5678
+tr06029,general,"Namun, sehingga kini, kelihatan watak-watak keluar masuk menggunakan jalan ini.","Namun, sehingga kini, kelihatan watak-watak keluar masuk menggunakan jalan ini.",new,1234;5678
+tr04260,general,Mereka bertikai tentang kedudukan bahasa Melayu sebagai bahasa pengantar/ bahasa kebangsaan di Malaysia.,Mereka bertikai tentang kedudukan bahasa Melayu sebagai bahasa pengantar/ bahasa kebangsaan di Malaysia.,new,1234;5678
+tr06852,general,Beliau mendapat tempat ke-18 dalam siri kejohanan utama.,Beliau mendapat tempat kelapan belas dalam siri kejohanan utama.,new,1234;5678
+tr04699,general,"Mereka dilengkapkan dengan peralatan kelengkapan perang seperti meriam, kapal terbang dan kapal laut.","Mereka dilengkapkan dengan peralatan kelengkapan perang seperti meriam, kapal terbang dan kapal laut.",new,1234;5678
+tr03985,general,"Pada awal zaman Showa, kotak dari aluminium untuk membawa bento sangat digemari orang Jepun dan merupakan barangan mewah.","Pada awal zaman Showa, kotak dari aluminium untuk membawa bento sangat digemari orang Jepun dan merupakan barangan mewah.",new,1234;5678
+tr04529,general,"Sejak hari itu, Raja Bersiong tidak boleh hidup tanpa menyantap darah manusia setiap hari.","Sejak hari itu, Raja Bersiong tidak boleh hidup tanpa menyantap darah manusia setiap hari.",new,1234;5678
+tr07178,general,Kazimierz membawa dia bersama dari Prague dan meyakinkan ketua rahib lelaki biara Benedictine di Tyniec supaya mengahwini mereka.,Kazimierz membawa dia bersama dari Prague dan meyakinkan ketua rahib lelaki biara Benedictine di Tyniec supaya mengahwini mereka.,new,1234;5678
+tr04355,general,Kursus bagi Pegawai Waran berperingkat kebangsaan dan merupakan anugerah berprestij bagi kadet.,Kursus bagi Pegawai Waran berperingkat kebangsaan dan merupakan anugerah berprestij bagi kadet.,new,1234;5678
+tr04843,general,"Sesetengah orang mengkaji bagaimana peranti sedemikian berfungsi secara am, sebagai sebahagian dari fizik.","Sesetengah orang mengkaji bagaimana peranti sedemikian berfungsi secara am, sebagai sebahagian dari fizik.",new,1234;5678
+tr05816,general,Majoriti bagi komponen logam bagi USP dan Mark 23 disadur dengan bahan anti hakisan.,Majoriti bagi komponen logam bagi USP dan Mark dua puluh tiga disadur dengan bahan anti hakisan.,new,1234;5678
+tr06699,general,Dia selalu memberi serundingnya kepada jiran tetangga.,Dia selalu memberi serundingnya kepada jiran tetangga.,new,1234;5678
+tr06075,general,"Pada larutan tidak unggul, penjumlahan isi padu bahan terlarut tulen dan pelarut tulen tidaklah sama dengan isi padu larutan.","Pada larutan tidak unggul, penjumlahan isi padu bahan terlarut tulen dan pelarut tulen tidaklah sama dengan isi padu larutan.",new,1234;5678
+tr04739,general,Satu gonjong di tengah diapit oleh lapan gonjong yang lebih kecil di sekelilingnya.,Satu gonjong di tengah diapit oleh lapan gonjong yang lebih kecil di sekelilingnya.,new,1234;5678
+tr04242,general,Sesetengah daripada perisian-perisian ini mempunyai fungsi pengurusan pakej-pakej tanggungan untuk memudahkan pengguna.,Sesetengah daripada perisian-perisian ini mempunyai fungsi pengurusan pakej-pakej tanggungan untuk memudahkan pengguna.,new,1234;5678
+tr06537,general,"Semasa beliau di tahap sekolah menengah, beliau berminat dalam bidang sains komputer.","Semasa beliau di tahap sekolah menengah, beliau berminat dalam bidang sains komputer.",new,1234;5678
+tr07154,general,Resident Evil Village adalah permainan video seram kemandirian yang akan datang yang dibangunkan dan diterbitkan oleh Capcom.,Resident Evil Village adalah permainan video seram kemandirian yang akan datang yang dibangunkan dan diterbitkan oleh Capcom.,new,1234;5678
+tr07215,general,Ahmad menangkap anjing itu.,Ahmad menangkap anjing itu.,new,1234;5678
+tr04927,general,"Wardah kongsi masalah dengan kawan baiknya, Yasmeen.","Wardah kongsi masalah dengan kawan baiknya, Yasmeen.",new,1234;5678
+tr06224,general,"Namun begitu apabila sudah melalui beberapa puncak, pendaki akan menuju ke satu jalan mati.","Namun begitu apabila sudah melalui beberapa puncak, pendaki akan menuju ke satu jalan mati.",new,1234;5678
+tr04071,general,Ia tidak digunakan sebagai lidah ibunda sejak zaman Tannaic.,Ia tidak digunakan sebagai lidah ibunda sejak zaman Tannaic.,new,1234;5678
+tr06769,general,Pihak BSKU mendapati bahawa pesawat itu tidak dilengkapi dengan kotak hitam.,Pihak BSKU mendapati bahawa pesawat itu tidak dilengkapi dengan kotak hitam.,new,1234;5678
+tr06749,general,Mereka ini adalah sangat berbeza dan tidak sama seperti masyarakat Melayu yang mempunyai darah keturunan Bugis.,Mereka ini adalah sangat berbeza dan tidak sama seperti masyarakat Melayu yang mempunyai darah keturunan Bugis.,new,1234;5678
+tr05515,general,"Malang sekali, Fathul tidak dapat beraksi kerana beliau berada di Berlin sewaktu itu menjadikan barisan album pertama tidak lengkap.","Malang sekali, Fathul tidak dapat beraksi kerana beliau berada di Berlin sewaktu itu menjadikan barisan album pertama tidak lengkap.",new,1234;5678
+tr04065,general,"Pada zaman awal dinasti Joseon, pemeriksaan ketenteraan di mana raja turut menyertainya sering diadakan di sini.","Pada zaman awal dinasti Joseon, pemeriksaan ketenteraan di mana raja turut menyertainya sering diadakan di sini.",new,1234;5678
+tr05777,general,"Pada awal abad ke-20, lapan gedung membeli-belah besar telah ditubuhkan di sepanjang jalan.","Pada awal abad kedua puluh, lapan gedung membeli-belah besar telah ditubuhkan di sepanjang jalan.",new,1234;5678
+tr04969,general,Bergensten mula memprogram permainan pertamanya pada usia 11 tahun menggunakan BASIC dan Turbo Pascal .,Bergensten mula memprogram permainan pertamanya pada usia sebelas tahun menggunakan Beisik dan Turbo Pascal.,new,1234;5678
+tr05405,general,Tentera salib bersetuju dengan tawaran Alexius.,Tentera salib bersetuju dengan tawaran Alexius.,new,1234;5678
+tr06779,general,"Mereka dikenali melalui ethno-linguistik yang terdapat di timur dan selatan Afghanistan, Balochistan dan wilayah Pakistan.","Mereka dikenali melalui ethno-linguistik yang terdapat di timur dan selatan Afghanistan, Balochistan dan wilayah Pakistan.",new,1234;5678
+tr06781,general,April ialah bulan keempat dalam setahun.,April ialah bulan keempat dalam setahun.,new,1234;5678
+tr05150,general,Pengakuan ini berasal dari sebuah sistem yang-diyakinijalan untuk menghalang perbelanjaan anda dan pemalsuan.,Pengakuan ini berasal dari sebuah sistem yang-diyakinijalan untuk menghalang perbelanjaan anda dan pemalsuan.,new,1234;5678
+tr05303,general,"Sebab dia memohon uji bakat AKB48 adalah kerana dia dikagumi kepada Miyazawa Sae, senior di sekolah tarian itu, beliau menghadiri.","Sebab dia memohon uji bakat AKBempat puluh lapan adalah kerana dia dikagumi kepada Miyazawa Sae, senior di sekolah tarian itu, beliau menghadiri.",new,1234;5678
+tr04759,general,Penggunaan lopinavir/ritonavir telah dicadangkan sebagai sebahagian daripada rancangan rawatan.,Penggunaan lopinavir/ritonavir telah dicadangkan sebagai sebahagian daripada rancangan rawatan.,new,1234;5678
+tr06813,general,Ini telah diperjuangkan oleh Rouseau dengan pegangannya kepada konsep kontrak sosial.,Ini telah diperjuangkan oleh Rouseau dengan pegangannya kepada konsep kontrak sosial.,new,1234;5678
+tr06542,general,"Tidak ada tong sampah di atas kepala, yang membolehkan kabin kelihatan dan terasa lebih besar.","Tidak ada tong sampah di atas kepala, yang membolehkan kabin kelihatan dan terasa lebih besar.",new,1234;5678
+tr05933,general,Anggur merupakan salah satu tanaman yang hidup pada daerah dataran rendah.,Anggur merupakan salah satu tanaman yang hidup pada daerah dataran rendah.,new,1234;5678
+tr04974,general,Adakah tiada alternatif kepada kaedah anda?,Adakah tiada alternatif kepada kaedah anda?,new,1234;5678
+tr06083,general,Temalangnya diperbuat daripada kayu nangka ataupun jenis kayu yang keras yang lain yang dianggap sesuai.,Temalangnya diperbuat daripada kayu nangka ataupun jenis kayu yang keras yang lain yang dianggap sesuai.,new,1234;5678
+tr04587,general,Kemudahan ini amatlah relevan untuk pentadbir laman untuk melihat statistik kepenggunaan setiap laman mereka.,Kemudahan ini amatlah relevan untuk pentadbir laman untuk melihat statistik kepenggunaan setiap laman mereka.,new,1234;5678
+tr04660,general,Taman ini merupakan antara taman perumahan yang memiliki pelbagai kemudahan seperti kemudahan kedai runcit dan pejabat.,Taman ini merupakan antara taman perumahan yang memiliki pelbagai kemudahan seperti kemudahan kedai runcit dan pejabat.,new,1234;5678
+tr06818,general,"Tujuannya sama sahaja dengan nilai tara, iaitu untuk menetapkan modal minimum di sisi undang-undang yang sesebuah perbadanan perlu memiliki.","Tujuannya sama sahaja dengan nilai tara, iaitu untuk menetapkan modal minimum di sisi undang-undang yang sesebuah perbadanan perlu memiliki.",new,1234;5678
+tr06284,general,"Jika Hafiz telefon pada saya, sila beritahu dia saya akan balik pada pukul tujuh.","Jika Hafiz telefon pada saya, sila beritahu dia saya akan balik pada pukul tujuh.",new,1234;5678
+tr05683,general,Saya Juwairiyah binti al-Harith ketua kepada orang-orangnya.,Saya Juwairiyah binti al-Harith ketua kepada orang-orangnya.,new,1234;5678
+tr05459,general,Struktur yang dihasilkan berubah sangat tahan terhadap gangguan kimia dan mekanikal.,Struktur yang dihasilkan berubah sangat tahan terhadap gangguan kimia dan mekanikal.,new,1234;5678
+tr06871,general,Pihak Jabatan Hutan telah membina tangga-tanga dan wakaf istirahat untuk kemudahan pengunjung.,Pihak Jabatan Hutan telah membina tangga-tanga dan wakaf istirahat untuk kemudahan pengunjung.,new,1234;5678
+tr05076,general,"Sekiranya virus kekal ingatan, ia akan memadamkan sebarang fail dilaksanakan pada hari Selasa 1 haribulan.","Sekiranya virus kekal ingatan, ia akan memadamkan sebarang fail dilaksanakan pada hari Selasa satu haribulan.",new,1234;5678
+tr05820,general,Semua pejabat kerajaan beroperasi di Serdang.,Semua pejabat kerajaan beroperasi di Serdang.,new,1234;5678
+tr04294,general,Daun sirih itu bertujuan untuk mengelakkan  mengotorkan tangan pengantin.,Daun sirih itu bertujuan untuk mengelakkan mengotorkan tangan pengantin.,new,1234;5678
+tr05531,general,"Secara singkat, itu adalah sebuah platform rakan kongsi dimana semua orang dapat bergabung secara percuma.","Secara singkat, itu adalah sebuah platform rakan kongsi dimana semua orang dapat bergabung secara percuma.",new,1234;5678
+tr04765,general,Semua penuntut didedahkan kepada sumber-sumber tersebut sebagai tambahan kepada ilmu kontemporari.,Semua penuntut didedahkan kepada sumber-sumber tersebut sebagai tambahan kepada ilmu kontemporari.,new,1234;5678
+tr05917,general,"Kesemua cerita, walau bagaimanapun, bergerak seiring sepanjang durasi filem ini.","Kesemua cerita, walau bagaimanapun, bergerak seiring sepanjang durasi filem ini.",new,1234;5678
+tr06621,general,"Ketika Wong tahu temannya juga menyukai wanita pilihannya, ia pun harus bersaing demi mendapatkan perhatian gadis tersebut.","Ketika Wong tahu temannya juga menyukai wanita pilihannya, ia pun harus bersaing demi mendapatkan perhatian gadis tersebut.",new,1234;5678
+tr05592,general,"Kini, hampur semua pesawat tempur modern dipersenjatai dengan meriam automatik yang dikembangkan dari Perang Dunia II.","Kini, hampur semua pesawat tempur modern dipersenjatai dengan meriam automatik yang dikembangkan dari Perang Dunia II.",new,1234;5678
+tr06861,general,"Oleh kerana itu, pada abad 18 sering muncul tuntutan agar perempuan mendapat pendidikan yang sama.","Oleh kerana itu, pada abad lapan belas sering muncul tuntutan agar perempuan mendapat pendidikan yang sama.",new,1234;5678
+tr05254,general,"Dari perspektif taksonomi, kacukan ialah anak yang terlahir dari pembiakan antara dua haiwan atau tumbuhan yang berlainan taksonnya.","Dari perspektif taksonomi, kacukan ialah anak yang terlahir dari pembiakan antara dua haiwan atau tumbuhan yang berlainan taksonnya.",new,1234;5678
+tr04010,general,Adalah dikatakan bahawa upacara korban keagamaan pernah diamalkan dalam kebudayaan Hongshan.,Adalah dikatakan bahawa upacara korban keagamaan pernah diamalkan dalam kebudayaan Hongshan.,new,1234;5678
+tr07301,general,Keladi Sarawak: Daunnya sedikit runcing seperti anak panah dengan warna hijau kebiruan berdebu.,Keladi Sarawak: Daunnya sedikit runcing seperti anak panah dengan warna hijau kebiruan berdebu.,new,1234;5678
+tr05674,general,Membimbing pelajar ke arah pembentukan sahsiah dan akhlak mulia.,Membimbing pelajar ke arah pembentukan sahsiah dan akhlak mulia.,new,1234;5678
+tr04866,general,Pada  zaman tersebut  penyebaran ilmu pengetahuan hampir tiada.,Pada zaman tersebut penyebaran ilmu pengetahuan hampir tiada.,new,1234;5678
+tr06098,general,Semua progra yang ditawarkan oleh PB SLaPB boleh di semak di sini.,Semua progra yang ditawarkan oleh PB SLaPB boleh di semak di sini.,new,1234;5678
+tr06019,general,"Dengan memakan petai, kita dapat mengawal badan daripada ketagih mengambil makanan berkarbohidrat tinggi.","Dengan memakan petai, kita dapat mengawal badan daripada ketagih mengambil makanan berkarbohidrat tinggi.",new,1234;5678
+tr06795,general,"Selain kapten, kadang-kadang pembantu kapten juga merupakan nakhoda bertauliah.","Selain kapten, kadang-kadang pembantu kapten juga merupakan nakhoda bertauliah.",new,1234;5678
+tr04199,general,"Sebenarnya awak takkan melakukan sedemikian, bukan?","Sebenarnya awak takkan melakukan sedemikian, bukan?",new,1234;5678
+tr06350,general,Pemasang Ubiquity membenarkan pemasangan di atas cakera keras dari CD Langsung tanpa memulakan semula komputer sebelum pemasangan.,Pemasang Ubiquity membenarkan pemasangan di atas cakera keras dari CD Langsung tanpa memulakan semula komputer sebelum pemasangan.,new,1234;5678
+tr04611,general,"Selepas mempersembahkan tarian buat kali keempat di hadapan juri, tiba waktu penyingkiran lagi.","Selepas mempersembahkan tarian buat kali keempat di hadapan juri, tiba waktu penyingkiran lagi.",new,1234;5678
+tr07268,general,Abangnya juga merupakan pemain di kelab itu iaitu Antonio.,Abangnya juga merupakan pemain di kelab itu iaitu Antonio.,new,1234;5678
+tr06983,general,"Janganlah kita terlalu menjaga hak kita, tetapi terlalu banyak tugas kita.","Janganlah kita terlalu menjaga hak kita, tetapi terlalu banyak tugas kita.",new,1234;5678
+tr06717,general,Pengguna boleh meneroka aplikasi dengan cepat tanpa mengikut turutan sambil membina hala tuju sendiri.,Pengguna boleh meneroka aplikasi dengan cepat tanpa mengikut turutan sambil membina hala tuju sendiri.,new,1234;5678
+tr07064,general,Percubaan oleh pemaju untuk mengambil tanah kosong setelah perintah mahkamah berjaya membuktikan sia-sia.,Percubaan oleh pemaju untuk mengambil tanah kosong setelah perintah mahkamah berjaya membuktikan sia-sia.,new,1234;5678
+tr06554,general,Terdiri daripada sebuah kelas sahaja dengan 40 orang pelajar dan pengetuanya ialah En.,Terdiri daripada sebuah kelas sahaja dengan empat puluh orang pelajar dan pengetuanya ialah encik.,new,1234;5678
+tr05914,general,Bunga ini ditanam secara meluas sebagai hiasan di seluruh kawasan beriklim tropika dan separa tropika.,Bunga ini ditanam secara meluas sebagai hiasan di seluruh kawasan beriklim tropika dan separa tropika.,new,1234;5678
+tr05755,general,Majoriti penduduk di kawasan ini adalah Melayu.,Majoriti penduduk di kawasan ini adalah Melayu.,new,1234;5678
+tr04792,general,Biri-biri itu akhirnya diberikan ke Eritrea.,Biri-biri itu akhirnya diberikan ke Eritrea.,new,1234;5678
+tr05707,general,Anum meminta Noraini pulang ke rumah kerana sudah lewat malam tetapi Noraini menolak.,Anum meminta Noraini pulang ke rumah kerana sudah lewat malam tetapi Noraini menolak.,new,1234;5678
+tr04675,general,Kebakaran hari ini masih ditetapkan setiap tahun untuk pembersihan tanah di kawasan pertanian dan hutan yang terdegradasi.,Kebakaran hari ini masih ditetapkan setiap tahun untuk pembersihan tanah di kawasan pertanian dan hutan yang terdegradasi.,new,1234;5678
+tr04463,general,"Kononnya jika dipaku di belakang tengkoknya, langsuir  akan berubah menjadi seorang wanita yang cantik.","Kononnya jika dipaku di belakang tengkoknya, langsuir akan berubah menjadi seorang wanita yang cantik.",new,1234;5678
+tr06190,general,Seriawan merupakan penyakit kelainan mulut yang paling sering dijumpai .,Seriawan merupakan penyakit kelainan mulut yang paling sering dijumpai.,new,1234;5678
+tr04043,general,"Pada 2 Mei, SPR mengadakan demonstrasi umum penggunaan dakwat kekal.","Pada dua Mei, SPR mengadakan demonstrasi umum penggunaan dakwat kekal.",new,1234;5678
+tr05052,general,Pestabola Merdeka - perlawanan format piala untuk memeriahkan sambutan hari kebangsaan.,Pestabola Merdeka - perlawanan format piala untuk memeriahkan sambutan hari kebangsaan.,new,1234;5678
+tr05527,general,"Menggunkan cincin yang dipanggil , Loke boleh menyerang menggunakan sihir berasaskan cahaya.","Menggunkan cincin yang dipanggil, Loke boleh menyerang menggunakan sihir berasaskan cahaya.",new,1234;5678
+tr05855,general,Kebanyakan mangsa terbunuh akibat runtuhan akibat runtuhan bangunan.,Kebanyakan mangsa terbunuh akibat runtuhan akibat runtuhan bangunan.,new,1234;5678
+tr04616,general,"Tun Abdul Majid bertanya, adakah hanya disebabkan itu membuatkan tertuduh merasa hairan, Azilah dengan ringkas mengiyakan.","Tun Abdul Majid bertanya, adakah hanya disebabkan itu membuatkan tertuduh merasa hairan, Azilah dengan ringkas mengiyakan.",new,1234;5678
+tr03924,general,Bayanchur Khan memusnahkan beberapa pos perdagangan mereka sebelum menyembelih tentera Kyrgyz dan melaksanakan Khan mereka.,Bayanchur Khan memusnahkan beberapa pos perdagangan mereka sebelum menyembelih tentera Kyrgyz dan melaksanakan Khan mereka.,new,1234;5678
+tr06073,general,Bagaimana awak berehat selepas waktu persekolahan?,Bagaimana awak berehat selepas waktu persekolahan?,new,1234;5678
+tr06619,general,Mengapa Ahmad tinggal di Australia?,Mengapa Ahmad tinggal di Australia?,new,1234;5678
+tr05905,general,Jeob Utara mengalami kecederaan teruk di Ungchi kerana mereka tidak mempunyai latihan dalam peperangan.,Jeob Utara mengalami kecederaan teruk di Ungchi kerana mereka tidak mempunyai latihan dalam peperangan.,new,1234;5678
+tr06471,general,Suatu hari Nik terpaksa meninggalkan rumah untuk beberapa minggu atas urusan pekerjaan.,Suatu hari Nik terpaksa meninggalkan rumah untuk beberapa minggu atas urusan pekerjaan.,new,1234;5678
+tr04211,general,"Walaupun perlembagaan tidak pernah secara rasmi dimansuhkan, beliau kembali bertahan sebagai raja mutlak.","Walaupun perlembagaan tidak pernah secara rasmi dimansuhkan, beliau kembali bertahan sebagai raja mutlak.",new,1234;5678
+tr05435,general,Spesies ini amat menarik minat saintis kerana ia merupakan percabangan evolusi untuk biawak-biawak varanid dan helodermatid.,Spesies ini amat menarik minat saintis kerana ia merupakan percabangan evolusi untuk biawak-biawak varanid dan helodermatid.,new,1234;5678
+tr04130,general,Ini kerana sistem ini juga menggunakan Fuestle seperti sistem KV.,Ini kerana sistem ini juga menggunakan Fuestle seperti sistem KV.,new,1234;5678
+tr03961,general,Ia berhijrah ke kawasan tropika seperti Malaysia pada musim sejuk.,Ia berhijrah ke kawasan tropika seperti Malaysia pada musim sejuk.,new,1234;5678
+tr04706,general,"Bila saya berkerja, saya gemar mendengar muzik.","Bila saya berkerja, saya gemar mendengar muzik.",new,1234;5678
+tr04420,general,Penilaian fungsi intelektual termasuk ujian ingatan yang dapat mencirikan keadaan penyakit.,Penilaian fungsi intelektual termasuk ujian ingatan yang dapat mencirikan keadaan penyakit.,new,1234;5678
+tr07060,general,Tarikh perdengaran kes rayuan itu seterusnya ditangguh ke 29hb Oktober.,Tarikh perdengaran kes rayuan itu seterusnya ditangguh ke dua puluh sembilanhb Oktober.,new,1234;5678
+tr05850,general,Pengkhianatan Zardaron telah sampai ke pengetahuan penduduk kota melalui pendedahan Garilon dan dia terpaksa melarikan diri.,Pengkhianatan Zardaron telah sampai ke pengetahuan penduduk kota melalui pendedahan Garilon dan dia terpaksa melarikan diri.,new,1234;5678
+tr06611,general,Hubungan Amira dengan Razlan bertambah erat dan mula keluar ke majlis puisi bersama.,Hubungan Amira dengan Razlan bertambah erat dan mula keluar ke majlis puisi bersama.,new,1234;5678
+tr05014,general,Landasan sering terabai sehingga sistem perparitan yang tidak terurus telah merosakkan tapak landasan.,Landasan sering terabai sehingga sistem perparitan yang tidak terurus telah merosakkan tapak landasan.,new,1234;5678
+tr03154,codeswitch,Password Dato perlu ditukar setiap tiga bulan.,Paswed Dato perlu ditukar setiap tiga bulan.,new,1234;5678
+tr03125,codeswitch,Boleh encik WhatsApp gambar resit tu?,Boleh encik Wasap gambar resit tu?,new,1234;5678
+tr03228,codeswitch,Boleh puan confirm appointment pada hari Isnin?,Boleh puan konferm apointmen pada hari Isnin?,new,1234;5678
+tr03149,codeswitch,Boleh doktor scan dokumen dan email kepada saya?,Boleh doktor scan dokumen dan imel kepada saya?,new,1234;5678
+tr03009,codeswitch,Cuba clear cache dan login semula.,Cuba clear cache dan login semula.,new,1234;5678
+tr03116,codeswitch,Boleh puan confirm appointment pada hari Khamis?,Boleh puan konferm apointmen pada hari Khamis?,new,1234;5678
+tr03018,codeswitch,Ada discount untuk student tak?,Ada diskaun untuk student tak?,new,1234;5678
+tr03068,codeswitch,Team kami akan follow up dengan cik esok.,Tim kami akan folo ap dengan cik esok.,new,1234;5678
+tr03020,codeswitch,Deadline submission ialah hari Khamis.,Dedlain submission ialah hari Khamis.,new,1234;5678
+tr03006,codeswitch,"Okay, saya akan confirm dengan bos saya dulu.","Okei, saya akan konferm dengan bos saya dulu.",new,1234;5678
+tr03081,codeswitch,Rider kami tak jumpa rumah cik.,Raider kami tak jumpa rumah cik.,new,1234;5678
+tr03015,codeswitch,Boleh cik scan dokumen dan email kepada saya?,Boleh cik scan dokumen dan imel kepada saya?,new,1234;5678
+tr03266,codeswitch,Event kami bermula pukul dua petang di Klang.,Event kami bermula pukul dua petang di Klang.,new,1234;5678
+tr03039,codeswitch,Tolong save nombor ni dalam phone cik.,Tolong sev nombor ni dalam fon cik.,new,1234;5678
+tr03137,codeswitch,Boleh saya tahu status order cik?,Boleh saya tahu status oda cik?,new,1234;5678
+tr03260,codeswitch,Delivery encik akan sampai sebelum pukul sepuluh pagi.,Deliveri encik akan sampai sebelum pukul sepuluh pagi.,new,1234;5678
+tr03021,codeswitch,Barang tu out of stock buat masa ini.,Barang tu out of stak buat masa ini.,new,1234;5678
+tr03088,codeswitch,Boleh encik confirm appointment pada hari Khamis?,Boleh encik konferm apointmen pada hari Khamis?,new,1234;5678
+tr02985,codeswitch,Driver dah on the way ke Ipoh.,Draiver dah on di wei ke Ipoh.,new,1234;5678
+tr02990,codeswitch,Tolong double check maklumat sebelum submit.,Tolong double cek maklumat sebelum sebmit.,new,1234;5678
+tr03185,codeswitch,Feedback doktor sangat penting untuk kami.,Fidbek doktor sangat penting untuk kami.,new,1234;5678
+tr03196,codeswitch,Akaun doktor akan expired minggu depan.,Akaun doktor akan ekspaiad minggu depan.,new,1234;5678
+tr03060,codeswitch,Sila update alamat terkini dalam profile encik.,Sila apdet alamat terkini dalam profail encik.,new,1234;5678
+tr03019,codeswitch,Boss saya nak jumpa cik untuk interview.,Bos saya nak jumpa cik untuk interview.,new,1234;5678
+tr03112,codeswitch,Boleh tuan share location rumah?,Boleh tuan syer location rumah?,new,1234;5678
+tr02983,codeswitch,"Sorry lambat reply, saya baru habis meeting.","Sori lambat replai, saya baru habis miting.",new,1234;5678
+tr03269,codeswitch,Delivery cik akan sampai sebelum pukul sebelas setengah pagi.,Deliveri cik akan sampai sebelum pukul sebelas setengah pagi.,new,1234;5678
+tr03148,codeswitch,Booking tuan untuk hari Sabtu dah confirmed.,Buking tuan untuk hari Sabtu dah konferm.,new,1234;5678
+tr03186,codeswitch,Akaun Dato akan expired minggu depan.,Akaun Dato akan ekspaiad minggu depan.,new,1234;5678
+tr03086,codeswitch,"Thank you puan, nanti kami update lagi.","Tenk yu puan, nanti kami apdet lagi.",new,1234;5678
+tr03163,codeswitch,Boleh puan reply mesej ni bila free?,Boleh puan replai mesej ni bila fri?,new,1234;5678
+tr03056,codeswitch,Boleh tuan WhatsApp gambar resit tu?,Boleh tuan Wasap gambar resit tu?,new,1234;5678
+tr03205,codeswitch,Booking encik untuk hari Khamis dah confirmed.,Buking encik untuk hari Khamis dah konferm.,new,1234;5678
+tr03142,codeswitch,Online banking encik dah aktif sekarang.,Onlain bengking encik dah aktif sekarang.,new,1234;5678
+tr03032,codeswitch,Boleh cik WhatsApp gambar resit tu?,Boleh cik Wasap gambar resit tu?,new,1234;5678
+tr03087,codeswitch,Kami boleh arrange delivery pada hari Khamis.,Kami boleh arrange deliveri pada hari Khamis.,new,1234;5678
+tr03073,codeswitch,"Kad puan dah expired, perlu renew.","Kad puan dah ekspaiad, perlu rinyu.",new,1234;5678
+tr02988,codeswitch,"Kalau internet slow, cuba restart router dulu.","Kalau internet slo, cuba ristat rauter dulu.",new,1234;5678
+tr03028,codeswitch,Feedback Dato sangat penting untuk kami.,Fidbek Dato sangat penting untuk kami.,new,1234;5678
+tr03090,codeswitch,Free trial puan akan tamat minggu ini.,Fri traiel puan akan tamat minggu ini.,new,1234;5678
+tr03026,codeswitch,Link meeting dah dihantar dalam group.,Link miting dah dihantar dalam grup.,new,1234;5678
+tr03265,codeswitch,Delivery doktor akan sampai sebelum pukul empat setengah petang.,Deliveri doktor akan sampai sebelum pukul empat setengah petang.,new,1234;5678
+tr03171,codeswitch,"Meeting kita ditunda ke hari Rabu, sorry ya.","Miting kita ditunda ke hari Rabu, sori ya.",new,1234;5678
+tr03248,codeswitch,Delivery tuan akan sampai sebelum pukul sepuluh pagi.,Deliveri tuan akan sampai sebelum pukul sepuluh pagi.,new,1234;5678
+tr03007,codeswitch,Online banking Dato dah aktif sekarang.,Onlain bengking Dato dah aktif sekarang.,new,1234;5678
+tr03118,codeswitch,Free trial tuan akan tamat minggu ini.,Fri traiel tuan akan tamat minggu ini.,new,1234;5678
+tr03277,codeswitch,Saya nak tukar appointment ke hari Ahad.,Saya nak tukar apointmen ke hari Ahad.,new,1234;5678
+tr02980,codeswitch,Payment boleh buat secara online atau cash.,Peimen boleh buat secara onlain atau kesy.,new,1234;5678
+tr02986,codeswitch,Booking cik untuk hari Ahad dah confirmed.,Buking cik untuk hari Ahad dah konferm.,new,1234;5678
+tr03298,codeswitch,Delivery encik akan sampai sebelum pukul tiga petang.,Deliveri encik akan sampai sebelum pukul tiga petang.,new,1234;5678
+tr03215,codeswitch,Jom lunch sama-sama hari Isnin.,Jom lanc sama-sama hari Isnin.,new,1234;5678
+tr03052,codeswitch,"Payment Dato dah berjaya, terima kasih.","Peimen Dato dah berjaya, terima kasih.",new,1234;5678
+tr03097,codeswitch,Online banking tuan dah aktif sekarang.,Onlain bengking tuan dah aktif sekarang.,new,1234;5678
+tr03165,codeswitch,"Payment encik dah berjaya, terima kasih.","Peimen encik dah berjaya, terima kasih.",new,1234;5678
+tr03117,codeswitch,Boleh tuan scan dokumen dan email kepada saya?,Boleh tuan scan dokumen dan imel kepada saya?,new,1234;5678
+tr03235,codeswitch,Delivery cik akan sampai sebelum pukul sepuluh pagi.,Deliveri cik akan sampai sebelum pukul sepuluh pagi.,new,1234;5678
+tr03049,codeswitch,Saya akan forward email tu kepada team.,Saya akan forward imel tu kepada tim.,new,1234;5678
+tr03147,codeswitch,Check in hotel bermula pukul tiga petang.,Cek in hotel bermula pukul tiga petang.,new,1234;5678
+tr03042,codeswitch,Boleh cik share location rumah?,Boleh cik syer location rumah?,new,1234;5678
+tr03161,codeswitch,Feedback puan sangat penting untuk kami.,Fidbek puan sangat penting untuk kami.,new,1234;5678
+tr03104,codeswitch,"Kad tuan dah expired, perlu renew.","Kad tuan dah ekspaiad, perlu rinyu.",new,1234;5678
+tr03244,codeswitch,Boleh saya tahu status order tuan?,Boleh saya tahu status oda tuan?,new,1234;5678
+tr03182,codeswitch,"Payment doktor dah berjaya, terima kasih.","Peimen doktor dah berjaya, terima kasih.",new,1234;5678
+tr03098,codeswitch,Tolong send location kepada saya sekarang.,Tolong sen location kepada saya sekarang.,new,1234;5678
+tr03102,codeswitch,Tolong save nombor ni dalam phone puan.,Tolong sev nombor ni dalam fon puan.,new,1234;5678
+tr03133,codeswitch,Akaun cik akan expired minggu depan.,Akaun cik akan ekspaiad minggu depan.,new,1234;5678
+tr03168,codeswitch,Nanti saya email quotation kepada encik.,Nanti saya imel quotation kepada encik.,new,1234;5678
+tr03005,codeswitch,Saya nak cancel booking untuk malam Sabtu.,Saya nak kensel buking untuk malam Sabtu.,new,1234;5678
+tr03024,codeswitch,Free trial Dato akan tamat minggu ini.,Fri traiel Dato akan tamat minggu ini.,new,1234;5678
+tr03092,codeswitch,Saya nak cancel booking untuk malam Rabu.,Saya nak kensel buking untuk malam Rabu.,new,1234;5678
+tr03111,codeswitch,Saya call puan semula selepas lunch.,Saya kol puan semula selepas lanc.,new,1234;5678
+tr03126,codeswitch,"Meeting kita ditunda ke hari Khamis, sorry ya.","Miting kita ditunda ke hari Khamis, sori ya.",new,1234;5678
+tr03202,codeswitch,Jom lunch sama-sama hari Ahad.,Jom lanc sama-sama hari Ahad.,new,1234;5678
+tr03267,codeswitch,Delivery tuan akan sampai sebelum pukul lapan malam.,Deliveri tuan akan sampai sebelum pukul lapan malam.,new,1234;5678
+tr03003,codeswitch,Free delivery untuk order atas seratus ringgit.,Fri deliveri untuk oda atas seratus ringgit.,new,1234;5678
+tr03109,codeswitch,"Thank you tuan, nanti kami update lagi.","Tenk yu tuan, nanti kami apdet lagi.",new,1234;5678
+tr03212,codeswitch,Booking puan untuk hari Sabtu dah confirmed.,Buking puan untuk hari Sabtu dah konferm.,new,1234;5678
+tr03023,codeswitch,Saya call cik semula selepas lunch.,Saya kol cik semula selepas lanc.,new,1234;5678
+tr03058,codeswitch,Barang ni ada warranty setahun.,Barang ni ada warranty setahun.,new,1234;5678
+tr02997,codeswitch,Website kami ada sale besar minggu ini.,Websait kami ada sel besar minggu ini.,new,1234;5678
+tr03066,codeswitch,Sila check email untuk link pendaftaran.,Sila cek imel untuk link pendaftaran.,new,1234;5678
+tr03170,codeswitch,Password doktor perlu ditukar setiap tiga bulan.,Paswed doktor perlu ditukar setiap tiga bulan.,new,1234;5678
+tr02991,codeswitch,Saya nak upgrade plan kepada yang lebih laju.,Saya nak apgreid plen kepada yang lebih laju.,new,1234;5678
+tr03134,codeswitch,Saya call tuan semula selepas lunch.,Saya kol tuan semula selepas lanc.,new,1234;5678
+tr02987,codeswitch,Deadline submission ialah hari Ahad.,Dedlain submission ialah hari Ahad.,new,1234;5678
+tr02989,codeswitch,Saya akan send invoice selepas meeting ni.,Saya akan sen invois selepas miting ni.,new,1234;5678
+tr03064,codeswitch,Boleh encik confirm appointment pada hari Ahad?,Boleh encik konferm apointmen pada hari Ahad?,new,1234;5678
+tr03207,codeswitch,Boleh doktor confirm appointment pada hari Selasa?,Boleh doktor konferm apointmen pada hari Selasa?,new,1234;5678
+tr03203,codeswitch,Akaun encik akan expired minggu depan.,Akaun encik akan ekspaiad minggu depan.,new,1234;5678
+tr02979,codeswitch,Jangan lupa download resit selepas transfer.,Jangan lupa daunlod resit selepas transfer.,new,1234;5678
+tr03050,codeswitch,"Kalau ada apa-apa issue, terus call saya.","Kalau ada apa-apa isyu, terus kol saya.",new,1234;5678
+tr03127,codeswitch,Feedback encik sangat penting untuk kami.,Fidbek encik sangat penting untuk kami.,new,1234;5678
+tr03033,codeswitch,Manager saya nak report itu sebelum hari Sabtu.,Menejer saya nak riport itu sebelum hari Sabtu.,new,1234;5678
+tr03044,codeswitch,Boleh cik confirm appointment pada hari Khamis?,Boleh cik konferm apointmen pada hari Khamis?,new,1234;5678
+tr03156,codeswitch,Akaun puan akan expired minggu depan.,Akaun puan akan ekspaiad minggu depan.,new,1234;5678
+tr03114,codeswitch,"Payment puan dah berjaya, terima kasih.","Peimen puan dah berjaya, terima kasih.",new,1234;5678
+tr03256,codeswitch,Boleh tuan confirm appointment pada hari Jumaat?,Boleh tuan konferm apointmen pada hari Jumaat?,new,1234;5678
+tr03105,codeswitch,Boleh puan WhatsApp gambar resit tu?,Boleh puan Wasap gambar resit tu?,new,1234;5678
+tr03204,codeswitch,Event kami bermula pukul sepuluh pagi di Ipoh.,Event kami bermula pukul sepuluh pagi di Ipoh.,new,1234;5678
+tr03076,codeswitch,Sila update alamat terkini dalam profile doktor.,Sila apdet alamat terkini dalam profail doktor.,new,1234;5678
+tr03012,codeswitch,"Kad cik dah expired, perlu renew.","Kad cik dah ekspaiad, perlu rinyu.",new,1234;5678
+tr03206,codeswitch,Cashback akan masuk dalam akaun encik minggu depan.,Cashback akan masuk dalam akaun encik minggu depan.,new,1234;5678
+tr03037,codeswitch,Nanti saya email quotation kepada cik.,Nanti saya imel quotation kepada cik.,new,1234;5678
+tr03167,codeswitch,Booking puan untuk hari Ahad dah confirmed.,Buking puan untuk hari Ahad dah konferm.,new,1234;5678
+tr03290,codeswitch,Delivery puan akan sampai sebelum pukul tiga petang.,Deliveri puan akan sampai sebelum pukul tiga petang.,new,1234;5678
+tr02999,codeswitch,Saya nak claim refund untuk barang rosak.,Saya nak klem rifan untuk barang rosak.,new,1234;5678
+tr03063,codeswitch,Saya call encik semula selepas lunch.,Saya kol encik semula selepas lanc.,new,1234;5678
+tr03101,codeswitch,Driver dah on the way ke Kuantan.,Draiver dah on di wei ke Kuantan.,new,1234;5678
+tr03150,codeswitch,Boleh tuan confirm appointment pada hari Khamis?,Boleh tuan konferm apointmen pada hari Khamis?,new,1234;5678
+tr03014,codeswitch,"Thank you Dato, nanti kami update lagi.","Tenk yu Dato, nanti kami apdet lagi.",new,1234;5678
+tr03233,codeswitch,Booking Dato untuk hari Jumaat dah confirmed.,Buking Dato untuk hari Jumaat dah konferm.,new,1234;5678
+tr03210,codeswitch,Boleh cik confirm appointment pada hari Isnin?,Boleh cik konferm apointmen pada hari Isnin?,new,1234;5678
+tr03100,codeswitch,Password cik perlu ditukar setiap tiga bulan.,Paswed cik perlu ditukar setiap tiga bulan.,new,1234;5678
+tr03190,codeswitch,Booking encik untuk hari Sabtu dah confirmed.,Buking encik untuk hari Sabtu dah konferm.,new,1234;5678
+tr03027,codeswitch,Event tu dibatalkan sebab hujan.,Event tu dibatalkan sebab hujan.,new,1234;5678
+tr03091,codeswitch,Saya call Dato semula selepas lunch.,Saya kol Dato semula selepas lanc.,new,1234;5678
+tr03084,codeswitch,"Payment cik dah berjaya, terima kasih.","Peimen cik dah berjaya, terima kasih.",new,1234;5678
+tr02993,codeswitch,Voucher discount ini sah sampai hujung bulan.,Baucer diskaun ini sah sampai hujung bulan.,new,1234;5678
+tr03030,codeswitch,Mesej reminder akan dihantar sehari sebelum appointment.,Mesej rimainder akan dihantar sehari sebelum apointmen.,new,1234;5678
+tr03053,codeswitch,Boleh saya dapatkan refund penuh?,Boleh saya dapatkan rifan penuh?,new,1234;5678
+tr01854,numbers,Suhu hari ini mencecah 20 darjah Celsius.,Suhu hari ini mencecah dua puluh darjah Selsius.,new,1234
+tr01866,numbers,Kadar faedah tahunan ialah 1.1%.,Kadar faedah tahunan ialah satu perpuluhan satu peratus.,new,1234
+tr01879,numbers,"Baki akaun anda sekarang RM86,747.","Baki akaun anda sekarang RMlapan enam,tujuh ratus empat puluh tujuh.",new,1234
+tr01895,numbers,"Penerbangan berlepas pada 13 Mei, pukul 3:45 pagi.","Penerbangan berlepas pada tiga belas Mei, pukul tiga empat puluh lima pagi.",new,1234
+tr01910,numbers,Anda perlu membayar RM3651.07 sebelum 8/10/1990.,Anda perlu membayar tiga ribu enam ratus lima puluh satu ringgit tujuh sen sebelum lapan Oktober seribu sembilan ratus sembilan puluh.,new,1234
+tr01924,numbers,Anda perlu membayar RM8854.25 sebelum 15 Oktober.,Anda perlu membayar lapan ribu lapan ratus lima puluh empat ringgit dua puluh lima sen sebelum lima belas Oktober.,new,1234
+tr01939,numbers,"Temu janji anda pada 5 Februari, pukul 5pm.","Temu janji anda pada lima Februari, pukul lima petang.",new,1234
+tr01951,numbers,Kadar faedah tahunan ialah 4.3%.,Kadar faedah tahunan ialah empat perpuluhan tiga peratus.,new,1234
+tr01963,numbers,Sebanyak 775 orang hadir ke majlis itu.,Sebanyak tujuh ratus tujuh puluh lima orang hadir ke majlis itu.,new,1234
+tr01978,numbers,Berat bungkusan itu 49 kg.,Berat bungkusan itu empat puluh sembilan kilogram.,new,1234
+tr01994,numbers,Sebanyak 37438 orang hadir ke majlis itu.,Sebanyak tiga puluh tujuh ribu empat ratus tiga puluh lapan orang hadir ke majlis itu.,new,1234
+tr02008,numbers,Tahun 2026 merupakan tahun yang mencabar.,Tahun dua ribu dua puluh enam merupakan tahun yang mencabar.,new,1234
+tr02022,numbers,Nombor telefon pejabat ialah 03-2433 1441.,Nombor telefon pejabat ialah kosong tiga dua empat tiga tiga satu empat empat satu.,new,1234
+tr02037,numbers,Tahun 2018 merupakan tahun yang mencabar.,Tahun dua ribu lapan belas merupakan tahun yang mencabar.,new,1234
+tr02051,numbers,"Temu janji anda pada 26 Oktober, pukul 8:00 pagi.","Temu janji anda pada dua puluh enam Oktober, pukul lapan pagi.",new,1234
+tr02066,numbers,Kadar faedah tahunan ialah 2.5%.,Kadar faedah tahunan ialah dua perpuluhan lima peratus.,new,1234
+tr02079,numbers,"Penerbangan berlepas pada 26 Mei, pukul 5am.","Penerbangan berlepas pada dua puluh enam Mei, pukul lima pagi.",new,1234
+tr02090,numbers,Sila hubungi kami di talian 015-850 1590.,Sila hubungi kami di talian kosong satu lima lapan lima kosong satu lima sembilan kosong.,new,1234
+tr02105,numbers,Bil elektrik bulan ini berjumlah RM1242.20.,Bil elektrik bulan ini berjumlah seribu dua ratus empat puluh dua ringgit dua puluh sen.,new,1234
+tr02119,numbers,Sila hubungi kami di talian 03-6390 3697.,Sila hubungi kami di talian kosong tiga enam tiga sembilan kosong tiga enam sembilan tujuh.,new,1234
+tr02134,numbers,Jarak ke sana kira-kira 223 km.,Jarak ke sana kira-kira dua ratus dua puluh tiga kilometer.,new,1234
+tr02146,numbers,Kadar faedah tahunan ialah 4.8%.,Kadar faedah tahunan ialah empat perpuluhan lapan peratus.,new,1234
+tr02158,numbers,Bil elektrik bulan ini berjumlah RM433.,Bil elektrik bulan ini berjumlah empat ratus tiga puluh tiga ringgit.,new,1234
+tr02172,numbers,Diskaun sebanyak 25% untuk semua barang.,Diskaun sebanyak dua puluh lima peratus untuk semua barang.,new,1234
+tr02185,numbers,"Baki akaun anda sekarang RM64,884.","Baki akaun anda sekarang RMenam empat,lapan ratus lapan puluh empat.",new,1234
+tr02201,numbers,Bil elektrik bulan ini berjumlah RM8 juta.,Bil elektrik bulan ini berjumlah lapan juta ringgit.,new,1234
+tr02214,numbers,Jarak ke sana kira-kira 288 km.,Jarak ke sana kira-kira dua ratus lapan puluh lapan kilometer.,new,1234
+tr02230,numbers,Kod pengesahan anda ialah 228764.,Kod pengesahan anda ialah dua dua lapan tujuh enam empat.,new,1234
+tr02243,numbers,"Penerbangan berlepas pada 20 April, pukul 12.41 malam.","Penerbangan berlepas pada dua puluh April, pukul dua belas empat puluh satu malam.",new,1234
+tr02260,numbers,Gaji minimum sekarang RM3538.36 sebulan.,Gaji minimum sekarang tiga ribu lima ratus tiga puluh lapan ringgit tiga puluh enam sen sebulan.,new,1234
+tr02273,numbers,Bil elektrik bulan ini berjumlah RM16 juta.,Bil elektrik bulan ini berjumlah enam belas juta ringgit.,new,1234
+tr02285,numbers,Jarak ke sana kira-kira 10 km.,Jarak ke sana kira-kira sepuluh kilometer.,new,1234
+tr02299,numbers,Anda perlu membayar RM4977.25 sebelum 23/5/2013.,Anda perlu membayar empat ribu sembilan ratus tujuh puluh tujuh ringgit dua puluh lima sen sebelum dua puluh tiga Mei dua ribu tiga belas.,new,1234
+tr02311,numbers,"Penerbangan berlepas pada 9 Januari 2000, pukul 7:48 pagi.","Penerbangan berlepas pada sembilan Januari dua ribu, pukul tujuh empat puluh lapan pagi.",new,1234
+tr02325,numbers,Kod pengesahan anda ialah 151366.,Kod pengesahan anda ialah satu lima satu tiga enam enam.,new,1234
+tr02339,numbers,"Penerbangan berlepas pada 17 Januari 2001, pukul 6:00 petang.","Penerbangan berlepas pada tujuh belas Januari dua ribu satu, pukul enam petang.",new,1234
+tr02352,numbers,Sebanyak 83093 orang hadir ke majlis itu.,Sebanyak lapan puluh tiga ribu sembilan puluh tiga orang hadir ke majlis itu.,new,1234
+tr02365,numbers,Jarak ke sana kira-kira 146 km.,Jarak ke sana kira-kira seratus empat puluh enam kilometer.,new,1234
+tr02379,numbers,Kira-kira 54% penduduk bersetuju.,Kira-kira lima puluh empat peratus penduduk bersetuju.,new,1234
+tr02394,numbers,Bil elektrik bulan ini berjumlah RM3.,Bil elektrik bulan ini berjumlah tiga ringgit.,new,1234
+tr02409,numbers,Bil elektrik bulan ini berjumlah RM522.,Bil elektrik bulan ini berjumlah lima ratus dua puluh dua ringgit.,new,1234
+tr02425,numbers,Kira-kira 64% penduduk bersetuju.,Kira-kira enam puluh empat peratus penduduk bersetuju.,new,1234
+tr02437,numbers,Sila hubungi kami di talian 014-720 7814.,Sila hubungi kami di talian kosong satu empat tujuh dua kosong tujuh lapan satu empat.,new,1234
+tr02450,numbers,"Penerbangan berlepas pada 5 Ogos, pukul 5:20 petang.","Penerbangan berlepas pada lima Ogos, pukul lima dua puluh petang.",new,1234
+tr02464,numbers,Sila hubungi kami di talian 03-4245 1757.,Sila hubungi kami di talian kosong tiga empat dua empat lima satu tujuh lima tujuh.,new,1234
+tr02479,numbers,Kadar faedah tahunan ialah 1.9%.,Kadar faedah tahunan ialah satu perpuluhan sembilan peratus.,new,1234
+tr02493,numbers,"Harga barang ini RM35,386 sahaja.",Harga barang ini tiga puluh lima ribu tiga ratus lapan puluh enam ringgit sahaja.,new,1234
+tr02508,numbers,Sila hubungi kami di talian 03-5566 3147.,Sila hubungi kami di talian kosong tiga lima lima enam enam tiga satu empat tujuh.,new,1234
+tr02524,numbers,Bil elektrik bulan ini berjumlah RM502.,Bil elektrik bulan ini berjumlah lima ratus dua ringgit.,new,1234
+tr02535,numbers,Kira-kira 90% penduduk bersetuju.,Kira-kira sembilan puluh peratus penduduk bersetuju.,new,1234
+tr02549,numbers,"Saya tinggal di tingkat 18, unit 13.","Saya tinggal di tingkat lapan belas, unit tiga belas.",new,1234
+tr02561,numbers,Baki akaun anda sekarang RM783.13.,Baki akaun anda sekarang RMtujuh lapan tiga.tiga belas.,new,1234
+tr02576,numbers,Sila hubungi kami di talian 03-3587 6631.,Sila hubungi kami di talian kosong tiga tiga lima lapan tujuh enam enam tiga satu.,new,1234
+tr02590,numbers,Anda perlu membayar RM865 sebelum 19 Disember 2020.,Anda perlu membayar lapan ratus enam puluh lima ringgit sebelum sembilan belas Disember dua ribu dua puluh.,new,1234
+tr02604,numbers,Tarikh akhir pendaftaran ialah 14 Januari 2011.,Tarikh akhir pendaftaran ialah empat belas Januari dua ribu sebelas.,new,1234
+tr02620,numbers,Diskaun sebanyak 9% untuk semua barang.,Diskaun sebanyak sembilan peratus untuk semua barang.,new,1234
+tr02632,numbers,Kadar faedah tahunan ialah 6.9%.,Kadar faedah tahunan ialah enam perpuluhan sembilan peratus.,new,1234
+tr02646,numbers,Bayaran ansuran bulanan RM3010.69 selama 24 bulan.,Bayaran ansuran bulanan tiga ribu sepuluh ringgit enam puluh sembilan sen selama dua puluh empat bulan.,new,1234
+tr02659,numbers,Sila hubungi kami di talian 03-7946 1116.,Sila hubungi kami di talian kosong tiga tujuh sembilan empat enam satu satu satu enam.,new,1234
+tr02674,numbers,Baki akaun anda sekarang RM9598.78.,Baki akaun anda sekarang RMsembilan lima sembilan lapan.tujuh puluh lapan.,new,1234
+tr02688,numbers,Diskaun sebanyak 48% untuk semua barang.,Diskaun sebanyak empat puluh lapan peratus untuk semua barang.,new,1234
+tr02700,numbers,Anda perlu membayar RM296 sebelum 12/4/1997.,Anda perlu membayar dua ratus sembilan puluh enam ringgit sebelum dua belas April seribu sembilan ratus sembilan puluh tujuh.,new,1234
+tr02715,numbers,Harga barang ini RM3 juta sahaja.,Harga barang ini tiga juta ringgit sahaja.,new,1234
+tr02732,numbers,Sila hubungi kami di talian 03-1429 6489.,Sila hubungi kami di talian kosong tiga satu empat dua sembilan enam empat lapan sembilan.,new,1234
+tr02745,numbers,Berat bungkusan itu 42 kg.,Berat bungkusan itu empat puluh dua kilogram.,new,1234
+tr02758,numbers,"Penerbangan berlepas pada 5/3/2019, pukul 9:15.","Penerbangan berlepas pada lima Mac dua ribu sembilan belas, pukul sembilan lima belas.",new,1234
+tr02772,numbers,Tarikh akhir pendaftaran ialah 24/4/2004.,Tarikh akhir pendaftaran ialah dua puluh empat April dua ribu empat.,new,1234
+tr02786,numbers,Sila hubungi kami di talian 018-405 2764.,Sila hubungi kami di talian kosong satu lapan empat kosong lima dua tujuh enam empat.,new,1234
+tr02798,numbers,"Temu janji anda pada 16 Ogos, pukul 12:30 pagi.","Temu janji anda pada enam belas Ogos, pukul dua belas tiga puluh pagi.",new,1234
+tr02811,numbers,Nombor telefon pejabat ialah 014-125 5882.,Nombor telefon pejabat ialah kosong satu empat satu dua lima lima lapan lapan dua.,new,1234
+tr02826,numbers,Anda perlu membayar RM634 sebelum 16 Disember.,Anda perlu membayar enam ratus tiga puluh empat ringgit sebelum enam belas Disember.,new,1234
+tr02842,numbers,Tahun 2025 merupakan tahun yang mencabar.,Tahun dua ribu dua puluh lima merupakan tahun yang mencabar.,new,1234
+tr02855,numbers,Harga barang ini RM7898.77 sahaja.,Harga barang ini tujuh ribu lapan ratus sembilan puluh lapan ringgit tujuh puluh tujuh sen sahaja.,new,1234
+tr02872,numbers,Nombor telefon pejabat ialah 014-426 4049.,Nombor telefon pejabat ialah kosong satu empat empat dua enam empat kosong empat sembilan.,new,1234
+tr02887,numbers,Anda perlu membayar RM7976.94 sebelum 28 April.,Anda perlu membayar tujuh ribu sembilan ratus tujuh puluh enam ringgit sembilan puluh empat sen sebelum dua puluh lapan April.,new,1234
+tr02902,numbers,"Saya tinggal di tingkat 30, unit 13.","Saya tinggal di tingkat tiga puluh, unit tiga belas.",new,1234
+tr02916,numbers,Jarak ke sana kira-kira 226 km.,Jarak ke sana kira-kira dua ratus dua puluh enam kilometer.,new,1234
+tr02931,numbers,Sila hubungi kami di talian 014-109 7522.,Sila hubungi kami di talian kosong satu empat satu kosong sembilan tujuh lima dua dua.,new,1234
+tr02948,numbers,Bil elektrik bulan ini berjumlah RM9506.92.,Bil elektrik bulan ini berjumlah sembilan ribu lima ratus enam ringgit sembilan puluh dua sen.,new,1234
+tr02964,numbers,Anda perlu membayar RM45 juta sebelum 28/6/2012.,Anda perlu membayar empat puluh lima juta ringgit sebelum dua puluh lapan Jun dua ribu dua belas.,new,1234

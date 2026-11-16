@@ -21,9 +21,9 @@ for f in sorted(os.listdir(SRC)):
     n += 1
 mb = sum(os.path.getsize(os.path.join(DST, f)) for f in os.listdir(DST)) / 1e6
 print(f'packaged {n} wavs, {mb:.1f} MB -> {DST}')
-cmd = ['kaggle', 'datasets', 'create' if not os.path.exists(os.path.join(ROOT, 'runs', '.k15raw_created'))
-       else 'datasets', 'version']
-if cmd[2] == 'version':
+created = os.path.exists(os.path.join(ROOT, 'runs', '.k15raw_created'))
+cmd = ['kaggle', 'datasets', 'version' if created else 'create']
+if created:
     cmd += ['-m', 'more rescued raw clips']
 cmd += ['-p', os.path.join(ROOT, 'kaggle', 'ds_k15raw'), '--dir-mode', 'zip']
 print(' '.join(cmd))

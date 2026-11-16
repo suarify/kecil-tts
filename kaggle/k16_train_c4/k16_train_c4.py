@@ -37,16 +37,16 @@ def sh(cmd, tag, cwd=W):
 
 
 os.makedirs(W, exist_ok=True)
-DS = os.path.dirname(glob.glob('/kaggle/input/kokoro-malay-g2p/**/ms_g2p.py', recursive=True)[0])
-PMS = os.path.dirname(glob.glob('/kaggle/input/kmb-paradee-ms/**/ms_rows.py', recursive=True)[0])
-ROWS_OLD = glob.glob('/kaggle/input/kmb-rows-v02/**/shard_0000.pt', recursive=True)[0]
-TEACH = glob.glob('/kaggle/input/kmb-rows-v02/**/teacher_clips.csv', recursive=True)[0]
-CLIPS_NEW = glob.glob('/kaggle/input/kmb-15-clips/**/cb_clips2.pt', recursive=True)[0]
-CHOSEN = glob.glob('/kaggle/input/kmb-15-clips/**/chosen.csv', recursive=True)[0]
-PLAN = glob.glob('/kaggle/input/kmb-15-clips/**/gen_plan.csv', recursive=True)[0]
-V02 = glob.glob('/kaggle/input/kmb-rows-v02/**/ms_A_int8_gpu.onnx', recursive=True)
+DS = os.path.dirname(glob.glob('/kaggle/input/**/ms_g2p.py', recursive=True)[0])
+PMS = os.path.dirname(glob.glob('/kaggle/input/**/ms_rows.py', recursive=True)[0])
+ROWS_OLD = glob.glob('/kaggle/input/**/shard_0000.pt', recursive=True)[0]
+TEACH = glob.glob('/kaggle/input/**/teacher_clips.csv', recursive=True)[0]
+CLIPS_NEW = glob.glob('/kaggle/input/**/cb_clips2.pt', recursive=True)[0]
+CHOSEN = glob.glob('/kaggle/input/**/chosen.csv', recursive=True)[0]
+PLAN = glob.glob('/kaggle/input/**/gen_plan.csv', recursive=True)[0]
+V02 = glob.glob('/kaggle/input/**/ms_A_int8_gpu.onnx', recursive=True)
 V02 = V02[0] if V02 else None
-V_CLEAN = glob.glob('/kaggle/input/kmb-15-clips/**/ms_clean_int8.onnx', recursive=True)
+V_CLEAN = glob.glob('/kaggle/input/**/ms_clean_int8.onnx', recursive=True)
 V_CLEAN = V_CLEAN[0] if V_CLEAN else None
 
 shutil.copytree(PMS, f'{W}/scripts', dirs_exist_ok=True)
@@ -93,6 +93,7 @@ chosen = chosen[chosen.cer <= 0.15]
 tsv = plan[plan.id.isin(set(chosen.id))][['id', 'category', 'text', 'teacher']]
 tsv.to_csv(f'{W}/new.tsv', sep='\t', index=False)
 print('new clips:', len(clips), 'of', n_chosen, 'chosen; rows to build:', len(tsv), flush=True)
+os.makedirs(f'{W}/data/new', exist_ok=True)
 sh(f'{PY} scripts/ms_rows.py --clips /tmp/newclips --tsv new.tsv --g2p {DS} '
    f'--out data/new/shard_0000.pt --device cuda --letters', 'rows_new', W)
 rows_new = torch.load(f'{W}/data/new/shard_0000.pt', map_location='cpu', weights_only=False)

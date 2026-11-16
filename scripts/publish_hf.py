@@ -22,6 +22,8 @@ ap = argparse.ArgumentParser()
 ap.add_argument('--user', required=True)
 ap.add_argument('--profile', required=True)
 ap.add_argument('--dry-run', action='store_true')
+ap.add_argument('--only', default=None, help='comma list of versions, e.g. 0.4')
+ap.add_argument('--skip-space', action='store_true', help='publish model repos only (the Space may be owned elsewhere)')
 A = ap.parse_args()
 OLD = 'lseanlon'
 
@@ -37,7 +39,11 @@ VERSIONS = [
     ('0.1', 'runs/k09/ms_int8_gpu.onnx', 'hf/model_card_v0.1.md', 'runs/k09'),
     ('0.2', 'runs/k12/ms_A_int8_gpu.onnx', 'hf/model_card_v0.2.md', 'runs/k12'),
     ('0.3', 'runs/k14_final/ms_clean_webgpu_int8.onnx', 'hf/model_card_v0.3.md', 'runs/k14_final'),
+    ('0.4', 'runs/k16_final/ms_c4_int8.onnx', 'hf/model_card_v0.4.md', 'runs/k16_final'),
 ]
+if A.only:
+    keep = {v.strip() for v in A.only.split(',')}
+    VERSIONS = [v for v in VERSIONS if v[0] in keep]
 TEXT = ('.md', '.py', '.js', '.mjs', '.html', '.toml', '.txt', '.json')
 OUT = os.path.join(ROOT, 'hf_' + A.user.lower())
 shutil.rmtree(OUT, ignore_errors=True)
@@ -84,8 +90,9 @@ for ver, onnx, card, samples in VERSIONS:
     shutil.rmtree(os.path.join(dst, 'dist'), ignore_errors=True)
     build_wheel(ver, f'{A.user}/suaradee-v{ver}', os.path.join(dst, 'dist'))
     print(f'v{ver}: retargeted', retarget(dst), 'text files;', os.listdir(os.path.join(dst, 'dist')))
-shutil.copytree(os.path.join(ROOT, 'hf', 'space_web'), os.path.join(OUT, 'space_web'))
-print('web space: retargeted', retarget(os.path.join(OUT, 'space_web')), 'files')
+if not A.skip_space:
+    shutil.copytree(os.path.join(ROOT, 'hf', 'space_web'), os.path.join(OUT, 'space_web'))
+    print('web space: retargeted', retarget(os.path.join(OUT, 'space_web')), 'files')
 
 for d, _, fs in os.walk(OUT):
     for f in fs:
@@ -101,5 +108,9 @@ for ver, *_ in VERSIONS:
     print(api.upload_folder(folder_path=os.path.join(OUT, f'model_v{ver}'), repo_id=repo, repo_type='model',
                             commit_message=f'Suaradee v{ver}: 8.5 MB Malay TTS (ONNX int8), Python and transformers.js'))
 sp = f'{A.user}/suaradee-web'
-api.create_repo(sp, repo_type='space', space_sdk='static', exist_ok=True)
-print(api.upload_folder(folder_path=os.path.join(OUT, 'space_web'), repo_id=sp, repo_type='space', commit_message='Suaradee web demo (WebGPU/WASM, v0.3 added)'))
+if not A.skip_space:
+    api.create_repo(sp, repo_type='space', space_sdk='static', exist_ok=True)
+    print(api.upload_folder(folder_path=os.path.join(OUT, 'space_web'), repo_id=sp, repo_type='space',
+                            commit_message='Suaradee web demo (WebGPU/WASM)'))
+else:
+    print('space skipped (--skip-space): model repos only')

@@ -223,3 +223,10 @@
 - Interpretation: doubling the speech data gave a real but modest overall gain (capped mean -1.0 point vs v0.3, held-out -0.8) and cleared the general-text gate, but did NOT move code-switch (2.7% vs the 25% required). Code-switch is therefore not a data-volume problem; it is the English text/pronunciation side (C3) plus decoder rendering of English phonemes.
 - Artifacts: runs/k16_final/ms_c4_int8.onnx (v0.4 candidate, webgpu-patched, verified), runs/k18_final/c4_report.json + test_scores_c4.csv.
 - PENDING OWNER: publish v0.4 as a model repo (best overall + best held-out, but two small categories worse than v0.3 and the code-switch gate failed), or hold v0.3 and attack code-switch first (C3 lexicon + text side -> v0.5).
+
+## 2026-11-16 v0.4 PUBLISHED (owner: 'just go with v0.4') - model repo only, Space untouched
+- https://huggingface.co/Suarify/suaradee-v0.4 : 8.46 MB ONNX (0 float64 ops, webgpu-patched), 6 samples rendered from the v0.4 weights with its own k18 CERs (3 test 0%/0%/0%, 3 held 0%/5%/9%), wheel suaradee-0.4.0, card hf/model_card_v0.4.md (200-row table v0.2/v0.3/v0.4 + honest notes: code-switch unchanged at ~18%, muffled sound unchanged, 103/62/95 rows better/same/worse vs v0.3).
+- Remote verification: hub ONNX re-downloaded -> 0 doubles; transformers.js loads the repo in 2.1 s and renders 3.08 s of audio.
+- Loudness/brightness measured properly this time (24 sentences): v0.3 rms 0.0546 / 4 kHz share 0.0129; v0.4 rms 0.0456 / 0.0125. My earlier 'v0.4 is louder' line came from one sentence and was wrong; the card states the measured values.
+- publish_hf.py gained --only and --skip-space so a model repo can be shipped without touching the Space (the Space is now Kecil-TTS 8M, rebuilt by another agent with a speaker picker + effects).
+- Space still lists v0.3/v0.2/v0.1; its version list is JS data (suaradee: {versions: [...]}) and ?model= is ignored, so v0.4 needs one edit by the Space owner (handed over).

@@ -16,13 +16,13 @@ tags:
 - tiny
 ---
 
-# Suaradee v0.2
+# Kecil-TTS Yati v0.2
 
 A **Malay text-to-speech model that is 8.5 MB**. One ONNX file, one voice, runs in a browser tab (transformers.js, WebGPU or WASM) or on a single CPU thread in Python.
 
-**v0.2 is clearly more accurate than [v0.1](https://huggingface.co/lseanlon/suaradee-v0.1)** (typical sentence error roughly halved or better). **It does not fix the muffled sound**: it is just as dull as v0.1. Details are below.
+**v0.2 is clearly more accurate than [v0.1](https://huggingface.co/Suarify/kecil-tts-yati-v0.1)** (typical sentence error roughly halved or better). **It does not fix the muffled sound**: it is just as dull as v0.1. Details are below.
 
-- **Demo in the browser (nothing leaves your device):** [Suaradee web Space](https://huggingface.co/spaces/lseanlon/suaradee-web) (pick v0.2 in the version box)
+- **Demo in the browser (nothing leaves your device):** [Kecil-TTS web Space](https://huggingface.co/spaces/lseanlon/suaradee-web) (pick v0.2 in the version box)
 - **Gradio demo:** `examples/gradio_app.py` (`pip install gradio`, then `python examples/gradio_app.py`)
 
 | | |
@@ -40,21 +40,21 @@ A **Malay text-to-speech model that is 8.5 MB**. One ONNX file, one voice, runs 
 
 ```bash
 pip install onnxruntime numpy huggingface_hub soundfile
-pip install https://huggingface.co/lseanlon/suaradee-v0.2/resolve/main/dist/suaradee-0.2.0-py3-none-any.whl
+pip install https://huggingface.co/Suarify/kecil-tts-yati-v0.2/resolve/main/dist/suaradee-0.2.0-py3-none-any.whl
 ```
 ```python
 import soundfile as sf
-from suaradee import SAMPLE_RATE, Suaradee
+from suaradee import SAMPLE_RATE, Kecil-TTS
 
-tts = Suaradee.from_pretrained("lseanlon/suaradee-v0.2")
+tts = Kecil-TTS.from_pretrained("Suarify/kecil-tts-yati-v0.2")
 sf.write("hello.wav", tts("Selamat pagi, boleh saya bantu encik hari ini?"), SAMPLE_RATE)
 ```
 
 **Browser or Node** (transformers.js 3.x). The Malay front end (`js/`) turns text into phonemes; the model is loaded by transformers.js as a `StyleTextToSpeech2Model`:
 
 ```js
-import { Suaradee } from './js/suaradee.js';        // see the web Space for a complete page
-const tts = await Suaradee.load({ model: 'lseanlon/suaradee-v0.2', g2pBase: './js/g2p/' });   // WebGPU if available, else WASM
+import { Kecil-TTS } from './js/suaradee.js';        // see the web Space for a complete page
+const tts = await Kecil-TTS.load({ model: 'Suarify/kecil-tts-yati-v0.2', g2pBase: './js/g2p/' });   // WebGPU if available, else WASM
 const { audio, sampleRate } = await tts.speak('Selamat pagi, boleh saya bantu encik hari ini?');
 ```
 

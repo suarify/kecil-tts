@@ -239,3 +239,12 @@
 - Female -> Yati in the speaker picker; version list now offers v0.4 (latest) and defaults to it; footer links say 'Yati v0.4'; download filenames yati.wav / yati_effects.wav; module file also available as kecil.js (suaradee.js kept for compatibility), window.__kecil alias.
 - Verified in the browser: loads v0.4 on WebGPU in 2.9 s, first audio 0.55 s (7.9x real time later), no console errors; BM and dark mode both render; fixed a dark-mode contrast bug where card headings and the Michael label used --navy (invisible on dark).
 - Not done yet (needs owner): renaming the HF model repos (Suarify/suaradee-* -> Yati/kecil naming) and pushing source to github.com/suarify/kecil-tts (no suarify.my SSH profile available here).
+
+## 2026-11-16 HF rename pass: suaradee-* -> kecil-tts-yati-* / kecil-tts-michael-*
+- Moved (HfApi.move_repo, old URLs still 200 via redirect, verified): suaradee-v0.1/2/3/4 -> kecil-tts-yati-v0.1/2/3/4; suaradee-michael-v0.1/2 -> kecil-tts-michael-v0.1/2.
+- Each card rewritten after the move: titles '# Kecil-TTS Yati vX' / '# Kecil-TTS Michael vX', all lseanlon/ links -> Suarify/, repo ids updated, prose Suaradee -> Kecil-TTS. pip package name and wheel filename stay suaradee-* (class Suaradee too) - renaming those is a breaking API change, left for an explicit decision.
+- Space (Suarify/suaradee-web, URL unchanged on purpose) now offers Suarify/kecil-tts-yati-v0.4 (default), v0.3, v0.2, v0.1 and kecil-tts-michael-v0.2/v0.1; card links and footer follow the new ids; Space README models list updated.
+- Keywords: added kokoro tts small, small kokoro tts, tiny kokoro tts, kokoro tts 8MB, kokoro voice Malay, smallest AI voice, low-resource TTS, CPU-only TTS, no-GPU TTS, Malaysian AI, suara AI Melayu, TTS Bahasa Malaysia (39 tags + meta keywords).
+- Browser check after the rename: page loads Suarify/kecil-tts-yati-v0.4 on WebGPU, first audio 0.72 s, no console errors.
+- Local sync: cards, publish_hf/build_hf repo naming, default repo ids in python/js/examples/gradio, hf/space_web mirror.
+- STILL PENDING: GitHub push to github.com/suarify/kecil-tts (no suarify.my SSH profile in this session; only srv1745537.hstgr.cloud reachable).

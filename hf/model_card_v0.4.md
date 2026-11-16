@@ -16,15 +16,15 @@ tags:
 - tiny
 ---
 
-# Suaradee v0.4
+# Kecil-TTS Yati v0.4
 
 A **Malay text-to-speech model that is 8.5 MB**. One ONNX file, one voice, runs in a browser tab (transformers.js, WebGPU or WASM) or on a single CPU thread in Python.
 
-**v0.4 is trained on roughly twice the speech of [v0.3](https://huggingface.co/lseanlon/suaradee-v0.3)** (1,281 aligned sentences, about 118 minutes, instead of 634 / 49 minutes). General text improves by another 8% relative, the overall error is the lowest of any version, and the held-out score is the best so far. **The muffled sound is unchanged** (see Limitations).
+**v0.4 is trained on roughly twice the speech of [v0.3](https://huggingface.co/Suarify/kecil-tts-yati-v0.3)** (1,281 aligned sentences, about 118 minutes, instead of 634 / 49 minutes). General text improves by another 8% relative, the overall error is the lowest of any version, and the held-out score is the best so far. **The muffled sound is unchanged** (see Limitations).
 
-**Voice: Yati** (female, the default voice in the Kecil-TTS demo). The same architecture also drives the male voice, [Michael](https://huggingface.co/lseanlon/suaradee-michael-v0.2).
+**Voice: Yati** (female, the default voice in the Kecil-TTS demo). The same architecture also drives the male voice, [Michael](https://huggingface.co/Suarify/kecil-tts-michael-v0.2).
 
-- **Demo in the browser (nothing leaves your device):** [Suaradee web Space](https://huggingface.co/spaces/lseanlon/suaradee-web) (pick v0.4 in the version box)
+- **Demo in the browser (nothing leaves your device):** [Kecil-TTS web Space](https://huggingface.co/spaces/lseanlon/suaradee-web) (pick v0.4 in the version box)
 - **Gradio demo:** `examples/gradio_app.py` (`pip install gradio`, then `python examples/gradio_app.py`)
 
 | | |
@@ -42,21 +42,21 @@ A **Malay text-to-speech model that is 8.5 MB**. One ONNX file, one voice, runs 
 
 ```bash
 pip install onnxruntime numpy huggingface_hub soundfile
-pip install https://huggingface.co/lseanlon/suaradee-v0.4/resolve/main/dist/suaradee-0.4.0-py3-none-any.whl
+pip install https://huggingface.co/Suarify/kecil-tts-yati-v0.4/resolve/main/dist/suaradee-0.4.0-py3-none-any.whl
 ```
 ```python
 import soundfile as sf
-from suaradee import SAMPLE_RATE, Suaradee
+from suaradee import SAMPLE_RATE, Kecil-TTS
 
-tts = Suaradee.from_pretrained("lseanlon/suaradee-v0.4")
+tts = Kecil-TTS.from_pretrained("Suarify/kecil-tts-yati-v0.4")
 sf.write("hello.wav", tts("Selamat pagi, boleh saya bantu encik hari ini?"), SAMPLE_RATE)
 ```
 
 **Browser or Node** (transformers.js 3.x):
 
 ```js
-import { Suaradee } from './js/suaradee.js';        // see the web Space for a complete page
-const tts = await Suaradee.load({ model: 'lseanlon/suaradee-v0.4', g2pBase: './js/g2p/' });   // WebGPU if available, else WASM
+import { Kecil-TTS } from './js/suaradee.js';        // see the web Space for a complete page
+const tts = await Kecil-TTS.load({ model: 'Suarify/kecil-tts-yati-v0.4', g2pBase: './js/g2p/' });   // WebGPU if available, else WASM
 const { audio, sampleRate } = await tts.speak('Selamat pagi, boleh saya bantu encik hari ini?');
 ```
 

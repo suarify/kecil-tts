@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ms"><head><meta charset="utf-8"><title>Kecil-TTS-8M by Suarify: lightweight Malay (Bahasa Melayu) text-to-speech, 8 MB, in your browser</title>
 <meta name="description" content="Kecil-TTS-8M is a lightweight, Kokoro-style Malaysian Malay (Bahasa Melayu) text-to-speech model: 7.9M parameters, under 10 MB, free and open source (Apache-2.0). Runs in your browser with WebGPU or on one CPU thread. Female and male voices.">
-<meta name="keywords" content="kecil tts, kokoro tts, smallest TTS, 8 MB Malay TTS, Malay TTS, Bahasa Melayu text to speech, Malaysian voice, Yati voice, AI voice Malaysia, edge TTS, IoT TTS, offline TTS, on-device TTS, kiosk voice, vending machine voice, call centre TTS, Raspberry Pi TTS, WebGPU, transformers.js, ONNX int8, Kokoro-82M, Paradee-8M, open source TTS, Suarify">
+<meta name="keywords" content="kecil tts, kokoro tts, kokoro tts small, small kokoro tts, tiny kokoro tts, low-resource TTS, CPU-only TTS, no-GPU TTS, smallest TTS, 8 MB Malay TTS, Malay TTS, Bahasa Melayu text to speech, Malaysian voice, Yati voice, AI voice Malaysia, edge TTS, IoT TTS, offline TTS, on-device TTS, kiosk voice, vending machine voice, call centre TTS, Raspberry Pi TTS, WebGPU, transformers.js, ONNX int8, Kokoro-82M, Paradee-8M, open source TTS, Suarify">
 <meta property="og:title" content="Kecil-TTS-8M: lightweight Malay text-to-speech (under 10 MB)"><meta property="og:description" content="Kokoro-style Malaysian Malay TTS in 8.5 MB. Runs in your browser. By Suarify (suarify.my).">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Kecil-TTS-8M","applicationCategory":"MultimediaApplication","operatingSystem":"Any (web browser)","description":"Lightweight Kokoro-style Malaysian Malay (Bahasa Melayu) text-to-speech model, 7.9M parameters, 8.5 MB.","license":"https://www.apache.org/licenses/LICENSE-2.0","author":{"@type":"Organization","name":"Suarify","url":"https://suarify.my"},"offers":{"@type":"Offer","price":"0","priceCurrency":"MYR"}}</script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -188,25 +188,25 @@ html[data-theme=dark] details summary::before{background:#0f3a40}
       <span>edge TTS</span><span>IoT TTS</span><span>kiosk voice</span><span>vending machine voice</span>
       <span>call centre TTS</span><span>WebGPU</span><span>transformers.js</span><span>ONNX int8</span>
       <span>Kokoro-82M</span><span>Paradee-8M</span><span>open source TTS</span><span>Apache-2.0</span>
-      <span>text-to-speech Melayu</span><span>suara Melayu</span><span>Suarify</span>
+      <span>text-to-speech Melayu</span><span>suara Melayu</span><span>Suarify</span><span>kokoro tts small</span><span>small kokoro tts</span><span>tiny kokoro tts</span><span>kokoro tts 8MB</span><span>kokoro voice Malay</span><span>smallest AI voice</span><span>low-resource TTS</span><span>CPU-only TTS</span><span>no-GPU TTS</span><span>Malaysian AI</span><span>suara AI Melayu</span><span>TTS Bahasa Malaysia</span>
     </div>
   </section>
   <section class="card cta"><h2 data-i18n="ctah">Need custom software or an enterprise voice-AI system?</h2>
     <p data-i18n="ctap">Custom voices, on-premise deployment, call-centre agents and integrations for Malaysian businesses. Tell us what you need.</p>
     <a class="btn" href="https://suarify.my/contact-form" target="_blank" rel="noopener">Contact Suarify &rarr; suarify.my/contact-form</a></section>
 </main>
-<footer>Kecil-TTS-8M is open source (Apache-2.0): free to use, but please credit <b>Suarify (suarify.my)</b>. Voices: <a href="https://huggingface.co/Suarify/suaradee-v0.4" target="_blank" rel="noopener">Yati v0.4</a> ·
-<a href="https://huggingface.co/Suarify/suaradee-michael-v0.2" target="_blank" rel="noopener">Michael v0.2</a>. Built on Paradee-8M, Kokoro-82M and Chatterbox; see the model cards for credits and limits. It is synthetic speech; please say so when you use it.</footer>
+<footer>Kecil-TTS-8M is open source (Apache-2.0): free to use, but please credit <b>Suarify (suarify.my)</b>. Voices: <a href="https://huggingface.co/Suarify/kecil-tts-yati-v0.4" target="_blank" rel="noopener">Yati v0.4</a> ·
+<a href="https://huggingface.co/Suarify/kecil-tts-michael-v0.2" target="_blank" rel="noopener">Michael v0.2</a>. Built on Paradee-8M, Kokoro-82M and Chatterbox; see the model cards for credits and limits. It is synthetic speech; please say so when you use it.</footer>
 <script type="module">
 import { Suaradee } from './kecil.js';
 const $ = (id) => document.getElementById(id);
 const SPEAKERS = {
-  yati: { name: 'Yati', sub: 'female voice · default', card: 'https://huggingface.co/Suarify/suaradee-v0.4',
+  yati: { name: 'Yati', sub: 'female voice · default', card: 'https://huggingface.co/Suarify/kecil-tts-yati-v0.4',
     note: 'Understandable, with a little muffled sound. v0.4 is the latest version and the most accurate so far.',
-    versions: [['Suarify/suaradee-v0.4', 'v0.4 (latest)'], ['Suarify/suaradee-v0.3', 'v0.3'], ['Suarify/suaradee-v0.2', 'v0.2'], ['Suarify/suaradee-v0.1', 'v0.1']] },
-  michael: { name: 'Michael', sub: 'male voice · new', card: 'https://huggingface.co/Suarify/suaradee-michael-v0.2',
+    versions: [['Suarify/kecil-tts-yati-v0.4', 'v0.4 (latest)'], ['Suarify/kecil-tts-yati-v0.3', 'v0.3'], ['Suarify/kecil-tts-yati-v0.2', 'v0.2'], ['Suarify/kecil-tts-yati-v0.1', 'v0.1']] },
+  michael: { name: 'Michael', sub: 'male voice · new', card: 'https://huggingface.co/Suarify/kecil-tts-michael-v0.2',
     note: 'First male voice. Understandable, but it still sounds somewhat robotic in places. Try the Effects lab below.',
-    versions: [['Suarify/suaradee-michael-v0.2', 'v0.2 (current)'], ['Suarify/suaradee-michael-v0.1', 'v0.1']] }
+    versions: [['Suarify/kecil-tts-michael-v0.2', 'v0.2 (current)'], ['Suarify/kecil-tts-michael-v0.1', 'v0.1']] }
 };
 const qs = new URLSearchParams(location.search);
 let speaker = SPEAKERS[qs.get('speaker')] ? qs.get('speaker') : (qs.get('model') || '').includes('michael') ? 'michael' : (qs.get('speaker') === 'suaradee' ? 'yati' : 'yati');

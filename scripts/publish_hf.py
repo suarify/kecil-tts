@@ -88,7 +88,7 @@ for ver, onnx, card, samples in VERSIONS:
     dst = os.path.join(OUT, f'model_v{ver}')
     shutil.copytree(os.path.join(ROOT, 'hf', 'model'), dst)
     shutil.rmtree(os.path.join(dst, 'dist'), ignore_errors=True)
-    build_wheel(ver, f'{A.user}/suaradee-v{ver}', os.path.join(dst, 'dist'))
+    build_wheel(ver, f'{A.user}/kecil-tts-yati-v{ver}', os.path.join(dst, 'dist'))
     print(f'v{ver}: retargeted', retarget(dst), 'text files;', os.listdir(os.path.join(dst, 'dist')))
 if not A.skip_space:
     shutil.copytree(os.path.join(ROOT, 'hf', 'space_web'), os.path.join(OUT, 'space_web'))
@@ -103,10 +103,10 @@ if A.dry_run:
     sys.exit(0)
 
 for ver, *_ in VERSIONS:
-    repo = f'{A.user}/suaradee-v{ver}'
+    repo = f'{A.user}/kecil-tts-yati-v{ver}'
     api.create_repo(repo, repo_type='model', exist_ok=True)
     print(api.upload_folder(folder_path=os.path.join(OUT, f'model_v{ver}'), repo_id=repo, repo_type='model',
-                            commit_message=f'Suaradee v{ver}: 8.5 MB Malay TTS (ONNX int8), Python and transformers.js'))
+                            commit_message=f'Kecil-TTS Yati v{ver}: 8.5 MB Malay TTS (ONNX int8), Python and transformers.js'))
 sp = f'{A.user}/suaradee-web'
 if not A.skip_space:
     api.create_repo(sp, repo_type='space', space_sdk='static', exist_ok=True)

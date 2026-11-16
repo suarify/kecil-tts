@@ -19,7 +19,7 @@ ap.add_argument('--user', default='lseanlon')
 ap.add_argument('--samples-from', default='runs/k09')
 ap.add_argument('--card', default=os.path.join(ROOT, 'hf', 'model_card_v0.1.md'))
 A = ap.parse_args()
-REPO = f'{A.user}/suaradee-v{A.version}'
+REPO = f'{A.user}/kecil-tts-yati-v{A.version}'
 G2P_FILES = ['lexicon_e.json', 'lexicon_en.json', 'lexicon_exceptions.json', 'vocab.json']
 
 
@@ -116,18 +116,18 @@ pinned: false
 license: apache-2.0
 short_description: 8.5 MB Malay text-to-speech running in your browser
 models:
-  - lseanlon/suaradee-v0.3
-  - lseanlon/suaradee-v0.2
-  - lseanlon/suaradee-v0.1
+  - lseanlon/kecil-tts-yati-v0.3
+  - lseanlon/kecil-tts-yati-v0.2
+  - lseanlon/kecil-tts-yati-v0.1
 ---
 Malay text to speech in the browser with transformers.js and ONNX (WebGPU when available, otherwise WASM).
-Models: [v0.3](https://huggingface.co/lseanlon/suaradee-v0.3), [v0.2](https://huggingface.co/lseanlon/suaradee-v0.2) and [v0.1](https://huggingface.co/lseanlon/suaradee-v0.1).
+Models: [v0.3](https://huggingface.co/lseanlon/kecil-tts-yati-v0.3), [v0.2](https://huggingface.co/lseanlon/kecil-tts-yati-v0.2) and [v0.1](https://huggingface.co/lseanlon/kecil-tts-yati-v0.1).
 """)
 
 # ---------------- Gradio Space ----------------
 Gd = os.path.join(ROOT, 'hf', 'space_gradio')
 os.makedirs(Gd, exist_ok=True)
-app = open(os.path.join(Gd, 'app.py'), encoding='utf-8').read().replace('lseanlon/suaradee-v0.1', REPO).replace('v0.1', f'v{A.version}')
+app = open(os.path.join(Gd, 'app.py'), encoding='utf-8').read().replace('lseanlon/kecil-tts-yati-v0.1', REPO).replace('v0.1', f'v{A.version}')
 open(os.path.join(Gd, 'app.py'), 'w', encoding='utf-8').write(app)
 shutil.rmtree(os.path.join(Gd, 'suaradee'), ignore_errors=True)
 py_package(os.path.join(Gd, 'suaradee'))

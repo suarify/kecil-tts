@@ -16,15 +16,15 @@ tags:
 - tiny
 ---
 
-# Suaradee v0.1
+# Kecil-TTS Yati v0.1
 
 A **Malay text-to-speech model that is 8.5 MB**. One ONNX file, one voice, runs in a browser tab (transformers.js, WebGPU or WASM) or on a single CPU thread in Python, at about 25 times real time.
 
-**A newer, more accurate version exists: [Suaradee v0.2](https://huggingface.co/lseanlon/suaradee-v0.2)** (typical error roughly halved; the muffled sound is the same). This page describes v0.1.
+**A newer, more accurate version exists: [Kecil-TTS Yati v0.2](https://huggingface.co/Suarify/kecil-tts-yati-v0.2)** (typical error roughly halved; the muffled sound is the same). This page describes v0.1.
 
 **This is a first release.** It is understandable, but it sounds slightly muffled, and roughly one sentence in ten has a wrong word. Details and numbers are below, so you can judge whether it is good enough for your use.
 
-- **Demo in the browser (nothing leaves your device):** [Suaradee web Space](https://huggingface.co/spaces/lseanlon/suaradee-web)
+- **Demo in the browser (nothing leaves your device):** [Kecil-TTS web Space](https://huggingface.co/spaces/lseanlon/suaradee-web)
 - **Gradio demo:** `examples/gradio_app.py` (`pip install gradio`, then `python examples/gradio_app.py`). A hosted Gradio Space needs a paid Hugging Face plan; the code is ready in `hf/space_gradio` of the project if you want to host one.
 
 | | |
@@ -46,21 +46,21 @@ Tested for this release: Python 3.12 with onnxruntime on CPU (Windows, clean ins
 
 ```bash
 pip install onnxruntime numpy huggingface_hub soundfile
-pip install https://huggingface.co/lseanlon/suaradee-v0.1/resolve/main/dist/suaradee-0.1.0-py3-none-any.whl
+pip install https://huggingface.co/Suarify/kecil-tts-yati-v0.1/resolve/main/dist/suaradee-0.1.0-py3-none-any.whl
 ```
 ```python
 import soundfile as sf
-from suaradee import SAMPLE_RATE, Suaradee
+from suaradee import SAMPLE_RATE, Kecil-TTS
 
-tts = Suaradee.from_pretrained("lseanlon/suaradee-v0.1")
+tts = Kecil-TTS.from_pretrained("Suarify/kecil-tts-yati-v0.1")
 sf.write("hello.wav", tts("Selamat pagi, boleh saya bantu encik hari ini?"), SAMPLE_RATE)
 ```
 
 **Browser or Node** (transformers.js 3.x). The Malay front end (`js/`) turns text into phonemes; the model is loaded by transformers.js as a `StyleTextToSpeech2Model`:
 
 ```js
-import { Suaradee } from './js/suaradee.js';        // see the web Space for a complete page
-const tts = await Suaradee.load({ model: 'lseanlon/suaradee-v0.1', g2pBase: './js/g2p/' });   // WebGPU if available, else WASM
+import { Kecil-TTS } from './js/suaradee.js';        // see the web Space for a complete page
+const tts = await Kecil-TTS.load({ model: 'Suarify/kecil-tts-yati-v0.1', g2pBase: './js/g2p/' });   // WebGPU if available, else WASM
 const { audio, sampleRate } = await tts.speak('Selamat pagi, boleh saya bantu encik hari ini?');
 ```
 

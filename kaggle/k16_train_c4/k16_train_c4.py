@@ -130,8 +130,48 @@ shutil.copy(f'{W}/ckpt/dec/last.pt', f'{OUT}/dec_c4_last.pt')
 shutil.copy(f'{W}/ckpt/textA/last.pt', f'{OUT}/textA_c4_last.pt')
 shutil.copy(f'{W}/data/merged/shard_0000.pt', f'{OUT}/rows_merged/shard_0000.pt')
 sh(f'{PY} scripts/export_paradee_v1_1.py ckpt/dec/last.pt --text ckpt/textA/last.pt --out models/C4', 'export_C4', W)
-# WebGPU has no float64: patch the export before shipping (same as v0.1/v0.2, see scripts/webgpu_patch.py)
-sh(f'{PY} scripts/webgpu_patch.py {W}/models/C4/paradee_int8.onnx {W}/models/C4/paradee_int8_webgpu.onnx', 'webgpu_patch', W)
+# WebGPU has no float64 (inlined scripts/webgpu_patch.py: that file lives in the repo, not in
+# paradee_ms, so it is absent from this kernel's scripts/ copy).
+import onnx  # noqa: E402
+from onnx import TensorProto as T, numpy_helper  # noqa: E402
+
+m = onnx.load(f'{W}/models/C4/paradee_int8.onnx')
+BIG = 2 ** 31 - 1
+for n in m.graph.node:
+    for a in n.attribute:
+        if a.name == 'to' and a.i == T.DOUBLE:
+            a.i = T.FLOAT
+        elif a.t is not None and a.t.data_type == T.DOUBLE:
+            a.t.CopyFrom(numpy_helper.from_array(numpy_helper.to_array(a.t).astype(np.float32), a.t.name))
+        elif a.t is not None and a.t.data_type == T.INT64:
+            arr = numpy_helper.to_array(a.t)
+            if (np.abs(arr) >= 2 ** 31).any():
+                a.t.CopyFrom(numpy_helper.from_array(np.clip(arr, -BIG, BIG).astype(np.int64), a.t.name))
+for i in list(m.graph.initializer):
+    if i.data_type == T.DOUBLE:
+        m.graph.initializer.remove(i)
+        m.graph.initializer.append(numpy_helper.from_array(numpy_helper.to_array(i).astype(np.float32), i.name))
+    elif i.data_type == T.INT64:
+        arr = numpy_helper.to_array(i)
+        if (np.abs(arr) >= 2 ** 31).any():
+            m.graph.initializer.remove(i)
+            m.graph.initializer.append(numpy_helper.from_array(np.clip(arr, -BIG, BIG).astype(np.int64), i.name))
+cons = {n.output[0]: numpy_helper.to_array(n.attribute[0].t) for n in m.graph.node
+        if n.op_type == 'Constant' and n.attribute and n.attribute[0].t is not None}
+prod = {o: n for n in m.graph.node for o in n.output}
+for n in m.graph.node:
+    if n.op_type == 'Slice' and len(n.input) >= 5 and n.input[4] in cons and (cons[n.input[4]] < 0).any():
+        src = prod.get(n.input[0])
+        if src is not None and src.op_type == 'RandomNormalLike':
+            first = n.input[0]
+            del n.input[:]
+            n.input.append(first)
+            del n.attribute[:]
+            n.op_type = 'Identity'
+del m.graph.value_info[:]
+onnx.checker.check_model(m)
+onnx.save(m, f'{W}/models/C4/paradee_int8_webgpu.onnx')
+print('webgpu patch applied (inline)', flush=True)
 shutil.copy(f'{W}/models/C4/paradee_int8_webgpu.onnx', f'{OUT}/ms_c4_int8.onnx')
 shutil.copy(f'{W}/ckpt/dec/last.pt', f'{OUT}/dec_c4_last.pt')
 shutil.copy(f'{W}/ckpt/textA/last.pt', f'{OUT}/textA_c4_last.pt')

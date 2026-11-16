@@ -204,3 +204,12 @@
 - Crash: export_paradee_v1_1.py wants data/teacher/shard_*.pt for a held-out sanity check; k16 trained from data/merged, so the glob was empty (IndexError). Fix: copy the merged shard to data/teacher/shard_0000.pt before export, and copy dec/text checkpoints to /kaggle/working BEFORE the export so a later failure cannot lose training.
 - k16 v3 pushed RUNNING (rows ~11 min + decoder ~17 + text ~15 + export/patch + 780 Whisper scores).
 - Naming note from owner: project is being renamed to kecil-tts / kokoro (other agent running a Michael voice and rebuilding the Space). HF still has Suarify/suaradee-* and Suarify/suaradee-web with a two-speaker UI (Suaradee + Michael). publish_hf.py MUST NOT be run as-is: it would overwrite the other agent's Space. Plan: publish only the model repo Suarify/suaradee-v0.4 and hand over the one-line version option.
+
+## 2026-11-16 k16 v3: training + export OK, died at webgpu_patch (script not in kernel); model salvaged
+- Training: merged 1,281 rows; decoder 12,000 steps 17.2 min (held spec loss 4.46 -> 2.39); text early stop best step 3500 of 7,500, dur_mae 0.743 frames, length_ratio 0.920.
+- Export OK: head check max |export - torch| 2.24e-07; paradee_int8.onnx 8.46 MB, 25.7x realtime 1 thread, length 64200 vs 64800 samples.
+- Crash: k16 called scripts/webgpu_patch.py, but that file lives in the repo scripts/, not in paradee_ms, so the kernel's scripts/ copy lacks it. Checkpoints and the ONNX were already copied to /kaggle/working before the patch step, so the trained model was recovered from the kernel output instead of retraining.
+- Salvage: patched locally -> runs/k16_final/ms_c4_int8.onnx (24 doubles removed, 0 left). corr 0.9968 vs unpatched, same length, rms 0.055 (louder than v0.3's 0.046). Web-stack probe OK, Python tests 11/11.
+- k16 now inlines the patch (no external script) for future retrains.
+- Scoring moved to kmb-18-score-c4 (dataset seanlon/kmb-c4-onnx): v0.2 + k14-clean + C4 scored on the same 200 test + 60 held rows, gate computed from v0.2 medians.
+- Minor: Windows PowerShell wrote dataset/kernel metadata with a UTF-8 BOM, which the Kaggle CLI rejects ('Expecting value: line 1 column 1'); stripped the BOM before creating seanlon/kmb-c4-onnx.

@@ -1,0 +1,21 @@
+{
+  "id": "seanlon/kmb-18-score-c4",
+  "title": "kmb 18 score c4",
+  "code_file": "k18_score_c4.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "dataset_sources": [
+    "seanlon/kokoro-malay-g2p",
+    "seanlon/kmb-rows-v02",
+    "seanlon/kmb-15-clips",
+    "seanlon/kmb-c4-onnx"
+  ],
+  "kernel_sources": [],
+  "competition_sources": [],
+  "model_sources": [],
+  "machine_shape": "NvidiaTeslaT4"
+}

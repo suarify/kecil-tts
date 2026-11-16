@@ -1,0 +1,18 @@
+{
+  "id": "seanlon/kmb-17-renames",
+  "title": "kmb 17 renames",
+  "code_file": "k17_renames.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "dataset_sources": [],
+  "kernel_sources": [
+    "seanlon/kmb-15-cbgen2"
+  ],
+  "competition_sources": [],
+  "model_sources": [],
+  "machine_shape": "NvidiaTeslaT4"
+}

@@ -20,6 +20,7 @@ import time
 T0 = time.time()
 OUT = '/kaggle/working'
 RAW = f'{OUT}/raw2'
+PY = sys.executable
 os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'expandable_segments:True'
 GEN_CAP_MIN = float(os.environ.get('GEN_CAP_MIN', 360))
 VC_CAP_MIN = float(os.environ.get('VC_CAP_MIN', 90))
@@ -53,8 +54,8 @@ REF_EN = glob.glob('/kaggle/input/**/refs/ref_en.wav', recursive=True)[0]
 LEX = json.load(open(glob.glob('/kaggle/input/**/lexicon_en.json', recursive=True)[0], encoding='utf-8'))
 json.dump(dict(ref_ms=REF_MS, ref_en=REF_EN, sr=24000), open(f'{OUT}/refs.json', 'w'))
 
-for w in glob.glob('/kaggle/input/**/raw2/*.wav', recursive=True):
-    dst = os.path.join(RAW, os.path.basename(w))
+for w in glob.glob('/kaggle/input/**/raw2*/*.wav', recursive=True):
+    dst = os.path.join(RAW, os.path.basename(w).replace('#', '_'))
     if not os.path.exists(dst):
         shutil.copy(w, dst)
 print('raw wavs seeded from inputs:', len(glob.glob(f'{RAW}/*.wav')), flush=True)
@@ -104,7 +105,7 @@ plan_by_id = {r['id']: r for r in plan.to_dict('records')}
 
 def wants(i):
     r = plan.iloc[i]
-    return [f'{RAW}/{r.id}#{s}.wav' for s in str(r.seeds).split(';')]
+    return [f'{RAW}/{r.id}_{s}.wav' for s in str(r.seeds).split(';')]
 
 
 todo = [i for i in range(len(plan)) if any(not os.path.exists(p) for p in wants(i))]
@@ -136,7 +137,7 @@ n = skip = fail = 0
 for i in idx:
     r = plan.iloc[i]
     for seed in str(r.seeds).split(';'):
-        path = f'{RAW}/{r.id}#{seed}.wav'
+        path = f'{RAW}/{r.id}_{seed}.wav'
         if os.path.exists(path):
             skip += 1
             continue
@@ -161,20 +162,44 @@ print(f'worker {worker} done: new {n} skipped {skip} failed {fail}', flush=True)
 
 nproc = max(1, min(len(gpus), 2))
 codes = []
-batches = [todo[j:j + CHUNK] for j in range(0, len(todo), CHUNK)]
-for b, batch in enumerate(batches):
-    if (time.time() - T0) / 60 > GEN_CAP_MIN:
-        print('GEN CAP reached before batch', b, flush=True)
+# Warm the Hugging Face cache once: two workers downloading the model at the same time is the most
+# likely reason worker 1 died before its first clip in the previous run.
+sh(f'{PY} -c "from chatterbox.mtl_tts import ChatterboxMultilingualTTS as C; C.from_pretrained(device=\'cpu\')"',
+   'warm_cb')
+skip = json.load(open(f'{OUT}/skip.json')) if os.path.exists(f'{OUT}/skip.json') else []
+chunk_no = 0
+while (time.time() - T0) / 60 <= GEN_CAP_MIN:
+    todo = [i for i in range(len(plan)) if i not in skip and any(not os.path.exists(p) for p in wants(i))]
+    if not todo:
         break
-    bf = f'{OUT}/batch_{b}.json'
+    batch = todo[:CHUNK]
+    chunk_no += 1
+    before = len(glob.glob(f'{RAW}/*.wav'))
+    bf = f'{OUT}/batch_{chunk_no}.json'
     json.dump(batch, open(bf, 'w'))
-    procs = [subprocess.Popen([sys.executable, f'{OUT}/gen_worker.py', str(i), str(nproc), bf],
-                              env=dict(os.environ, CUDA_VISIBLE_DEVICES=str(i))) for i in range(nproc)]
+    procs, logs = [], []
+    for i in range(nproc):
+        lf = open(f'{OUT}/worker_b{chunk_no}_{i}.log', 'w')
+        logs.append(lf)
+        procs.append(subprocess.Popen([sys.executable, f'{OUT}/gen_worker.py', str(i), str(nproc), bf],
+                                      env=dict(os.environ, CUDA_VISIBLE_DEVICES=str(i)),
+                                      stdout=lf, stderr=subprocess.STDOUT))
     for p in procs:
         p.wait()
+    for lf in logs:
+        lf.close()
     codes += [p.returncode for p in procs]
-    print(f'batch {b + 1}/{len(batches)} done | codes {codes[-nproc:]} | wavs {len(glob.glob(f"{RAW}/*.wav"))}',
-          flush=True)
+    after = len(glob.glob(f'{RAW}/*.wav'))
+    print(f'chunk {chunk_no}: sentences {len(batch)} | codes {codes[-nproc:]} | +{after - before} wavs '
+          f'({after} total)', flush=True)
+    if any(c != 0 for c in codes[-nproc:]) and nproc > 1:
+        print('a worker failed -> continuing on one GPU', flush=True)
+        nproc = 1
+    if after == before:                       # nothing progressed: do not retry these forever
+        skip += batch
+        json.dump(skip, open(f'{OUT}/skip.json', 'w'))
+        print('no progress on this chunk; skipping', len(batch), 'sentences', flush=True)
+print('worker return codes:', codes, '| skipped sentences:', len(skip), flush=True)
 print('worker return codes:', codes, flush=True)
 
 wavs = sorted(glob.glob(f'{RAW}/*.wav'))
@@ -225,7 +250,7 @@ cer = lambda ref, hyp: min(1.0, lev(clean(ref), clean(hyp)) / max(1, len(clean(r
 scores = []
 for k, w in enumerate(wavs):
     key = os.path.basename(w)[:-4]
-    iid, seed = key.split('#')
+    iid, seed = key.rsplit('_', 1)
     if iid not in plan_by_id:
         continue
     a, sr = sf.read(w, dtype='float32')

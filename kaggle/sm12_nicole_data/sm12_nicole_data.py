@@ -45,7 +45,26 @@ for d in sorted(glob.glob('/kaggle/input/*')):
     print('input:', d, len(os.listdir(d)), 'entries', flush=True)
 
 sh('pip install -q chatterbox-tts soundfile', 'pip')
+# chatterbox can pull a torchaudio built for a different CUDA (libcudart.so.12 missing / libtorchaudio fails to load).
+# Pin torchaudio to the image's exact torch minor + CUDA tag from the official wheel index.
 sh('pip uninstall -y -q torchvision', 'pip_rm_tv')
+FIX = f'''
+import torch, subprocess, sys
+tv = ".".join(torch.__version__.split("+")[0].split(".")[:2])
+cu = ("cu" + torch.version.cuda.replace(".", "")) if torch.version.cuda else "cpu"
+print("torch", torch.__version__, "cuda", torch.version.cuda, "-> torchaudio", tv, cu, flush=True)
+for cmd in ([sys.executable, "-m", "pip", "install", "-q", "--force-reinstall", f"torchaudio=={{tv}}.*",
+             "--index-url", f"https://download.pytorch.org/whl/{{cu}}"],
+            [sys.executable, "-m", "pip", "install", "-q", "--force-reinstall", f"torchaudio=={{tv}}.*"]):
+    p = subprocess.run(cmd, capture_output=True, text=True)
+    print("install rc", p.returncode, (p.stderr or "")[-300:], flush=True)
+    if p.returncode == 0:
+        break
+import torchaudio
+print("torchaudio", torchaudio.__version__, "ok", flush=True)
+'''
+open(f'{OUT}/fix_audio.py', 'w').write(FIX)
+sh(f'{sys.executable} {OUT}/fix_audio.py', 'fix_torchaudio')
 sh('pip install -q "transformers==4.46.3"', 'pip_tr')
 sh(f'{sys.executable} -c "from chatterbox.mtl_tts import ChatterboxMultilingualTTS; from chatterbox.vc import ChatterboxVC; print(\'imports ok\')"', 'imports')
 

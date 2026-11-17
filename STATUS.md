@@ -449,3 +449,7 @@
 - Phase A+B kernel sm-12-nicole-data (QUEUED): generates all 1,281 raw clips with ONE fixed Chatterbox config, then converts them ONCE to af_nicole. Fault tolerance: checkpoint every 100 clips (raws_partial.pt / nicole_partial.pt), 150 s per-clip timeout, failures logged to sm12_report.json, resume picks up partial files.
 - Phase C kernel sm-13-nicole-train written and ready: rows via ms_rows --letters (cuda), decoder 12k from yati_c4_dec_last.pt, text 10k from textA_c4_last.pt, saves dec/text nitcole ckpts + rows. Waits on phase A+B output (kernel_sources).
 - Fenrir reuses the generated raws afterwards (VC + rows + train only).
+
+## 2026-11-17 sm-12 nicole data: two environment failures fixed
+- v2: dataset sm12-in was created seconds before the push and did not mount (/kaggle/input empty -> texts.tsv IndexError). v3 re-push mounted it, then failed: chatterbox's pip install upgraded torchaudio to a CUDA-mismatched build (libcudart.so.12 missing, libtorchaudio cannot load). v4 adds a self-repair step: detect torch version/CUDA tag, force-reinstall torchaudio from the matching wheel index, verify import. Same fix applied to the fenrir kernel.
+- Extra datasets for fenrir failed to create (403), so ref_fenrir.wav went into sm12-in (new version) and the male init checkpoints into sm13-in (new version).

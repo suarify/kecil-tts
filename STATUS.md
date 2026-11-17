@@ -396,3 +396,7 @@
 - sm-09-vc15b completed in 6 min (15 clips, zip 7.5 MB). Dataset had to be flattened (raw_*/old_* at root) because the Kaggle uploader zips or skips subfolders.
 - Metrics (periodicity / flat 2-6k / >4k / >7k): raw 0.679/0.639/0.073/0.013; single (1 VC) 0.567/0.492/0.088/0.025; old (2 VCs) 0.573/0.481/0.091/0.028. The single conversion sits very close to the double conversion - no large texture difference, unlike POC 1 where the generation prompt changed pronunciation.
 - Page runs/listen/vc15b.html (localhost:8931/vc15b.html, 45 buttons, all 200). Awaiting owner verdict: if new ~= old, keep v0.3.0 and stop; if new is cleaner, one VC for all 1,281 raw clips (~1 h GPU) + retrain.
+
+## 2026-11-17 Conversion-quality gate before any full retrain (10 clips, 2 references)
+- Student-vs-teacher measurement (scripts/student_fidelity.py, same 15 texts): teacher-old vs teacher-new spectral distance 0.97, student v0.3.0 vs teacher 3.97 (~4x) -> the student imitation gap dominates; conversion choice is secondary. Texture: teacher new 0.567/0.492/0.088/0.025, teacher old 0.573/0.481/0.091/0.028, student 0.645/0.434/0.086/0.038.
+- Owner wants proof the conversion itself is not watery/phasey before spending quota. Kernel sm-10-vc10 (dataset sm-vc10-flat): 10 raw clips converted with TWO am_michael references - ours (Kokoro-generated, 25 s) and the original pipeline's ref_en_michael.wav; page will be runs/listen/vc10.html (raw / our-ref / pipeline-ref). Kernel pushed v1, currently QUEUED.

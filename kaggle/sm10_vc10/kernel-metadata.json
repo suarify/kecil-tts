@@ -1,0 +1,16 @@
+{
+ "id": "suarifymalaysia/sm-10-vc10",
+ "title": "sm 10 vc10",
+ "code_file": "sm10_vc10.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_tpu": false,
+ "enable_internet": true,
+ "keywords": ["gpu"],
+ "dataset_sources": ["suarifymalaysia/sm-vc10-flat"],
+ "kernel_sources": [],
+ "competition_sources": [],
+ "model_sources": []
+}

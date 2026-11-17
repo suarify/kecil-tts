@@ -35,6 +35,10 @@ ap = argparse.ArgumentParser()
 ap.add_argument('dec', nargs='?')
 ap.add_argument('--state', default=None, help='rebuilt state dict (ts/vd) from a compiled ONNX instead of ckpts')
 ap.add_argument('--k', type=int, default=64, help='harmonic count of the head (Michael was trained with 128)')
+ap.add_argument('--gap-keep', type=float, default=1.0, help='fraction of the gap noise kept (rest moves into harmonics)')
+ap.add_argument('--hang', type=int, default=21, help='burst hangover frames at the 3 ms rate (0 = none)')
+ap.add_argument('--burst', default='gated', choices=['gated', 'soft', 'off'], help='burst path handling')
+ap.add_argument('--soft', type=float, default=0.3, help='burst gain inside voiced frames for --burst soft')
 ap.add_argument('--text', default='runs/k16_final/textA_c4_last.pt')
 ap.add_argument('--out', default='runs/k16_final/fixh_export')
 A = ap.parse_args()
@@ -77,15 +81,16 @@ class ConvSTFT(nn.Module):
 
 
 class HeadX(nn.Module):
-    """SourceFilterHead2.forward (no complex ops) with FIX H:
-    1) the noise part is masked out of the harmonic bins into the gaps between them in voiced frames
-       (>800 Hz), its energy preserved per frame;
-    2) the 3 ms burst path is gated to UNVOICED frames with a 21-frame hangover, so the noise chopping
-       that makes voiced sound watery/phaser is gone while consonant onsets keep their bursts."""
-    def __init__(self, h):
+    """SourceFilterHead2.forward (no complex ops) with the FIX H recipe, parameterised:
+    1) gap-mask the voiced noise above 800 Hz (energy preserved), then scale the remaining gap noise by
+       `gap_keep` and move the removed energy into the harmonics above 1.5 kHz (energy compensation);
+    2) the 3 ms burst path: 'gated' = unvoiced frames only with a `hang`-frame hangover, 'soft' = kept but
+       scaled by `soft` inside voiced frames, 'off' = no burst path."""
+    def __init__(self, h, gap_keep=1.0, hang=21, burst_mode='gated', soft=0.3):
         super().__init__(); self.h = h; self.st = ConvSTFT(h.n_fft, h.hop); self.sb = ConvSTFT(150, 75)
         self.register_buffer('k', torch.arange(1, h.K + 1).float()[None, :, None])
         self.register_buffer('fr', torch.linspace(0, SR / 2, h.nb)[None, :, None])
+        self.gap_keep, self.hang, self.burst_mode, self.soft = gap_keep, hang, burst_mode, soft
 
     def forward(self, x, f0, noise=None):
         h = self.h; n = x.shape[2]; T = n * h.up; S = n * FHOP
@@ -127,24 +132,46 @@ class HeadX(nn.Module):
         s = torch.sqrt(P0 / P1.clamp_min(1e-12)).clamp(max=4.0)
         s = F.avg_pool1d(s, 5, 1, 2, count_include_pad=False)
         Nr, Ni = Nr2 * s, Ni2 * s
+        if self.gap_keep != 1:
+            band15 = (self.fr >= 1500).float()
+            magE = torch.sqrt(Er * Er + Ei * Ei)
+            Ph = ((gh * magE) ** 2 * band15).sum(1, keepdim=True)
+            Pn = ((Nr * Nr + Ni * Ni) * band15).sum(1, keepdim=True)
+            sc = torch.sqrt((Ph + (1 - self.gap_keep ** 2) * Pn) / Ph.clamp_min(1e-9)).clamp(max=3.0)
+            sc = F.avg_pool1d(sc, 5, 1, 2, count_include_pad=False)
+            m15 = band15 * voiced
+            gh = gh * (1 + m15 * (sc - 1))
+            Nr, Ni = Nr * self.gap_keep, Ni * self.gap_keep
         ang = 2 * torch.pi * ratio * (0.5 * torch.tanh(o[..., -1])[:, None])
         Hr = gh * (ur * torch.cos(ang) - ui * torch.sin(ang)); Hi = gh * (ur * torch.sin(ang) + ui * torch.cos(ang))
         y = self.st.inverse(Er * Hr - Ei * Hi + Nr * gn, Er * Hi + Ei * Hr + Ni * gn)
-        # ---- FIX H step 2: burst path only in unvoiced frames (+ hangover) ----
+        # ---- FIX H step 2: burst path per mode ----
         if h.burst:
             gb = torch.exp((h.out_b(hn).view(1, n * 4, h.Gb) @ h.Mb.T).clamp(max=6)).transpose(1, 2)
             gb = torch.cat([gb, gb[..., -1:]], -1)
             f0b = torch.cat([f0[:, torch.arange(n * 4, device=x.device) // 4], f0[:, -1:]], 1)
-            vb = F.max_pool1d((f0b > 10).float()[None], 21, 1, 10)                          # voiced + 5-frame hangover
-            gb = gb * (1 - vb)                                                              # [1, nb_b, n*4+1] * [1,1,Tb]
+            voiced_b = (f0b > 10).float()[None]
+            if self.burst_mode == 'gated':
+                if self.hang > 0:
+                    vb = F.max_pool1d(voiced_b, self.hang, 1, self.hang // 2)
+                else:
+                    vb = voiced_b
+                gb = gb * (1 - vb)
+            elif self.burst_mode == 'soft':
+                gb = gb * (1 - voiced_b * (1 - self.soft))
+            elif self.burst_mode == 'off':
+                gb = torch.zeros_like(gb)
             br, bi = self.sb.transform(nz.flip(-1))
             y = y + self.sb.inverse(br * gb, bi * gb)
         return y
 
 
+HEAD = dict(gap_keep=A.gap_keep, hang=A.hang, burst_mode=A.burst, soft=A.soft)
+
+
 class Paradee2(nn.Module):
     def __init__(self, ts, vd):
-        super().__init__(); self.ts, self.vd, self.head = ts, vd, HeadX(vd.head)
+        super().__init__(); self.ts, self.vd, self.head = ts, vd, HeadX(vd.head, **HEAD)
 
     def text(self, ids):
         t = self.ts; p = t.predictor; s = t.style

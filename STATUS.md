@@ -293,3 +293,8 @@
 - scripts/fixh_samples.py regenerated ALL 260 v5 sample clips with the new export into runs/k16_final/fixh_export/audio (+ v5_scores.csv copied); build_hf picked the same 6 sentences as v0.4.
 - Published https://huggingface.co/Suarify/kecil-tts-yati-v0.4.1 (36 files, --skip-space as always). Remote re-download: 0 float64 ops, 8.46 MB. from_pretrained('Suarify/kecil-tts-yati-v0.4.1') end-to-end synth ok (smoke_v041_remote.wav).
 - NEXT: Space version dropdown needs the v0.4.1 entry (Space-owning agent) before the owner can pick it in the demo; Michael rebake still blocked on his dec ckpt.
+
+## 2026-11-17 Space updated for v0.4.1 (owner authorised the Space publish)
+- runs/local_v041 (space page + g2p front end) got: v0.4.1 as Yati default dropdown entry ('v0.4.1 (latest)'), note updated (cleaner, less watery sound), Yati card link + footer link -> v0.4.1, Space README refreshed (models: yati-v0.4.1/0.4, michael-v0.2; old suaradee-* names gone).
+- Uploaded to the Space. DISCOVERY: the Space-owning agent renamed the Space Suarify/suaradee-web -> Suarify/kecil-tts-web (rebrand); old subdomain 404s. Live URL now https://suarify-kecil-tts-web.static.hf.space (HF page redirects). My upload went through the redirect fine (suarify-logo.png from the other agent preserved).
+- Browser-verified live: dropdown defaults v0.4.1, model loads WebGPU 8.2 s, synth 4.37 s audio in 0.98 s (4.5x realtime), only benign ORT warnings. runs/local_v041 now doubles as the deploy source.

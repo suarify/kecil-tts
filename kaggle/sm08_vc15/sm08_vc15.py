@@ -29,7 +29,12 @@ for d in sorted(glob.glob('/kaggle/input/*')):
     print('input:', d, len(os.listdir(d)), 'entries', flush=True)
 
 sh('pip install -q chatterbox-tts soundfile')
-sh('pip install -q --no-deps --ignore-requires-python "kokoro==0.9.4"' if False else 'true')
+# The Kaggle image's torchvision does not match its torch ("operator torchvision::nms does not exist"), and
+# transformers pulls it in while importing LlamaModel. Chatterbox does not need torchvision -> remove it and
+# pin a transformers version that imports cleanly without it.
+sh('pip uninstall -y -q torchvision')
+sh('pip install -q "transformers==4.46.3"')
+sh(f'{sys.executable} -c "from chatterbox.mtl_tts import ChatterboxMultilingualTTS; print(\'chatterbox import ok\')"')
 
 import pandas as pd  # noqa: E402
 import soundfile as sf  # noqa: E402

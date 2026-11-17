@@ -1,0 +1,16 @@
+{
+ "id": "suarifymalaysia/sm-09-vc15b",
+ "title": "sm 09 vc15b",
+ "code_file": "sm09_vc15b.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_tpu": false,
+ "enable_internet": true,
+ "keywords": ["gpu"],
+ "dataset_sources": ["suarifymalaysia/sm-vc15b-flat"],
+ "kernel_sources": [],
+ "competition_sources": [],
+ "model_sources": []
+}

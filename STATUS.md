@@ -386,3 +386,8 @@
 - Kaggle image had a broken torchvision (mismatch with torch): transformers failed importing LlamaModel. Fix: uninstall torchvision + pin transformers 4.46.3; chatterbox import verified before generation. Kernel then completed: 15 single-conversion clips (Chatterbox with the Kokoro am_michael prompt directly) + the 15 old double-converted clips, zip 4.3 MB.
 - scripts/vc15_page.py pulled the output and built runs/listen/vc15.html (localhost:8931/vc15.html, 30 buttons, all 200). A/B on the same 15 texts incl. the III/atau sentence.
 - Raw-clip metrics (periodicity / flat / >4k / >7k): single 0.557/0.488/0.076/0.013 vs old 0.584/0.493/0.085/0.027 -> the single-conversion clips are darker at the top and less noisy; owner to judge by ear before the full 1,281-clip regeneration.
+
+## 2026-11-17 Owner verdict on POC 1: old (2 conversions) more accurate -> regenerate-with-male-prompt route dropped
+- POC 1 conflated two variables: generation prompt (am_michael English voice speaking Malay) and conversion count. Its 'new' clips were duller at the top (>7k 0.013 vs 0.027) and the owner judged the old double-converted clips more accurate.
+- POC 2 (queued, sm-09-vc15b): same 15 raw Chatterbox clips (Malay prompt) converted ONCE to am_michael vs the current twice (raw -> female -> male). This isolates the conversion count. Includes the III sentence (c0571). Dataset suarifymalaysia/sm-vc15b-flat (raw_*, old_* wavs + ref + texts), kernel pushed v1.
+- Metric snapshot for POC 1 (raw clips): single 0.557/0.488/0.076/0.013 vs old 0.584/0.493/0.085/0.027 (periodicity/flat/>4k/>7k).

@@ -342,3 +342,8 @@
 - Owner: III sentence better now; 'atau' still robotic and damp. Rendered the III sentence + a second 'atau' sentence + a vowel-heavy one with 7 variants (scripts/ablate_atau.py): smoothGn (current best), air3/air5 (high shelf above 6.5 kHz = the damp), breath (55% gap noise moved into harmonics), air3breath, vib (0.4% pitch sway at 4.7 Hz = the robotic), air3vib.
 - Metrics: smoothGn .631/.442/.067; air3 .630/.445/.079; air5 .630/.448/.084; breath .643/.390/.067; air3breath .643/.392/.076; vib .633/.442/.066; air3vib .632/.445/.079.
 - Page runs/listen/atau.html (localhost:8931/atau.html, 21 wavs, all 200). Awaiting levers verdict (air vs breath vs vibrato); Yati untouched.
+
+## 2026-11-17 Michael: timing is the real problem on III/atau (spectral levers all failed)
+- Owner: air/breath/vibrato did not fix III or atau; more vibrato = more watery/damp/phase. Measured the model's own durations (scripts/michael_durations.py): on the III sentence 'atau' gets [16,6,2,3] frames (one vowel held 400 ms); in a clean sentence the same word gets [1,4,2,3] (one phoneme 25 ms); 15-17% of all phonemes get 1 frame. A held 400 ms vowel with frozen timbre reads as robotic/damp/watery; fast vibrato lands between the 25 ms phase frames and smears.
+- scripts/ablate_dur.py renders 3 sentences with: base, clamp (2-8 frames = 50-200 ms), med3 (median filter + clamp 2-10), clampair (+3 dB shelf), trem (clamp + slow random amplitude sway 18% on the noise floor), vib03 (clamp + 0.3% vibrato at 3 Hz).
+- Page runs/listen/dur.html (localhost:8931/dur.html, 18 wavs, all 200). If clamp works, bake as a Clip on the duration tensor in the ONNX (no weights, no spectrum change).

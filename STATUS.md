@@ -337,3 +337,8 @@
 - Owner: the sentence with 'III' is muffled/robotic/watery there; 'smooth both gains' helped but adds mild distortion. g2p reads III as three stressed 'I' vowels -> long stressed vowels, where the noise floor shows.
 - Round: scripts/ablate_iii.py renders the III sentence + a vowel-heavy and a mixed sentence with 6 variants: base (hang7), smooth3 (both gains, previous), smoothGn (noise gains only - harmonics untouched, no transient smear), smooth121 (light [1,2,1]), vowel (gap_keep 0.6 + noise smoothing), softGn (soft bursts + noise smoothing).
 - Metrics (periodicity/flatness/>4k): base .673/.440/.044; smooth3 .688/.452/.043; smoothGn .671/.440/.045; smooth121 .689/.453/.042; vowel .669/.388/.047; softGn .671/.470/.050. Page runs/listen/iii.html (localhost:8931/iii.html, 18 wavs, all 200). Yati untouched per owner.
+
+## 2026-11-17 Michael: 'atau' robotic+damp probe (III sentence better with noise-smooth)
+- Owner: III sentence better now; 'atau' still robotic and damp. Rendered the III sentence + a second 'atau' sentence + a vowel-heavy one with 7 variants (scripts/ablate_atau.py): smoothGn (current best), air3/air5 (high shelf above 6.5 kHz = the damp), breath (55% gap noise moved into harmonics), air3breath, vib (0.4% pitch sway at 4.7 Hz = the robotic), air3vib.
+- Metrics: smoothGn .631/.442/.067; air3 .630/.445/.079; air5 .630/.448/.084; breath .643/.390/.067; air3breath .643/.392/.076; vib .633/.442/.066; air3vib .632/.445/.079.
+- Page runs/listen/atau.html (localhost:8931/atau.html, 21 wavs, all 200). Awaiting levers verdict (air vs breath vs vibrato); Yati untouched.

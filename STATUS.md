@@ -248,3 +248,12 @@
 - Browser check after the rename: page loads Suarify/kecil-tts-yati-v0.4 on WebGPU, first audio 0.72 s, no console errors.
 - Local sync: cards, publish_hf/build_hf repo naming, default repo ids in python/js/examples/gradio, hf/space_web mirror.
 - STILL PENDING: GitHub push to github.com/suarify/kecil-tts (no suarify.my SSH profile in this session; only srv1745537.hstgr.cloud reachable).
+
+## 2026-11-17 Muffle root-cause measurement (CPU only, no GPU)
+- Fresh band-by-band comparison, same 25 k15 texts on three sides (scripts/muffle_diag.py, muffle_diag2.py, muffle_diag3.py; spectra n_fft 2048, dB relative to the 0-1 kHz band):
+  - reference speaker (runs/k01/refs/ref_ms.wav, f0 med 189 Hz): 2-4k -23.8, 4-6k -22.9, 8-11k -20.3 -> BRIGHT
+  - Kokoro Bella baseline (runs/k01/baseline, n=5): 2-4k -24.5, 4-6k -23.9, 8-11k -21.6 -> bright
+  - Chatterbox raw (k15 raw2) and chosen cb_clips2 (the training targets): 2-4k -25.0/-26.6, 4-6k -24.1/-24.2, 8-11k -39.4/-40.2 -> ~2 dB darker in the presence band and ~19 dB darker above 8 kHz than the reference speaker
+  - v0.4 synthesis of the same texts: within ~1 dB of its training target in EVERY band (2-4k -27.4, 4-6k -25.8, 8-11k -38.7), plus spectral flatness 2-6 kHz 0.022 vs target 0.011 (2x more noise-like).
+- Conclusion: the training is NOT the (main) problem - the student faithfully imitates a dark teacher. The Chatterbox voice conversion step itself removes ~19 dB of 8-11 kHz and ~2 dB of 2-6 kHz present in the reference recording; every decoder loss is L1 to those dark clips, so the model is rewarded for muffling. Secondary effect: the source-filter head spends its 2-6 kHz energy as shaped noise (flatness 2x target; tonal_knob measured ~46-51% of voiced >1.5 kHz energy in the noise part), which reads as damp/smeared on top of dark. int8 export ruled out earlier (int8 = fp32).
+- Fix options, cheapest first: (a) brighten targets 2-8 kHz with a matched high-shelf EQ before training (data-side, no arch change; do NOT boost 8k+ - Chatterbox has nothing there but noise floor); (b) run the skipped GAN/adversarial decoder stage (~1.6 s/step on T4, 5k steps ~2.2 h) - fixes noise-vs-harmonic and can restore brightness the L1 losses cannot ask for; (c) runtime noise-gain knob from tonal_knob.py (keep 0.25-0.5 pulls flatness 0.69 -> ~0.63, target 0.62) as an immediate palliative; (d) re-teacher with a different converter - most expensive, regenerates all data.

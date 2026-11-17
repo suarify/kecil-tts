@@ -61,13 +61,17 @@ os.makedirs(f'{W}/data/teacher', exist_ok=True)
 shutil.copytree(PMS, f'{W}/scripts', dirs_exist_ok=True)
 shutil.copy(SHARD, f'{W}/data/teacher/shard_0000.pt')
 
-# ---- patch the trainer to build the wider head ----
+# ---- patch the trainer to build the wider head (robust to argument order / spacing) ----
 p = f'{W}/scripts/ms_train.py'
 s = open(p).read()
-assert "dim=160, blocks=4" in s
-s = s.replace("VDecoder(head='v2', dim=160, blocks=4)", "VDecoder(head='v2', dim=320, blocks=6, K=128)")
-open(p, 'w').write(s)
-print('trainer patched to dim=320 blocks=6 K=128', flush=True)
+new_line = "VDecoder(head='v2', dim=320, blocks=6, K=128)"
+s2, n_sub = re.subn(r"VDecoder\([^)]*\)", new_line, s)
+print('patched VDecoder call(s):', n_sub, flush=True)
+assert n_sub >= 1, 'no VDecoder call found in ms_train.py'
+open(p, 'w').write(s2)
+for i, line in enumerate(open(p).read().splitlines(), 1):
+    if 'VDecoder(' in line and 'import' not in line:
+        print(f'  patched line {i}: {line.strip()}', flush=True)
 
 # ---- build the init checkpoint: copy the old trunk, random-init the wider head ----
 from vhead import VDecoder  # noqa: E402
@@ -90,6 +94,8 @@ print('big init params:', round(sum(p.numel() for p in new.parameters()) / 1e6, 
 
 HELD = 60
 PY = sys.executable
+patch_check = [ln for ln in open(p).read().splitlines() if 'VDecoder(' in ln and 'import' not in ln][0]
+assert 'dim=320' in patch_check, patch_check
 sh(f'{PY} scripts/ms_train.py dec --init init/big.pt --data data/teacher --held {HELD} '
    f'--steps 16000 --bs 16 --max-minutes 50 --out ckpt/bigdec', 'train_big_decoder', W)
 

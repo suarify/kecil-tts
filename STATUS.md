@@ -427,3 +427,6 @@
 - Step 0 (size_probe.py): params / estimated int8 size - current 7.88M/8.3MB; wide-224 8.62M/9.1MB; wide-320 10.10M/10.6MB; wide-320-6b 11.34M/11.9MB. Owner accepts the size change (dropdown variant, most models stay 8M).
 - Step 1 pushed: kernel suarifymalaysia/sm-11-big - builds VDecoder(head v2, dim 320, blocks 6, K 128), copies the trunk from dec_C4_last.pt (head random-init), patches the trainer's VDecoder line, trains 16,000 steps (max 50 min) and saves dec_big_last.pt. Text side reused unchanged (validated durations/speed).
 - Plan after training: local export + listening page (old v0.3.0 vs big), then CER scoring (~15 min) and publish as the bigger Michael variant.
+
+## 2026-11-17 sm-11-big v1 failed on a patch that hit the wrong copy; v2 uses a regex patch
+- v1: the trainer still built a dim=160 model ('size mismatch ... current model is torch.Size([160])'), so the init (320) could not load. Fix: regex-replace every VDecoder(...) call in the COPIED trainer (W/scripts/ms_train.py), print the patched line, and assert dim=320 before launching. Kernel v2 RUNNING.

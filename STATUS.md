@@ -352,3 +352,9 @@
 - Winner so far: durations clamped [2,8] frames + 3 dB high shelf above 6.5 kHz. Grid (scripts/ablate_grid.py, 3 sentences, 10 variants): air 2/3/4/5 dB, shelf corner 6.0/6.5/7.0 kHz, clamp [2,7]/[2,8]/[2,9]/[3,8], plus a slow amplitude sway.
 - Metrics (periodicity/flat2-6k/>4k/>7k): ref .608/.468/.091/.041; air5 .607/.471/.103/.051; fc6k .608/.471/.096/.040; clamp38 .635/.466/.088/.041 (best periodicity - 75 ms floor removes staccato); others within noise.
 - Page runs/listen/grid.html (localhost:8931/grid.html, 30 wavs, all 200). Awaiting: best air amount + best clamp range to bake.
+
+## 2026-11-17 Michael v0.2.2 published (clamp 3-8 + air 3 dB + noise smoothing + hang7 + K=128)
+- Owner picked clamp 3-8 (75-200 ms per phoneme) and asked for a minor version bump. Export recipe now: K=128, gap-masked noise (gap_keep 1), burst gated to unvoiced with 7-frame (22 ms) hangover, 3-frame noise-gain smoothing, phoneme durations clamped to [3,8] frames, +3 dB linear-phase high shelf above 6.5 kHz (127-tap FIR inside the graph).
+- export_fixh.py gained --clamp-lo/--clamp-hi/--air-db/--air-fc/--gn-smooth; the head parity check now skips the no-op comparison when the recipe is modified and prints the expected length instead.
+- Verified: torch-vs-ORT lengths identical (94200), 0 float64 after webgpu patch, 8.47 MB, 12-20x realtime. Metrics on the 3 test sentences: flat 0.472, >4k 0.094, >7k 0.043 vs grid reference 0.466/0.088/0.041.
+- Published Suarify/kecil-tts-michael-v0.2.2 (37 files; card documents all five changes and the timing clamp caveat; samples rendered by the new export). Remote sha == local export, 0 float64, head.k = 128. Space dropdown: michael v0.2.2 (latest); live check WebGPU 10.4 s load, 4.5x realtime.

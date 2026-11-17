@@ -39,6 +39,11 @@ ap.add_argument('--gap-keep', type=float, default=1.0, help='fraction of the gap
 ap.add_argument('--hang', type=int, default=21, help='burst hangover frames at the 3 ms rate (0 = none)')
 ap.add_argument('--burst', default='gated', choices=['gated', 'soft', 'off'], help='burst path handling')
 ap.add_argument('--soft', type=float, default=0.3, help='burst gain inside voiced frames for --burst soft')
+ap.add_argument('--clamp-lo', type=int, default=1, help='minimum phoneme duration in frames')
+ap.add_argument('--clamp-hi', type=int, default=0, help='maximum phoneme duration in frames (0 = no cap)')
+ap.add_argument('--air-db', type=float, default=0.0, help='high-shelf boost above --air-fc (dB) baked as a linear-phase FIR')
+ap.add_argument('--air-fc', type=float, default=6500.0, help='shelf corner in Hz')
+ap.add_argument('--gn-smooth', action='store_true', help='3-frame smoothing of the noise gains')
 ap.add_argument('--text', default='runs/k16_final/textA_c4_last.pt')
 ap.add_argument('--out', default='runs/k16_final/fixh_export')
 A = ap.parse_args()
@@ -86,11 +91,16 @@ class HeadX(nn.Module):
        `gap_keep` and move the removed energy into the harmonics above 1.5 kHz (energy compensation);
     2) the 3 ms burst path: 'gated' = unvoiced frames only with a `hang`-frame hangover, 'soft' = kept but
        scaled by `soft` inside voiced frames, 'off' = no burst path."""
-    def __init__(self, h, gap_keep=1.0, hang=21, burst_mode='gated', soft=0.3):
+    def __init__(self, h, gap_keep=1.0, hang=21, burst_mode='gated', soft=0.3, gn_smooth=False, shelf=None):
         super().__init__(); self.h = h; self.st = ConvSTFT(h.n_fft, h.hop); self.sb = ConvSTFT(150, 75)
         self.register_buffer('k', torch.arange(1, h.K + 1).float()[None, :, None])
         self.register_buffer('fr', torch.linspace(0, SR / 2, h.nb)[None, :, None])
         self.gap_keep, self.hang, self.burst_mode, self.soft = gap_keep, hang, burst_mode, soft
+        self.gn_smooth = gn_smooth
+        if shelf is not None:
+            self.register_buffer('shelf', torch.tensor(shelf, dtype=torch.float32)[None, None, :])
+        else:
+            self.shelf = None
 
     def forward(self, x, f0, noise=None):
         h = self.h; n = x.shape[2]; T = n * h.up; S = n * FHOP
@@ -101,6 +111,8 @@ class HeadX(nn.Module):
         o = h.out(hn).view(1, T, h.C * h.G + 1); o = torch.cat([o, o[:, -1:]], 1)
         g = (o[..., :-1].reshape(1, T + 1, h.C, h.G) @ h.M.T).permute(0, 2, 3, 1)
         gh, gn = torch.exp(g[:, 0].clamp(max=6)), torch.exp(g[:, 3].clamp(max=6))
+        if self.gn_smooth:
+            gn = F.avg_pool1d(gn, 3, 1, 1, count_include_pad=False)
         um = torch.sqrt(g[:, 1] ** 2 + g[:, 2] ** 2).clamp_min(1e-4); ur, ui = g[:, 1] / um, g[:, 2] / um
         # sine bank: running phase in float64 at frame rate, wrapped, then interpolated between frame centres
         r = f0.double() * FHOP / SR; c = torch.cumsum(r, 1); c = (c - torch.floor(c)).float()
@@ -163,15 +175,31 @@ class HeadX(nn.Module):
                 gb = torch.zeros_like(gb)
             br, bi = self.sb.transform(nz.flip(-1))
             y = y + self.sb.inverse(br * gb, bi * gb)
+        if self.shelf is not None:
+            y = F.conv1d(F.pad(y[:, None], (self.shelf.shape[-1] // 2,) * 2, mode='replicate'), self.shelf)[:, 0]
         return y
 
 
-HEAD = dict(gap_keep=A.gap_keep, hang=A.hang, burst_mode=A.burst, soft=A.soft)
+def make_shelf(db, fc, taps=127):
+    """linear-phase high-shelf FIR (gain 1 below ~0.85*fc, 10^(db/20) above ~1.15*fc)."""
+    import numpy as np
+    from scipy.signal import firwin2
+    nyq = SR / 2
+    lo = max((fc * 0.85) / nyq, 0.01)
+    hi = min((fc * 1.15) / nyq, 0.99)
+    g = 10 ** (db / 20)
+    return np.array(firwin2(taps, [0.0, lo, hi, 1.0], [1.0, 1.0, g, g], window='hamming'), np.float32)
+
+
+SHELF = make_shelf(A.air_db, A.air_fc) if A.air_db else None
+HEAD = dict(gap_keep=A.gap_keep, hang=A.hang, burst_mode=A.burst, soft=A.soft,
+            gn_smooth=A.gn_smooth, shelf=SHELF)
 
 
 class Paradee2(nn.Module):
     def __init__(self, ts, vd):
         super().__init__(); self.ts, self.vd, self.head = ts, vd, HeadX(vd.head, **HEAD)
+        self.cmin, self.cmax = A.clamp_lo, (A.clamp_hi if A.clamp_hi else 10 ** 6)
 
     def text(self, ids):
         t = self.ts; p = t.predictor; s = t.style
@@ -202,7 +230,7 @@ class Paradee2(nn.Module):
 
     def forward(self, input_ids, speed):
         d, dur, asr_tok = self.text(input_ids)
-        n = torch.clamp(torch.round(dur / speed), min=1).long()
+        n = torch.clamp(torch.round(dur / speed), min=self.cmin, max=self.cmax).long()
         end = torch.cumsum(n, 0); start = end - n; f = torch.arange(end[-1])[None]
         aln = ((f >= start[:, None]) & (f < end[:, None])).float()[None]
         F0, N = self.ts.predictor.F0Ntrain(d.transpose(-1, -2) @ aln, self.ts.style)
@@ -232,7 +260,15 @@ with torch.no_grad():
     nz = torch.randn(1, 2 * Fr * FHOP)
     ref_head = vd(asr, F0z, N, noise=nz)
     mine = m.head(m.trunk(asr, F0z, N), F0z, noise=nz)
-print(f'unvoiced no-op check: max |HeadX - torch| = {(mine - ref_head).abs().max():.2e} (signal peak {ref_head.abs().max():.2f})')
+if (A.gn_smooth or A.air_db or A.clamp_lo != 1 or A.clamp_hi) and False:
+    pass
+MODIFIED = A.gn_smooth or bool(A.air_db) or A.clamp_lo != 1 or bool(A.clamp_hi) or A.hang != 21 or A.burst != 'gated' or A.gap_keep != 1
+if MODIFIED:
+    print(f'head parity: recipe modified (hang={A.hang}, burst={A.burst}, gn_smooth={A.gn_smooth}, air={A.air_db} dB, '
+          f'clamp={A.clamp_lo}-{A.clamp_hi or "inf"}) -> skipping the no-op check; '
+          f'length vs torch {m(held[1]["ids"][None], torch.ones(1)).shape[1]} samples expected in the ORT run below')
+else:
+    print(f'unvoiced no-op check: max |HeadX - torch| = {(mine - ref_head).abs().max():.2e} (signal peak {ref_head.abs().max():.2f})')
 
 # 2. export
 path = f'{A.out}/paradee.onnx'

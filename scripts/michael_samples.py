@@ -1,4 +1,6 @@
-"""Generate Michael v0.2.1 repo samples with the FIX H export and assemble runs/michael_v021 upload folder."""
+"""Generate Michael repo samples with a given export and assemble the upload folder.
+usage: python scripts/michael_samples.py [onnx] [out_folder]
+"""
 import os
 import shutil
 import sys
@@ -15,11 +17,12 @@ sys.path.insert(0, os.path.join(ROOT, 'g2p'))
 from ms_g2p import G2P  # noqa: E402
 from ms_norm import normalize  # noqa: E402
 
-OUT = 'runs/michael_v021'
+ONNX = sys.argv[1] if len(sys.argv) > 1 else 'runs/michael_fixh/paradee_int8_webgpu.onnx'
+OUT = sys.argv[2] if len(sys.argv) > 2 else 'runs/michael_v021'
 shutil.rmtree(OUT, ignore_errors=True)
 shutil.copytree('runs/michael_repo_src', OUT)
 os.makedirs(f'{OUT}/onnx', exist_ok=True)
-shutil.copy('runs/michael_fixh/paradee_int8_webgpu.onnx', f'{OUT}/onnx/model_quantized.onnx')
+shutil.copy(ONNX, f'{OUT}/onnx/model_quantized.onnx')
 
 sess = ort.InferenceSession(f'{OUT}/onnx/model_quantized.onnx', providers=['CPUExecutionProvider'])
 g2p = G2P(stress=False, r='r', diph='glide', final_a='a')

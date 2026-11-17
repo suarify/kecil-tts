@@ -321,3 +321,9 @@
 - Owner: published v0.2.1 'too choppy, some character chopped'; harmonics-only 'clean abit'. Measured consonant-band energy (noise-like frames, 2-8 kHz) vs published: fixH0 1.24x, hang7 1.13x, burstSoft 1.27x, keep25 1.13x, harmFill 1.20x, harmOnly 0.01x -> the 21-frame hangover eats consonants; harmonics-only removes fricatives entirely.
 - scripts/ablate_michael3.py + runs/listen/michael3.html (7 variants: fixH21/fixH0/hang7/burstSoft/keep25/harmFill/harmOnly; served localhost:8931/michael3.html, synced to runs/local_v041). Awaiting owner pick.
 - export_fixh.py parameterised: --gap-keep (fraction of gap noise kept, rest into harmonics with energy compensation), --hang (burst hangover frames), --burst gated|soft|off, --soft (voiced burst gain). Regression re-export with the published settings still matches (no-op parity 2.4e-07, lengths equal).
+
+## 2026-11-17 Michael v0.2.1 final: 7-frame burst hangover baked (owner's pick)
+- Owner verdict on round 3: 'gated, 7-frame hangover is better, the watery and phasey part less'. Baked exactly: export_fixh.py --state runs/michael_v02_rebuilt.pt --k 128 --gap-keep 1 --hang 7 --burst gated. No-op parity 2.68e-07, int8 8.46 MB, 18.3x realtime, webgpu patch 0 float64.
+- Consonant energy vs the original v0.2 converter: 0.79x mean (published hangover-21 file was ~0.65x) -> characters no longer chopped.
+- Republished Suarify/kecil-tts-michael-v0.2.1 in place (remote sha == local sha, head.k 128, 0 float64), samples re-rendered with the hang7 export. Same filename -> browsers/Space need a hard refresh or cleared site data.
+- Yati v0.4.1 still uses the 21-frame hangover (owner approved it as-is); hang7 available for her too if wanted.

@@ -430,3 +430,8 @@
 
 ## 2026-11-17 sm-11-big v1 failed on a patch that hit the wrong copy; v2 uses a regex patch
 - v1: the trainer still built a dim=160 model ('size mismatch ... current model is torch.Size([160])'), so the init (320) could not load. Fix: regex-replace every VDecoder(...) call in the COPIED trainer (W/scripts/ms_train.py), print the patched line, and assert dim=320 before launching. Kernel v2 RUNNING.
+
+## 2026-11-17 Bigger student trained (320/6 blocks) - no measurable gain
+- sm-11-big v2 completed: 16,000 steps, 28 min, held_spec_loss 2.515 (the small model reached 2.497). Trunk transfer + random head.
+- Export: paradee.onnx 48.6 MB, int8 11.96 MB, speed 9.1x fp32 / 5.3x int8 on one thread (vs 19x for the 8 MB model).
+- Student-vs-teacher log-mel distance on the same 2 sentences: small 3.39, big 3.39 -> no gain, and 3-4x slower. Page runs/listen/big.html (localhost:8931/big.html) with teacher/small/big/big+air for an ear check; recommendation is to keep v0.3.0 unless the ear disagrees.

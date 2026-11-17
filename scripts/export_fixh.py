@@ -35,6 +35,8 @@ ap = argparse.ArgumentParser()
 ap.add_argument('dec', nargs='?')
 ap.add_argument('--state', default=None, help='rebuilt state dict (ts/vd) from a compiled ONNX instead of ckpts')
 ap.add_argument('--k', type=int, default=64, help='harmonic count of the head (Michael was trained with 128)')
+ap.add_argument('--dim', type=int, default=160, help='head width (the big Michael variant uses 320)')
+ap.add_argument('--blocks', type=int, default=4, help='head ConvNeXt blocks')
 ap.add_argument('--gap-keep', type=float, default=1.0, help='fraction of the gap noise kept (rest moves into harmonics)')
 ap.add_argument('--hang', type=int, default=21, help='burst hangover frames at the 3 ms rate (0 = none)')
 ap.add_argument('--burst', default='gated', choices=['gated', 'soft', 'off'], help='burst path handling')
@@ -243,13 +245,13 @@ if A.state:
     ts = TextStudent('s+mlp').eval(); strip(ts)
     ts.load_state_dict({k[len('ts.'):]: v for k, v in ck['ts'].items()}, strict=False)
     assert not [k for k in ts.state_dict() if k not in {x[len('ts.'):] for x in ck['ts']} and 'pooler' not in k]
-    vd = VDecoder(head='v2', K=A.k).eval(); strip(vd)
+    vd = VDecoder(head='v2', K=A.k, dim=A.dim, blocks=A.blocks).eval(); strip(vd)
     vd.load_state_dict({k[len('vd.'):]: v for k, v in ck['vd'].items()}, strict=True)
     vd.head.M.copy_(ck['M']); vd.head.Mb.copy_(ck['Mb'])
     print('loaded rebuilt state from', A.state)
 else:
     ts = TextStudent('s+mlp').eval(); ts.load_state_dict(torch.load(A.text, map_location='cpu')['model'])
-    vd = VDecoder(head='v2', K=A.k).eval(); vd.load_ckpt(A.dec); strip(ts); strip(vd)
+    vd = VDecoder(head='v2', K=A.k, dim=A.dim, blocks=A.blocks).eval(); vd.load_ckpt(A.dec); strip(ts); strip(vd)
 m = Paradee2(ts, vd).eval()
 held = torch.load(sorted(glob.glob('data/teacher/shard_*.pt'))[0])[:4]
 

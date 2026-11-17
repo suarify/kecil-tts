@@ -332,3 +332,8 @@
 - Michael stays choppy even at hang7 -> added progressively less aggressive burst handling (soft 30%, free 100%) and 3-frame temporal gain smoothing; consonant energy rises 18.3 -> 20.5 (soft) -> 23.9 (free) on the same 4 sentences.
 - Yati brightness measurement: energy share above 7 kHz only 0.004 (vs Michael 0.028) - the dark-target deficit left after FIX H. Two no-retrain levers rendered: air shelf (zero-phase high shelf 6.5 kHz +4/+6 dB) and a 2nd-harmonic exciter (5-10.5 kHz, 12%). >7k share: base 0.004 -> air4 0.011 -> air6x 0.015 (4x); consonant energy 4.8 -> 6.8 -> 8.4. Also rendered yati hang7, burstSoft, smooth, keep60 for comparison.
 - Page runs/listen/air.html (localhost:8931/air.html, 24 rows, 56 wavs, all 200). Awaiting one pick per voice; the air shelf bakes into ONNX as a small linear-phase FIR conv.
+
+## 2026-11-17 Michael focus: the 'III' vowel case and distortion-free smoothing
+- Owner: the sentence with 'III' is muffled/robotic/watery there; 'smooth both gains' helped but adds mild distortion. g2p reads III as three stressed 'I' vowels -> long stressed vowels, where the noise floor shows.
+- Round: scripts/ablate_iii.py renders the III sentence + a vowel-heavy and a mixed sentence with 6 variants: base (hang7), smooth3 (both gains, previous), smoothGn (noise gains only - harmonics untouched, no transient smear), smooth121 (light [1,2,1]), vowel (gap_keep 0.6 + noise smoothing), softGn (soft bursts + noise smoothing).
+- Metrics (periodicity/flatness/>4k): base .673/.440/.044; smooth3 .688/.452/.043; smoothGn .671/.440/.045; smooth121 .689/.453/.042; vowel .669/.388/.047; softGn .671/.470/.050. Page runs/listen/iii.html (localhost:8931/iii.html, 18 wavs, all 200). Yati untouched per owner.

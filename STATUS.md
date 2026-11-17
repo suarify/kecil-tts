@@ -305,3 +305,8 @@
 - export_fixh.py gained --state mode (load stripped state dict + M/Mb; pooler not in graph). Michael FIX H export: unvoiced no-op parity 3.28e-07, fp32 34.8 MB, int8 8.46 MB, 26x realtime; webgpu_patch -> 0 float64.
 - Texture old->new (6 sentences): periodicity 0.635->0.651, flatness 2-6k 0.528->0.436, >4k share 0.105->0.082 (target 0.080). Wavs in runs/listen/michael/ (old vs fixh).
 - Published Suarify/kecil-tts-michael-v0.2.1 (37 files; card carries v0.2 CER, adds texture table; all 6 samples re-rendered by the new export). Remote re-download: 0 float64. Space updated: Michael dropdown v0.2.1 (latest). Live verified: WebGPU load 6.5 s, 3.25 s audio in 0.85 s.
+
+## 2026-11-17 Michael still watery/phasey: ablation round 1 for him
+- Owner: v0.2.1 still watery + phasey. Built a Michael-specific ablation (scripts/ablate_michael.py) on his rebuilt weights, same six sentences, same noise seed, loudness-matched: old / fixH (current) / noPhase (u=1, shift kept) / noShift (shift=0, u kept) / keepHalf (0.5 noise->harmonic, energy-compensated) / noBurst / noMod.
+- Metrics (periodicity / flatness / >4k): old .644/.516/.096; fixH .650/.436/.086; noPhase .583/.433/.093; noShift .590/.433/.091; keepHalf .648/.380/.085; noBurst .654/.430/.073; noMod .657/.393/.081. noPhase/noShift drop periodicity ~0.06 -> the learned phase and pulse shift both carry the pitch; don't expect them to be the fix.
+- Listening page runs/listen/michael.html (served at localhost:8931/michael.html, also copied into runs/local_v041). 42 wavs in runs/listen/michael_ablate. Awaiting owner pick (two best buttons allowed).

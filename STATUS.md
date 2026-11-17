@@ -405,3 +405,8 @@
 - sm-10-vc10 completed (6 min GPU, 10 clips, zip 5.0 MB). Page runs/listen/vc10.html (localhost:8931/vc10.html, 30 buttons, all 200).
 - Metrics (periodicity / flat 2-6k / >4k / >7k): raw 0.667/0.640/0.081/0.015; our ref 0.570/0.490/0.100/0.030; pipeline ref 0.585/0.488/0.100/0.031. Conversion adds HF energy (>4k 0.081 -> 0.100, >7k 0.015 -> 0.031) and costs ~0.08 periodicity; the two references are within noise of each other.
 - Decision pending owner's ear: if neither converted column is watery -> use pipeline ref (slightly higher periodicity) for the full 1,281 conversion + retrain; if both watery -> conversion is the ceiling, stop at v0.3.0.
+
+## 2026-11-17 Student-vs-teacher preview page (answers 'will the final model sound like the clips')
+- Rendered the student v0.3.0 on the same 10 texts as the conversion gate and built runs/listen/vc10s.html (localhost:8931/vc10s.html): raw / converted (pipeline ref) / student, 30 buttons all 200.
+- Metrics (periodicity / flat / >4k / >7k): raw 0.667/0.640/0.081/0.015; converted 0.585/0.488/0.100/0.031; student 0.643/0.441/0.096/0.041. Student is more tonal, less flat, slightly brighter than the teacher, and 4x further from it than the two teacher variants are from each other -> a retrain on 1-VC data moves the student only slightly; it cannot equal the clips.
+- Cheaper decisive test proposed instead of the 2 h full run: continue the existing v0.3.0 checkpoint ~2,000 steps (~10-15 min GPU) and listen whether quality moves at all; if it does not, data changes will not either.

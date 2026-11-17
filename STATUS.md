@@ -457,3 +457,10 @@
 ## 2026-11-17 sm-12 v5: stub perth instead of fixing torchaudio
 - The image's torch/torchaudio pair is broken (libtorchaudio.so will not load; a torchaudio==X.* reinstall did not match Kaggle's patched torch). chatterbox only needs 'perth' for watermarking, and perth imports torchaudio.
 - v5 installs a no-op 'perth' package stub on PYTHONPATH (PerthNet / PerthImplicitWatermarker -> pass-through _Any), so torchaudio is never imported; imports are verified before generation. Fallback inside the same kernel: if the stub path fails, force-reinstall a matching torch+torchaudio pair from the PyTorch wheel index. Same stub added to the fenrir kernel. v5 QUEUED.
+
+## 2026-11-17 Critical step-by-step gate plan for the new voice
+- Gate 1 (kernel sm-12): raw generation + ONE VC to nicole, checkpoints every 100, per-clip timeout, resume.
+- Gate 2 (after sm-12): listen to a few converted clips for watery/phase (page built by scripts/gate_check-style flow) BEFORE any training.
+- Gate 3 (kernel sm-13a PROBE, written): rows + only 3,000 decoder steps + 2,500 text steps (~15 min) so the student's voice can be heard before the full run.
+- Gate 4: scripts/gate_check.py measures durations (1-frame share, max frames), periodicity/flatness/>4k/>7k and renders faithful + air3 samples; benchmarks to beat: distance to teacher yati 3.29, michael 3.84; no clamp so native speed.
+- Gate 5: only if the probe sounds clean -> full 12k run (sm-13), export faithful, listen again, then publish.

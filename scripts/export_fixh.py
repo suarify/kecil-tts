@@ -32,7 +32,8 @@ from vhead import VDecoder, SR, FHOP
 
 import argparse
 ap = argparse.ArgumentParser()
-ap.add_argument('dec')
+ap.add_argument('dec', nargs='?')
+ap.add_argument('--state', default=None, help='rebuilt state dict (ts/vd) from a compiled ONNX instead of ckpts')
 ap.add_argument('--text', default='runs/k16_final/textA_c4_last.pt')
 ap.add_argument('--out', default='runs/k16_final/fixh_export')
 A = ap.parse_args()
@@ -180,8 +181,20 @@ class Paradee2(nn.Module):
         return self.head(self.trunk(asr_tok @ aln, F0, N), F0)
 
 
-ts = TextStudent('s+mlp').eval(); ts.load_state_dict(torch.load(A.text, map_location='cpu')['model'])
-vd = VDecoder(head='v2').eval(); vd.load_ckpt(A.dec); strip(ts); strip(vd); m = Paradee2(ts, vd).eval()
+if A.state:
+    # weights rebuilt from a compiled ONNX (already stripped of weight-norm parametrization)
+    ck = torch.load(A.state, map_location='cpu')
+    ts = TextStudent('s+mlp').eval(); strip(ts)
+    ts.load_state_dict({k[len('ts.'):]: v for k, v in ck['ts'].items()}, strict=False)
+    assert not [k for k in ts.state_dict() if k not in {x[len('ts.'):] for x in ck['ts']} and 'pooler' not in k]
+    vd = VDecoder(head='v2').eval(); strip(vd)
+    vd.load_state_dict({k[len('vd.'):]: v for k, v in ck['vd'].items()}, strict=True)
+    vd.head.M.copy_(ck['M']); vd.head.Mb.copy_(ck['Mb'])
+    print('loaded rebuilt state from', A.state)
+else:
+    ts = TextStudent('s+mlp').eval(); ts.load_state_dict(torch.load(A.text, map_location='cpu')['model'])
+    vd = VDecoder(head='v2').eval(); vd.load_ckpt(A.dec); strip(ts); strip(vd)
+m = Paradee2(ts, vd).eval()
 held = torch.load(sorted(glob.glob('data/teacher/shard_*.pt'))[0])[:4]
 
 # 1a. on UNVOICED input FIX H is a no-op: HeadX must match the torch head exactly

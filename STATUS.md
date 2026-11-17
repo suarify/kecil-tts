@@ -410,3 +410,9 @@
 - Rendered the student v0.3.0 on the same 10 texts as the conversion gate and built runs/listen/vc10s.html (localhost:8931/vc10s.html): raw / converted (pipeline ref) / student, 30 buttons all 200.
 - Metrics (periodicity / flat / >4k / >7k): raw 0.667/0.640/0.081/0.015; converted 0.585/0.488/0.100/0.031; student 0.643/0.441/0.096/0.041. Student is more tonal, less flat, slightly brighter than the teacher, and 4x further from it than the two teacher variants are from each other -> a retrain on 1-VC data moves the student only slightly; it cannot equal the clips.
 - Cheaper decisive test proposed instead of the 2 h full run: continue the existing v0.3.0 checkpoint ~2,000 steps (~10-15 min GPU) and listen whether quality moves at all; if it does not, data changes will not either.
+
+## 2026-11-17 Student 'very bad, slower, phasey/watery': isolating our export from the model
+- Phase-advance experiment (scripts/ablate_phase.py): adding inter-frame phase advance DESTROYS periodicity (0.673 -> 0.268 with +sign, 0.450 with -sign), so the current no-advance formulation is correct; phase advance is not the fix.
+- Faithful-vs-processed test (scripts/ablate_faithful.py) from the true checkpoints: faithful (no gap mask/gate/smoothing/air/clamp) 4.58 s on the III sentence vs 5.85 s with our recipe -> the clamp is what made the voice slow (+28% length).
+- Metrics (periodicity/flat/>4k): faithful 0.640/0.507/0.101; faithful+air 0.638/0.512/0.121; our fixH 0.682/0.440/0.112; fixH no-clamp 0.641/0.440/0.102; fixH bursts-ungated 0.678/0.509/0.122.
+- Page runs/listen/faithful.html (localhost:8931/faithful.html) compares TEACHER clip vs faithful / faithful+air / our recipe (clamp) / our recipe no-clamp / our recipe ungated bursts, so the owner can say whether the model or our processing is at fault.

@@ -370,3 +370,9 @@
 - Key correction: the pathological durations (16-frame/400 ms holds) came from our ONNX-int8 rebuild, NOT the real model. True text model: max 7-8 frames, no >=10-frame holds, 1-frame share 17-19%.
 - Exported v0.3.0 from the true checkpoints (K=128 + full recipe), webgpu patched (0 float64), 8.47 MB, 19x realtime. Metrics on 6 sentences: periodicity off .643 / min2 .656 / min3 .662 vs v0.2.2 .634.
 - Listening page runs/listen/v03.html (localhost:8931/v03.html) compares v0.2.2 vs v0.3.0 with clamp off / 2-8 / 3-8. Awaiting owner pick before publishing v0.3.0.
+
+## 2026-11-17 Training gap Michael vs Yati (measured from the shards)
+- Data volume is now essentially equal: Yati v0.4 teacher 1,281 rows / 88.8 min / median F0 196 Hz; Michael C4 merged 1,261 rows / 87.3 min / median F0 120 Hz.
+- Real gaps: (1) Michael's targets are voice-converted TWICE (Chatterbox -> female -> male) vs Yati's once, so his training audio carries two rounds of VC artefacts (the residual damp/phaser); (2) his first 746 clips come from the older single-seed generation round, only the 767 C4 additions used the improved recipe; (3) text side trained ~8k effective steps vs Yati's 10k (decoder 16k vs 12k, and his decoder started from Yati's v0.4 decoder).
+- Scores: test CER yati 5.5/9.5 vs michael 6.9/10.6 (200 sentences); held median michael 2.2 vs yati 4.8 (capped 8.2 vs 8.5). Sound: periodicity yati 0.751 vs michael v0.3.0 0.662 -> pitch-clarity gap is timbre/VC driven, not data volume.
+- Proposed next experiment (needs GPU approval): regenerate all 1,281 texts with Chatterbox using the am_michael reference directly (ONE conversion instead of two), rebuild rows, retrain text 10k + decoder 12k -> targets with half the VC artefacts. ~3 h GPU total.

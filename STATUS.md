@@ -327,3 +327,8 @@
 - Consonant energy vs the original v0.2 converter: 0.79x mean (published hangover-21 file was ~0.65x) -> characters no longer chopped.
 - Republished Suarify/kecil-tts-michael-v0.2.1 in place (remote sha == local sha, head.k 128, 0 float64), samples re-rendered with the hang7 export. Same filename -> browsers/Space need a hard refresh or cleared site data.
 - Yati v0.4.1 still uses the 21-frame hangover (owner approved it as-is); hang7 available for her too if wanted.
+
+## 2026-11-17 Round 4: de-chop Michael, brighten Yati (owner: harmonics good, still choppy; Yati has room)
+- Michael stays choppy even at hang7 -> added progressively less aggressive burst handling (soft 30%, free 100%) and 3-frame temporal gain smoothing; consonant energy rises 18.3 -> 20.5 (soft) -> 23.9 (free) on the same 4 sentences.
+- Yati brightness measurement: energy share above 7 kHz only 0.004 (vs Michael 0.028) - the dark-target deficit left after FIX H. Two no-retrain levers rendered: air shelf (zero-phase high shelf 6.5 kHz +4/+6 dB) and a 2nd-harmonic exciter (5-10.5 kHz, 12%). >7k share: base 0.004 -> air4 0.011 -> air6x 0.015 (4x); consonant energy 4.8 -> 6.8 -> 8.4. Also rendered yati hang7, burstSoft, smooth, keep60 for comparison.
+- Page runs/listen/air.html (localhost:8931/air.html, 24 rows, 56 wavs, all 200). Awaiting one pick per voice; the air shelf bakes into ONNX as a small linear-phase FIR conv.

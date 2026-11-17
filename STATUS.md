@@ -279,3 +279,10 @@
 - Owner verdict round 2: FIX C best but words still watery. scripts/measure_noise.py then showed the 3 ms BURST path carries ~100% of the voiced >1.5 kHz noise energy (plain ~1%, pulsed ~0 with cancellations); the burst fires noise 4x per trunk frame and never saw the gap mask -> that chopping is the residual watery/phaser.
 - Round 3 variants (ablate_head.py: burst_uv option gates burst to unvoiced frames; comp_burst counts gated burst energy in the keep compensation): metrics (target 0.699/0.621/0.080): fixC 0.744/0.696/0.040; fixG (burst_uv+comp, keep .5) 0.746/0.511/0.043; fixH (burst_uv only, keep 1) 0.750/0.595/0.032 - flatness closest to target from below. fixE/F and fixH-with-keep-0 iterations dropped.
 - Page runs/listen/ablate.html updated: target / v04 / harm / fixC / fixH / fixG. Awaiting owner's ears.
+
+## 2026-11-17 FIX H baked into ONNX export (no retraining, CPU only)
+- scripts/export_fixh.py ran clean: unvoiced no-op parity vs trained torch head max diff 1.79e-07; fp32 34.8 MB, int8 8.46 MB, both ~31x realtime on 1 thread; DFT bases generated at load (4), int8 weights 105 tensors, fp16 162.
+- webgpu_patch applied -> runs/k16_final/fixh_export/paradee_int8_webgpu.onnx, 0 float64 ops left.
+- scripts/verify_fixh.py: texture of the patched int8 ORT output on the 6 ablation sentences matches the PyTorch FIX H wavs (ort 0.754/0.598/0.029 vs torch 0.750/0.596/0.032; canonical targets 0.699/0.621/0.080). Sentence wavs saved as runs/listen/ablate/{id}_ortfixH.wav.
+- suaradee package smoke test with SUARADEE_MODEL pointed at the new file: 3.9 s synth ok (runs/k16_final/fixh_export/smoke_yati.wav).
+- Awaiting owner decision: overwrite kecil-tts-yati-v0.4 ONNX in place (browser cache risk, hard refresh needed) vs publish as v0.4.1 (Space dropdown edit needed by Space-owning agent). Michael rebake still blocked (no dec ckpt locally).

@@ -347,3 +347,8 @@
 - Owner: air/breath/vibrato did not fix III or atau; more vibrato = more watery/damp/phase. Measured the model's own durations (scripts/michael_durations.py): on the III sentence 'atau' gets [16,6,2,3] frames (one vowel held 400 ms); in a clean sentence the same word gets [1,4,2,3] (one phoneme 25 ms); 15-17% of all phonemes get 1 frame. A held 400 ms vowel with frozen timbre reads as robotic/damp/watery; fast vibrato lands between the 25 ms phase frames and smears.
 - scripts/ablate_dur.py renders 3 sentences with: base, clamp (2-8 frames = 50-200 ms), med3 (median filter + clamp 2-10), clampair (+3 dB shelf), trem (clamp + slow random amplitude sway 18% on the noise floor), vib03 (clamp + 0.3% vibrato at 3 Hz).
 - Page runs/listen/dur.html (localhost:8931/dur.html, 18 wavs, all 200). If clamp works, bake as a Clip on the duration tensor in the ONNX (no weights, no spectrum change).
+
+## 2026-11-17 Michael: grid around clamp+air (owner: clamp+3dB air better)
+- Winner so far: durations clamped [2,8] frames + 3 dB high shelf above 6.5 kHz. Grid (scripts/ablate_grid.py, 3 sentences, 10 variants): air 2/3/4/5 dB, shelf corner 6.0/6.5/7.0 kHz, clamp [2,7]/[2,8]/[2,9]/[3,8], plus a slow amplitude sway.
+- Metrics (periodicity/flat2-6k/>4k/>7k): ref .608/.468/.091/.041; air5 .607/.471/.103/.051; fc6k .608/.471/.096/.040; clamp38 .635/.466/.088/.041 (best periodicity - 75 ms floor removes staccato); others within noise.
+- Page runs/listen/grid.html (localhost:8931/grid.html, 30 wavs, all 200). Awaiting: best air amount + best clamp range to bake.

@@ -453,3 +453,7 @@
 ## 2026-11-17 sm-12 nicole data: two environment failures fixed
 - v2: dataset sm12-in was created seconds before the push and did not mount (/kaggle/input empty -> texts.tsv IndexError). v3 re-push mounted it, then failed: chatterbox's pip install upgraded torchaudio to a CUDA-mismatched build (libcudart.so.12 missing, libtorchaudio cannot load). v4 adds a self-repair step: detect torch version/CUDA tag, force-reinstall torchaudio from the matching wheel index, verify import. Same fix applied to the fenrir kernel.
 - Extra datasets for fenrir failed to create (403), so ref_fenrir.wav went into sm12-in (new version) and the male init checkpoints into sm13-in (new version).
+
+## 2026-11-17 sm-12 v5: stub perth instead of fixing torchaudio
+- The image's torch/torchaudio pair is broken (libtorchaudio.so will not load; a torchaudio==X.* reinstall did not match Kaggle's patched torch). chatterbox only needs 'perth' for watermarking, and perth imports torchaudio.
+- v5 installs a no-op 'perth' package stub on PYTHONPATH (PerthNet / PerthImplicitWatermarker -> pass-through _Any), so torchaudio is never imported; imports are verified before generation. Fallback inside the same kernel: if the stub path fails, force-reinstall a matching torch+torchaudio pair from the PyTorch wheel index. Same stub added to the fenrir kernel. v5 QUEUED.

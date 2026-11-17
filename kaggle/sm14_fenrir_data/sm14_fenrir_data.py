@@ -38,23 +38,27 @@ for d in sorted(glob.glob('/kaggle/input/*')):
 
 sh('pip install -q chatterbox-tts soundfile')
 sh('pip uninstall -y -q torchvision')
-FIX = f'''
-import torch, subprocess, sys
-tv = ".".join(torch.__version__.split("+")[0].split(".")[:2])
-cu = ("cu" + torch.version.cuda.replace(".", "")) if torch.version.cuda else "cpu"
-print("torch", torch.__version__, "cuda", torch.version.cuda, flush=True)
-for cmd in ([sys.executable, "-m", "pip", "install", "-q", "--force-reinstall", f"torchaudio=={{tv}}.*",
-             "--index-url", f"https://download.pytorch.org/whl/{{cu}}"],
-            [sys.executable, "-m", "pip", "install", "-q", "--force-reinstall", f"torchaudio=={{tv}}.*"]):
-    p = subprocess.run(cmd, capture_output=True, text=True)
-    print("install rc", p.returncode, (p.stderr or "")[-300:], flush=True)
-    if p.returncode == 0:
-        break
-import torchaudio
-print("torchaudio", torchaudio.__version__, "ok", flush=True)
-'''
-open(f'{OUT}/fix_audio.py', 'w').write(FIX)
-sh(f'{sys.executable} {OUT}/fix_audio.py')
+# same perth stub as the nicole kernel: keep torchaudio out of the import path entirely
+STUB = f'{OUT}/stubs_perth'
+os.makedirs(f'{STUB}/perth/perth_net/perth_net_implicit/model', exist_ok=True)
+open(f'{STUB}/perth/__init__.py', 'w').write('''class _Any:
+    def __init__(self, *a, **k):
+        pass
+    def __call__(self, *a, **k):
+        return a[0] if a else None
+    def __getattr__(self, n):
+        return lambda *a, **k: (a[0] if a else None)
+PerthNet = _Any
+PerthImplicitWatermarker = _Any
+''')
+for p in ('perth/perth_net/__init__.py', 'perth/perth_net/perth_net_implicit/__init__.py',
+          'perth/perth_net/perth_net_implicit/model/__init__.py'):
+    open(f'{STUB}/{p}', 'w').write('')
+open(f'{STUB}/perth/perth_net/perth_net_implicit/model/perth_net.py', 'w').write('from ... import _Any\nPerthNet = _Any\n')
+open(f'{STUB}/perth/perth_net/perth_net_implicit/perth_implicit_watermarker.py', 'w').write('from ... import _Any\nPerthImplicitWatermarker = _Any\n')
+os.environ['PYTHONPATH'] = f'{STUB}:' + os.environ.get('PYTHONPATH', '')
+sys.path.insert(0, STUB)
+print('perth stub installed', flush=True)
 sh('pip install -q "transformers==4.46.3"')
 sh(f'{sys.executable} -c "from chatterbox.vc import ChatterboxVC; print(\'vc ok\')"')
 

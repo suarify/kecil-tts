@@ -45,26 +45,59 @@ for d in sorted(glob.glob('/kaggle/input/*')):
     print('input:', d, len(os.listdir(d)), 'entries', flush=True)
 
 sh('pip install -q chatterbox-tts soundfile', 'pip')
-# chatterbox can pull a torchaudio built for a different CUDA (libcudart.so.12 missing / libtorchaudio fails to load).
-# Pin torchaudio to the image's exact torch minor + CUDA tag from the official wheel index.
 sh('pip uninstall -y -q torchvision', 'pip_rm_tv')
-FIX = f'''
+# chatterbox imports `perth` (audio watermarking) which imports torchaudio. The image's torch/torchaudio pair is
+# broken (libtorchaudio.so will not load), but we do not need watermarking: install a no-op `perth` stub first so
+# torchaudio is never imported. If chatterbox still fails, fall back to reinstalling a matching torch+torchaudio pair.
+STUB = f'{OUT}/stubs_perth'
+os.makedirs(f'{STUB}/perth/perth_net/perth_net_implicit/model', exist_ok=True)
+
+
+def _w(p, s):
+    open(p, 'w').write(s)
+
+
+_w(f'{STUB}/perth/__init__.py', '''class _Any:
+    def __init__(self, *a, **k):
+        pass
+    def __call__(self, *a, **k):
+        return a[0] if a else None
+    def __getattr__(self, n):
+        return lambda *a, **k: (a[0] if a else None)
+PerthNet = _Any
+PerthImplicitWatermarker = _Any
+''')
+_w(f'{STUB}/perth/perth_net/__init__.py', '')
+_w(f'{STUB}/perth/perth_net/perth_net_implicit/__init__.py', '')
+_w(f'{STUB}/perth/perth_net/perth_net_implicit/model/__init__.py', '')
+_w(f'{STUB}/perth/perth_net/perth_net_implicit/model/perth_net.py', 'from ... import _Any\nPerthNet = _Any\n')
+_w(f'{STUB}/perth/perth_net/perth_net_implicit/perth_implicit_watermarker.py', 'from ... import _Any\nPerthImplicitWatermarker = _Any\n')
+os.environ['PYTHONPATH'] = f'{STUB}:' + os.environ.get('PYTHONPATH', '')
+sys.path.insert(0, STUB)
+print('perth stub installed at', STUB, flush=True)
+
+ok = False
+try:
+    sh(f'{sys.executable} -c "from chatterbox.mtl_tts import ChatterboxMultilingualTTS; from chatterbox.vc import ChatterboxVC; print(\'imports ok (perth stubbed)\')"', 'imports')
+    ok = True
+except SystemExit:
+    print('stub import failed -> reinstalling torch+torchaudio pair', flush=True)
+if not ok:
+    FIX = f'''
 import torch, subprocess, sys
 tv = ".".join(torch.__version__.split("+")[0].split(".")[:2])
 cu = ("cu" + torch.version.cuda.replace(".", "")) if torch.version.cuda else "cpu"
-print("torch", torch.__version__, "cuda", torch.version.cuda, "-> torchaudio", tv, cu, flush=True)
-for cmd in ([sys.executable, "-m", "pip", "install", "-q", "--force-reinstall", f"torchaudio=={{tv}}.*",
-             "--index-url", f"https://download.pytorch.org/whl/{{cu}}"],
-            [sys.executable, "-m", "pip", "install", "-q", "--force-reinstall", f"torchaudio=={{tv}}.*"]):
-    p = subprocess.run(cmd, capture_output=True, text=True)
-    print("install rc", p.returncode, (p.stderr or "")[-300:], flush=True)
-    if p.returncode == 0:
-        break
+print("torch", torch.__version__, "cuda", torch.version.cuda, "-> reinstall", tv, cu, flush=True)
+p = subprocess.run([sys.executable, "-m", "pip", "install", "-q", "--force-reinstall",
+                    f"torch=={{tv}}.*", f"torchaudio=={{tv}}.*",
+                    "--index-url", f"https://download.pytorch.org/whl/{{cu}}"], capture_output=True, text=True)
+print("reinstall rc", p.returncode, (p.stderr or "")[-300:], flush=True)
 import torchaudio
-print("torchaudio", torchaudio.__version__, "ok", flush=True)
+print("torchaudio", torchaudio.__version__, "torch", torch.__version__, flush=True)
 '''
-open(f'{OUT}/fix_audio.py', 'w').write(FIX)
-sh(f'{sys.executable} {OUT}/fix_audio.py', 'fix_torchaudio')
+    open(f'{OUT}/fix_torch.py', 'w').write(FIX)
+    sh(f'{sys.executable} {OUT}/fix_torch.py', 'fix_torch_pair')
+    sh(f'{sys.executable} -c "from chatterbox.mtl_tts import ChatterboxMultilingualTTS; print(\'imports ok (torch pair)\')"', 'imports2')
 sh('pip install -q "transformers==4.46.3"', 'pip_tr')
 sh(f'{sys.executable} -c "from chatterbox.mtl_tts import ChatterboxMultilingualTTS; from chatterbox.vc import ChatterboxVC; print(\'imports ok\')"', 'imports')
 

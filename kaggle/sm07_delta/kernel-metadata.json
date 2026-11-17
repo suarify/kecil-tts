@@ -1,0 +1,16 @@
+{
+ "id": "suarifymalaysia/sm-07-delta",
+ "title": "sm 07 delta",
+ "code_file": "sm07_delta.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_tpu": false,
+ "enable_internet": true,
+ "keywords": ["gpu"],
+ "dataset_sources": ["suarifymalaysia/sm-delta-train-in", "suarifymalaysia/sm-pms"],
+ "kernel_sources": [],
+ "competition_sources": [],
+ "model_sources": []
+}

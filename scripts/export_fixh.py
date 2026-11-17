@@ -249,7 +249,7 @@ if A.state:
     print('loaded rebuilt state from', A.state)
 else:
     ts = TextStudent('s+mlp').eval(); ts.load_state_dict(torch.load(A.text, map_location='cpu')['model'])
-    vd = VDecoder(head='v2').eval(); vd.load_ckpt(A.dec); strip(ts); strip(vd)
+    vd = VDecoder(head='v2', K=A.k).eval(); vd.load_ckpt(A.dec); strip(ts); strip(vd)
 m = Paradee2(ts, vd).eval()
 held = torch.load(sorted(glob.glob('data/teacher/shard_*.pt'))[0])[:4]
 

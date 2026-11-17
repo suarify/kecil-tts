@@ -39,7 +39,8 @@ ap.add_argument('--dim', type=int, default=160, help='head width (the big Michae
 ap.add_argument('--blocks', type=int, default=4, help='head ConvNeXt blocks')
 ap.add_argument('--gap-keep', type=float, default=1.0, help='fraction of the gap noise kept (rest moves into harmonics)')
 ap.add_argument('--hang', type=int, default=21, help='burst hangover frames at the 3 ms rate (0 = none)')
-ap.add_argument('--burst', default='gated', choices=['gated', 'soft', 'off'], help='burst path handling')
+ap.add_argument('--burst', default='gated', choices=['gated', 'soft', 'off', 'free'], help='burst path handling (free = ungated)')
+ap.add_argument('--no-gap-mask', action='store_true', help='leave the noise spectrum untouched (faithful export)')
 ap.add_argument('--soft', type=float, default=0.3, help='burst gain inside voiced frames for --burst soft')
 ap.add_argument('--clamp-lo', type=int, default=1, help='minimum phoneme duration in frames')
 ap.add_argument('--clamp-hi', type=int, default=0, help='maximum phoneme duration in frames (0 = no cap)')
@@ -93,11 +94,13 @@ class HeadX(nn.Module):
        `gap_keep` and move the removed energy into the harmonics above 1.5 kHz (energy compensation);
     2) the 3 ms burst path: 'gated' = unvoiced frames only with a `hang`-frame hangover, 'soft' = kept but
        scaled by `soft` inside voiced frames, 'off' = no burst path."""
-    def __init__(self, h, gap_keep=1.0, hang=21, burst_mode='gated', soft=0.3, gn_smooth=False, shelf=None):
+    def __init__(self, h, gap_keep=1.0, hang=21, burst_mode='gated', soft=0.3, gn_smooth=False, shelf=None,
+                 gap_mask=True):
         super().__init__(); self.h = h; self.st = ConvSTFT(h.n_fft, h.hop); self.sb = ConvSTFT(150, 75)
         self.register_buffer('k', torch.arange(1, h.K + 1).float()[None, :, None])
         self.register_buffer('fr', torch.linspace(0, SR / 2, h.nb)[None, :, None])
         self.gap_keep, self.hang, self.burst_mode, self.soft = gap_keep, hang, burst_mode, soft
+        self.gap_mask = gap_mask
         self.gn_smooth = gn_smooth
         if shelf is not None:
             self.register_buffer('shelf', torch.tensor(shelf, dtype=torch.float32)[None, None, :])
@@ -134,18 +137,23 @@ class HeadX(nn.Module):
                 Nr = Nr + a * mr; Ni = Ni + a * mi; j += 1
         f0v = torch.cat([f0[:, torch.arange(T, device=x.device) // h.up], f0[:, -1:]], 1)   # per head frame, unclamped
         f0f = f0v.clamp_min(60)
-        # ---- FIX H step 1: gap-mask the noise in voiced frames (energy preserved) ----
+        # ---- FIX H step 1 (optional): gap-mask the noise in voiced frames (energy preserved) ----
         voiced = (f0v > 10).float()[:, None, :]                                            # [1,1,T+1]
         band8 = (self.fr >= 800).float()
         ratio = self.fr / f0f[:, None]
-        hp = torch.exp(-((ratio - ratio.round()).abs() / 0.22) ** 2) * band8 * voiced      # near-harmonic weight
-        w = 1 - hp.clamp(max=1)
-        P0 = ((Nr * Nr + Ni * Ni) * band8).sum(1, keepdim=True)
-        Nr2, Ni2 = Nr * w, Ni * w
-        P1 = ((Nr2 * Nr2 + Ni2 * Ni2) * band8).sum(1, keepdim=True)
-        s = torch.sqrt(P0 / P1.clamp_min(1e-12)).clamp(max=4.0)
-        s = F.avg_pool1d(s, 5, 1, 2, count_include_pad=False)
-        Nr, Ni = Nr2 * s, Ni2 * s
+        if not self.gap_mask:
+            w = torch.ones_like(ratio)
+            P0 = torch.ones(1, 1, 1)
+        else:
+            hp = torch.exp(-((ratio - ratio.round()).abs() / 0.22) ** 2) * band8 * voiced  # near-harmonic weight
+            w = 1 - hp.clamp(max=1)
+            P0 = ((Nr * Nr + Ni * Ni) * band8).sum(1, keepdim=True)
+        if self.gap_mask:
+            Nr2, Ni2 = Nr * w, Ni * w
+            P1 = ((Nr2 * Nr2 + Ni2 * Ni2) * band8).sum(1, keepdim=True)
+            s = torch.sqrt(P0 / P1.clamp_min(1e-12)).clamp(max=4.0)
+            s = F.avg_pool1d(s, 5, 1, 2, count_include_pad=False)
+            Nr, Ni = Nr2 * s, Ni2 * s
         if self.gap_keep != 1:
             band15 = (self.fr >= 1500).float()
             magE = torch.sqrt(Er * Er + Ei * Ei)
@@ -195,7 +203,7 @@ def make_shelf(db, fc, taps=127):
 
 SHELF = make_shelf(A.air_db, A.air_fc) if A.air_db else None
 HEAD = dict(gap_keep=A.gap_keep, hang=A.hang, burst_mode=A.burst, soft=A.soft,
-            gn_smooth=A.gn_smooth, shelf=SHELF)
+            gn_smooth=A.gn_smooth, shelf=SHELF, gap_mask=not A.no_gap_mask)
 
 
 class Paradee2(nn.Module):

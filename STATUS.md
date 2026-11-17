@@ -435,3 +435,10 @@
 - sm-11-big v2 completed: 16,000 steps, 28 min, held_spec_loss 2.515 (the small model reached 2.497). Trunk transfer + random head.
 - Export: paradee.onnx 48.6 MB, int8 11.96 MB, speed 9.1x fp32 / 5.3x int8 on one thread (vs 19x for the 8 MB model).
 - Student-vs-teacher log-mel distance on the same 2 sentences: small 3.39, big 3.39 -> no gain, and 3-4x slower. Page runs/listen/big.html (localhost:8931/big.html) with teacher/small/big/big+air for an ear check; recommendation is to keep v0.3.0 unless the ear disagrees.
+
+## 2026-11-17 Michael v0.3.1 published (speed fix) + third-voice candidate samples
+- Root cause of 'Michael speaks slower': the v0.3.0 export clamped every phoneme to 3-8 frames (75-200 ms). New export: --no-gap-mask --burst free --clamp-lo 1 (faithful synthesis, native durations). Verified on the III sentence: 4.55 s vs 5.85 s (-22%); samples re-rendered (3.8/3.4/2.8/2.9/3.8/4.3 s).
+- exporter gained --no-gap-mask and --burst free; HEAD passes gap_mask.
+- Published Suarify/kecil-tts-michael-v0.3.1 (37 files, sha match, 0 float64, 8.46 MB) with a card explaining the clamp removal + faithful synthesis; Space dropdown michael v0.3.1 (latest), card/link/benchmark header updated. Live check: WebGPU load 16.4 s, III sentence 3.35 s of audio.
+- Why Yati is clearer (measured): teacher periodicity yati 0.699 vs michael 0.585 (her target had ONE voice conversion, his two); pitch 196 vs 120 Hz (harmonics 196 vs 120 Hz apart vs the 80-point gain grid -> less smearing); teacher >7k 0.021 vs 0.031 (less inter-harmonic noise). Student follows the ordering: 0.751 vs 0.645.
+- Next voice: generated Kokoro samples for af_heart/af_bella/af_nicole/af_sarah/bf_emma/am_puck/am_fenrir/bm_george -> runs/listen/voices.html (localhost:8931/voices.html). Proposal: pick one, 15-clip Malay preview (~6 min GPU), then full 1-VC build (~1.5 h).

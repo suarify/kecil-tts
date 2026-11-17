@@ -391,3 +391,8 @@
 - POC 1 conflated two variables: generation prompt (am_michael English voice speaking Malay) and conversion count. Its 'new' clips were duller at the top (>7k 0.013 vs 0.027) and the owner judged the old double-converted clips more accurate.
 - POC 2 (queued, sm-09-vc15b): same 15 raw Chatterbox clips (Malay prompt) converted ONCE to am_michael vs the current twice (raw -> female -> male). This isolates the conversion count. Includes the III sentence (c0571). Dataset suarifymalaysia/sm-vc15b-flat (raw_*, old_* wavs + ref + texts), kernel pushed v1.
 - Metric snapshot for POC 1 (raw clips): single 0.557/0.488/0.076/0.013 vs old 0.584/0.493/0.085/0.027 (periodicity/flat/>4k/>7k).
+
+## 2026-11-17 POC 2 done: raw vs one VC vs two VCs on identical clips
+- sm-09-vc15b completed in 6 min (15 clips, zip 7.5 MB). Dataset had to be flattened (raw_*/old_* at root) because the Kaggle uploader zips or skips subfolders.
+- Metrics (periodicity / flat 2-6k / >4k / >7k): raw 0.679/0.639/0.073/0.013; single (1 VC) 0.567/0.492/0.088/0.025; old (2 VCs) 0.573/0.481/0.091/0.028. The single conversion sits very close to the double conversion - no large texture difference, unlike POC 1 where the generation prompt changed pronunciation.
+- Page runs/listen/vc15b.html (localhost:8931/vc15b.html, 45 buttons, all 200). Awaiting owner verdict: if new ~= old, keep v0.3.0 and stop; if new is cleaner, one VC for all 1,281 raw clips (~1 h GPU) + retrain.

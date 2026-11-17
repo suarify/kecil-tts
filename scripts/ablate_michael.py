@@ -55,7 +55,7 @@ def strip(mod):
 
 ts = TextStudent('s+mlp').eval(); strip(ts)
 ts.load_state_dict({k[len('ts.'):]: v for k, v in ck['ts'].items()}, strict=False)
-vd = VDecoder(head='v2', dim=160, blocks=4).eval(); strip(vd)
+vd = VDecoder(head='v2', dim=160, blocks=4, K=128).eval(); strip(vd)
 vd.load_state_dict({k[len('vd.'):]: v for k, v in ck['vd'].items()}, strict=True)
 vd.head.M.copy_(ck['M']); vd.head.Mb.copy_(ck['Mb'])
 g2p = G2P(stress=False, r='r', diph='glide', final_a='a')
@@ -103,7 +103,7 @@ def trunk(asr, F0c, N):
 
 
 def head_parts(h, x, f0, noise, interharm=False, keep=1.0, no_mod=False, burst_uv=False, comp_burst=False,
-               phase=True, shift_on=True, burst_off=False):
+               phase=True, shift_on=True, burst_off=False, harm_only=False):
     B, _, n = x.shape
     T = n * h.up
     z = h.norm0(h.inp(x).transpose(1, 2)).transpose(1, 2)
@@ -168,6 +168,8 @@ def head_parts(h, x, f0, noise, interharm=False, keep=1.0, no_mod=False, burst_u
     yn = torch.istft(Nz * gn, h.n_fft, h.hop, window=h.window, length=n * FHOP)
     if h.burst and not burst_off:
         yn = yn + torch.istft(Nb * gb, 150, 75, window=h.wb, length=n * FHOP)
+    if harm_only:
+        return yh, torch.zeros_like(yn)
     return yh, yn
 
 
@@ -208,7 +210,7 @@ plan = {r['id']: (r['text'], r['category']) for r in csv.DictReader(open('runs/k
 ids = ['c0313', 'c0551', 'c0571', 'c0726', 'c0746', 'c0747'][:N]
 
 os.makedirs(OUT, exist_ok=True)
-VARIANTS = ['old', 'fixH', 'noPhase', 'noShift', 'keepHalf', 'noBurst', 'noMod']
+VARIANTS = ['old', 'fixH', 'harmOnly', 'noPhase', 'noShift', 'keepHalf', 'noBurst', 'noMod']
 items, met = [], {v: [] for v in VARIANTS}
 with torch.no_grad():
     for i in ids:
@@ -225,6 +227,8 @@ with torch.no_grad():
                 yh, yn = head_parts(vd.head, x, F0, nz)
             elif v == 'fixH':
                 yh, yn = head_parts(vd.head, x, F0, nz, interharm=True, burst_uv=True)
+            elif v == 'harmOnly':
+                yh, yn = head_parts(vd.head, x, F0, nz, harm_only=True)
             elif v == 'noPhase':
                 yh, yn = head_parts(vd.head, x, F0, nz, interharm=True, burst_uv=True, phase=False)
             elif v == 'noShift':

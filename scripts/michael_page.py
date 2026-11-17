@@ -7,11 +7,12 @@ d = json.load(open(os.path.join(ROOT, 'runs/listen/michael_ablate/items.json'), 
 
 COLS = [('old', 'v0.2 (old export)', '#e05c5c'),
         ('fixH', 'v0.2.1 (FIX H, current)', '#5aa86c'),
-        ('noPhase', 'FIX H, learned phase OFF', '#8a6cc8'),
-        ('noShift', 'FIX H, pulse shift OFF', '#d69a2d'),
-        ('keepHalf', 'FIX H + half noise -> harmonics', '#4a90d9'),
-        ('noBurst', 'FIX H, burst path removed', '#2fb8b8'),
-        ('noMod', 'FIX H, pulsed noise removed', '#b0752a')]
+        ('harmOnly', 'harmonics only (no noise at all)', '#8a6cc8'),
+        ('noPhase', 'FIX H, learned phase OFF', '#d69a2d'),
+        ('noShift', 'FIX H, pulse shift OFF', '#4a90d9'),
+        ('keepHalf', 'FIX H + half noise -> harmonics', '#2fb8b8'),
+        ('noBurst', 'FIX H, burst path removed', '#b0752a'),
+        ('noMod', 'FIX H, pulsed noise removed', '#9a5fb8')]
 
 rows = []
 for it in d['items']:

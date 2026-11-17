@@ -168,7 +168,7 @@ def strip(mod):
 
 
 ts = TextStudent('s+mlp').eval()
-vd = VDecoder(head='v2').eval()
+vd = VDecoder(head='v2', K=128).eval()      # Michael's graph carries head.k of size 128
 strip(ts); strip(vd)
 for label, mod in (('ts', ts), ('vd', vd)):
     sub = {k[len(label) + 1:]: v for k, v in sd.items() if k.startswith(label + '.')}

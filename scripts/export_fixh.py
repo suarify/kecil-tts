@@ -34,6 +34,7 @@ import argparse
 ap = argparse.ArgumentParser()
 ap.add_argument('dec', nargs='?')
 ap.add_argument('--state', default=None, help='rebuilt state dict (ts/vd) from a compiled ONNX instead of ckpts')
+ap.add_argument('--k', type=int, default=64, help='harmonic count of the head (Michael was trained with 128)')
 ap.add_argument('--text', default='runs/k16_final/textA_c4_last.pt')
 ap.add_argument('--out', default='runs/k16_final/fixh_export')
 A = ap.parse_args()
@@ -187,7 +188,7 @@ if A.state:
     ts = TextStudent('s+mlp').eval(); strip(ts)
     ts.load_state_dict({k[len('ts.'):]: v for k, v in ck['ts'].items()}, strict=False)
     assert not [k for k in ts.state_dict() if k not in {x[len('ts.'):] for x in ck['ts']} and 'pooler' not in k]
-    vd = VDecoder(head='v2').eval(); strip(vd)
+    vd = VDecoder(head='v2', K=A.k).eval(); strip(vd)
     vd.load_state_dict({k[len('vd.'):]: v for k, v in ck['vd'].items()}, strict=True)
     vd.head.M.copy_(ck['M']); vd.head.Mb.copy_(ck['Mb'])
     print('loaded rebuilt state from', A.state)

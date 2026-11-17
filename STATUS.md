@@ -416,3 +416,9 @@
 - Faithful-vs-processed test (scripts/ablate_faithful.py) from the true checkpoints: faithful (no gap mask/gate/smoothing/air/clamp) 4.58 s on the III sentence vs 5.85 s with our recipe -> the clamp is what made the voice slow (+28% length).
 - Metrics (periodicity/flat/>4k): faithful 0.640/0.507/0.101; faithful+air 0.638/0.512/0.121; our fixH 0.682/0.440/0.112; fixH no-clamp 0.641/0.440/0.102; fixH bursts-ungated 0.678/0.509/0.122.
 - Page runs/listen/faithful.html (localhost:8931/faithful.html) compares TEACHER clip vs faithful / faithful+air / our recipe (clamp) / our recipe no-clamp / our recipe ungated bursts, so the owner can say whether the model or our processing is at fault.
+
+## 2026-11-17 Student-vs-teacher gap is architecture-level; clarity post-processing page
+- Measured student-vs-teacher (log-mel distance) for both voices: Yati 3.29, Michael 3.84 (Michael teacher-vs-teacher 0.84). Both 8M students sit ~4x further from their teacher than teacher variants differ; Michael is only ~17% worse than Yati -> the murk is the 8M student rendering, not a broken Michael pipeline.
+- Owner on faithful vs teacher: faithful is better (speed fixed) but still murky/watery/phaser vs the teacher's clarity.
+- scripts/ablate_clarity.py built clarity options on the faithful render (no clamp/gate): air 3/5 dB, noise floor x0.6, combos, and +3 dB harmonics above 1.5 kHz. Metrics (periodicity/flat/>4k/>7k): faithful .640/.507/.101/.031; air3 .638/.512/.121/.046; air5 .634/.517/.136/.060; noise60 .650/.485/.088/.028; air3noise60 .648/.493/.110/.045; air5noise60 .646/.497/.129/.062; harmBoost .620/.479/.105/.032.
+- Page runs/listen/clarity.html (localhost:8931/clarity.html, 16 buttons incl. TEACHER) - owner to pick the clearest; if none approaches the teacher, only longer/bigger training can move it.

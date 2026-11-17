@@ -45,7 +45,33 @@ for d in sorted(glob.glob('/kaggle/input/*')):
     print('input:', d, len(os.listdir(d)), 'entries', flush=True)
 
 sh('pip install -q chatterbox-tts soundfile', 'pip')
-sh('pip uninstall -y -q torchvision', 'pip_rm_tv')
+# Kaggle's torch is a patched build whose torchaudio cannot load (libcudart.so.12 / libtorchaudio.so).
+# Replace BOTH with a matched official CUDA pair so torchaudio works, then remove the extras that
+# break against this torch (torchao imports a torch._dynamo symbol that does not exist here).
+TORCH_FIX = (
+    'import torch, subprocess, sys, json\n'
+    'cands = [("2.6.0", "cu124"), ("2.6.0", "cu121"), ("2.5.1", "cu121")]\n'
+    'for tv, cu in cands:\n'
+    '    print("trying pair", tv, cu, flush=True)\n'
+    '    p = subprocess.run([sys.executable, "-m", "pip", "install", "-q", "--force-reinstall",\n'
+    '                        f"torch=={tv}", f"torchaudio=={tv}", "--index-url",\n'
+    '                        f"https://download.pytorch.org/whl/{cu}"], capture_output=True, text=True)\n'
+    '    if p.returncode:\n'
+    '        print("install failed", (p.stderr or "")[-200:], flush=True); continue\n'
+    '    try:\n'
+    '        import importlib, torchaudio\n'
+    '        importlib.reload(torch)\n'
+    '        importlib.reload(torchaudio)\n'
+    '        ok = torchaudio.__version__ and torch.cuda.is_available()\n'
+    '        print("pair ok", torch.__version__, torchaudio.__version__, "cuda", torch.cuda.is_available(), flush=True)\n'
+    '        if ok:\n'
+    '            break\n'
+    '    except Exception as e:\n'
+    '        print("verify failed", type(e).__name__, str(e)[:200], flush=True)\n'
+)
+open(f'{OUT}/fix_torch.py', 'w').write(TORCH_FIX)
+sh(f'{sys.executable} {OUT}/fix_torch.py', 'fix_torch_pair')
+sh('pip uninstall -y -q torchvision torchao torchtext', 'pip_rm_extras')
 # chatterbox imports `perth` (audio watermarking) which imports torchaudio. The image's torch/torchaudio pair is
 # broken (libtorchaudio.so will not load), but we do not need watermarking: install a no-op `perth` stub first so
 # torchaudio is never imported. If chatterbox still fails, fall back to reinstalling a matching torch+torchaudio pair.
@@ -77,11 +103,15 @@ sys.path.insert(0, STUB)
 print('perth stub installed at', STUB, flush=True)
 
 ok = False
-try:
-    sh(f'{sys.executable} -c "from chatterbox.mtl_tts import ChatterboxMultilingualTTS; from chatterbox.vc import ChatterboxVC; print(\'imports ok (perth stubbed)\')"', 'imports')
-    ok = True
-except SystemExit:
-    print('stub import failed -> reinstalling torch+torchaudio pair', flush=True)
+for tr in ('4.46.3', '4.44.2'):
+    sh(f'pip install -q "transformers=={tr}"', f'pip_tr_{tr.replace(".", "_")}')
+    try:
+        sh(f'{sys.executable} -c "from chatterbox.mtl_tts import ChatterboxMultilingualTTS; from chatterbox.vc import ChatterboxVC; print(\'imports ok transformers {tr}\')"', f'imports_{tr.replace(".", "_")}')
+        ok = True
+        break
+    except SystemExit:
+        print(f'import failed with transformers {tr}; trying next', flush=True)
+        sh('pip uninstall -y -q torchao torchvision torchtext', f'rm_extras_{tr.replace(".", "_")}')
 if not ok:
     FIX = f'''
 import torch, subprocess, sys

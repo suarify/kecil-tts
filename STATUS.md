@@ -464,3 +464,11 @@
 - Gate 3 (kernel sm-13a PROBE, written): rows + only 3,000 decoder steps + 2,500 text steps (~15 min) so the student's voice can be heard before the full run.
 - Gate 4: scripts/gate_check.py measures durations (1-frame share, max frames), periodicity/flatness/>4k/>7k and renders faithful + air3 samples; benchmarks to beat: distance to teacher yati 3.29, michael 3.84; no clamp so native speed.
 - Gate 5: only if the probe sounds clean -> full 12k run (sm-13), export faithful, listen again, then publish.
+
+## 2026-11-17 Where we are (status)
+- Live: Michael v0.3.1 (speed fix + faithful synthesis, 8.46 MB) on HF and the Space; Yati v0.4.1 untouched; Yati v0.4.1 remains the cleaner voice.
+- Dropped after measurement: bigger Michael student (320/6, 11.96 MB, 3x slower, zero gain: distance 3.39 vs 3.39, held loss 2.515 vs 2.497); two-conversion regenerations; post-processing air/noise variants (owner preferred faithful).
+- Running: sm-12-v8 (nicole data) - matched official torch+torchaudio pair first (2.6.0/cu124 -> cu121 -> 2.5.1), then extras removed (torchvision/torchao/torchtext), perth stubbed, transformers 4.46.3 with ladder, then generate 1,281 raws + one VC to af_nicole with checkpoints every 100.
+- Environment battles so far: dataset mount timing (fixed by re-push), torchaudio libcudart/libtorchaudio (fixed by the matched pair), torchao torch._dynamo symbol (fixed by removal). Each failed attempt cost only ~4 min of setup, no generation.
+- Ready to fire: sm-13a probe (3k steps, ~15 min) for an early listen; sm-13 full train (12k); sm-14 fenrir VC (reuses raws).
+- Gate thresholds before publishing nicole: rows >= 900, 1-frame share <= 25%, max phoneme <= 10 frames, periodicity >= 0.60, distance to teacher <= 3.6 (michael 3.84, yati 3.29), native speed (no clamp).

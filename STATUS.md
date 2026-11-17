@@ -286,3 +286,10 @@
 - scripts/verify_fixh.py: texture of the patched int8 ORT output on the 6 ablation sentences matches the PyTorch FIX H wavs (ort 0.754/0.598/0.029 vs torch 0.750/0.596/0.032; canonical targets 0.699/0.621/0.080). Sentence wavs saved as runs/listen/ablate/{id}_ortfixH.wav.
 - suaradee package smoke test with SUARADEE_MODEL pointed at the new file: 3.9 s synth ok (runs/k16_final/fixh_export/smoke_yati.wav).
 - Awaiting owner decision: overwrite kecil-tts-yati-v0.4 ONNX in place (browser cache risk, hard refresh needed) vs publish as v0.4.1 (Space dropdown edit needed by Space-owning agent). Michael rebake still blocked (no dec ckpt locally).
+
+## 2026-11-17 v0.4.1 published (FIX H export)
+- Owner verdict: ship as v0.4.1 (not in-place overwrite). hf/model_card_v0.4.1.md written (carries v0.4 CER tables, adds sound-texture table 0.750/0.598/0.032 vs targets 0.699/0.621/0.080; limitations updated: damp inherited from training, faint watery tail can remain).
+- publish_hf.py: VERSIONS gained 0.4.1 (onnx = fixh paradee_int8_webgpu, samples-from runs/k16_final/fixh_export); wheel version regex keeps two-dot versions verbatim (suaradee-0.4.1 wheel).
+- scripts/fixh_samples.py regenerated ALL 260 v5 sample clips with the new export into runs/k16_final/fixh_export/audio (+ v5_scores.csv copied); build_hf picked the same 6 sentences as v0.4.
+- Published https://huggingface.co/Suarify/kecil-tts-yati-v0.4.1 (36 files, --skip-space as always). Remote re-download: 0 float64 ops, 8.46 MB. from_pretrained('Suarify/kecil-tts-yati-v0.4.1') end-to-end synth ok (smoke_v041_remote.wav).
+- NEXT: Space version dropdown needs the v0.4.1 entry (Space-owning agent) before the owner can pick it in the demo; Michael rebake still blocked on his dec ckpt.

@@ -16,13 +16,15 @@ tags:
 - tiny
 ---
 
-# Suaradee v0.4
+# Kecil-TTS Yati v0.4.1
 
 A **Malay text-to-speech model that is 8.5 MB**. One ONNX file, one voice, runs in a browser tab (transformers.js, WebGPU or WASM) or on a single CPU thread in Python.
 
-**v0.4 is trained on roughly twice the speech of [v0.3](https://huggingface.co/lseanlon/suaradee-v0.3)** (1,281 aligned sentences, about 118 minutes, instead of 634 / 49 minutes). General text improves by another 8% relative, the overall error is the lowest of any version, and the held-out score is the best so far. **The muffled sound is unchanged** (see Limitations).
+**v0.4.1 has the same trained weights as [v0.4](https://huggingface.co/Suarify/kecil-tts-yati-v0.4) — only the sound synthesis (the ONNX export) changed.** The export now places the breath noise where real aspiration sits: between the harmonic partials instead of on top of them, and the fast "burst" noise path fires only in unvoiced frames. The muffled/watery texture is reduced; recognition accuracy is unchanged by construction (identical text and duration path).
 
-- **Demo in the browser (nothing leaves your device):** [Suaradee web Space](https://huggingface.co/spaces/lseanlon/suaradee-web) (pick v0.4 in the version box)
+**Voice: Yati** (female, the default voice in the Kecil-TTS demo). The same architecture also drives the male voice, [Michael](https://huggingface.co/Suarify/kecil-tts-michael-v0.2).
+
+- **Demo in the browser (nothing leaves your device):** [Kecil-TTS web Space](https://huggingface.co/spaces/Suarify/suaradee-web) (pick v0.4.1 in the version box)
 - **Gradio demo:** `examples/gradio_app.py` (`pip install gradio`, then `python examples/gradio_app.py`)
 
 | | |
@@ -40,13 +42,13 @@ A **Malay text-to-speech model that is 8.5 MB**. One ONNX file, one voice, runs 
 
 ```bash
 pip install onnxruntime numpy huggingface_hub soundfile
-pip install https://huggingface.co/lseanlon/suaradee-v0.4/resolve/main/dist/suaradee-0.4.0-py3-none-any.whl
+pip install https://huggingface.co/Suarify/kecil-tts-yati-v0.4.1/resolve/main/dist/suaradee-0.4.1-py3-none-any.whl
 ```
 ```python
 import soundfile as sf
 from suaradee import SAMPLE_RATE, Suaradee
 
-tts = Suaradee.from_pretrained("lseanlon/suaradee-v0.4")
+tts = Suaradee.from_pretrained("Suarify/kecil-tts-yati-v0.4.1")
 sf.write("hello.wav", tts("Selamat pagi, boleh saya bantu encik hari ini?"), SAMPLE_RATE)
 ```
 
@@ -54,7 +56,7 @@ sf.write("hello.wav", tts("Selamat pagi, boleh saya bantu encik hari ini?"), SAM
 
 ```js
 import { Suaradee } from './js/suaradee.js';        // see the web Space for a complete page
-const tts = await Suaradee.load({ model: 'lseanlon/suaradee-v0.4', g2pBase: './js/g2p/' });   // WebGPU if available, else WASM
+const tts = await Suaradee.load({ model: 'Suarify/kecil-tts-yati-v0.4.1', g2pBase: './js/g2p/' });   // WebGPU if available, else WASM
 const { audio, sampleRate } = await tts.speak('Selamat pagi, boleh saya bantu encik hari ini?');
 ```
 
@@ -62,11 +64,11 @@ const { audio, sampleRate } = await tts.speak('Selamat pagi, boleh saya bantu en
 
 ## How good is it?
 
-Measured by playing the model's speech to Whisper large-v3 and comparing what it heard with the text (character error rate, CER; lower is better). All three versions were scored **in the same session on the same 200 test sentences**, so the comparison has no cross-run noise. The recogniser itself misreads about 9% of the characters of the training clips, so no model scores 0; treat differences under about 1.5 points as noise.
+Measured by playing the model's speech to Whisper large-v3 and comparing what it heard with the text (character error rate, CER; lower is better). Scores below were measured for v0.4, whose text and duration pipeline v0.4.1 shares exactly, so they carry over. All three versions were scored **in the same session on the same 200 test sentences**, so the comparison has no cross-run noise. The recogniser itself misreads about 9% of the characters of the training clips, so no model scores 0; treat differences under about 1.5 points as noise.
 
 **All 200 test sentences** (median / capped mean CER):
 
-| Category | n | v0.2 | v0.3 | **v0.4** |
+| Category | n | v0.2 | v0.3 | **v0.4 / v0.4.1** |
 |---|---|---|---|---|
 | General text (Wikipedia-style, names, places) | 70 | 9.9% / 13.1% | 6.4% / 11.2% | **5.9% / 10.2%** |
 | Call-centre style (appointments, bills, delivery) | 60 | 5.2% / 6.5% | 4.9% / 7.3% | **4.3% / 6.2%** |
@@ -78,17 +80,33 @@ Measured by playing the model's speech to Whisper large-v3 and comparing what it
 
 On the separate 60-sentence held-out set: **v0.4 4.8% / 8.5%**, v0.2 4.9% / 8.9%, v0.3 5.6% / 10.3%. v0.4 is the best of the three on the held-out set, which is the number that matters most for unseen text.
 
-Listen to `samples/` (three sentences it got right, three typical held-out ones; `samples/sentences.txt` lists the text and score of each).
+Listen to `samples/` (three sentences it got right, three typical held-out ones; `samples/sentences.txt` lists the text and score of each — all rendered by the v0.4.1 export itself).
+
+## Sound texture (what changed in v0.4.1)
+
+The decoder synthesises a harmonic part (pitch, learned phase) plus a noise part (breath). In v0.4 the noise was spread across the whole spectrum, including on top of the harmonic partials, and a fast noise "burst" path fired everywhere — that combination read as muffled/watery. In v0.4.1, measured on the same sentences as Chatterbox reference speech:
+
+| metric | Chatterbox ref | v0.4 | **v0.4.1** |
+|---|---|---|---|
+| periodicity | 0.699 | 0.745 | **0.750** |
+| spectral flatness 2–6 kHz | 0.621 | 0.698 | **0.598** |
+| energy share >4 kHz | 0.080 | 0.040 | **0.032** |
+
+Flatness now sits just below the reference (noise concentrated between the harmonics) instead of above it (noise smeared over them).
 
 ## Limitations (read before using)
 
-- **Muffled sound, unchanged since v0.1.** High-frequency energy is the same as v0.3 (measured on 24 sentences: 0.0125 vs 0.0129 of total energy above 4 kHz), with the same damp/phasey quality. It comes from the decoder's training, not from timing or data volume; a no-training repair was tested and rejected (the shipped sound was preferred 8 times out of 8).
+- **The high-frequency damp is inherited from the decoder's training, not the export.** v0.4.1 removes the watery *texture* on top of it, but the overall brightness is still below the Chatterbox reference; a faint watery tail can remain at sentence ends.
 - **English words are still the weak spot**: sentences that mix Malay and English score about 18%. Doubling the training speech did **not** move this number, so the limit is the English text/pronunciation side, not the amount of audio. English words are only handled when they are in a list of about 430 common ones.
 - Individual sentences are noisy: comparing v0.4 with v0.3 row by row, 103 got better, 62 stayed the same and 95 got worse; the net effect is the aggregate improvement above.
 - **One synthetic female voice**, no emotion or style control.
 - **Written for short sentences.** Long text is split at sentence ends and sent in pieces of at most 400 phonemes.
 - Numbers, amounts, dates, times and phone numbers are read out in Malay by a rule-based normaliser.
 - It is synthetic speech. Please say so when you use it.
+
+## What changed in v0.4.1
+
+Export-level only, no retraining: (1) the noise part is masked out of the harmonic bins into the gaps between them in voiced frames above 800 Hz, with its energy preserved per frame; (2) the 3 ms burst-noise path is gated to unvoiced frames (plus a short hangover for natural tails); (3) the learned phase is untouched — the export's head math was checked against the training-time head to a max difference of 2e-7. Both fixes address the residual "watery/phaser" quality some words had in v0.4.
 
 ## What changed since v0.3
 

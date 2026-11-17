@@ -40,6 +40,7 @@ VERSIONS = [
     ('0.2', 'runs/k12/ms_A_int8_gpu.onnx', 'hf/model_card_v0.2.md', 'runs/k12'),
     ('0.3', 'runs/k14_final/ms_clean_webgpu_int8.onnx', 'hf/model_card_v0.3.md', 'runs/k14_final'),
     ('0.4', 'runs/k16_final/ms_c4_int8.onnx', 'hf/model_card_v0.4.md', 'runs/k16_final'),
+    ('0.4.1', 'runs/k16_final/fixh_export/paradee_int8_webgpu.onnx', 'hf/model_card_v0.4.1.md', 'runs/k16_final/fixh_export'),
 ]
 if A.only:
     keep = {v.strip() for v in A.only.split(',')}
@@ -75,7 +76,8 @@ def build_wheel(version, repo, dst):
     open(p, 'w', encoding='utf-8').write(s)
     p = os.path.join(tmp, 'python', 'pyproject.toml')
     s = open(p, encoding='utf-8').read()
-    open(p, 'w', encoding='utf-8').write(re.sub(r'version = "[^"]+"', f'version = "{version}.0"', s))
+    wver = version if version.count('.') == 2 else version + '.0'
+    open(p, 'w', encoding='utf-8').write(re.sub(r'version = "[^"]+"', f'version = "{wver}"', s))
     os.makedirs(dst, exist_ok=True)
     subprocess.run([sys.executable, '-m', 'pip', 'wheel', os.path.join(tmp, 'python'), '--no-deps', '-w', dst, '-q'], check=True, capture_output=True)
     shutil.rmtree(tmp, ignore_errors=True)

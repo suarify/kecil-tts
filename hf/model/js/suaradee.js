@@ -24,7 +24,7 @@ export class Suaradee {
 
   // model: Hugging Face repo id, or a folder name under modelRoot when local is true.
   // device: 'auto' (WebGPU when the browser has it and it works, else WASM), 'webgpu', 'wasm' or 'cpu' (Node).
-  static async load({ model = 'lseanlon/suaradee-v0.3', g2p, g2pBase = './g2p/', dtype = 'q8', device = 'auto', local = false, modelRoot, sessionOptions } = {}) {
+  static async load({ model = 'Suarify/kecil-tts-yati-v0.4', g2p, g2pBase = './g2p/', dtype = 'q8', device = 'auto', local = false, modelRoot, sessionOptions } = {}) {
     if (local) { env.allowLocalModels = true; env.allowRemoteModels = false; env.localModelPath = modelRoot; }
     const inNode = typeof window === 'undefined';
     // Embedded pages (e.g. the Hugging Face Space iframe) are not cross-origin isolated, so

@@ -274,3 +274,8 @@
 - Round 2 (scripts/ablate_head.py rewritten): keep learned phase + keep noise energy but mask the noise spectrum out of the harmonic bins into the inter-harmonic gaps (voiced, >800 Hz, gaussian proximity frac/0.22, energy renormalised per frame, 3 new variants): fixC (all noise, gap-masked), fixC2 (gap-masked + keep 0.5), fixD (fixC2 + pulsed-noise sources removed).
 - Metrics (6 sentences; target 0.699/0.621/0.080 periodicity/flatness/>4k): v04 0.745/0.698/0.040; harm 0.773/0.346/0.007; fixC 0.744/0.696/0.040; fixC2 0.742/0.650/0.047; fixD 0.746/0.629/0.035. Awaiting owner's ears (runs/listen/ablate.html, blind mode).
 - If a FIX wins: bake (interharm mask + chosen keep, phase machinery kept) into the next ONNX export - no retraining; applies to Michael too.
+
+## 2026-11-17 Ablation round 3: the burst path was the remaining watery source
+- Owner verdict round 2: FIX C best but words still watery. scripts/measure_noise.py then showed the 3 ms BURST path carries ~100% of the voiced >1.5 kHz noise energy (plain ~1%, pulsed ~0 with cancellations); the burst fires noise 4x per trunk frame and never saw the gap mask -> that chopping is the residual watery/phaser.
+- Round 3 variants (ablate_head.py: burst_uv option gates burst to unvoiced frames; comp_burst counts gated burst energy in the keep compensation): metrics (target 0.699/0.621/0.080): fixC 0.744/0.696/0.040; fixG (burst_uv+comp, keep .5) 0.746/0.511/0.043; fixH (burst_uv only, keep 1) 0.750/0.595/0.032 - flatness closest to target from below. fixE/F and fixH-with-keep-0 iterations dropped.
+- Page runs/listen/ablate.html updated: target / v04 / harm / fixC / fixH / fixG. Awaiting owner's ears.

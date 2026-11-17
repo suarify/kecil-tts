@@ -9,8 +9,8 @@ COLS = [('target', 'Chatterbox original', '#2fb8b8'),
         ('v04', 'v0.4 as trained', '#e05c5c'),
         ('harm', 'Harmonics only (round-1 pick)', '#8a6cc8'),
         ('fixC', 'FIX C: noise into gaps', '#d69a2d'),
-        ('fixC2', 'FIX C2: gaps + half noise', '#5aa86c'),
-        ('fixD', 'FIX D: gaps, half noise, no pulse-noise', '#4a90d9')]
+        ('fixH', 'FIX H: C + burst gated off in voiced', '#5aa86c'),
+        ('fixG', 'FIX G: H + half noise into harmonics', '#4a90d9')]
 
 rows = []
 for it in d['items']:
@@ -48,14 +48,13 @@ button.p.on{{background:var(--c);color:#0d1b26}}
 table.m td{{padding:6px 14px;font-size:13.5px}} table.m tr.ref td{{color:#5fd6d6;border-top:2px solid #2fb8b8}}
 </style></head><body><main>
 <h1>Kecil-TTS <span>ablation 2</span> &mdash; keep the noise energy, but move it out of the harmonics</h1>
-<p class="note">Round 1 said: the harmonic part with its learned phase is the clean part, and the watery/phaser
-texture comes from the <b>noise part smearing across the harmonic partials</b> (your pick "harmonics only" was
-muffled only because the noise &mdash; which also carries the brightness fill &mdash; was removed entirely).</p>
-<p class="note">So this round keeps the learned phase AND the full noise energy, but in voiced frames the noise
-spectrum is masked <b>into the gaps between the harmonics</b> (&gt;800&nbsp;Hz), the way real aspiration sits.
-&nbsp;&#9654; <b>FIX C</b>: all noise energy, gap-masked. &#9654; <b>FIX C2</b>: gap-masked + only half the noise
-energy (the other half moved into the harmonics, energy-compensated). &#9654; <b>FIX D</b>: C2 + the
-pulsed-noise sources dropped (plain noise only). All loudness-matched, same noise seed per sentence.</p>
+<p class="note">Round 2 verdict: FIX C helped but words still watery &mdash; measurement showed WHY: a third noise
+source, the <b>3&nbsp;ms "burst" path</b>, carries ~100% of the voiced high-frequency noise energy and fires noise
+bursts ~4&times; per pitch period &mdash; that chopping is the remaining watery/phaser. It never touches the
+gap-mask, so it leaked through FIX C.</p>
+<p class="note">&nbsp;&#9654; <b>FIX H</b>: FIX C + the burst path gated to unvoiced frames only (consonant onsets
+keep it, voiced sound loses the chopping). &#9654; <b>FIX G</b>: H + half of the voiced noise energy moved into the
+harmonics (energy-compensated). All loudness-matched, same noise seed per sentence.</p>
 <p><button id="shuffle">Start blind test</button> <span id="hint" style="color:#9db1bf;font-size:13px"></span></p>
 <table id="rows">{''.join(rows)}</table>
 <h2 style="font-family:Sora,Inter,sans-serif;font-size:17px">Averages over these {len(d['items'])} sentences</h2>
@@ -74,7 +73,7 @@ document.addEventListener('click',e=>{{
 }});
 let blind=false;
 const shuffle=document.getElementById('shuffle'),tbl=document.getElementById('rows'),hint=document.getElementById('hint');
-const NAMES=['Chatterbox original','v0.4 as trained','Harmonics only (round-1 pick)','FIX C: noise into gaps','FIX C2: gaps + half noise','FIX D: gaps, half noise, no pulse-noise'];
+const NAMES=['Chatterbox original','v0.4 as trained','Harmonics only (round-1 pick)','FIX C: noise into gaps','FIX H: C + burst gated off in voiced','FIX G: H + half noise into harmonics'];
 shuffle.onclick=()=>{{
   blind=!blind; tbl.classList.toggle('blind',blind); document.querySelectorAll('#rows td.bs').forEach(td=>{{
     const btns=[...td.children];

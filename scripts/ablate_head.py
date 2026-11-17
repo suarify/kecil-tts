@@ -84,10 +84,13 @@ def trunk(asr, F0c, N):
     return x
 
 
-def head_parts(h, x, f0, noise, harm_only=False, noise_only=False, interharm=False, keep=1.0, no_mod=False):
+def head_parts(h, x, f0, noise, harm_only=False, noise_only=False, interharm=False, keep=1.0, no_mod=False,
+               burst_uv=False, comp_burst=False):
     """SourceFilterHead2.forward with options:
     interharm: mask the noise out of the harmonic bins into the gaps (voiced, >800 Hz), energy preserved.
-    keep<1: energy-compensated noise->harmonic move above 1.5 kHz. no_mod: drop the pulsed-noise sources."""
+    keep<1: energy-compensated noise->harmonic move above 1.5 kHz. no_mod: drop the pulsed-noise sources.
+    burst_uv: the 3 ms burst path only in UNVOICED frames. comp_burst: the gated burst energy counts in the
+    keep move, so harmonic gains are boosted to hold the band energy (full energy conservation)."""
     B, _, n = x.shape
     T = n * h.up
     z = h.norm0(h.inp(x).transpose(1, 2)).transpose(1, 2)
@@ -122,10 +125,26 @@ def head_parts(h, x, f0, noise, harm_only=False, noise_only=False, interharm=Fal
         s = torch.sqrt(P0 / P1.clamp_min(1e-12)).clamp(max=4.0)                    # keep the noise energy
         s = nn.functional.avg_pool1d(s, 5, 1, 2, count_include_pad=False)
         Nz = Nz2 * s
+    # burst path (3 ms), computed early so its energy can join the keep compensation
+    if h.burst:
+        gb = torch.exp((h.out_b(hn).view(B, n * 4, h.Gb) @ h.Mb.T).clamp(max=6)).transpose(1, 2)
+        gb = torch.cat([gb, gb[..., -1:]], -1)
+        Nb = torch.stft(noise.flip(-1), 150, 75, window=h.wb, return_complex=True)
+        Yb = Nb * gb
+        band_b = (torch.linspace(0, SR / 2, 76)[None, :, None] >= 1500).float()
+        Pb = (Yb.abs() ** 2 * band_b).sum(1)                                       # [B, Tb] burst band energy
+        Pb = nn.functional.interpolate(Pb[:, None, :], size=T + 1, mode='linear', align_corners=False)[:, 0]
+        Pb = Pb * voiced                       # [B, 1, T+1] by broadcast
+        Pb = Pb.reshape(B, T + 1)
+        if burst_uv:
+            vb = torch.cat([f0.repeat_interleave(4, 1), f0[:, -1:]], 1) > 10       # voiced, at burst-frame rate
+            gb = gb * (~vb).float()[:, None, :]
     if keep != 1:
         band = (fr >= 1500).float()
         Ph = ((gh * E.abs()) ** 2 * band).sum(1, keepdim=True)
         Pn = ((Nz.abs() * gn) ** 2 * band).sum(1, keepdim=True)
+        if h.burst and comp_burst:
+            Pn = Pn + Pb[:, None, :]
         sc = torch.sqrt((Ph + (1 - keep ** 2) * Pn) / Ph.clamp_min(1e-9)).clamp(max=4.0)
         sc = nn.functional.avg_pool1d(sc, 5, 1, 2, count_include_pad=False)
         m = band * voiced[:, None, :]
@@ -135,9 +154,6 @@ def head_parts(h, x, f0, noise, harm_only=False, noise_only=False, interharm=Fal
     yh = torch.istft(E * Hh, h.n_fft, h.hop, window=h.window, length=n * FHOP)
     yn = torch.istft(Nz * gn, h.n_fft, h.hop, window=h.window, length=n * FHOP)
     if h.burst:
-        gb = torch.exp((h.out_b(hn).view(B, n * 4, h.Gb) @ h.Mb.T).clamp(max=6)).transpose(1, 2)
-        gb = torch.cat([gb, gb[..., -1:]], -1)
-        Nb = torch.stft(noise.flip(-1), 150, 75, window=h.wb, return_complex=True)
         yn = yn + torch.istft(Nb * gb, 150, 75, window=h.wb, length=n * FHOP)
     if harm_only:
         return yh, None
@@ -185,7 +201,7 @@ plan = {r['id']: (r['text'], r['category']) for r in csv.DictReader(open(os.path
 ids = [i for i in clips if i in plan][:N]
 
 os.makedirs(os.path.join(ROOT, OUT), exist_ok=True)
-VARIANTS = ['target', 'v04', 'harm', 'fixC', 'fixC2', 'fixD']
+VARIANTS = ['target', 'v04', 'harm', 'fixC', 'fixG', 'fixH']
 items, met = [], {v: [] for v in VARIANTS}
 with torch.no_grad():
     for i in ids:
@@ -210,11 +226,11 @@ with torch.no_grad():
             elif v == 'fixC':
                 yh, yn = head_parts(vd.head, x, F0, nz, interharm=True)
                 y = (yh + yn).squeeze().numpy()
-            elif v == 'fixC2':
-                yh, yn = head_parts(vd.head, x, F0, nz, interharm=True, keep=0.5)
+            elif v == 'fixG':
+                yh, yn = head_parts(vd.head, x, F0, nz, interharm=True, burst_uv=True, comp_burst=True, keep=0.5)
                 y = (yh + yn).squeeze().numpy()
-            elif v == 'fixD':
-                yh, yn = head_parts(vd.head, x, F0, nz, interharm=True, keep=0.5, no_mod=True)
+            elif v == 'fixH':
+                yh, yn = head_parts(vd.head, x, F0, nz, interharm=True, burst_uv=True)
                 y = (yh + yn).squeeze().numpy()
             if v != 'target' and y04 is not None:
                 y = y * (rms(y04) / (rms(y) + 1e-9))

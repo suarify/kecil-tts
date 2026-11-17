@@ -1,0 +1,16 @@
+{
+ "id": "suarifymalaysia/sm-12-nicole-data",
+ "title": "sm 12 nicole data",
+ "code_file": "sm12_nicole_data.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_tpu": false,
+ "enable_internet": true,
+ "keywords": ["gpu"],
+ "dataset_sources": ["suarifymalaysia/sm12-in"],
+ "kernel_sources": [],
+ "competition_sources": [],
+ "model_sources": []
+}

@@ -442,3 +442,10 @@
 - Published Suarify/kecil-tts-michael-v0.3.1 (37 files, sha match, 0 float64, 8.46 MB) with a card explaining the clamp removal + faithful synthesis; Space dropdown michael v0.3.1 (latest), card/link/benchmark header updated. Live check: WebGPU load 16.4 s, III sentence 3.35 s of audio.
 - Why Yati is clearer (measured): teacher periodicity yati 0.699 vs michael 0.585 (her target had ONE voice conversion, his two); pitch 196 vs 120 Hz (harmonics 196 vs 120 Hz apart vs the 80-point gain grid -> less smearing); teacher >7k 0.021 vs 0.031 (less inter-harmonic noise). Student follows the ordering: 0.751 vs 0.645.
 - Next voice: generated Kokoro samples for af_heart/af_bella/af_nicole/af_sarah/bf_emma/am_puck/am_fenrir/bm_george -> runs/listen/voices.html (localhost:8931/voices.html). Proposal: pick one, 15-clip Malay preview (~6 min GPU), then full 1-VC build (~1.5 h).
+
+## 2026-11-17 New voices (nicole, fenrir): staged plan approved, phase A+B queued
+- Raw coverage check: local cb_raw_all has only 654 of 1,281 ids; sm-15-raw returns 403 for this account -> raws must be regenerated (voice-independent, reused by both new voices).
+- Datasets: suarifymalaysia/sm12-in (texts.tsv for all 1,281 from the teacher shard + ref_ms.wav from runs/k01/refs + ref_af_nicole.wav) and suarifymalaysia/sm13-in (textA_c4_last.pt as the female text init).
+- Phase A+B kernel sm-12-nicole-data (QUEUED): generates all 1,281 raw clips with ONE fixed Chatterbox config, then converts them ONCE to af_nicole. Fault tolerance: checkpoint every 100 clips (raws_partial.pt / nicole_partial.pt), 150 s per-clip timeout, failures logged to sm12_report.json, resume picks up partial files.
+- Phase C kernel sm-13-nicole-train written and ready: rows via ms_rows --letters (cuda), decoder 12k from yati_c4_dec_last.pt, text 10k from textA_c4_last.pt, saves dec/text nitcole ckpts + rows. Waits on phase A+B output (kernel_sources).
+- Fenrir reuses the generated raws afterwards (VC + rows + train only).

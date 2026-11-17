@@ -1,0 +1,16 @@
+{
+ "id": "suarifymalaysia/sm-13-nicole-train",
+ "title": "sm 13 nicole train",
+ "code_file": "sm13_nicole_train.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_tpu": false,
+ "enable_internet": true,
+ "keywords": ["gpu"],
+ "dataset_sources": ["suarifymalaysia/sm12-in", "suarifymalaysia/sm-g2p", "suarifymalaysia/sm-pms", "suarifymalaysia/sm-c4-in", "suarifymalaysia/sm13-in"],
+ "kernel_sources": ["suarifymalaysia/sm-12-nicole-data"],
+ "competition_sources": [],
+ "model_sources": []
+}

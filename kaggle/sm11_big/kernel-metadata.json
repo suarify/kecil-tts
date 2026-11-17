@@ -1,0 +1,16 @@
+{
+ "id": "suarifymalaysia/sm-11-big",
+ "title": "sm 11 big",
+ "code_file": "sm11_big.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_tpu": false,
+ "enable_internet": true,
+ "keywords": ["gpu"],
+ "dataset_sources": ["suarifymalaysia/sm-delta-train-in", "suarifymalaysia/sm-pms"],
+ "kernel_sources": [],
+ "competition_sources": [],
+ "model_sources": []
+}

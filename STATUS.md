@@ -422,3 +422,8 @@
 - Owner on faithful vs teacher: faithful is better (speed fixed) but still murky/watery/phaser vs the teacher's clarity.
 - scripts/ablate_clarity.py built clarity options on the faithful render (no clamp/gate): air 3/5 dB, noise floor x0.6, combos, and +3 dB harmonics above 1.5 kHz. Metrics (periodicity/flat/>4k/>7k): faithful .640/.507/.101/.031; air3 .638/.512/.121/.046; air5 .634/.517/.136/.060; noise60 .650/.485/.088/.028; air3noise60 .648/.493/.110/.045; air5noise60 .646/.497/.129/.062; harmBoost .620/.479/.105/.032.
 - Page runs/listen/clarity.html (localhost:8931/clarity.html, 16 buttons incl. TEACHER) - owner to pick the clearest; if none approaches the teacher, only longer/bigger training can move it.
+
+## 2026-11-17 Bigger student for Michael (owner approved): head 320, 6 blocks (~11.9 MB)
+- Step 0 (size_probe.py): params / estimated int8 size - current 7.88M/8.3MB; wide-224 8.62M/9.1MB; wide-320 10.10M/10.6MB; wide-320-6b 11.34M/11.9MB. Owner accepts the size change (dropdown variant, most models stay 8M).
+- Step 1 pushed: kernel suarifymalaysia/sm-11-big - builds VDecoder(head v2, dim 320, blocks 6, K 128), copies the trunk from dec_C4_last.pt (head random-init), patches the trainer's VDecoder line, trains 16,000 steps (max 50 min) and saves dec_big_last.pt. Text side reused unchanged (validated durations/speed).
+- Plan after training: local export + listening page (old v0.3.0 vs big), then CER scoring (~15 min) and publish as the bigger Michael variant.

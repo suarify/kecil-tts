@@ -400,3 +400,8 @@
 ## 2026-11-17 Conversion-quality gate before any full retrain (10 clips, 2 references)
 - Student-vs-teacher measurement (scripts/student_fidelity.py, same 15 texts): teacher-old vs teacher-new spectral distance 0.97, student v0.3.0 vs teacher 3.97 (~4x) -> the student imitation gap dominates; conversion choice is secondary. Texture: teacher new 0.567/0.492/0.088/0.025, teacher old 0.573/0.481/0.091/0.028, student 0.645/0.434/0.086/0.038.
 - Owner wants proof the conversion itself is not watery/phasey before spending quota. Kernel sm-10-vc10 (dataset sm-vc10-flat): 10 raw clips converted with TWO am_michael references - ours (Kokoro-generated, 25 s) and the original pipeline's ref_en_michael.wav; page will be runs/listen/vc10.html (raw / our-ref / pipeline-ref). Kernel pushed v1, currently QUEUED.
+
+## 2026-11-17 Conversion gate done: both references behave the same
+- sm-10-vc10 completed (6 min GPU, 10 clips, zip 5.0 MB). Page runs/listen/vc10.html (localhost:8931/vc10.html, 30 buttons, all 200).
+- Metrics (periodicity / flat 2-6k / >4k / >7k): raw 0.667/0.640/0.081/0.015; our ref 0.570/0.490/0.100/0.030; pipeline ref 0.585/0.488/0.100/0.031. Conversion adds HF energy (>4k 0.081 -> 0.100, >7k 0.015 -> 0.031) and costs ~0.08 periodicity; the two references are within noise of each other.
+- Decision pending owner's ear: if neither converted column is watery -> use pipeline ref (slightly higher periodicity) for the full 1,281 conversion + retrain; if both watery -> conversion is the ceiling, stop at v0.3.0.

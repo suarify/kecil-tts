@@ -8,9 +8,14 @@
  "enable_gpu": true,
  "enable_tpu": false,
  "enable_internet": true,
- "keywords": ["gpu"],
- "dataset_sources": ["suarifymalaysia/sm12-in"],
+ "keywords": [
+  "gpu"
+ ],
+ "dataset_sources": [
+  "suarifymalaysia/sm12-in"
+ ],
  "kernel_sources": [],
  "competition_sources": [],
- "model_sources": []
+ "model_sources": [],
+ "docker_image": "gcr.io/kaggle-private-byod/python@sha256:de153e6d303881930c51286216393d56f56b26458d0661350305a1e8144eea01"
 }

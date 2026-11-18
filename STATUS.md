@@ -472,3 +472,8 @@
 - Environment battles so far: dataset mount timing (fixed by re-push), torchaudio libcudart/libtorchaudio (fixed by the matched pair), torchao torch._dynamo symbol (fixed by removal). Each failed attempt cost only ~4 min of setup, no generation.
 - Ready to fire: sm-13a probe (3k steps, ~15 min) for an early listen; sm-13 full train (12k); sm-14 fenrir VC (reuses raws).
 - Gate thresholds before publishing nicole: rows >= 900, 1-frame share <= 25%, max phoneme <= 10 frames, periodicity >= 0.60, distance to teacher <= 3.6 (michael 3.84, yati 3.29), native speed (no clamp).
+
+## 2026-11-17 sm-12 v9/v10: environment root cause narrowed to missing libcudart.so.12
+- v9 copied the BYOD docker_image from the working sm-05 kernel, but Kaggle ignored it (log still python 3.13.16) and failed with the same torchaudio/libcudart error.
+- v10 installs nvidia-cuda-runtime-cu12 and preloads libcudart.so.12 with ctypes.CDLL(RTLD_GLOBAL) IN THE MAIN PROCESS before any chatterbox import (a child-process preload would not help dlopen). Running.
+- Local page server on port 8931 was killed by a harness restart and restarted in the background.

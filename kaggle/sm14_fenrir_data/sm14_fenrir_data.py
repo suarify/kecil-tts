@@ -36,31 +36,9 @@ subprocess.run('nvidia-smi --query-gpu=name,memory.total --format=csv,noheader',
 for d in sorted(glob.glob('/kaggle/input/*')):
     print('input:', d, len(os.listdir(d)), 'entries', flush=True)
 
-sh('pip install -q chatterbox-tts soundfile')
-sh('pip uninstall -y -q torchvision')
-# same perth stub as the nicole kernel: keep torchaudio out of the import path entirely
-STUB = f'{OUT}/stubs_perth'
-os.makedirs(f'{STUB}/perth/perth_net/perth_net_implicit/model', exist_ok=True)
-open(f'{STUB}/perth/__init__.py', 'w').write('''class _Any:
-    def __init__(self, *a, **k):
-        pass
-    def __call__(self, *a, **k):
-        return a[0] if a else None
-    def __getattr__(self, n):
-        return lambda *a, **k: (a[0] if a else None)
-PerthNet = _Any
-PerthImplicitWatermarker = _Any
-''')
-for p in ('perth/perth_net/__init__.py', 'perth/perth_net/perth_net_implicit/__init__.py',
-          'perth/perth_net/perth_net_implicit/model/__init__.py'):
-    open(f'{STUB}/{p}', 'w').write('')
-open(f'{STUB}/perth/perth_net/perth_net_implicit/model/perth_net.py', 'w').write('from ... import _Any\nPerthNet = _Any\n')
-open(f'{STUB}/perth/perth_net/perth_net_implicit/perth_implicit_watermarker.py', 'w').write('from ... import _Any\nPerthImplicitWatermarker = _Any\n')
-os.environ['PYTHONPATH'] = f'{STUB}:' + os.environ.get('PYTHONPATH', '')
-sys.path.insert(0, STUB)
-print('perth stub installed', flush=True)
-sh('pip install -q "transformers==4.46.3"')
-sh(f'{sys.executable} -c "from chatterbox.vc import ChatterboxVC; print(\'vc ok\')"')
+sh('pip install -q chatterbox-tts', 'pip_cb')
+sh('pip uninstall -y -q torchvision || true', 'pip_tv')
+sh(f'{sys.executable} -c "from chatterbox.vc import ChatterboxVC; print(\'vc imports ok\')"', 'imports')
 
 REF = glob.glob('/kaggle/input/**/ref_fenrir.wav', recursive=True)[0]
 raws = torch.load(glob.glob('/kaggle/input/**/raws.pt', recursive=True)[0], map_location='cpu', weights_only=False)

@@ -44,92 +44,26 @@ subprocess.run('nvidia-smi --query-gpu=name,memory.total --format=csv,noheader',
 for d in sorted(glob.glob('/kaggle/input/*')):
     print('input:', d, len(os.listdir(d)), 'entries', flush=True)
 
-sh('pip install -q chatterbox-tts soundfile', 'pip')
-# Kaggle's torch is a patched build whose torchaudio cannot load (libcudart.so.12 / libtorchaudio.so).
-# Replace BOTH with a matched official CUDA pair so torchaudio works, then remove the extras that
-# break against this torch (torchao imports a torch._dynamo symbol that does not exist here).
-TORCH_FIX = (
-    'import torch, subprocess, sys, json\n'
-    'cands = [("2.6.0", "cu124"), ("2.6.0", "cu121"), ("2.5.1", "cu121")]\n'
-    'for tv, cu in cands:\n'
-    '    print("trying pair", tv, cu, flush=True)\n'
-    '    p = subprocess.run([sys.executable, "-m", "pip", "install", "-q", "--force-reinstall",\n'
-    '                        f"torch=={tv}", f"torchaudio=={tv}", "--index-url",\n'
-    '                        f"https://download.pytorch.org/whl/{cu}"], capture_output=True, text=True)\n'
-    '    if p.returncode:\n'
-    '        print("install failed", (p.stderr or "")[-200:], flush=True); continue\n'
-    '    try:\n'
-    '        import importlib, torchaudio\n'
-    '        importlib.reload(torch)\n'
-    '        importlib.reload(torchaudio)\n'
-    '        ok = torchaudio.__version__ and torch.cuda.is_available()\n'
-    '        print("pair ok", torch.__version__, torchaudio.__version__, "cuda", torch.cuda.is_available(), flush=True)\n'
-    '        if ok:\n'
-    '            break\n'
-    '    except Exception as e:\n'
-    '        print("verify failed", type(e).__name__, str(e)[:200], flush=True)\n'
-)
-open(f'{OUT}/fix_torch.py', 'w').write(TORCH_FIX)
-sh(f'{sys.executable} {OUT}/fix_torch.py', 'fix_torch_pair')
-sh('pip uninstall -y -q torchvision torchao torchtext', 'pip_rm_extras')
-# chatterbox imports `perth` (audio watermarking) which imports torchaudio. The image's torch/torchaudio pair is
-# broken (libtorchaudio.so will not load), but we do not need watermarking: install a no-op `perth` stub first so
-# torchaudio is never imported. If chatterbox still fails, fall back to reinstalling a matching torch+torchaudio pair.
-STUB = f'{OUT}/stubs_perth'
-os.makedirs(f'{STUB}/perth/perth_net/perth_net_implicit/model', exist_ok=True)
-
-
-def _w(p, s):
-    open(p, 'w').write(s)
-
-
-_w(f'{STUB}/perth/__init__.py', '''class _Any:
-    def __init__(self, *a, **k):
-        pass
-    def __call__(self, *a, **k):
-        return a[0] if a else None
-    def __getattr__(self, n):
-        return lambda *a, **k: (a[0] if a else None)
-PerthNet = _Any
-PerthImplicitWatermarker = _Any
-''')
-_w(f'{STUB}/perth/perth_net/__init__.py', '')
-_w(f'{STUB}/perth/perth_net/perth_net_implicit/__init__.py', '')
-_w(f'{STUB}/perth/perth_net/perth_net_implicit/model/__init__.py', '')
-_w(f'{STUB}/perth/perth_net/perth_net_implicit/model/perth_net.py', 'from ... import _Any\nPerthNet = _Any\n')
-_w(f'{STUB}/perth/perth_net/perth_net_implicit/perth_implicit_watermarker.py', 'from ... import _Any\nPerthImplicitWatermarker = _Any\n')
-os.environ['PYTHONPATH'] = f'{STUB}:' + os.environ.get('PYTHONPATH', '')
-sys.path.insert(0, STUB)
-print('perth stub installed at', STUB, flush=True)
-
-ok = False
-for tr in ('4.46.3', '4.44.2'):
-    sh(f'pip install -q "transformers=={tr}"', f'pip_tr_{tr.replace(".", "_")}')
-    try:
-        sh(f'{sys.executable} -c "from chatterbox.mtl_tts import ChatterboxMultilingualTTS; from chatterbox.vc import ChatterboxVC; print(\'imports ok transformers {tr}\')"', f'imports_{tr.replace(".", "_")}')
-        ok = True
-        break
-    except SystemExit:
-        print(f'import failed with transformers {tr}; trying next', flush=True)
-        sh('pip uninstall -y -q torchao torchvision torchtext', f'rm_extras_{tr.replace(".", "_")}')
-if not ok:
-    FIX = f'''
-import torch, subprocess, sys
-tv = ".".join(torch.__version__.split("+")[0].split(".")[:2])
-cu = ("cu" + torch.version.cuda.replace(".", "")) if torch.version.cuda else "cpu"
-print("torch", torch.__version__, "cuda", torch.version.cuda, "-> reinstall", tv, cu, flush=True)
-p = subprocess.run([sys.executable, "-m", "pip", "install", "-q", "--force-reinstall",
-                    f"torch=={{tv}}.*", f"torchaudio=={{tv}}.*",
-                    "--index-url", f"https://download.pytorch.org/whl/{{cu}}"], capture_output=True, text=True)
-print("reinstall rc", p.returncode, (p.stderr or "")[-300:], flush=True)
-import torchaudio
-print("torchaudio", torchaudio.__version__, "torch", torch.__version__, flush=True)
-'''
-    open(f'{OUT}/fix_torch.py', 'w').write(FIX)
-    sh(f'{sys.executable} {OUT}/fix_torch.py', 'fix_torch_pair')
-    sh(f'{sys.executable} -c "from chatterbox.mtl_tts import ChatterboxMultilingualTTS; print(\'imports ok (torch pair)\')"', 'imports2')
-sh('pip install -q "transformers==4.46.3"', 'pip_tr')
+sh('pip install -q chatterbox-tts', 'pip_cb')          # exact setup from the working k15 kernel
+sh('pip uninstall -y -q torchvision || true', 'pip_tv')
 sh(f'{sys.executable} -c "from chatterbox.mtl_tts import ChatterboxMultilingualTTS; from chatterbox.vc import ChatterboxVC; print(\'imports ok\')"', 'imports')
+# Kaggle's default image has torchaudio built for CUDA 12 but no libcudart.so.12 anywhere.
+# Install the tiny runtime wheel and preload the library INTO THIS PROCESS before chatterbox imports it.
+sh('pip install -q nvidia-cuda-runtime-cu12', 'pip_cudart')
+import ctypes
+cud = []
+for pat in ('/usr/local/lib/python3.13/dist-packages/nvidia/cuda_runtime/lib/libcudart.so.12',
+            '/usr/local/lib/python3.13/site-packages/nvidia/cuda_runtime/lib/libcudart.so.12'):
+    cud += glob.glob(pat)
+print('cudart candidates:', cud, flush=True)
+for q in cud:
+    try:
+        ctypes.CDLL(q, mode=ctypes.RTLD_GLOBAL)
+        print('preloaded cudart from', q, flush=True)
+        break
+    except Exception as e:
+        print('cudart preload failed:', type(e).__name__, str(e)[:100], flush=True)
+
 
 import pandas as pd  # noqa: E402
 

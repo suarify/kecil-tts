@@ -488,3 +488,8 @@
 - Owner listened to 15 nicole converted teacher clips and approved.
 - Kernel sm-13a-nicole-probe pushed (kernel_source sm-19 output for nicole.pt): builds rows from 1,281 clips, trains decoder 3,000 steps + text 2,500 steps (~15 min) to hear the student's voice cheaply before the full run. Background watcher started.
 - After the probe: pull checkpoints, run scripts/gate_check.py for durations (1-frame share <=25%, max <=10 frames), periodicity >=0.60, flat/>4k/>7k, render faithful + air3 samples; only then decide on the full 12k run.
+
+## 2026-11-18 Critical re-test of the nicole 500-step probe: FIX H vs raw head
+- Owner: the tiny student sample was very watery; but noted Yati became acceptable only after changes we made along the way. Correct critical observation: the nicole tiny sample was rendered with the RAW training head (ms_train eval wavs), while Yati's accepted v0.4.1 uses the FIX H export (gap-masked noise + burst gate + gain smoothing + air shelf).
+- Exported the SAME 500-step decoder checkpoint two ways: faithful (no processing) and FIX H (Yati recipe); rendered 8 sentences with teacher clips alongside.
+- Page runs/listen/nicole_fixh_probe.html (localhost:8931/nicole_fixh_probe.html): TEACHER / student raw / student FIX H. Also note: probe = 500 steps + 624 rows vs Yati 12,000 steps + 1,281 rows, so it is badly undertrained - the earlier verdict was premature.

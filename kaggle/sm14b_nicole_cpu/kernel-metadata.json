@@ -1,0 +1,26 @@
+{
+ "id": "suarifymalaysia/sm-14b-nicole-cpu",
+ "title": "sm 14b nicole cpu",
+ "code_file": "sm14b_nicole_cpu.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": false,
+ "enable_tpu": false,
+ "enable_internet": true,
+ "keywords": [
+  "gpu"
+ ],
+ "dataset_sources": [
+  "suarifymalaysia/sm12-in",
+  "suarifymalaysia/sm-g2p",
+  "suarifymalaysia/sm-pms",
+  "suarifymalaysia/sm-c4-in",
+  "suarifymalaysia/sm13-in"
+ ],
+ "kernel_sources": [
+  "suarifymalaysia/sm-19-nicole-final"
+ ],
+ "competition_sources": [],
+ "model_sources": []
+}

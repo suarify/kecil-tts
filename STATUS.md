@@ -493,3 +493,9 @@
 - Owner: the tiny student sample was very watery; but noted Yati became acceptable only after changes we made along the way. Correct critical observation: the nicole tiny sample was rendered with the RAW training head (ms_train eval wavs), while Yati's accepted v0.4.1 uses the FIX H export (gap-masked noise + burst gate + gain smoothing + air shelf).
 - Exported the SAME 500-step decoder checkpoint two ways: faithful (no processing) and FIX H (Yati recipe); rendered 8 sentences with teacher clips alongside.
 - Page runs/listen/nicole_fixh_probe.html (localhost:8931/nicole_fixh_probe.html): TEACHER / student raw / student FIX H. Also note: probe = 500 steps + 624 rows vs Yati 12,000 steps + 1,281 rows, so it is badly undertrained - the earlier verdict was premature.
+
+## 2026-11-18 Path B tested: Yati clean student -> one VC to nicole
+- Diagnosed owner's 'lack of clarity' as the student's own synthesis quality (muffled+robotic), not loudness/knobs (those were amplitude-invariant metrics).
+- Path B: synthesized 8 sentences with Yati v0.4.1 (12k-step clean student), converted once to nicole via ChatterboxVC on Kaggle CPU kernel sm-15b-yati-vc (4.8 min, 0 fails). Output RMS ~0.15 matches teacher ~0.147.
+- Page runs/listen/pathB.html (localhost:8931/pathB.html): TEACHER vs PATH B vs YATI, loudness-matched. Awaiting owner verdict.
+- Meanwhile rebuilt rows locally from all 1,281 nicole clips with correct flags (--max-last 1.0 --max-tail 99) to recover the 657 clips the defaults discarded; path A (full training) kept as fallback.

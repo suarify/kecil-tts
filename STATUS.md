@@ -483,3 +483,8 @@
 - Gate 1: DONE raws 1281 nicole 1281 fails 0. nicole.pt (307 MB) downloaded, 15 sample wavs extracted to runs/listen/nicole_teacher.
 - Gate 2 page runs/listen/nicole_teacher.html (localhost:8931/nicole_teacher.html): owner listens for watery/phase in the converted teacher clips before training.
 - Note: generation was 272 min (4.5h) not the estimated 55 min - each clip ~13s at 7-9 it/s on 1000 diffusion steps; quota should be checked before committing fenrir (which reuses raws, VC only 34 min).
+
+## 2026-11-18 Gate 2 PASSED (owner: clean enough) -> probe training launched
+- Owner listened to 15 nicole converted teacher clips and approved.
+- Kernel sm-13a-nicole-probe pushed (kernel_source sm-19 output for nicole.pt): builds rows from 1,281 clips, trains decoder 3,000 steps + text 2,500 steps (~15 min) to hear the student's voice cheaply before the full run. Background watcher started.
+- After the probe: pull checkpoints, run scripts/gate_check.py for durations (1-frame share <=25%, max <=10 frames), periodicity >=0.60, flat/>4k/>7k, render faithful + air3 samples; only then decide on the full 12k run.

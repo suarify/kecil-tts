@@ -1,0 +1,17 @@
+{
+ "id": "suarifymalaysia/sm-15c-nicole-vc",
+ "title": "sm 15c nicole vc",
+ "code_file": "sm15c_nicole_vc.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_tpu": false,
+ "enable_internet": true,
+ "keywords": ["gpu"],
+ "dataset_sources": ["suarifymalaysia/sm15c-in"],
+ "kernel_sources": [],
+ "competition_sources": [],
+ "model_sources": [],
+ "machine_shape": "NvidiaTeslaT4"
+}

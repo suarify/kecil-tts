@@ -1,0 +1,17 @@
+{
+ "id": "suarifymalaysia/sm-15d-probe",
+ "title": "sm 15d probe",
+ "code_file": "sm15d_probe.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_tpu": false,
+ "enable_internet": true,
+ "keywords": ["gpu"],
+ "dataset_sources": ["suarifymalaysia/sm12-in", "suarifymalaysia/sm-g2p", "suarifymalaysia/sm-pms", "suarifymalaysia/sm-c4-in", "suarifymalaysia/sm13-in"],
+ "kernel_sources": ["suarifymalaysia/sm-15c-nicole-vc"],
+ "competition_sources": [],
+ "model_sources": [],
+ "machine_shape": "NvidiaTeslaT4"
+}

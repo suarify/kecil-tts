@@ -499,3 +499,8 @@
 - Path B: synthesized 8 sentences with Yati v0.4.1 (12k-step clean student), converted once to nicole via ChatterboxVC on Kaggle CPU kernel sm-15b-yati-vc (4.8 min, 0 fails). Output RMS ~0.15 matches teacher ~0.147.
 - Page runs/listen/pathB.html (localhost:8931/pathB.html): TEACHER vs PATH B vs YATI, loudness-matched. Awaiting owner verdict.
 - Meanwhile rebuilt rows locally from all 1,281 nicole clips with correct flags (--max-last 1.0 --max-tail 99) to recover the 657 clips the defaults discarded; path A (full training) kept as fallback.
+
+## 2026-11-18 Approved Path-B distillation; small train test inserted
+- Owner approved ~1.5-2 h GPU. Plan: 1,281 Yati student clips (generated locally in 3 min) -> one VC to nicole (sm15c kernel) -> SMALL probe (2k dec + 1.5k text, sm15d kernel) -> owner listens for soft/watery -> full 12k run only if clean.
+- Old-row rebuild with correct flags finished: 1252/1281 rows (vs 624 with defaults), confirming the tail-junk data loss.
+- sm15c dataset upload running in background; sm15d probe kernel written and ready (kernel_sources sm15c VC output).

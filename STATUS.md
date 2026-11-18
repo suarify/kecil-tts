@@ -477,3 +477,9 @@
 - v9 copied the BYOD docker_image from the working sm-05 kernel, but Kaggle ignored it (log still python 3.13.16) and failed with the same torchaudio/libcudart error.
 - v10 installs nvidia-cuda-runtime-cu12 and preloads libcudart.so.12 with ctypes.CDLL(RTLD_GLOBAL) IN THE MAIN PROCESS before any chatterbox import (a child-process preload would not help dlopen). Running.
 - Local page server on port 8931 was killed by a harness restart and restarted in the background.
+
+## 2026-11-18 Gate 1 PASSED: 1,281 raws + 1,281 nicole conversions, 0 failures
+- The long-running sm19/sm20 kernels were NOT hung - they were generating (272.7 min) and converting (34.4 min) but Kaggle's status/quota API did not reflect it. Both COMPLETE; sm19 output pulled.
+- Gate 1: DONE raws 1281 nicole 1281 fails 0. nicole.pt (307 MB) downloaded, 15 sample wavs extracted to runs/listen/nicole_teacher.
+- Gate 2 page runs/listen/nicole_teacher.html (localhost:8931/nicole_teacher.html): owner listens for watery/phase in the converted teacher clips before training.
+- Note: generation was 272 min (4.5h) not the estimated 55 min - each clip ~13s at 7-9 it/s on 1000 diffusion steps; quota should be checked before committing fenrir (which reuses raws, VC only 34 min).

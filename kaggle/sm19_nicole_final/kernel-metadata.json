@@ -1,0 +1,21 @@
+{
+ "id": "suarifymalaysia/sm-19-nicole-final",
+ "title": "sm 19 nicole final",
+ "code_file": "sm19_nicole_final.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_tpu": false,
+ "enable_internet": true,
+ "keywords": [
+  "gpu"
+ ],
+ "dataset_sources": [
+  "suarifymalaysia/sm12-in"
+ ],
+ "kernel_sources": [],
+ "competition_sources": [],
+ "model_sources": [],
+ "machine_shape": "NvidiaTeslaT4"
+}

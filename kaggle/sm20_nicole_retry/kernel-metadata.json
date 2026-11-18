@@ -1,0 +1,21 @@
+{
+ "id": "suarifymalaysia/sm-20-nicole-retry",
+ "title": "sm 20 nicole retry",
+ "code_file": "sm20_nicole_retry.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_tpu": false,
+ "enable_internet": true,
+ "keywords": [
+  "gpu"
+ ],
+ "dataset_sources": [
+  "suarifymalaysia/sm12-in"
+ ],
+ "kernel_sources": [],
+ "competition_sources": [],
+ "model_sources": [],
+ "machine_shape": "NvidiaTeslaT4"
+}

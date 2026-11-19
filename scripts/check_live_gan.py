@@ -1,0 +1,10 @@
+from kaggle.api.kaggle_api_extended import KaggleApi
+api = KaggleApi(); api.authenticate()
+s = api.kernels_status('suarifymalaysia/sm-21-gan')
+print('STATUS', getattr(s.status, 'name', None))
+logs = api.kernels_logs('suarifymalaysia/sm-21-gan')
+txt = logs if isinstance(logs, str) else str(logs)
+open('runs/sm21gan_live.log', 'w', encoding='utf-8', errors='replace').write(txt)
+print('LOG LEN', len(txt))
+print('NONFINITE count', txt.count('NONFINITE'))
+print('nan count', txt.count('nan'))

@@ -672,3 +672,11 @@
 - Owner reported the HF Space was broken ("model not loaded"). Diagnosed via browser console: two `ReferenceError: Cannot access 'tts'/'lastAudio' before initialization` in `index.html` from the UI polish (speedStrip() called by drawSpeakers() before `let tts`, and a resize listener before `let lastAudio`). This aborted the whole module script before load() ran.
 - Fix: declared `let tts, lastAudio;` at the top of the module and removed the later declarations. JS syntax checked (`node --check`), Space re-uploaded, verified LIVE in the browser: "Model ready on webgpu in 15.8 s", Speak button active, 3 speakers rendered. Remaining console entries are benign ONNX Runtime warnings only.
 - Owner asked to post the UTMOS result on the model: updated `Suarify/kecil-tts-yati-v0.5.0` README.md with the full development leaderboard (teacher 3.553, v0.5/P3 2.275, P1 2.180, v0.4.1 2.158, P2 2.010) plus the Phase-4 CER finding (general 2.2% / conversational 1.9% pass; numbers 43.8% / codeswitch 10.8% fail). Verified remotely.
+
+## 2026-11-20 Space UI tuning v3 (5 owner requests) - uploaded + verified live
+- (1) Stats panel + waveform hidden by default (`#stats,#wave{display:none}`), revealed only after speech is generated (`.on` class added in the Speak handler).
+- (2) The '3 · Runs anywhere: edge, IoT, kiosk...' card is now a modal popup (`.modal-wrap#edgeModal`), opened by a new ⓘ info icon beside the Kecil-TTS header, closed via × / backdrop click / Escape.
+- (3) On mobile the BM/light toggles stay in the top-right row (`.headrow{flex-wrap:nowrap}`, `.topbar{margin-left:auto}`, smaller tg/badge/h1 instead of wrapping).
+- (4) Keywords card is visually hidden (`.seo-hidden`: height .1px, opacity .001) with all 37 keywords written as one sentence inside for SEO.
+- (5) The 'Need custom software...' CTA section card was removed; its content now sits in a footer row (`.cta-row`) and 'Contact Suarify → suarify.my/contact-form' is a plain sentence with an inline link, not a button.
+- Verified live in browser: model loads ("Model ready on webgpu in 5.5 s"), Speak active, 3 speakers, stats/wave hidden, modal opens/closes, keywords opacity .001, CTA row present, no CTA button, zero JS errors.

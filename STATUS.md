@@ -619,3 +619,10 @@
 - Published `Suarify/kecil-tts-yati-v0.5.0` from `runs/p3_dec_gan_export/paradee_int8_webgpu.onnx` (best P3 checkpoint, step 5407, UTMOS 2.2748/1.7932). 42 files, remote sha == local, 0 float64, 8.47 MB. Card is honest: +0.12 UTMOS over v0.4.1, owner did not find the difference clearly perceptible, F0 voicing unchanged, large gap to teacher remains.
 - Space `Suarify/suaradee-web` updated with the polished UI (verified remotely): Yati v0.5 dropdown, Nicole as a third speaker with its own version dropdown, auto-speaking sample chips, large render-stats panel + live waveform, sleeker fonts.
 - Phase 1/2 checkpoints were NOT published.
+
+## 2026-11-19 Phase 4 step 1 (CPU) DONE: 3,400 new sentences selected
+- Owner said "publish n go phase4" after the modest v0.5 gain. v0.5 published + Space updated (see prior entry).
+- `scripts/make_p4_texts.py`: loaded 7,500 corpus rows, excluded the 1,281 already used, greedy token-bigram coverage (40k bigram space; char bigrams saturated at 254 sentences so switched to token bigrams) -> 2,500 sentences covering 30,121 token bigrams. 300 numbers from the numbers category.
+- `scripts/make_p4_codeswitch.py`: corpus had only ~218 unused code-switch sentences, so generated 600 Malay-frame + English-loanword sentences from 20 templates x word lists (REVIEW says "English loanwords in Malay frames, use the lexicon from C3").
+- `scripts/merge_p4_texts.py` -> `eval/p4_new_texts_final.tsv`: 2,500 greedy + 600 codeswitch (204 corpus + 396 synthetic) + 300 numbers = 3,400 rows, asserted.
+- NEXT (GPU, needs owner yes): 50-clip timing kernel testing batched Chatterbox generation + fewer sampling steps; pick fastest config with CER <=2.5% on those 50; report clips/hour and total GPU-h for owner approval BEFORE generating all 3,400.

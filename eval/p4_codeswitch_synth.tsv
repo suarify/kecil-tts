@@ -1,0 +1,601 @@
+id	category	text	teacher	source
+p4x00000	codeswitch	Payment untuk resit boleh dibuat secara online.	Payment untuk resit boleh dibuat secara online.	synth_codeswitch
+p4x00001	codeswitch	Booking kak untuk hari Isnin dah confirmed.	Booking kak untuk hari Isnin dah confirmed.	synth_codeswitch
+p4x00002	codeswitch	Jangan lupa share delivery selepas payment.	Jangan lupa share delivery selepas payment.	synth_codeswitch
+p4x00003	codeswitch	Status report untuk puan dah di-reply.	Status report untuk puan dah di-reply.	synth_codeswitch
+p4x00004	codeswitch	abang dah cancel form tadi pagi.	abang dah cancel form tadi pagi.	synth_codeswitch
+p4x00005	codeswitch	Deadline untuk file ialah hari Sabtu.	Deadline untuk file ialah hari Sabtu.	synth_codeswitch
+p4x00006	codeswitch	Customer service kami boleh dihubungi melalui system.	Customer service kami boleh dihubungi melalui system.	synth_codeswitch
+p4x00007	codeswitch	Meeting dengan abang bermula pukul sembilan.	Meeting dengan abang bermula pukul sembilan.	synth_codeswitch
+p4x00008	codeswitch	tuan tak hadir untuk meeting hari ini.	tuan tak hadir untuk meeting hari ini.	synth_codeswitch
+p4x00009	codeswitch	puan dah cancel resit tadi pagi.	puan dah cancel resit tadi pagi.	synth_codeswitch
+p4x00010	codeswitch	Aduan file dah kami update.	Aduan file dah kami update.	synth_codeswitch
+p4x00011	codeswitch	Aduan password dah kami check.	Aduan password dah kami check.	synth_codeswitch
+p4x00012	codeswitch	Aduan report dah kami cancel.	Aduan report dah kami cancel.	synth_codeswitch
+p4x00013	codeswitch	Status account untuk kak dah di-reply.	Status account untuk kak dah di-reply.	synth_codeswitch
+p4x00014	codeswitch	Saya tak dapat approve, account nampak salah.	Saya tak dapat approve, account nampak salah.	synth_codeswitch
+p4x00015	codeswitch	Meeting dengan encik bermula pukul empat.	Meeting dengan encik bermula pukul empat.	synth_codeswitch
+p4x00016	codeswitch	Saya tak dapat confirm, report nampak salah.	Saya tak dapat confirm, report nampak salah.	synth_codeswitch
+p4x00017	codeswitch	Booking encik untuk hari Ahad dah confirmed.	Booking encik untuk hari Ahad dah confirmed.	synth_codeswitch
+p4x00018	codeswitch	encik minta update appointment hari ini.	encik minta update appointment hari ini.	synth_codeswitch
+p4x00019	codeswitch	doktor tak hadir untuk submission hari ini.	doktor tak hadir untuk submission hari ini.	synth_codeswitch
+p4x00020	codeswitch	Jangan lupa restart email selepas booking.	Jangan lupa restart email selepas booking.	synth_codeswitch
+p4x00021	codeswitch	Aduan password dah kami save.	Aduan password dah kami save.	synth_codeswitch
+p4x00022	codeswitch	Tolong reply booking dalam app sebelum delivery.	Tolong reply booking dalam app sebelum delivery.	synth_codeswitch
+p4x00023	codeswitch	Jangan lupa send payment selepas delivery.	Jangan lupa send payment selepas delivery.	synth_codeswitch
+p4x00024	codeswitch	dato tak hadir untuk service hari ini.	dato tak hadir untuk service hari ini.	synth_codeswitch
+p4x00025	codeswitch	cik tak hadir untuk booking hari ini.	cik tak hadir untuk booking hari ini.	synth_codeswitch
+p4x00026	codeswitch	Saya akan download file selepas delivery.	Saya akan download file selepas delivery.	synth_codeswitch
+p4x00027	codeswitch	Kalau report masih slow, cuba send dulu.	Kalau report masih slow, cuba send dulu.	synth_codeswitch
+p4x00028	codeswitch	Jangan lupa share account selepas submission.	Jangan lupa share account selepas submission.	synth_codeswitch
+p4x00029	codeswitch	Status form untuk tuan dah di-reply.	Status form untuk tuan dah di-reply.	synth_codeswitch
+p4x00030	codeswitch	Payment untuk profile boleh dibuat secara transfer.	Payment untuk profile boleh dibuat secara transfer.	synth_codeswitch
+p4x00031	codeswitch	puan tak hadir untuk submission hari ini.	puan tak hadir untuk submission hari ini.	synth_codeswitch
+p4x00032	codeswitch	Deadline untuk message ialah hari Sabtu.	Deadline untuk message ialah hari Sabtu.	synth_codeswitch
+p4x00033	codeswitch	Meeting dengan puan bermula pukul empat.	Meeting dengan puan bermula pukul empat.	synth_codeswitch
+p4x00034	codeswitch	abang tak hadir untuk meeting hari ini.	abang tak hadir untuk meeting hari ini.	synth_codeswitch
+p4x00035	codeswitch	Payment untuk schedule boleh dibuat secara online.	Payment untuk schedule boleh dibuat secara online.	synth_codeswitch
+p4x00036	codeswitch	Customer service kami boleh dihubungi melalui app.	Customer service kami boleh dihubungi melalui app.	synth_codeswitch
+p4x00037	codeswitch	Status email untuk tuan dah di-restart.	Status email untuk tuan dah di-restart.	synth_codeswitch
+p4x00038	codeswitch	Sila confirm form dengan doktor sebelum delivery.	Sila confirm form dengan doktor sebelum delivery.	synth_codeswitch
+p4x00039	codeswitch	Sila update file dalam WhatsApp sekarang.	Sila update file dalam WhatsApp sekarang.	synth_codeswitch
+p4x00040	codeswitch	Delivery message ke Johor Bahru dijadualkan hari Khamis.	Delivery message ke Johor Bahru dijadualkan hari Khamis.	synth_codeswitch
+p4x00041	codeswitch	Booking kak untuk hari Sabtu dah confirmed.	Booking kak untuk hari Sabtu dah confirmed.	synth_codeswitch
+p4x00042	codeswitch	Booking dato untuk hari Khamis dah confirmed.	Booking dato untuk hari Khamis dah confirmed.	synth_codeswitch
+p4x00043	codeswitch	Payment untuk profile boleh dibuat secara cash.	Payment untuk profile boleh dibuat secara cash.	synth_codeswitch
+p4x00044	codeswitch	kak tak hadir untuk service hari ini.	kak tak hadir untuk service hari ini.	synth_codeswitch
+p4x00045	codeswitch	Status schedule untuk kak dah di-save.	Status schedule untuk kak dah di-save.	synth_codeswitch
+p4x00046	codeswitch	Meeting dengan dato bermula pukul lima.	Meeting dengan dato bermula pukul lima.	synth_codeswitch
+p4x00047	codeswitch	Saya akan submit resit selepas payment.	Saya akan submit resit selepas payment.	synth_codeswitch
+p4x00048	codeswitch	Saya tak dapat update, delivery nampak salah.	Saya tak dapat update, delivery nampak salah.	synth_codeswitch
+p4x00049	codeswitch	Sila send password sebelum hari Jumaat.	Sila send password sebelum hari Jumaat.	synth_codeswitch
+p4x00050	codeswitch	Sila reply appointment sebelum hari Jumaat.	Sila reply appointment sebelum hari Jumaat.	synth_codeswitch
+p4x00051	codeswitch	encik dah download resit tadi pagi.	encik dah download resit tadi pagi.	synth_codeswitch
+p4x00052	codeswitch	cik dah reply order tadi pagi.	cik dah reply order tadi pagi.	synth_codeswitch
+p4x00053	codeswitch	Tolong confirm email dalam app sebelum payment.	Tolong confirm email dalam app sebelum payment.	synth_codeswitch
+p4x00054	codeswitch	Booking cik untuk hari Selasa dah confirmed.	Booking cik untuk hari Selasa dah confirmed.	synth_codeswitch
+p4x00055	codeswitch	Payment untuk email boleh dibuat secara transfer.	Payment untuk email boleh dibuat secara transfer.	synth_codeswitch
+p4x00056	codeswitch	Deadline untuk message ialah hari Jumaat.	Deadline untuk message ialah hari Jumaat.	synth_codeswitch
+p4x00057	codeswitch	Meeting dengan abang bermula pukul empat.	Meeting dengan abang bermula pukul empat.	synth_codeswitch
+p4x00058	codeswitch	Aduan password dah kami update.	Aduan password dah kami update.	synth_codeswitch
+p4x00059	codeswitch	Tolong download link dalam system sebelum meeting.	Tolong download link dalam system sebelum meeting.	synth_codeswitch
+p4x00060	codeswitch	Meeting dengan cik bermula pukul lapan.	Meeting dengan cik bermula pukul lapan.	synth_codeswitch
+p4x00061	codeswitch	Kalau email masih slow, cuba download dulu.	Kalau email masih slow, cuba download dulu.	synth_codeswitch
+p4x00062	codeswitch	Sila update link dalam system sekarang.	Sila update link dalam system sekarang.	synth_codeswitch
+p4x00063	codeswitch	Sila confirm claim dengan dato sebelum booking.	Sila confirm claim dengan dato sebelum booking.	synth_codeswitch
+p4x00064	codeswitch	Sila confirm invoice dengan tuan sebelum service.	Sila confirm invoice dengan tuan sebelum service.	synth_codeswitch
+p4x00065	codeswitch	puan minta download account hari ini.	puan minta download account hari ini.	synth_codeswitch
+p4x00066	codeswitch	Laporan link untuk delivery dah siap.	Laporan link untuk delivery dah siap.	synth_codeswitch
+p4x00067	codeswitch	tuan tak hadir untuk service hari ini.	tuan tak hadir untuk service hari ini.	synth_codeswitch
+p4x00068	codeswitch	Tolong download resit dalam app sebelum booking.	Tolong download resit dalam app sebelum booking.	synth_codeswitch
+p4x00069	codeswitch	Saya akan save appointment selepas service.	Saya akan save appointment selepas service.	synth_codeswitch
+p4x00070	codeswitch	puan tak hadir untuk payment hari ini.	puan tak hadir untuk payment hari ini.	synth_codeswitch
+p4x00071	codeswitch	Sila download schedule sebelum hari Selasa.	Sila download schedule sebelum hari Selasa.	synth_codeswitch
+p4x00072	codeswitch	Delivery password ke Penang dijadualkan hari Khamis.	Delivery password ke Penang dijadualkan hari Khamis.	synth_codeswitch
+p4x00073	codeswitch	Deadline untuk appointment ialah hari Khamis.	Deadline untuk appointment ialah hari Khamis.	synth_codeswitch
+p4x00074	codeswitch	Laporan claim untuk delivery dah siap.	Laporan claim untuk delivery dah siap.	synth_codeswitch
+p4x00075	codeswitch	Kalau invoice masih slow, cuba share dulu.	Kalau invoice masih slow, cuba share dulu.	synth_codeswitch
+p4x00076	codeswitch	Deadline untuk delivery ialah hari Jumaat.	Deadline untuk delivery ialah hari Jumaat.	synth_codeswitch
+p4x00077	codeswitch	Saya akan approve order selepas payment.	Saya akan approve order selepas payment.	synth_codeswitch
+p4x00078	codeswitch	Booking encik untuk hari Isnin dah confirmed.	Booking encik untuk hari Isnin dah confirmed.	synth_codeswitch
+p4x00079	codeswitch	Sila confirm link dengan abang sebelum delivery.	Sila confirm link dengan abang sebelum delivery.	synth_codeswitch
+p4x00080	codeswitch	Saya tak dapat download, claim nampak salah.	Saya tak dapat download, claim nampak salah.	synth_codeswitch
+p4x00081	codeswitch	Jangan lupa send profile selepas booking.	Jangan lupa send profile selepas booking.	synth_codeswitch
+p4x00082	codeswitch	Delivery payment ke Putrajaya dijadualkan hari Selasa.	Delivery payment ke Putrajaya dijadualkan hari Selasa.	synth_codeswitch
+p4x00083	codeswitch	Laporan invoice untuk meeting dah siap.	Laporan invoice untuk meeting dah siap.	synth_codeswitch
+p4x00084	codeswitch	Customer service kami boleh dihubungi melalui email.	Customer service kami boleh dihubungi melalui email.	synth_codeswitch
+p4x00085	codeswitch	abang dah cancel profile tadi pagi.	abang dah cancel profile tadi pagi.	synth_codeswitch
+p4x00086	codeswitch	Tolong update link dalam email sebelum booking.	Tolong update link dalam email sebelum booking.	synth_codeswitch
+p4x00087	codeswitch	kak tak hadir untuk meeting hari ini.	kak tak hadir untuk meeting hari ini.	synth_codeswitch
+p4x00088	codeswitch	Jangan lupa submit profile selepas meeting.	Jangan lupa submit profile selepas meeting.	synth_codeswitch
+p4x00089	codeswitch	dato tak hadir untuk registration hari ini.	dato tak hadir untuk registration hari ini.	synth_codeswitch
+p4x00090	codeswitch	Kalau file masih slow, cuba restart dulu.	Kalau file masih slow, cuba restart dulu.	synth_codeswitch
+p4x00091	codeswitch	Delivery message ke Putrajaya dijadualkan hari Sabtu.	Delivery message ke Putrajaya dijadualkan hari Sabtu.	synth_codeswitch
+p4x00092	codeswitch	Status link untuk cik dah di-reply.	Status link untuk cik dah di-reply.	synth_codeswitch
+p4x00093	codeswitch	Status delivery untuk kak dah di-restart.	Status delivery untuk kak dah di-restart.	synth_codeswitch
+p4x00094	codeswitch	encik tak hadir untuk registration hari ini.	encik tak hadir untuk registration hari ini.	synth_codeswitch
+p4x00095	codeswitch	abang minta update account hari ini.	abang minta update account hari ini.	synth_codeswitch
+p4x00096	codeswitch	Status account untuk cik dah di-approve.	Status account untuk cik dah di-approve.	synth_codeswitch
+p4x00097	codeswitch	Jangan lupa update schedule selepas payment.	Jangan lupa update schedule selepas payment.	synth_codeswitch
+p4x00098	codeswitch	Status email untuk doktor dah di-check.	Status email untuk doktor dah di-check.	synth_codeswitch
+p4x00099	codeswitch	Meeting dengan kak bermula pukul sembilan.	Meeting dengan kak bermula pukul sembilan.	synth_codeswitch
+p4x00100	codeswitch	Saya tak dapat restart, schedule nampak salah.	Saya tak dapat restart, schedule nampak salah.	synth_codeswitch
+p4x00101	codeswitch	Jangan lupa check report selepas delivery.	Jangan lupa check report selepas delivery.	synth_codeswitch
+p4x00102	codeswitch	Jangan lupa restart delivery selepas service.	Jangan lupa restart delivery selepas service.	synth_codeswitch
+p4x00103	codeswitch	Laporan payment untuk meeting dah siap.	Laporan payment untuk meeting dah siap.	synth_codeswitch
+p4x00104	codeswitch	Deadline untuk delivery ialah hari Ahad.	Deadline untuk delivery ialah hari Ahad.	synth_codeswitch
+p4x00105	codeswitch	Sila confirm email dengan kak sebelum payment.	Sila confirm email dengan kak sebelum payment.	synth_codeswitch
+p4x00106	codeswitch	Payment untuk password boleh dibuat secara online.	Payment untuk password boleh dibuat secara online.	synth_codeswitch
+p4x00107	codeswitch	Laporan schedule untuk payment dah siap.	Laporan schedule untuk payment dah siap.	synth_codeswitch
+p4x00108	codeswitch	Tolong check message dalam email sebelum meeting.	Tolong check message dalam email sebelum meeting.	synth_codeswitch
+p4x00109	codeswitch	Booking puan untuk hari Sabtu dah confirmed.	Booking puan untuk hari Sabtu dah confirmed.	synth_codeswitch
+p4x00110	codeswitch	Kalau payment masih slow, cuba check dulu.	Kalau payment masih slow, cuba check dulu.	synth_codeswitch
+p4x00111	codeswitch	Status delivery untuk doktor dah di-check.	Status delivery untuk doktor dah di-check.	synth_codeswitch
+p4x00112	codeswitch	dato minta submit payment hari ini.	dato minta submit payment hari ini.	synth_codeswitch
+p4x00113	codeswitch	Aduan email dah kami submit.	Aduan email dah kami submit.	synth_codeswitch
+p4x00114	codeswitch	Sila submit schedule sebelum hari Isnin.	Sila submit schedule sebelum hari Isnin.	synth_codeswitch
+p4x00115	codeswitch	Sila update invoice dalam WhatsApp sekarang.	Sila update invoice dalam WhatsApp sekarang.	synth_codeswitch
+p4x00116	codeswitch	Sila confirm resit dengan kak sebelum submission.	Sila confirm resit dengan kak sebelum submission.	synth_codeswitch
+p4x00117	codeswitch	Status order untuk encik dah di-download.	Status order untuk encik dah di-download.	synth_codeswitch
+p4x00118	codeswitch	cik tak hadir untuk service hari ini.	cik tak hadir untuk service hari ini.	synth_codeswitch
+p4x00119	codeswitch	Aduan order dah kami confirm.	Aduan order dah kami confirm.	synth_codeswitch
+p4x00120	codeswitch	Aduan file dah kami check.	Aduan file dah kami check.	synth_codeswitch
+p4x00121	codeswitch	Saya tak dapat check, booking nampak salah.	Saya tak dapat check, booking nampak salah.	synth_codeswitch
+p4x00122	codeswitch	Kalau link masih slow, cuba approve dulu.	Kalau link masih slow, cuba approve dulu.	synth_codeswitch
+p4x00123	codeswitch	Status order untuk dato dah di-save.	Status order untuk dato dah di-save.	synth_codeswitch
+p4x00124	codeswitch	encik dah cancel schedule tadi pagi.	encik dah cancel schedule tadi pagi.	synth_codeswitch
+p4x00125	codeswitch	Kalau appointment masih slow, cuba check dulu.	Kalau appointment masih slow, cuba check dulu.	synth_codeswitch
+p4x00126	codeswitch	Aduan payment dah kami send.	Aduan payment dah kami send.	synth_codeswitch
+p4x00127	codeswitch	Aduan schedule dah kami save.	Aduan schedule dah kami save.	synth_codeswitch
+p4x00128	codeswitch	Sila confirm profile dengan puan sebelum registration.	Sila confirm profile dengan puan sebelum registration.	synth_codeswitch
+p4x00129	codeswitch	Status booking untuk encik dah di-restart.	Status booking untuk encik dah di-restart.	synth_codeswitch
+p4x00130	codeswitch	Delivery report ke Shah Alam dijadualkan hari Jumaat.	Delivery report ke Shah Alam dijadualkan hari Jumaat.	synth_codeswitch
+p4x00131	codeswitch	Customer service kami boleh dihubungi melalui WhatsApp.	Customer service kami boleh dihubungi melalui WhatsApp.	synth_codeswitch
+p4x00132	codeswitch	Sila update report dalam email sekarang.	Sila update report dalam email sekarang.	synth_codeswitch
+p4x00133	codeswitch	Tolong save form dalam system sebelum meeting.	Tolong save form dalam system sebelum meeting.	synth_codeswitch
+p4x00134	codeswitch	Meeting dengan doktor bermula pukul lapan.	Meeting dengan doktor bermula pukul lapan.	synth_codeswitch
+p4x00135	codeswitch	encik minta check booking hari ini.	encik minta check booking hari ini.	synth_codeswitch
+p4x00136	codeswitch	Deadline untuk delivery ialah hari Sabtu.	Deadline untuk delivery ialah hari Sabtu.	synth_codeswitch
+p4x00137	codeswitch	Delivery appointment ke Ipoh dijadualkan hari Isnin.	Delivery appointment ke Ipoh dijadualkan hari Isnin.	synth_codeswitch
+p4x00138	codeswitch	Laporan file untuk meeting dah siap.	Laporan file untuk meeting dah siap.	synth_codeswitch
+p4x00139	codeswitch	Booking dato untuk hari Selasa dah confirmed.	Booking dato untuk hari Selasa dah confirmed.	synth_codeswitch
+p4x00140	codeswitch	Booking doktor untuk hari Sabtu dah confirmed.	Booking doktor untuk hari Sabtu dah confirmed.	synth_codeswitch
+p4x00141	codeswitch	cik minta share claim hari ini.	cik minta share claim hari ini.	synth_codeswitch
+p4x00142	codeswitch	Jangan lupa submit message selepas payment.	Jangan lupa submit message selepas payment.	synth_codeswitch
+p4x00143	codeswitch	Aduan booking dah kami download.	Aduan booking dah kami download.	synth_codeswitch
+p4x00144	codeswitch	Booking tuan untuk hari Selasa dah confirmed.	Booking tuan untuk hari Selasa dah confirmed.	synth_codeswitch
+p4x00145	codeswitch	Saya akan cancel message selepas payment.	Saya akan cancel message selepas payment.	synth_codeswitch
+p4x00146	codeswitch	Aduan delivery dah kami confirm.	Aduan delivery dah kami confirm.	synth_codeswitch
+p4x00147	codeswitch	dato minta share account hari ini.	dato minta share account hari ini.	synth_codeswitch
+p4x00148	codeswitch	encik dah send payment tadi pagi.	encik dah send payment tadi pagi.	synth_codeswitch
+p4x00149	codeswitch	Status booking untuk doktor dah di-submit.	Status booking untuk doktor dah di-submit.	synth_codeswitch
+p4x00150	codeswitch	Jangan lupa save payment selepas registration.	Jangan lupa save payment selepas registration.	synth_codeswitch
+p4x00151	codeswitch	Meeting dengan cik bermula pukul tujuh.	Meeting dengan cik bermula pukul tujuh.	synth_codeswitch
+p4x00152	codeswitch	Sila reply password sebelum hari Khamis.	Sila reply password sebelum hari Khamis.	synth_codeswitch
+p4x00153	codeswitch	kak minta save form hari ini.	kak minta save form hari ini.	synth_codeswitch
+p4x00154	codeswitch	Saya tak dapat restart, link nampak salah.	Saya tak dapat restart, link nampak salah.	synth_codeswitch
+p4x00155	codeswitch	Booking tuan untuk hari Sabtu dah confirmed.	Booking tuan untuk hari Sabtu dah confirmed.	synth_codeswitch
+p4x00156	codeswitch	Delivery appointment ke Kota Bharu dijadualkan hari Khamis.	Delivery appointment ke Kota Bharu dijadualkan hari Khamis.	synth_codeswitch
+p4x00157	codeswitch	Sila update account dalam email sekarang.	Sila update account dalam email sekarang.	synth_codeswitch
+p4x00158	codeswitch	Status profile untuk doktor dah di-reply.	Status profile untuk doktor dah di-reply.	synth_codeswitch
+p4x00159	codeswitch	Payment untuk booking boleh dibuat secara online.	Payment untuk booking boleh dibuat secara online.	synth_codeswitch
+p4x00160	codeswitch	Payment untuk invoice boleh dibuat secara transfer.	Payment untuk invoice boleh dibuat secara transfer.	synth_codeswitch
+p4x00161	codeswitch	Laporan profile untuk delivery dah siap.	Laporan profile untuk delivery dah siap.	synth_codeswitch
+p4x00162	codeswitch	Payment untuk account boleh dibuat secara card.	Payment untuk account boleh dibuat secara card.	synth_codeswitch
+p4x00163	codeswitch	Delivery resit ke Johor Bahru dijadualkan hari Selasa.	Delivery resit ke Johor Bahru dijadualkan hari Selasa.	synth_codeswitch
+p4x00164	codeswitch	Delivery booking ke Johor Bahru dijadualkan hari Khamis.	Delivery booking ke Johor Bahru dijadualkan hari Khamis.	synth_codeswitch
+p4x00165	codeswitch	tuan tak hadir untuk delivery hari ini.	tuan tak hadir untuk delivery hari ini.	synth_codeswitch
+p4x00166	codeswitch	Kalau claim masih slow, cuba submit dulu.	Kalau claim masih slow, cuba submit dulu.	synth_codeswitch
+p4x00167	codeswitch	Saya akan confirm link selepas submission.	Saya akan confirm link selepas submission.	synth_codeswitch
+p4x00168	codeswitch	doktor minta share profile hari ini.	doktor minta share profile hari ini.	synth_codeswitch
+p4x00169	codeswitch	kak dah confirm link tadi pagi.	kak dah confirm link tadi pagi.	synth_codeswitch
+p4x00170	codeswitch	Payment untuk email boleh dibuat secara cash.	Payment untuk email boleh dibuat secara cash.	synth_codeswitch
+p4x00171	codeswitch	Laporan report untuk service dah siap.	Laporan report untuk service dah siap.	synth_codeswitch
+p4x00172	codeswitch	Status report untuk kak dah di-send.	Status report untuk kak dah di-send.	synth_codeswitch
+p4x00173	codeswitch	Saya tak dapat confirm, booking nampak salah.	Saya tak dapat confirm, booking nampak salah.	synth_codeswitch
+p4x00174	codeswitch	Sila update message dalam WhatsApp sekarang.	Sila update message dalam WhatsApp sekarang.	synth_codeswitch
+p4x00175	codeswitch	Deadline untuk link ialah hari Jumaat.	Deadline untuk link ialah hari Jumaat.	synth_codeswitch
+p4x00176	codeswitch	Jangan lupa check profile selepas booking.	Jangan lupa check profile selepas booking.	synth_codeswitch
+p4x00177	codeswitch	Kalau form masih slow, cuba save dulu.	Kalau form masih slow, cuba save dulu.	synth_codeswitch
+p4x00178	codeswitch	Sila confirm file dengan puan sebelum booking.	Sila confirm file dengan puan sebelum booking.	synth_codeswitch
+p4x00179	codeswitch	Aduan resit dah kami submit.	Aduan resit dah kami submit.	synth_codeswitch
+p4x00180	codeswitch	puan dah confirm email tadi pagi.	puan dah confirm email tadi pagi.	synth_codeswitch
+p4x00181	codeswitch	Meeting dengan dato bermula pukul sembilan.	Meeting dengan dato bermula pukul sembilan.	synth_codeswitch
+p4x00182	codeswitch	Laporan delivery untuk service dah siap.	Laporan delivery untuk service dah siap.	synth_codeswitch
+p4x00183	codeswitch	encik dah update resit tadi pagi.	encik dah update resit tadi pagi.	synth_codeswitch
+p4x00184	codeswitch	Delivery password ke Putrajaya dijadualkan hari Selasa.	Delivery password ke Putrajaya dijadualkan hari Selasa.	synth_codeswitch
+p4x00185	codeswitch	Saya akan restart booking selepas booking.	Saya akan restart booking selepas booking.	synth_codeswitch
+p4x00186	codeswitch	Jangan lupa confirm form selepas booking.	Jangan lupa confirm form selepas booking.	synth_codeswitch
+p4x00187	codeswitch	Sila confirm payment dengan puan sebelum registration.	Sila confirm payment dengan puan sebelum registration.	synth_codeswitch
+p4x00188	codeswitch	Meeting dengan doktor bermula pukul lima.	Meeting dengan doktor bermula pukul lima.	synth_codeswitch
+p4x00189	codeswitch	kak minta submit resit hari ini.	kak minta submit resit hari ini.	synth_codeswitch
+p4x00190	codeswitch	puan minta download email hari ini.	puan minta download email hari ini.	synth_codeswitch
+p4x00191	codeswitch	Aduan payment dah kami share.	Aduan payment dah kami share.	synth_codeswitch
+p4x00192	codeswitch	Deadline untuk invoice ialah hari Isnin.	Deadline untuk invoice ialah hari Isnin.	synth_codeswitch
+p4x00193	codeswitch	Deadline untuk password ialah hari Ahad.	Deadline untuk password ialah hari Ahad.	synth_codeswitch
+p4x00194	codeswitch	Laporan payment untuk registration dah siap.	Laporan payment untuk registration dah siap.	synth_codeswitch
+p4x00195	codeswitch	Kalau file masih slow, cuba share dulu.	Kalau file masih slow, cuba share dulu.	synth_codeswitch
+p4x00196	codeswitch	Deadline untuk claim ialah hari Khamis.	Deadline untuk claim ialah hari Khamis.	synth_codeswitch
+p4x00197	codeswitch	Status file untuk puan dah di-reply.	Status file untuk puan dah di-reply.	synth_codeswitch
+p4x00198	codeswitch	Deadline untuk booking ialah hari Sabtu.	Deadline untuk booking ialah hari Sabtu.	synth_codeswitch
+p4x00199	codeswitch	Aduan profile dah kami send.	Aduan profile dah kami send.	synth_codeswitch
+p4x00200	codeswitch	Status invoice untuk dato dah di-approve.	Status invoice untuk dato dah di-approve.	synth_codeswitch
+p4x00201	codeswitch	cik tak hadir untuk submission hari ini.	cik tak hadir untuk submission hari ini.	synth_codeswitch
+p4x00202	codeswitch	Meeting dengan encik bermula pukul tujuh.	Meeting dengan encik bermula pukul tujuh.	synth_codeswitch
+p4x00203	codeswitch	cik dah confirm invoice tadi pagi.	cik dah confirm invoice tadi pagi.	synth_codeswitch
+p4x00204	codeswitch	Payment untuk message boleh dibuat secara cash.	Payment untuk message boleh dibuat secara cash.	synth_codeswitch
+p4x00205	codeswitch	Status message untuk cik dah di-restart.	Status message untuk cik dah di-restart.	synth_codeswitch
+p4x00206	codeswitch	Sila confirm password dengan cik sebelum registration.	Sila confirm password dengan cik sebelum registration.	synth_codeswitch
+p4x00207	codeswitch	Kalau appointment masih slow, cuba send dulu.	Kalau appointment masih slow, cuba send dulu.	synth_codeswitch
+p4x00208	codeswitch	Sila confirm delivery dengan dato sebelum payment.	Sila confirm delivery dengan dato sebelum payment.	synth_codeswitch
+p4x00209	codeswitch	Delivery profile ke Johor Bahru dijadualkan hari Khamis.	Delivery profile ke Johor Bahru dijadualkan hari Khamis.	synth_codeswitch
+p4x00210	codeswitch	Sila update payment dalam WhatsApp sekarang.	Sila update payment dalam WhatsApp sekarang.	synth_codeswitch
+p4x00211	codeswitch	Kalau invoice masih slow, cuba restart dulu.	Kalau invoice masih slow, cuba restart dulu.	synth_codeswitch
+p4x00212	codeswitch	dato minta approve email hari ini.	dato minta approve email hari ini.	synth_codeswitch
+p4x00213	codeswitch	Status account untuk tuan dah di-confirm.	Status account untuk tuan dah di-confirm.	synth_codeswitch
+p4x00214	codeswitch	Jangan lupa share link selepas booking.	Jangan lupa share link selepas booking.	synth_codeswitch
+p4x00215	codeswitch	Booking doktor untuk hari Jumaat dah confirmed.	Booking doktor untuk hari Jumaat dah confirmed.	synth_codeswitch
+p4x00216	codeswitch	Status claim untuk tuan dah di-share.	Status claim untuk tuan dah di-share.	synth_codeswitch
+p4x00217	codeswitch	Sila update form dalam email sekarang.	Sila update form dalam email sekarang.	synth_codeswitch
+p4x00218	codeswitch	Tolong save form dalam system sebelum delivery.	Tolong save form dalam system sebelum delivery.	synth_codeswitch
+p4x00219	codeswitch	Deadline untuk link ialah hari Khamis.	Deadline untuk link ialah hari Khamis.	synth_codeswitch
+p4x00220	codeswitch	Laporan invoice untuk submission dah siap.	Laporan invoice untuk submission dah siap.	synth_codeswitch
+p4x00221	codeswitch	kak minta update resit hari ini.	kak minta update resit hari ini.	synth_codeswitch
+p4x00222	codeswitch	Saya tak dapat submit, appointment nampak salah.	Saya tak dapat submit, appointment nampak salah.	synth_codeswitch
+p4x00223	codeswitch	Status report untuk tuan dah di-download.	Status report untuk tuan dah di-download.	synth_codeswitch
+p4x00224	codeswitch	Tolong submit file dalam system sebelum service.	Tolong submit file dalam system sebelum service.	synth_codeswitch
+p4x00225	codeswitch	Saya akan check email selepas registration.	Saya akan check email selepas registration.	synth_codeswitch
+p4x00226	codeswitch	dato dah download order tadi pagi.	dato dah download order tadi pagi.	synth_codeswitch
+p4x00227	codeswitch	Delivery account ke Kota Bharu dijadualkan hari Khamis.	Delivery account ke Kota Bharu dijadualkan hari Khamis.	synth_codeswitch
+p4x00228	codeswitch	Tolong cancel form dalam app sebelum booking.	Tolong cancel form dalam app sebelum booking.	synth_codeswitch
+p4x00229	codeswitch	abang minta update payment hari ini.	abang minta update payment hari ini.	synth_codeswitch
+p4x00230	codeswitch	Laporan booking untuk payment dah siap.	Laporan booking untuk payment dah siap.	synth_codeswitch
+p4x00231	codeswitch	kak tak hadir untuk booking hari ini.	kak tak hadir untuk booking hari ini.	synth_codeswitch
+p4x00232	codeswitch	Aduan message dah kami approve.	Aduan message dah kami approve.	synth_codeswitch
+p4x00233	codeswitch	Laporan delivery untuk booking dah siap.	Laporan delivery untuk booking dah siap.	synth_codeswitch
+p4x00234	codeswitch	Sila update profile dalam email sekarang.	Sila update profile dalam email sekarang.	synth_codeswitch
+p4x00235	codeswitch	Saya akan confirm link selepas meeting.	Saya akan confirm link selepas meeting.	synth_codeswitch
+p4x00236	codeswitch	Aduan report dah kami confirm.	Aduan report dah kami confirm.	synth_codeswitch
+p4x00237	codeswitch	Kalau form masih slow, cuba submit dulu.	Kalau form masih slow, cuba submit dulu.	synth_codeswitch
+p4x00238	codeswitch	Status password untuk kak dah di-restart.	Status password untuk kak dah di-restart.	synth_codeswitch
+p4x00239	codeswitch	cik dah download resit tadi pagi.	cik dah download resit tadi pagi.	synth_codeswitch
+p4x00240	codeswitch	Status claim untuk puan dah di-submit.	Status claim untuk puan dah di-submit.	synth_codeswitch
+p4x00241	codeswitch	Aduan profile dah kami cancel.	Aduan profile dah kami cancel.	synth_codeswitch
+p4x00242	codeswitch	Sila confirm report dengan kak sebelum service.	Sila confirm report dengan kak sebelum service.	synth_codeswitch
+p4x00243	codeswitch	Status password untuk tuan dah di-share.	Status password untuk tuan dah di-share.	synth_codeswitch
+p4x00244	codeswitch	Delivery invoice ke Putrajaya dijadualkan hari Sabtu.	Delivery invoice ke Putrajaya dijadualkan hari Sabtu.	synth_codeswitch
+p4x00245	codeswitch	Aduan order dah kami approve.	Aduan order dah kami approve.	synth_codeswitch
+p4x00246	codeswitch	abang dah reply schedule tadi pagi.	abang dah reply schedule tadi pagi.	synth_codeswitch
+p4x00247	codeswitch	Sila confirm profile dengan encik sebelum payment.	Sila confirm profile dengan encik sebelum payment.	synth_codeswitch
+p4x00248	codeswitch	Status message untuk abang dah di-confirm.	Status message untuk abang dah di-confirm.	synth_codeswitch
+p4x00249	codeswitch	Saya tak dapat submit, schedule nampak salah.	Saya tak dapat submit, schedule nampak salah.	synth_codeswitch
+p4x00250	codeswitch	Laporan email untuk payment dah siap.	Laporan email untuk payment dah siap.	synth_codeswitch
+p4x00251	codeswitch	Sila confirm schedule dengan tuan sebelum submission.	Sila confirm schedule dengan tuan sebelum submission.	synth_codeswitch
+p4x00252	codeswitch	dato dah check file tadi pagi.	dato dah check file tadi pagi.	synth_codeswitch
+p4x00253	codeswitch	Status password untuk abang dah di-reply.	Status password untuk abang dah di-reply.	synth_codeswitch
+p4x00254	codeswitch	Booking cik untuk hari Ahad dah confirmed.	Booking cik untuk hari Ahad dah confirmed.	synth_codeswitch
+p4x00255	codeswitch	Delivery form ke Penang dijadualkan hari Selasa.	Delivery form ke Penang dijadualkan hari Selasa.	synth_codeswitch
+p4x00256	codeswitch	Meeting dengan tuan bermula pukul tujuh.	Meeting dengan tuan bermula pukul tujuh.	synth_codeswitch
+p4x00257	codeswitch	abang tak hadir untuk delivery hari ini.	abang tak hadir untuk delivery hari ini.	synth_codeswitch
+p4x00258	codeswitch	Sila update schedule dalam WhatsApp sekarang.	Sila update schedule dalam WhatsApp sekarang.	synth_codeswitch
+p4x00259	codeswitch	Status appointment untuk abang dah di-save.	Status appointment untuk abang dah di-save.	synth_codeswitch
+p4x00260	codeswitch	tuan minta confirm file hari ini.	tuan minta confirm file hari ini.	synth_codeswitch
+p4x00261	codeswitch	Booking doktor untuk hari Isnin dah confirmed.	Booking doktor untuk hari Isnin dah confirmed.	synth_codeswitch
+p4x00262	codeswitch	Sila confirm delivery dengan doktor sebelum submission.	Sila confirm delivery dengan doktor sebelum submission.	synth_codeswitch
+p4x00263	codeswitch	Payment untuk schedule boleh dibuat secara card.	Payment untuk schedule boleh dibuat secara card.	synth_codeswitch
+p4x00264	codeswitch	Status link untuk encik dah di-restart.	Status link untuk encik dah di-restart.	synth_codeswitch
+p4x00265	codeswitch	kak dah save account tadi pagi.	kak dah save account tadi pagi.	synth_codeswitch
+p4x00266	codeswitch	Sila confirm form dengan cik sebelum submission.	Sila confirm form dengan cik sebelum submission.	synth_codeswitch
+p4x00267	codeswitch	Sila confirm resit dengan dato sebelum booking.	Sila confirm resit dengan dato sebelum booking.	synth_codeswitch
+p4x00268	codeswitch	Delivery payment ke Ipoh dijadualkan hari Sabtu.	Delivery payment ke Ipoh dijadualkan hari Sabtu.	synth_codeswitch
+p4x00269	codeswitch	Kalau invoice masih slow, cuba reply dulu.	Kalau invoice masih slow, cuba reply dulu.	synth_codeswitch
+p4x00270	codeswitch	Sila confirm report dengan dato sebelum registration.	Sila confirm report dengan dato sebelum registration.	synth_codeswitch
+p4x00271	codeswitch	Status account untuk abang dah di-reply.	Status account untuk abang dah di-reply.	synth_codeswitch
+p4x00272	codeswitch	Deadline untuk payment ialah hari Rabu.	Deadline untuk payment ialah hari Rabu.	synth_codeswitch
+p4x00273	codeswitch	Jangan lupa download payment selepas registration.	Jangan lupa download payment selepas registration.	synth_codeswitch
+p4x00274	codeswitch	Aduan report dah kami restart.	Aduan report dah kami restart.	synth_codeswitch
+p4x00275	codeswitch	Saya tak dapat send, file nampak salah.	Saya tak dapat send, file nampak salah.	synth_codeswitch
+p4x00276	codeswitch	Sila update claim dalam email sekarang.	Sila update claim dalam email sekarang.	synth_codeswitch
+p4x00277	codeswitch	Status account untuk dato dah di-restart.	Status account untuk dato dah di-restart.	synth_codeswitch
+p4x00278	codeswitch	Delivery profile ke Johor Bahru dijadualkan hari Selasa.	Delivery profile ke Johor Bahru dijadualkan hari Selasa.	synth_codeswitch
+p4x00279	codeswitch	Sila confirm appointment sebelum hari Rabu.	Sila confirm appointment sebelum hari Rabu.	synth_codeswitch
+p4x00280	codeswitch	cik tak hadir untuk registration hari ini.	cik tak hadir untuk registration hari ini.	synth_codeswitch
+p4x00281	codeswitch	Sila submit account sebelum hari Selasa.	Sila submit account sebelum hari Selasa.	synth_codeswitch
+p4x00282	codeswitch	encik minta send invoice hari ini.	encik minta send invoice hari ini.	synth_codeswitch
+p4x00283	codeswitch	Saya tak dapat save, claim nampak salah.	Saya tak dapat save, claim nampak salah.	synth_codeswitch
+p4x00284	codeswitch	Kalau order masih slow, cuba update dulu.	Kalau order masih slow, cuba update dulu.	synth_codeswitch
+p4x00285	codeswitch	Aduan order dah kami download.	Aduan order dah kami download.	synth_codeswitch
+p4x00286	codeswitch	Sila confirm account dengan cik sebelum delivery.	Sila confirm account dengan cik sebelum delivery.	synth_codeswitch
+p4x00287	codeswitch	Saya akan update file selepas service.	Saya akan update file selepas service.	synth_codeswitch
+p4x00288	codeswitch	doktor dah download payment tadi pagi.	doktor dah download payment tadi pagi.	synth_codeswitch
+p4x00289	codeswitch	Deadline untuk message ialah hari Selasa.	Deadline untuk message ialah hari Selasa.	synth_codeswitch
+p4x00290	codeswitch	doktor tak hadir untuk registration hari ini.	doktor tak hadir untuk registration hari ini.	synth_codeswitch
+p4x00291	codeswitch	Jangan lupa restart claim selepas submission.	Jangan lupa restart claim selepas submission.	synth_codeswitch
+p4x00292	codeswitch	Saya tak dapat download, email nampak salah.	Saya tak dapat download, email nampak salah.	synth_codeswitch
+p4x00293	codeswitch	Laporan password untuk payment dah siap.	Laporan password untuk payment dah siap.	synth_codeswitch
+p4x00294	codeswitch	Status email untuk kak dah di-confirm.	Status email untuk kak dah di-confirm.	synth_codeswitch
+p4x00295	codeswitch	Delivery file ke Putrajaya dijadualkan hari Sabtu.	Delivery file ke Putrajaya dijadualkan hari Sabtu.	synth_codeswitch
+p4x00296	codeswitch	Kalau account masih slow, cuba reply dulu.	Kalau account masih slow, cuba reply dulu.	synth_codeswitch
+p4x00297	codeswitch	Deadline untuk profile ialah hari Isnin.	Deadline untuk profile ialah hari Isnin.	synth_codeswitch
+p4x00298	codeswitch	Saya tak dapat share, report nampak salah.	Saya tak dapat share, report nampak salah.	synth_codeswitch
+p4x00299	codeswitch	dato minta check booking hari ini.	dato minta check booking hari ini.	synth_codeswitch
+p4x00300	codeswitch	Kalau file masih slow, cuba submit dulu.	Kalau file masih slow, cuba submit dulu.	synth_codeswitch
+p4x00301	codeswitch	Sila confirm claim dengan kak sebelum booking.	Sila confirm claim dengan kak sebelum booking.	synth_codeswitch
+p4x00302	codeswitch	Status form untuk kak dah di-cancel.	Status form untuk kak dah di-cancel.	synth_codeswitch
+p4x00303	codeswitch	doktor minta update delivery hari ini.	doktor minta update delivery hari ini.	synth_codeswitch
+p4x00304	codeswitch	Tolong share profile dalam system sebelum service.	Tolong share profile dalam system sebelum service.	synth_codeswitch
+p4x00305	codeswitch	Sila share payment sebelum hari Jumaat.	Sila share payment sebelum hari Jumaat.	synth_codeswitch
+p4x00306	codeswitch	encik minta update account hari ini.	encik minta update account hari ini.	synth_codeswitch
+p4x00307	codeswitch	Jangan lupa save claim selepas booking.	Jangan lupa save claim selepas booking.	synth_codeswitch
+p4x00308	codeswitch	Payment untuk account boleh dibuat secara online.	Payment untuk account boleh dibuat secara online.	synth_codeswitch
+p4x00309	codeswitch	Tolong send message dalam app sebelum service.	Tolong send message dalam app sebelum service.	synth_codeswitch
+p4x00310	codeswitch	Meeting dengan doktor bermula pukul tujuh.	Meeting dengan doktor bermula pukul tujuh.	synth_codeswitch
+p4x00311	codeswitch	Jangan lupa download form selepas submission.	Jangan lupa download form selepas submission.	synth_codeswitch
+p4x00312	codeswitch	Kalau resit masih slow, cuba approve dulu.	Kalau resit masih slow, cuba approve dulu.	synth_codeswitch
+p4x00313	codeswitch	Jangan lupa reply invoice selepas submission.	Jangan lupa reply invoice selepas submission.	synth_codeswitch
+p4x00314	codeswitch	doktor minta restart appointment hari ini.	doktor minta restart appointment hari ini.	synth_codeswitch
+p4x00315	codeswitch	Jangan lupa reply link selepas submission.	Jangan lupa reply link selepas submission.	synth_codeswitch
+p4x00316	codeswitch	Jangan lupa download link selepas payment.	Jangan lupa download link selepas payment.	synth_codeswitch
+p4x00317	codeswitch	Booking abang untuk hari Isnin dah confirmed.	Booking abang untuk hari Isnin dah confirmed.	synth_codeswitch
+p4x00318	codeswitch	Tolong send booking dalam email sebelum payment.	Tolong send booking dalam email sebelum payment.	synth_codeswitch
+p4x00319	codeswitch	Status appointment untuk abang dah di-confirm.	Status appointment untuk abang dah di-confirm.	synth_codeswitch
+p4x00320	codeswitch	Booking kak untuk hari Jumaat dah confirmed.	Booking kak untuk hari Jumaat dah confirmed.	synth_codeswitch
+p4x00321	codeswitch	Meeting dengan abang bermula pukul lima.	Meeting dengan abang bermula pukul lima.	synth_codeswitch
+p4x00322	codeswitch	dato minta approve payment hari ini.	dato minta approve payment hari ini.	synth_codeswitch
+p4x00323	codeswitch	Payment untuk booking boleh dibuat secara cash.	Payment untuk booking boleh dibuat secara cash.	synth_codeswitch
+p4x00324	codeswitch	Sila download invoice sebelum hari Selasa.	Sila download invoice sebelum hari Selasa.	synth_codeswitch
+p4x00325	codeswitch	Status form untuk cik dah di-check.	Status form untuk cik dah di-check.	synth_codeswitch
+p4x00326	codeswitch	Saya tak dapat restart, profile nampak salah.	Saya tak dapat restart, profile nampak salah.	synth_codeswitch
+p4x00327	codeswitch	Booking encik untuk hari Jumaat dah confirmed.	Booking encik untuk hari Jumaat dah confirmed.	synth_codeswitch
+p4x00328	codeswitch	Jangan lupa cancel invoice selepas registration.	Jangan lupa cancel invoice selepas registration.	synth_codeswitch
+p4x00329	codeswitch	Aduan delivery dah kami submit.	Aduan delivery dah kami submit.	synth_codeswitch
+p4x00330	codeswitch	Sila confirm link dengan tuan sebelum meeting.	Sila confirm link dengan tuan sebelum meeting.	synth_codeswitch
+p4x00331	codeswitch	Sila update appointment dalam app sekarang.	Sila update appointment dalam app sekarang.	synth_codeswitch
+p4x00332	codeswitch	Saya akan restart report selepas submission.	Saya akan restart report selepas submission.	synth_codeswitch
+p4x00333	codeswitch	Deadline untuk booking ialah hari Jumaat.	Deadline untuk booking ialah hari Jumaat.	synth_codeswitch
+p4x00334	codeswitch	Sila update account dalam system sekarang.	Sila update account dalam system sekarang.	synth_codeswitch
+p4x00335	codeswitch	Status email untuk cik dah di-download.	Status email untuk cik dah di-download.	synth_codeswitch
+p4x00336	codeswitch	encik dah save booking tadi pagi.	encik dah save booking tadi pagi.	synth_codeswitch
+p4x00337	codeswitch	Sila submit schedule sebelum hari Sabtu.	Sila submit schedule sebelum hari Sabtu.	synth_codeswitch
+p4x00338	codeswitch	Sila update booking dalam email sekarang.	Sila update booking dalam email sekarang.	synth_codeswitch
+p4x00339	codeswitch	Booking abang untuk hari Khamis dah confirmed.	Booking abang untuk hari Khamis dah confirmed.	synth_codeswitch
+p4x00340	codeswitch	Sila download payment sebelum hari Khamis.	Sila download payment sebelum hari Khamis.	synth_codeswitch
+p4x00341	codeswitch	dato dah submit email tadi pagi.	dato dah submit email tadi pagi.	synth_codeswitch
+p4x00342	codeswitch	Sila confirm file dengan doktor sebelum payment.	Sila confirm file dengan doktor sebelum payment.	synth_codeswitch
+p4x00343	codeswitch	Status form untuk encik dah di-share.	Status form untuk encik dah di-share.	synth_codeswitch
+p4x00344	codeswitch	Laporan schedule untuk delivery dah siap.	Laporan schedule untuk delivery dah siap.	synth_codeswitch
+p4x00345	codeswitch	Deadline untuk profile ialah hari Ahad.	Deadline untuk profile ialah hari Ahad.	synth_codeswitch
+p4x00346	codeswitch	Sila confirm schedule dengan puan sebelum payment.	Sila confirm schedule dengan puan sebelum payment.	synth_codeswitch
+p4x00347	codeswitch	cik tak hadir untuk meeting hari ini.	cik tak hadir untuk meeting hari ini.	synth_codeswitch
+p4x00348	codeswitch	Status password untuk cik dah di-approve.	Status password untuk cik dah di-approve.	synth_codeswitch
+p4x00349	codeswitch	Laporan password untuk submission dah siap.	Laporan password untuk submission dah siap.	synth_codeswitch
+p4x00350	codeswitch	Status password untuk tuan dah di-cancel.	Status password untuk tuan dah di-cancel.	synth_codeswitch
+p4x00351	codeswitch	Saya akan save invoice selepas delivery.	Saya akan save invoice selepas delivery.	synth_codeswitch
+p4x00352	codeswitch	Kalau report masih slow, cuba restart dulu.	Kalau report masih slow, cuba restart dulu.	synth_codeswitch
+p4x00353	codeswitch	Status form untuk doktor dah di-download.	Status form untuk doktor dah di-download.	synth_codeswitch
+p4x00354	codeswitch	Status resit untuk kak dah di-send.	Status resit untuk kak dah di-send.	synth_codeswitch
+p4x00355	codeswitch	Sila submit booking sebelum hari Khamis.	Sila submit booking sebelum hari Khamis.	synth_codeswitch
+p4x00356	codeswitch	Sila confirm order dengan encik sebelum payment.	Sila confirm order dengan encik sebelum payment.	synth_codeswitch
+p4x00357	codeswitch	Delivery password ke Putrajaya dijadualkan hari Isnin.	Delivery password ke Putrajaya dijadualkan hari Isnin.	synth_codeswitch
+p4x00358	codeswitch	Jangan lupa reply file selepas delivery.	Jangan lupa reply file selepas delivery.	synth_codeswitch
+p4x00359	codeswitch	Saya akan restart delivery selepas service.	Saya akan restart delivery selepas service.	synth_codeswitch
+p4x00360	codeswitch	doktor tak hadir untuk meeting hari ini.	doktor tak hadir untuk meeting hari ini.	synth_codeswitch
+p4x00361	codeswitch	Sila confirm message dengan dato sebelum meeting.	Sila confirm message dengan dato sebelum meeting.	synth_codeswitch
+p4x00362	codeswitch	tuan minta check claim hari ini.	tuan minta check claim hari ini.	synth_codeswitch
+p4x00363	codeswitch	Booking tuan untuk hari Rabu dah confirmed.	Booking tuan untuk hari Rabu dah confirmed.	synth_codeswitch
+p4x00364	codeswitch	Saya tak dapat send, account nampak salah.	Saya tak dapat send, account nampak salah.	synth_codeswitch
+p4x00365	codeswitch	Deadline untuk account ialah hari Sabtu.	Deadline untuk account ialah hari Sabtu.	synth_codeswitch
+p4x00366	codeswitch	Meeting dengan kak bermula pukul tujuh.	Meeting dengan kak bermula pukul tujuh.	synth_codeswitch
+p4x00367	codeswitch	Deadline untuk form ialah hari Khamis.	Deadline untuk form ialah hari Khamis.	synth_codeswitch
+p4x00368	codeswitch	Booking puan untuk hari Jumaat dah confirmed.	Booking puan untuk hari Jumaat dah confirmed.	synth_codeswitch
+p4x00369	codeswitch	kak minta update form hari ini.	kak minta update form hari ini.	synth_codeswitch
+p4x00370	codeswitch	Laporan profile untuk meeting dah siap.	Laporan profile untuk meeting dah siap.	synth_codeswitch
+p4x00371	codeswitch	kak tak hadir untuk payment hari ini.	kak tak hadir untuk payment hari ini.	synth_codeswitch
+p4x00372	codeswitch	Payment untuk schedule boleh dibuat secara transfer.	Payment untuk schedule boleh dibuat secara transfer.	synth_codeswitch
+p4x00373	codeswitch	doktor dah save claim tadi pagi.	doktor dah save claim tadi pagi.	synth_codeswitch
+p4x00374	codeswitch	puan tak hadir untuk meeting hari ini.	puan tak hadir untuk meeting hari ini.	synth_codeswitch
+p4x00375	codeswitch	Sila restart report sebelum hari Sabtu.	Sila restart report sebelum hari Sabtu.	synth_codeswitch
+p4x00376	codeswitch	Jangan lupa submit delivery selepas delivery.	Jangan lupa submit delivery selepas delivery.	synth_codeswitch
+p4x00377	codeswitch	Status report untuk kak dah di-approve.	Status report untuk kak dah di-approve.	synth_codeswitch
+p4x00378	codeswitch	Kalau order masih slow, cuba restart dulu.	Kalau order masih slow, cuba restart dulu.	synth_codeswitch
+p4x00379	codeswitch	Kalau payment masih slow, cuba confirm dulu.	Kalau payment masih slow, cuba confirm dulu.	synth_codeswitch
+p4x00380	codeswitch	Booking encik untuk hari Sabtu dah confirmed.	Booking encik untuk hari Sabtu dah confirmed.	synth_codeswitch
+p4x00381	codeswitch	dato tak hadir untuk submission hari ini.	dato tak hadir untuk submission hari ini.	synth_codeswitch
+p4x00382	codeswitch	Kalau delivery masih slow, cuba submit dulu.	Kalau delivery masih slow, cuba submit dulu.	synth_codeswitch
+p4x00383	codeswitch	Kalau link masih slow, cuba check dulu.	Kalau link masih slow, cuba check dulu.	synth_codeswitch
+p4x00384	codeswitch	Sila update order dalam WhatsApp sekarang.	Sila update order dalam WhatsApp sekarang.	synth_codeswitch
+p4x00385	codeswitch	cik minta confirm form hari ini.	cik minta confirm form hari ini.	synth_codeswitch
+p4x00386	codeswitch	Booking kak untuk hari Ahad dah confirmed.	Booking kak untuk hari Ahad dah confirmed.	synth_codeswitch
+p4x00387	codeswitch	kak minta check schedule hari ini.	kak minta check schedule hari ini.	synth_codeswitch
+p4x00388	codeswitch	Aduan profile dah kami download.	Aduan profile dah kami download.	synth_codeswitch
+p4x00389	codeswitch	Sila update account dalam WhatsApp sekarang.	Sila update account dalam WhatsApp sekarang.	synth_codeswitch
+p4x00390	codeswitch	doktor tak hadir untuk service hari ini.	doktor tak hadir untuk service hari ini.	synth_codeswitch
+p4x00391	codeswitch	Tolong save schedule dalam app sebelum delivery.	Tolong save schedule dalam app sebelum delivery.	synth_codeswitch
+p4x00392	codeswitch	Status message untuk tuan dah di-restart.	Status message untuk tuan dah di-restart.	synth_codeswitch
+p4x00393	codeswitch	Kalau password masih slow, cuba download dulu.	Kalau password masih slow, cuba download dulu.	synth_codeswitch
+p4x00394	codeswitch	Kalau file masih slow, cuba confirm dulu.	Kalau file masih slow, cuba confirm dulu.	synth_codeswitch
+p4x00395	codeswitch	Tolong restart booking dalam WhatsApp sebelum booking.	Tolong restart booking dalam WhatsApp sebelum booking.	synth_codeswitch
+p4x00396	codeswitch	Sila update claim dalam app sekarang.	Sila update claim dalam app sekarang.	synth_codeswitch
+p4x00397	codeswitch	Sila confirm password dengan cik sebelum service.	Sila confirm password dengan cik sebelum service.	synth_codeswitch
+p4x00398	codeswitch	kak minta send message hari ini.	kak minta send message hari ini.	synth_codeswitch
+p4x00399	codeswitch	Delivery link ke Putrajaya dijadualkan hari Selasa.	Delivery link ke Putrajaya dijadualkan hari Selasa.	synth_codeswitch
+p4x00400	codeswitch	Laporan booking untuk registration dah siap.	Laporan booking untuk registration dah siap.	synth_codeswitch
+p4x00401	codeswitch	Status schedule untuk abang dah di-cancel.	Status schedule untuk abang dah di-cancel.	synth_codeswitch
+p4x00402	codeswitch	Saya akan reply form selepas meeting.	Saya akan reply form selepas meeting.	synth_codeswitch
+p4x00403	codeswitch	Sila update password dalam WhatsApp sekarang.	Sila update password dalam WhatsApp sekarang.	synth_codeswitch
+p4x00404	codeswitch	Aduan file dah kami restart.	Aduan file dah kami restart.	synth_codeswitch
+p4x00405	codeswitch	Kalau message masih slow, cuba cancel dulu.	Kalau message masih slow, cuba cancel dulu.	synth_codeswitch
+p4x00406	codeswitch	Tolong share payment dalam WhatsApp sebelum submission.	Tolong share payment dalam WhatsApp sebelum submission.	synth_codeswitch
+p4x00407	codeswitch	encik tak hadir untuk service hari ini.	encik tak hadir untuk service hari ini.	synth_codeswitch
+p4x00408	codeswitch	encik dah share message tadi pagi.	encik dah share message tadi pagi.	synth_codeswitch
+p4x00409	codeswitch	Deadline untuk file ialah hari Jumaat.	Deadline untuk file ialah hari Jumaat.	synth_codeswitch
+p4x00410	codeswitch	Jangan lupa restart delivery selepas meeting.	Jangan lupa restart delivery selepas meeting.	synth_codeswitch
+p4x00411	codeswitch	Status message untuk dato dah di-share.	Status message untuk dato dah di-share.	synth_codeswitch
+p4x00412	codeswitch	Saya tak dapat reply, resit nampak salah.	Saya tak dapat reply, resit nampak salah.	synth_codeswitch
+p4x00413	codeswitch	Delivery message ke Putrajaya dijadualkan hari Rabu.	Delivery message ke Putrajaya dijadualkan hari Rabu.	synth_codeswitch
+p4x00414	codeswitch	Sila download order sebelum hari Ahad.	Sila download order sebelum hari Ahad.	synth_codeswitch
+p4x00415	codeswitch	Payment untuk email boleh dibuat secara online.	Payment untuk email boleh dibuat secara online.	synth_codeswitch
+p4x00416	codeswitch	Saya tak dapat approve, booking nampak salah.	Saya tak dapat approve, booking nampak salah.	synth_codeswitch
+p4x00417	codeswitch	Status schedule untuk kak dah di-approve.	Status schedule untuk kak dah di-approve.	synth_codeswitch
+p4x00418	codeswitch	Jangan lupa check booking selepas submission.	Jangan lupa check booking selepas submission.	synth_codeswitch
+p4x00419	codeswitch	Jangan lupa approve password selepas submission.	Jangan lupa approve password selepas submission.	synth_codeswitch
+p4x00420	codeswitch	Payment untuk order boleh dibuat secara cash.	Payment untuk order boleh dibuat secara cash.	synth_codeswitch
+p4x00421	codeswitch	Aduan payment dah kami download.	Aduan payment dah kami download.	synth_codeswitch
+p4x00422	codeswitch	Payment untuk form boleh dibuat secara cash.	Payment untuk form boleh dibuat secara cash.	synth_codeswitch
+p4x00423	codeswitch	Kalau booking masih slow, cuba check dulu.	Kalau booking masih slow, cuba check dulu.	synth_codeswitch
+p4x00424	codeswitch	Saya akan approve resit selepas booking.	Saya akan approve resit selepas booking.	synth_codeswitch
+p4x00425	codeswitch	Kalau delivery masih slow, cuba reply dulu.	Kalau delivery masih slow, cuba reply dulu.	synth_codeswitch
+p4x00426	codeswitch	Delivery payment ke Putrajaya dijadualkan hari Khamis.	Delivery payment ke Putrajaya dijadualkan hari Khamis.	synth_codeswitch
+p4x00427	codeswitch	Status report untuk abang dah di-confirm.	Status report untuk abang dah di-confirm.	synth_codeswitch
+p4x00428	codeswitch	Aduan message dah kami reply.	Aduan message dah kami reply.	synth_codeswitch
+p4x00429	codeswitch	Sila update file dalam system sekarang.	Sila update file dalam system sekarang.	synth_codeswitch
+p4x00430	codeswitch	Delivery invoice ke Kota Bharu dijadualkan hari Isnin.	Delivery invoice ke Kota Bharu dijadualkan hari Isnin.	synth_codeswitch
+p4x00431	codeswitch	Payment untuk message boleh dibuat secara card.	Payment untuk message boleh dibuat secara card.	synth_codeswitch
+p4x00432	codeswitch	Saya akan submit report selepas submission.	Saya akan submit report selepas submission.	synth_codeswitch
+p4x00433	codeswitch	Saya akan update schedule selepas payment.	Saya akan update schedule selepas payment.	synth_codeswitch
+p4x00434	codeswitch	Sila update resit sebelum hari Rabu.	Sila update resit sebelum hari Rabu.	synth_codeswitch
+p4x00435	codeswitch	Aduan booking dah kami save.	Aduan booking dah kami save.	synth_codeswitch
+p4x00436	codeswitch	Payment untuk order boleh dibuat secara transfer.	Payment untuk order boleh dibuat secara transfer.	synth_codeswitch
+p4x00437	codeswitch	kak minta confirm invoice hari ini.	kak minta confirm invoice hari ini.	synth_codeswitch
+p4x00438	codeswitch	Laporan profile untuk booking dah siap.	Laporan profile untuk booking dah siap.	synth_codeswitch
+p4x00439	codeswitch	Sila confirm order dengan cik sebelum registration.	Sila confirm order dengan cik sebelum registration.	synth_codeswitch
+p4x00440	codeswitch	Deadline untuk claim ialah hari Rabu.	Deadline untuk claim ialah hari Rabu.	synth_codeswitch
+p4x00441	codeswitch	Meeting dengan abang bermula pukul lapan.	Meeting dengan abang bermula pukul lapan.	synth_codeswitch
+p4x00442	codeswitch	Laporan payment untuk delivery dah siap.	Laporan payment untuk delivery dah siap.	synth_codeswitch
+p4x00443	codeswitch	Meeting dengan cik bermula pukul empat.	Meeting dengan cik bermula pukul empat.	synth_codeswitch
+p4x00444	codeswitch	Sila confirm message dengan dato sebelum submission.	Sila confirm message dengan dato sebelum submission.	synth_codeswitch
+p4x00445	codeswitch	Deadline untuk password ialah hari Khamis.	Deadline untuk password ialah hari Khamis.	synth_codeswitch
+p4x00446	codeswitch	Aduan email dah kami reply.	Aduan email dah kami reply.	synth_codeswitch
+p4x00447	codeswitch	Sila confirm appointment dengan cik sebelum service.	Sila confirm appointment dengan cik sebelum service.	synth_codeswitch
+p4x00448	codeswitch	encik dah send appointment tadi pagi.	encik dah send appointment tadi pagi.	synth_codeswitch
+p4x00449	codeswitch	Laporan delivery untuk payment dah siap.	Laporan delivery untuk payment dah siap.	synth_codeswitch
+p4x00450	codeswitch	Saya akan download message selepas service.	Saya akan download message selepas service.	synth_codeswitch
+p4x00451	codeswitch	Laporan link untuk payment dah siap.	Laporan link untuk payment dah siap.	synth_codeswitch
+p4x00452	codeswitch	Sila save email sebelum hari Ahad.	Sila save email sebelum hari Ahad.	synth_codeswitch
+p4x00453	codeswitch	Laporan appointment untuk booking dah siap.	Laporan appointment untuk booking dah siap.	synth_codeswitch
+p4x00454	codeswitch	kak tak hadir untuk submission hari ini.	kak tak hadir untuk submission hari ini.	synth_codeswitch
+p4x00455	codeswitch	Kalau message masih slow, cuba submit dulu.	Kalau message masih slow, cuba submit dulu.	synth_codeswitch
+p4x00456	codeswitch	Delivery form ke Kota Bharu dijadualkan hari Ahad.	Delivery form ke Kota Bharu dijadualkan hari Ahad.	synth_codeswitch
+p4x00457	codeswitch	Deadline untuk payment ialah hari Jumaat.	Deadline untuk payment ialah hari Jumaat.	synth_codeswitch
+p4x00458	codeswitch	doktor minta cancel report hari ini.	doktor minta cancel report hari ini.	synth_codeswitch
+p4x00459	codeswitch	Saya akan share profile selepas submission.	Saya akan share profile selepas submission.	synth_codeswitch
+p4x00460	codeswitch	Delivery order ke Shah Alam dijadualkan hari Selasa.	Delivery order ke Shah Alam dijadualkan hari Selasa.	synth_codeswitch
+p4x00461	codeswitch	Saya tak dapat confirm, delivery nampak salah.	Saya tak dapat confirm, delivery nampak salah.	synth_codeswitch
+p4x00462	codeswitch	Delivery order ke Putrajaya dijadualkan hari Khamis.	Delivery order ke Putrajaya dijadualkan hari Khamis.	synth_codeswitch
+p4x00463	codeswitch	Deadline untuk email ialah hari Sabtu.	Deadline untuk email ialah hari Sabtu.	synth_codeswitch
+p4x00464	codeswitch	puan dah confirm resit tadi pagi.	puan dah confirm resit tadi pagi.	synth_codeswitch
+p4x00465	codeswitch	Sila update appointment dalam WhatsApp sekarang.	Sila update appointment dalam WhatsApp sekarang.	synth_codeswitch
+p4x00466	codeswitch	Delivery resit ke Shah Alam dijadualkan hari Jumaat.	Delivery resit ke Shah Alam dijadualkan hari Jumaat.	synth_codeswitch
+p4x00467	codeswitch	dato dah reply password tadi pagi.	dato dah reply password tadi pagi.	synth_codeswitch
+p4x00468	codeswitch	Kalau claim masih slow, cuba reply dulu.	Kalau claim masih slow, cuba reply dulu.	synth_codeswitch
+p4x00469	codeswitch	Laporan invoice untuk service dah siap.	Laporan invoice untuk service dah siap.	synth_codeswitch
+p4x00470	codeswitch	Jangan lupa restart invoice selepas submission.	Jangan lupa restart invoice selepas submission.	synth_codeswitch
+p4x00471	codeswitch	Laporan order untuk submission dah siap.	Laporan order untuk submission dah siap.	synth_codeswitch
+p4x00472	codeswitch	Sila check schedule sebelum hari Sabtu.	Sila check schedule sebelum hari Sabtu.	synth_codeswitch
+p4x00473	codeswitch	Jangan lupa reply report selepas service.	Jangan lupa reply report selepas service.	synth_codeswitch
+p4x00474	codeswitch	Sila confirm claim dengan encik sebelum delivery.	Sila confirm claim dengan encik sebelum delivery.	synth_codeswitch
+p4x00475	codeswitch	doktor dah send delivery tadi pagi.	doktor dah send delivery tadi pagi.	synth_codeswitch
+p4x00476	codeswitch	Kalau password masih slow, cuba reply dulu.	Kalau password masih slow, cuba reply dulu.	synth_codeswitch
+p4x00477	codeswitch	Jangan lupa confirm delivery selepas registration.	Jangan lupa confirm delivery selepas registration.	synth_codeswitch
+p4x00478	codeswitch	Saya akan cancel claim selepas service.	Saya akan cancel claim selepas service.	synth_codeswitch
+p4x00479	codeswitch	Deadline untuk schedule ialah hari Rabu.	Deadline untuk schedule ialah hari Rabu.	synth_codeswitch
+p4x00480	codeswitch	Kalau delivery masih slow, cuba approve dulu.	Kalau delivery masih slow, cuba approve dulu.	synth_codeswitch
+p4x00481	codeswitch	Meeting dengan puan bermula pukul lima.	Meeting dengan puan bermula pukul lima.	synth_codeswitch
+p4x00482	codeswitch	Delivery email ke Kota Bharu dijadualkan hari Selasa.	Delivery email ke Kota Bharu dijadualkan hari Selasa.	synth_codeswitch
+p4x00483	codeswitch	Meeting dengan dato bermula pukul tujuh.	Meeting dengan dato bermula pukul tujuh.	synth_codeswitch
+p4x00484	codeswitch	Payment untuk password boleh dibuat secara transfer.	Payment untuk password boleh dibuat secara transfer.	synth_codeswitch
+p4x00485	codeswitch	Delivery booking ke Penang dijadualkan hari Khamis.	Delivery booking ke Penang dijadualkan hari Khamis.	synth_codeswitch
+p4x00486	codeswitch	Sila update invoice dalam app sekarang.	Sila update invoice dalam app sekarang.	synth_codeswitch
+p4x00487	codeswitch	Laporan order untuk delivery dah siap.	Laporan order untuk delivery dah siap.	synth_codeswitch
+p4x00488	codeswitch	Delivery appointment ke Putrajaya dijadualkan hari Ahad.	Delivery appointment ke Putrajaya dijadualkan hari Ahad.	synth_codeswitch
+p4x00489	codeswitch	Sila restart message sebelum hari Selasa.	Sila restart message sebelum hari Selasa.	synth_codeswitch
+p4x00490	codeswitch	Status delivery untuk puan dah di-restart.	Status delivery untuk puan dah di-restart.	synth_codeswitch
+p4x00491	codeswitch	Deadline untuk invoice ialah hari Selasa.	Deadline untuk invoice ialah hari Selasa.	synth_codeswitch
+p4x00492	codeswitch	encik tak hadir untuk delivery hari ini.	encik tak hadir untuk delivery hari ini.	synth_codeswitch
+p4x00493	codeswitch	Meeting dengan cik bermula pukul lima.	Meeting dengan cik bermula pukul lima.	synth_codeswitch
+p4x00494	codeswitch	Deadline untuk claim ialah hari Selasa.	Deadline untuk claim ialah hari Selasa.	synth_codeswitch
+p4x00495	codeswitch	Saya tak dapat reply, claim nampak salah.	Saya tak dapat reply, claim nampak salah.	synth_codeswitch
+p4x00496	codeswitch	Sila update file sebelum hari Jumaat.	Sila update file sebelum hari Jumaat.	synth_codeswitch
+p4x00497	codeswitch	Delivery claim ke Kota Bharu dijadualkan hari Jumaat.	Delivery claim ke Kota Bharu dijadualkan hari Jumaat.	synth_codeswitch
+p4x00498	codeswitch	puan tak hadir untuk service hari ini.	puan tak hadir untuk service hari ini.	synth_codeswitch
+p4x00499	codeswitch	Booking doktor untuk hari Rabu dah confirmed.	Booking doktor untuk hari Rabu dah confirmed.	synth_codeswitch
+p4x00500	codeswitch	Kalau report masih slow, cuba update dulu.	Kalau report masih slow, cuba update dulu.	synth_codeswitch
+p4x00501	codeswitch	Sila confirm password sebelum hari Jumaat.	Sila confirm password sebelum hari Jumaat.	synth_codeswitch
+p4x00502	codeswitch	abang tak hadir untuk submission hari ini.	abang tak hadir untuk submission hari ini.	synth_codeswitch
+p4x00503	codeswitch	Laporan payment untuk service dah siap.	Laporan payment untuk service dah siap.	synth_codeswitch
+p4x00504	codeswitch	Tolong restart form dalam system sebelum booking.	Tolong restart form dalam system sebelum booking.	synth_codeswitch
+p4x00505	codeswitch	Saya tak dapat download, appointment nampak salah.	Saya tak dapat download, appointment nampak salah.	synth_codeswitch
+p4x00506	codeswitch	dato minta confirm booking hari ini.	dato minta confirm booking hari ini.	synth_codeswitch
+p4x00507	codeswitch	Tolong save password dalam app sebelum registration.	Tolong save password dalam app sebelum registration.	synth_codeswitch
+p4x00508	codeswitch	Sila confirm delivery dengan encik sebelum registration.	Sila confirm delivery dengan encik sebelum registration.	synth_codeswitch
+p4x00509	codeswitch	Delivery order ke Penang dijadualkan hari Khamis.	Delivery order ke Penang dijadualkan hari Khamis.	synth_codeswitch
+p4x00510	codeswitch	Jangan lupa update link selepas submission.	Jangan lupa update link selepas submission.	synth_codeswitch
+p4x00511	codeswitch	Sila confirm resit dengan cik sebelum submission.	Sila confirm resit dengan cik sebelum submission.	synth_codeswitch
+p4x00512	codeswitch	puan dah confirm form tadi pagi.	puan dah confirm form tadi pagi.	synth_codeswitch
+p4x00513	codeswitch	Jangan lupa check report selepas booking.	Jangan lupa check report selepas booking.	synth_codeswitch
+p4x00514	codeswitch	Sila update order sebelum hari Sabtu.	Sila update order sebelum hari Sabtu.	synth_codeswitch
+p4x00515	codeswitch	Meeting dengan abang bermula pukul enam.	Meeting dengan abang bermula pukul enam.	synth_codeswitch
+p4x00516	codeswitch	tuan minta approve link hari ini.	tuan minta approve link hari ini.	synth_codeswitch
+p4x00517	codeswitch	Sila confirm form dengan kak sebelum payment.	Sila confirm form dengan kak sebelum payment.	synth_codeswitch
+p4x00518	codeswitch	Saya tak dapat send, payment nampak salah.	Saya tak dapat send, payment nampak salah.	synth_codeswitch
+p4x00519	codeswitch	Sila confirm delivery dengan puan sebelum registration.	Sila confirm delivery dengan puan sebelum registration.	synth_codeswitch
+p4x00520	codeswitch	Laporan schedule untuk registration dah siap.	Laporan schedule untuk registration dah siap.	synth_codeswitch
+p4x00521	codeswitch	abang minta approve profile hari ini.	abang minta approve profile hari ini.	synth_codeswitch
+p4x00522	codeswitch	Saya akan restart delivery selepas submission.	Saya akan restart delivery selepas submission.	synth_codeswitch
+p4x00523	codeswitch	Sila confirm profile dengan abang sebelum meeting.	Sila confirm profile dengan abang sebelum meeting.	synth_codeswitch
+p4x00524	codeswitch	puan minta download report hari ini.	puan minta download report hari ini.	synth_codeswitch
+p4x00525	codeswitch	Saya akan download claim selepas booking.	Saya akan download claim selepas booking.	synth_codeswitch
+p4x00526	codeswitch	abang dah submit appointment tadi pagi.	abang dah submit appointment tadi pagi.	synth_codeswitch
+p4x00527	codeswitch	tuan minta check message hari ini.	tuan minta check message hari ini.	synth_codeswitch
+p4x00528	codeswitch	Payment untuk account boleh dibuat secara transfer.	Payment untuk account boleh dibuat secara transfer.	synth_codeswitch
+p4x00529	codeswitch	kak dah send invoice tadi pagi.	kak dah send invoice tadi pagi.	synth_codeswitch
+p4x00530	codeswitch	Booking tuan untuk hari Khamis dah confirmed.	Booking tuan untuk hari Khamis dah confirmed.	synth_codeswitch
+p4x00531	codeswitch	Tolong approve message dalam email sebelum payment.	Tolong approve message dalam email sebelum payment.	synth_codeswitch
+p4x00532	codeswitch	Saya akan approve appointment selepas service.	Saya akan approve appointment selepas service.	synth_codeswitch
+p4x00533	codeswitch	Sila send appointment sebelum hari Rabu.	Sila send appointment sebelum hari Rabu.	synth_codeswitch
+p4x00534	codeswitch	Aduan payment dah kami reply.	Aduan payment dah kami reply.	synth_codeswitch
+p4x00535	codeswitch	Tolong approve file dalam WhatsApp sebelum registration.	Tolong approve file dalam WhatsApp sebelum registration.	synth_codeswitch
+p4x00536	codeswitch	abang tak hadir untuk payment hari ini.	abang tak hadir untuk payment hari ini.	synth_codeswitch
+p4x00537	codeswitch	Tolong send claim dalam WhatsApp sebelum payment.	Tolong send claim dalam WhatsApp sebelum payment.	synth_codeswitch
+p4x00538	codeswitch	Payment untuk order boleh dibuat secara online.	Payment untuk order boleh dibuat secara online.	synth_codeswitch
+p4x00539	codeswitch	tuan tak hadir untuk submission hari ini.	tuan tak hadir untuk submission hari ini.	synth_codeswitch
+p4x00540	codeswitch	Saya akan approve file selepas meeting.	Saya akan approve file selepas meeting.	synth_codeswitch
+p4x00541	codeswitch	tuan minta check schedule hari ini.	tuan minta check schedule hari ini.	synth_codeswitch
+p4x00542	codeswitch	tuan minta restart file hari ini.	tuan minta restart file hari ini.	synth_codeswitch
+p4x00543	codeswitch	Saya tak dapat approve, appointment nampak salah.	Saya tak dapat approve, appointment nampak salah.	synth_codeswitch
+p4x00544	codeswitch	puan tak hadir untuk delivery hari ini.	puan tak hadir untuk delivery hari ini.	synth_codeswitch
+p4x00545	codeswitch	Delivery password ke Ipoh dijadualkan hari Isnin.	Delivery password ke Ipoh dijadualkan hari Isnin.	synth_codeswitch
+p4x00546	codeswitch	Laporan email untuk delivery dah siap.	Laporan email untuk delivery dah siap.	synth_codeswitch
+p4x00547	codeswitch	Payment untuk link boleh dibuat secara cash.	Payment untuk link boleh dibuat secara cash.	synth_codeswitch
+p4x00548	codeswitch	Tolong check payment dalam system sebelum booking.	Tolong check payment dalam system sebelum booking.	synth_codeswitch
+p4x00549	codeswitch	Sila confirm link sebelum hari Jumaat.	Sila confirm link sebelum hari Jumaat.	synth_codeswitch
+p4x00550	codeswitch	Kalau message masih slow, cuba restart dulu.	Kalau message masih slow, cuba restart dulu.	synth_codeswitch
+p4x00551	codeswitch	Jangan lupa share payment selepas meeting.	Jangan lupa share payment selepas meeting.	synth_codeswitch
+p4x00552	codeswitch	Jangan lupa submit claim selepas booking.	Jangan lupa submit claim selepas booking.	synth_codeswitch
+p4x00553	codeswitch	Saya akan send booking selepas submission.	Saya akan send booking selepas submission.	synth_codeswitch
+p4x00554	codeswitch	Kalau password masih slow, cuba submit dulu.	Kalau password masih slow, cuba submit dulu.	synth_codeswitch
+p4x00555	codeswitch	Jangan lupa share message selepas service.	Jangan lupa share message selepas service.	synth_codeswitch
+p4x00556	codeswitch	Saya akan confirm appointment selepas payment.	Saya akan confirm appointment selepas payment.	synth_codeswitch
+p4x00557	codeswitch	Sila confirm email dengan puan sebelum submission.	Sila confirm email dengan puan sebelum submission.	synth_codeswitch
+p4x00558	codeswitch	Jangan lupa check report selepas submission.	Jangan lupa check report selepas submission.	synth_codeswitch
+p4x00559	codeswitch	Laporan resit untuk booking dah siap.	Laporan resit untuk booking dah siap.	synth_codeswitch
+p4x00560	codeswitch	Delivery message ke Shah Alam dijadualkan hari Jumaat.	Delivery message ke Shah Alam dijadualkan hari Jumaat.	synth_codeswitch
+p4x00561	codeswitch	Sila confirm resit dengan abang sebelum meeting.	Sila confirm resit dengan abang sebelum meeting.	synth_codeswitch
+p4x00562	codeswitch	Delivery appointment ke Penang dijadualkan hari Khamis.	Delivery appointment ke Penang dijadualkan hari Khamis.	synth_codeswitch
+p4x00563	codeswitch	Status order untuk abang dah di-approve.	Status order untuk abang dah di-approve.	synth_codeswitch
+p4x00564	codeswitch	Kalau link masih slow, cuba update dulu.	Kalau link masih slow, cuba update dulu.	synth_codeswitch
+p4x00565	codeswitch	Laporan form untuk payment dah siap.	Laporan form untuk payment dah siap.	synth_codeswitch
+p4x00566	codeswitch	Jangan lupa cancel booking selepas booking.	Jangan lupa cancel booking selepas booking.	synth_codeswitch
+p4x00567	codeswitch	Sila confirm schedule dengan tuan sebelum booking.	Sila confirm schedule dengan tuan sebelum booking.	synth_codeswitch
+p4x00568	codeswitch	Status claim untuk encik dah di-restart.	Status claim untuk encik dah di-restart.	synth_codeswitch
+p4x00569	codeswitch	Booking tuan untuk hari Jumaat dah confirmed.	Booking tuan untuk hari Jumaat dah confirmed.	synth_codeswitch
+p4x00570	codeswitch	Sila update resit dalam system sekarang.	Sila update resit dalam system sekarang.	synth_codeswitch
+p4x00571	codeswitch	Saya tak dapat share, invoice nampak salah.	Saya tak dapat share, invoice nampak salah.	synth_codeswitch
+p4x00572	codeswitch	Kalau schedule masih slow, cuba check dulu.	Kalau schedule masih slow, cuba check dulu.	synth_codeswitch
+p4x00573	codeswitch	cik dah update payment tadi pagi.	cik dah update payment tadi pagi.	synth_codeswitch
+p4x00574	codeswitch	encik tak hadir untuk booking hari ini.	encik tak hadir untuk booking hari ini.	synth_codeswitch
+p4x00575	codeswitch	dato minta save booking hari ini.	dato minta save booking hari ini.	synth_codeswitch
+p4x00576	codeswitch	Kalau resit masih slow, cuba cancel dulu.	Kalau resit masih slow, cuba cancel dulu.	synth_codeswitch
+p4x00577	codeswitch	Kalau file masih slow, cuba check dulu.	Kalau file masih slow, cuba check dulu.	synth_codeswitch
+p4x00578	codeswitch	Sila confirm delivery dengan encik sebelum payment.	Sila confirm delivery dengan encik sebelum payment.	synth_codeswitch
+p4x00579	codeswitch	Saya tak dapat update, appointment nampak salah.	Saya tak dapat update, appointment nampak salah.	synth_codeswitch
+p4x00580	codeswitch	Laporan resit untuk payment dah siap.	Laporan resit untuk payment dah siap.	synth_codeswitch
+p4x00581	codeswitch	Laporan account untuk payment dah siap.	Laporan account untuk payment dah siap.	synth_codeswitch
+p4x00582	codeswitch	Saya tak dapat approve, claim nampak salah.	Saya tak dapat approve, claim nampak salah.	synth_codeswitch
+p4x00583	codeswitch	Tolong save account dalam WhatsApp sebelum submission.	Tolong save account dalam WhatsApp sebelum submission.	synth_codeswitch
+p4x00584	codeswitch	Meeting dengan tuan bermula pukul sembilan.	Meeting dengan tuan bermula pukul sembilan.	synth_codeswitch
+p4x00585	codeswitch	doktor minta restart account hari ini.	doktor minta restart account hari ini.	synth_codeswitch
+p4x00586	codeswitch	Tolong update message dalam app sebelum booking.	Tolong update message dalam app sebelum booking.	synth_codeswitch
+p4x00587	codeswitch	Aduan schedule dah kami confirm.	Aduan schedule dah kami confirm.	synth_codeswitch
+p4x00588	codeswitch	Sila confirm booking sebelum hari Ahad.	Sila confirm booking sebelum hari Ahad.	synth_codeswitch
+p4x00589	codeswitch	Status file untuk kak dah di-approve.	Status file untuk kak dah di-approve.	synth_codeswitch
+p4x00590	codeswitch	Kalau delivery masih slow, cuba check dulu.	Kalau delivery masih slow, cuba check dulu.	synth_codeswitch
+p4x00591	codeswitch	Status payment untuk abang dah di-send.	Status payment untuk abang dah di-send.	synth_codeswitch
+p4x00592	codeswitch	Booking puan untuk hari Ahad dah confirmed.	Booking puan untuk hari Ahad dah confirmed.	synth_codeswitch
+p4x00593	codeswitch	Saya akan send appointment selepas submission.	Saya akan send appointment selepas submission.	synth_codeswitch
+p4x00594	codeswitch	Saya akan share order selepas delivery.	Saya akan share order selepas delivery.	synth_codeswitch
+p4x00595	codeswitch	encik minta save order hari ini.	encik minta save order hari ini.	synth_codeswitch
+p4x00596	codeswitch	Sila submit claim sebelum hari Selasa.	Sila submit claim sebelum hari Selasa.	synth_codeswitch
+p4x00597	codeswitch	Sila confirm order dengan tuan sebelum delivery.	Sila confirm order dengan tuan sebelum delivery.	synth_codeswitch
+p4x00598	codeswitch	Delivery account ke Ipoh dijadualkan hari Isnin.	Delivery account ke Ipoh dijadualkan hari Isnin.	synth_codeswitch
+p4x00599	codeswitch	puan minta reply invoice hari ini.	puan minta reply invoice hari ini.	synth_codeswitch

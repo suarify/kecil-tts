@@ -1,0 +1,51 @@
+id	category	text	teacher	source
+p4x00181	codeswitch	Meeting dengan dato bermula pukul sembilan.	Meeting dengan dato bermula pukul sembilan.	synth_codeswitch
+p4n00062	numbers	Kadar faedah tahunan ialah 5.8%.	Kadar faedah tahunan ialah lima perpuluhan lapan peratus.	numbers
+p4c00030	conversational	Status permohonan telefon puan kini sedang disemak.	Status permohonan telefon puan kini sedang disemak.	codeswitch
+p4g02009	conversational	Gangguan perkhidmatan di Kota Bharu sedang dibaiki oleh pasukan kami.	Gangguan perkhidmatan di Kota Bharu sedang dibaiki oleh pasukan kami.	greedy_bigram
+p4n00273	numbers	Dia lahir pada 22/10/2006.	Dia lahir pada dua puluh dua Oktober dua ribu enam.	numbers
+p4g00312	general	Light meninggal dalam pelukan ayahnya, setelah sebelumnya memohon untuk percaya padanya bahawa dia melakukan itu semua demi keadilan.	Light meninggal dalam pelukan ayahnya, setelah sebelumnya memohon untuk percaya padanya bahawa dia melakukan itu semua demi keadilan.	greedy_bigram
+p4n00094	numbers	Kod pengesahan anda ialah 630539.	Kod pengesahan anda ialah enam tiga kosong lima tiga sembilan.	numbers
+p4g01905	general	Populasi NRI dan PIO di seluruh dunia dianggarkan lebih kurang 30 million.	Populasi NRI dan PIO di seluruh dunia dianggarkan lebih kurang tiga puluh million.	greedy_bigram
+p4g01348	general	Jadual jenis ini juga menganalisis corak dalam kadar kematian yang boleh diperhatikan dari semasa ke semasa.	Jadual jenis ini juga menganalisis corak dalam kadar kematian yang boleh diperhatikan dari semasa ke semasa.	greedy_bigram
+p4g02311	conversational	Tempahan meja untuk tiga orang pada malam Isnin telah disahkan.	Tempahan meja untuk tiga orang pada malam Isnin telah disahkan.	greedy_bigram
+p4x00173	codeswitch	Saya tak dapat confirm, booking nampak salah.	Saya tak dapat confirm, booking nampak salah.	synth_codeswitch
+p4g02309	conversational	Maaf Dato, slot pukul tiga petang sudah penuh.	Maaf Dato, slot pukul tiga petang sudah penuh.	greedy_bigram
+p4n00274	numbers	Diskaun sebanyak 41% untuk semua barang.	Diskaun sebanyak empat puluh satu peratus untuk semua barang.	numbers
+p4x00191	codeswitch	Aduan payment dah kami share.	Aduan payment dah kami share.	synth_codeswitch
+p4g01734	conversational	Selamat pagi encik Kok Leong, saya Nadia dari Hotel Seri Pantai.	Selamat pagi encik Kok Leong, saya Nadia dari Hotel Seri Pantai.	greedy_bigram
+p4g02319	conversational	Yuran pendaftaran boleh dibayar di kaunter atau dalam talian.	Yuran pendaftaran boleh dibayar di kaunter atau dalam talian.	greedy_bigram
+p4n00102	numbers	Kadar faedah tahunan ialah 9.4%.	Kadar faedah tahunan ialah sembilan perpuluhan empat peratus.	numbers
+p4g01744	general	Domagk menerima Hadiah Nobel dalam fisiologi/perubatan bagi penemuan ubat sulfa.	Domagk menerima Hadiah Nobel dalam fisiologi/perubatan bagi penemuan ubat sulfa.	greedy_bigram
+p4n00221	numbers	Diskaun sebanyak 71% untuk semua barang.	Diskaun sebanyak tujuh puluh satu peratus untuk semua barang.	numbers
+p4n00010	numbers	Tarikh akhir pendaftaran ialah 16/10/2027.	Tarikh akhir pendaftaran ialah enam belas Oktober dua ribu dua puluh tujuh.	numbers
+p4g02170	general	Kejadian ini merupakan rampasan terakhir ke Taiwan sebuah pesawat awam China daratan.	Kejadian ini merupakan rampasan terakhir ke Taiwan sebuah pesawat awam China daratan.	greedy_bigram
+p4g01207	general	Tatabahasa Quenya bersifat aglutinatif dan kebanyakan akhiran, iaitu partikel kata yang berbeza digabungkan dengan menambahkannya.	Tatabahasa Quenya bersifat aglutinatif dan kebanyakan akhiran, iaitu partikel kata yang berbeza digabungkan dengan menambahkannya.	greedy_bigram
+p4x00371	codeswitch	kak tak hadir untuk payment hari ini.	kak tak hadir untuk payment hari ini.	synth_codeswitch
+p4g01317	general	Jangkitan tetap rendah sehingga akhir Mac tetapi menyaksikan peningkatan mendadak pada April.	Jangkitan tetap rendah sehingga akhir Mac tetapi menyaksikan peningkatan mendadak pada April.	greedy_bigram
+p4g01475	general	Abangnya Mohibullah Khan ialah salah seorang pemain profesional skuasy dalam era 70-an.	Abangnya Mohibullah Khan ialah salah seorang pemain profesional skuasy dalam era tujuh puluh-an.	greedy_bigram
+p4g00415	general	Cili yang paling lazim ialah lada cili merah atau lada cayenne, yang kedua-duanya adalah spesies Capsicum annuum.	Cili yang paling lazim ialah lada cili merah atau lada cayenne, yang kedua-duanya adalah spesies Capsicum annuum.	greedy_bigram
+p4g02018	conversational	Wei Jie di sini, saya mewakili pasukan khidmat pelanggan.	Wei Jie di sini, saya mewakili pasukan khidmat pelanggan.	greedy_bigram
+p4n00145	numbers	Anda perlu membayar RM302 sebelum 13/9/2029.	Anda perlu membayar tiga ratus dua ringgit sebelum tiga belas September dua ribu dua puluh sembilan.	numbers
+p4g00282	general	Pengikat semulajadi berasaskan tumbuhan: Bahan bermukus yang diperolehi daripada banyak sumber tumbuhan dicampur dengan bahan wangian dan air.	Pengikat semulajadi berasaskan tumbuhan: Bahan bermukus yang diperolehi daripada banyak sumber tumbuhan dicampur dengan bahan wangian dan air.	greedy_bigram
+p4c00141	codeswitch	Boleh puan confirm appointment pada hari Sabtu?	Boleh puan konferm apointmen pada hari Sabtu?	codeswitch
+p4c00015	conversational	Status permohonan elektrik encik kini sedang disemak.	Status permohonan elektrik encik kini sedang disemak.	codeswitch
+p4x00067	codeswitch	tuan tak hadir untuk service hari ini.	tuan tak hadir untuk service hari ini.	synth_codeswitch
+p4g02313	conversational	Kami dapati ada transaksi luar biasa dalam akaun Dato.	Kami dapati ada transaksi luar biasa dalam akaun Dato.	greedy_bigram
+p4g01587	general	Kerajaan China membenarkan penyiasat mencari sebab utama kematian binatang peliharaan tersebut.	Kerajaan China membenarkan penyiasat mencari sebab utama kematian binatang peliharaan tersebut.	greedy_bigram
+p4c00054	codeswitch	Kami boleh arrange delivery pada hari Ahad.	Kami boleh arrange deliveri pada hari Ahad.	codeswitch
+p4x00366	codeswitch	Meeting dengan kak bermula pukul tujuh.	Meeting dengan kak bermula pukul tujuh.	synth_codeswitch
+p4g01468	general	J.K Rowling dan peguamnya telah membuat pengakuan bahawa kebocoran itu adalah benar.	J.K Rowling dan peguamnya telah membuat pengakuan bahawa kebocoran itu adalah benar.	greedy_bigram
+p4g02355	general	Isotop ini digunakan untuk tomograf pemancaran positron, teknik yang digunakan untuk pengimejan perubatan.	Isotop ini digunakan untuk tomograf pemancaran positron, teknik yang digunakan untuk pengimejan perubatan.	greedy_bigram
+p4g00829	general	Macao telah menggantikan tempat Makarov sebagai pengerusi persatuan setelah ahli utama persatuan in hilang.	Macao telah menggantikan tempat Makarov sebagai pengerusi persatuan setelah ahli utama persatuan in hilang.	greedy_bigram
+p4n00039	numbers	Anda perlu membayar RM4243.58 sebelum 28 Ogos 2006.	Anda perlu membayar empat ribu dua ratus empat puluh tiga ringgit lima puluh lapan sen sebelum dua puluh lapan Ogos dua ribu enam.	numbers
+p4x00135	codeswitch	encik minta check booking hari ini.	encik minta check booking hari ini.	synth_codeswitch
+p4g01181	general	Pelbagai inisiatif peringkat negara dan gerakan antarabangsa memberi penekanan kepada pelbagai jenis pembaharuan tadbir urus.	Pelbagai inisiatif peringkat negara dan gerakan antarabangsa memberi penekanan kepada pelbagai jenis pembaharuan tadbir urus.	greedy_bigram
+p4g02012	conversational	Kereta cik sudah siap diservis dan boleh diambil petang ini.	Kereta cik sudah siap diservis dan boleh diambil petang ini.	greedy_bigram
+p4g00689	general	Kebanyakan beluncas adalah maun, tetapi ada beberapa spesies seperti Spalgis epius dan Liphyra brassolis yang memakan serangga.	Kebanyakan beluncas adalah maun, tetapi ada beberapa spesies seperti Spalgis epius dan Liphyra brassolis yang memakan serangga.	greedy_bigram
+p4g01477	general	Islam adalah agama rasmi di Kuwait, dan majoriti penduduk rakyatnya beragama Muslim.	Islam adalah agama rasmi di Kuwait, dan majoriti penduduk rakyatnya beragama Muslim.	greedy_bigram
+p4g01166	general	Laser diodes berkuasa rendah digunakan dalam penunjuk laser, pencetak laser, dan pemain CD/DVD.	Laser diodes berkuasa rendah digunakan dalam penunjuk laser, pencetak laser, dan pemain CD/DVD.	greedy_bigram
+p4n00285	numbers	Kedai dibuka dari 11:49 hingga 11:07 pagi.	Kedai dibuka dari pukul sebelas empat puluh sembilanhingga pukul sebelas tujuh pagi.	numbers
+p4g01518	general	Insyaalah, rasa gatal, sakit, bengkak, kerengsaan atau lebam akan beransur kurang.	Insyaalah, rasa gatal, sakit, bengkak, kerengsaan atau lebam akan beransur kurang.	greedy_bigram
+p4g02150	general	Tetapi sesetengah produk pencen mencerminkan risiko pulangan yang tidak dijangka.	Tetapi sesetengah produk pencen mencerminkan risiko pulangan yang tidak dijangka.	greedy_bigram
+p4x00339	codeswitch	Booking abang untuk hari Khamis dah confirmed.	Booking abang untuk hari Khamis dah confirmed.	synth_codeswitch

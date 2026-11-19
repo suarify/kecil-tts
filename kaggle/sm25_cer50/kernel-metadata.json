@@ -1,0 +1,17 @@
+{
+ "id": "suarifymalaysia/sm-25-cer50",
+ "title": "sm 25 cer50",
+ "code_file": "sm25_cer50.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_tpu": false,
+ "enable_internet": true,
+ "keywords": ["gpu"],
+ "dataset_sources": ["suarifymalaysia/sm25-cer50-in"],
+ "kernel_sources": [],
+ "competition_sources": [],
+ "model_sources": [],
+ "machine_shape": "NvidiaTeslaT4"
+}

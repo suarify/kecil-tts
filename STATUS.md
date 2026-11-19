@@ -648,3 +648,9 @@
 - Error analysis: errors concentrate on the dense greedily-selected sentences (percentages spelled as words vs Whisper digits, English proper nouns). Number-token stripping changed median only 0.0949 -> 0.0811 (some clips got worse), so it is not purely a formatting artifact. Chatterbox T3 also hit token-repetition / forced-EOS on some clips (truncation).
 - No timing config met the REVIEW <=2.5% CER gate; none was faster than baseline. Baseline generation cost ~12.14 s/clip => 297 clips/h => 11.5 GPU-h for 3,400 clips (batching / conditionals-once gave no speedup).
 - Owner decision pending before any full generation. No generation committed.
+
+## 2026-11-19 Phase 4 representative 50-clip CER retest (owner approved) - submitted
+- The 15-clip gate failed (9.5% CER) but was biased: all 15 were dense greedy-selected sentences. Owner chose a representative retest.
+- scripts/make_p4_cer50.py -> eval/p4_cer50.tsv: 20 general / 10 conversational / 10 codeswitch / 10 numbers, stratified from the 3,400 final sentences.
+- Dataset suarifymalaysia/sm25-cer50-in uploaded (50 texts + ref_ms.wav). Kernel suarifymalaysia/sm-25-cer50 QUEUED: baseline Chatterbox config on all 50, CER via the validated k18 pipeline scorer, per-category medians, s/clip and projected GPU-h for 3,400.
+- Decision rule: if CER median <=2.5% -> owner approves the reported GPU-h then full generation. If still high -> stop Phase 4 and report.

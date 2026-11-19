@@ -685,3 +685,11 @@
 - Owner: info icon 30% smaller and floating top-right after the Kecil-TTS word -> .infobtn 30->21px, font 17->12px, translateY(-4px), margin 8px (verified live 21px).
 - Owner: "why time taken >2s even in streaming" -> two causes fixed: (a) the timer t0 was started before `await ensureAudio()` (AudioContext resume + FX chain build) and phonemize(), so setup time was counted as synthesis; moved t0 to just before generation. (b) Streaming only speeds FIRST audio, not total synthesis; the stats panel now swaps labels in streaming mode: "Time taken" -> "Time to audio" (shows firstT) and "First audio" -> "Total gen" (shows total), with an explanatory note in the info line.
 - Verified live after generation in streaming mode: "Time to audio 554 ms", "Total gen 554 ms", render speed 5.6x, no JS errors. Longer sentences will show first-audio < total gen.
+
+## 2026-11-20 Space UI v6 (5 owner requests) - uploaded + committed to GitHub
+- (1) Nicole speaker sub no longer says "af_nicole"; note simplified.
+- (2) "Runs anywhere" modal title no longer prefixed with "3 ·" (EN + BM).
+- (3) The two modal SVGs now gently float/rotate via @keyframes floaty (3.2s/3.8s, staggered), disabled under prefers-reduced-motion.
+- (4) Removed the old Yati note "Understandable and the most accurate so far...".
+- (5) Footer gets a header-like gradient separator: 3px teal->navy->teal bar on top, 4px navy->teal bar at bottom, subtle tint background.
+- Verified live via browser: 3 speakers, Nicole sub "female voice", modal title clean, svgAnim "floaty", footer gradient present, zero JS errors.

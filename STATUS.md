@@ -642,3 +642,9 @@
 - Kernel suarifymalaysia/sm-24-cer-verify QUEUED. Re-scores the SAME 15 generated wavs (from sm23 config A) two ways: the project-validated k18 HF sr pipeline scorer (generate_kwargs language=malay) and the direct WhisperForConditionalGeneration scorer used in sm23. Prints per-clip hypotheses + CERs and aggregate medians/means.
 - Dataset suarifymalaysia/sm24-cer-verify-in: 15 flat wavs + refs.tsv, status ready.
 - If the pipeline scorer gives ~2% CER, the sm23 gate failure was a scorer artifact -> proceed with full generation planning (11.5 GPU-h for baseline). If it still gives ~9%, generation quality is genuinely below the 2.5% gate -> stop and report.
+
+## 2026-11-19 Phase 4 CER verification result: gate genuinely FAILED
+- suarifymalaysia/sm-24-cer-verify COMPLETE. Both the validated k18 pipeline scorer and the direct scorer give IDENTICAL results on the same 15 wavs: median CER 0.0949, capped mean 0.1243. So the sm23 failure was NOT a scorer artifact.
+- Error analysis: errors concentrate on the dense greedily-selected sentences (percentages spelled as words vs Whisper digits, English proper nouns). Number-token stripping changed median only 0.0949 -> 0.0811 (some clips got worse), so it is not purely a formatting artifact. Chatterbox T3 also hit token-repetition / forced-EOS on some clips (truncation).
+- No timing config met the REVIEW <=2.5% CER gate; none was faster than baseline. Baseline generation cost ~12.14 s/clip => 297 clips/h => 11.5 GPU-h for 3,400 clips (batching / conditionals-once gave no speedup).
+- Owner decision pending before any full generation. No generation committed.

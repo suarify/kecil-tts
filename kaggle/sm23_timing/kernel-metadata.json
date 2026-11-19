@@ -1,0 +1,17 @@
+{
+ "id": "suarifymalaysia/sm-23-p4-timing",
+ "title": "sm 23 p4 timing",
+ "code_file": "sm23_timing.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_tpu": false,
+ "enable_internet": true,
+ "keywords": ["gpu"],
+ "dataset_sources": ["suarifymalaysia/sm23-p4-timing-in"],
+ "kernel_sources": [],
+ "competition_sources": [],
+ "model_sources": [],
+ "machine_shape": "NvidiaTeslaT4"
+}

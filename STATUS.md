@@ -626,3 +626,8 @@
 - `scripts/make_p4_codeswitch.py`: corpus had only ~218 unused code-switch sentences, so generated 600 Malay-frame + English-loanword sentences from 20 templates x word lists (REVIEW says "English loanwords in Malay frames, use the lexicon from C3").
 - `scripts/merge_p4_texts.py` -> `eval/p4_new_texts_final.tsv`: 2,500 greedy + 600 codeswitch (204 corpus + 396 synthetic) + 300 numbers = 3,400 rows, asserted.
 - NEXT (GPU, needs owner yes): 50-clip timing kernel testing batched Chatterbox generation + fewer sampling steps; pick fastest config with CER <=2.5% on those 50; report clips/hour and total GPU-h for owner approval BEFORE generating all 3,400.
+
+## 2026-11-19 Phase 4 step 2 (GPU, owner approved): 50-clip timing kernel submitted
+- Owner explicitly approved the timing kernel. Dataset suarifymalaysia/sm23-p4-timing-in uploaded (50 texts from eval/p4_new_texts_final.tsv + ref_ms.wav), status ready.
+- Kernel suarifymalaysia/sm-23-p4-timing pushed and QUEUED. Tests 3 configs on 15 clips each: A baseline (audio_prompt_path per call), B prepare_conditionals once, C conditionals once + top_p 0.9. Measures generation s/clip, clips/hour, projected GPU-h for all 3,400, and Whisper large-v3 CER (language=malay, capped 1.0, median + capped mean). Fastest config with CER median <=2.5% wins.
+- IMPORTANT: owner must approve the reported total GPU-h BEFORE the full 3,400-clip generation is committed (REVIEW rule).

@@ -36,6 +36,13 @@ subprocess.run('nvidia-smi --query-gpu=name,memory.total --format=csv,noheader',
 for d in sorted(glob.glob('/kaggle/input/*')):
     print('input:', d, len(os.listdir(d)), 'entries', flush=True)
 
+# find the unpacked wavs (Kaggle auto-expanded the corpus)
+WAVS = sorted(glob.glob('/kaggle/input/**/c*.wav', recursive=True))
+REF = glob.glob('/kaggle/input/**/ref_nicole.wav', recursive=True)[0]
+print('wavs:', len(WAVS), '| ref:', REF, flush=True)
+if len(WAVS) < 800:
+    raise SystemExit(f'expected ~1281 clips, got {len(WAVS)}')
+
 sh('pip install -q chatterbox-tts soundfile')
 sh('pip uninstall -y -q torchvision torchao torchtext || true')
 sh('pip install -q "transformers==4.46.3"')
@@ -53,7 +60,6 @@ sh(f'{sys.executable} {OUT}/fix_torch.py')
 sh(f'{sys.executable} -c "from chatterbox.vc import ChatterboxVC; print(\'vc import ok\')"')
 
 REF = glob.glob('/kaggle/input/**/ref_nicole.wav', recursive=True)[0]
-WAVS = sorted(glob.glob('/kaggle/input/**/c*.wav', recursive=True))
 print('wavs', len(WAVS), 'ref', REF, flush=True)
 
 from chatterbox.vc import ChatterboxVC  # noqa: E402

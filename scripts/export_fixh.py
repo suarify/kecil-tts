@@ -47,6 +47,8 @@ ap.add_argument('--clamp-hi', type=int, default=0, help='maximum phoneme duratio
 ap.add_argument('--air-db', type=float, default=0.0, help='high-shelf boost above --air-fc (dB) baked as a linear-phase FIR')
 ap.add_argument('--air-fc', type=float, default=6500.0, help='shelf corner in Hz')
 ap.add_argument('--gn-smooth', action='store_true', help='3-frame smoothing of the noise gains')
+ap.add_argument('--phase-smooth', type=int, default=0, help='frame window for circular smoothing of harmonic phase u (0=off)')
+ap.add_argument('--phase-shrink', type=float, default=1.0, help='multiply harmonic phase angles by this factor (1=off)')
 ap.add_argument('--text', default='runs/k16_final/textA_c4_last.pt')
 ap.add_argument('--out', default='runs/k16_final/fixh_export')
 A = ap.parse_args()
@@ -95,13 +97,15 @@ class HeadX(nn.Module):
     2) the 3 ms burst path: 'gated' = unvoiced frames only with a `hang`-frame hangover, 'soft' = kept but
        scaled by `soft` inside voiced frames, 'off' = no burst path."""
     def __init__(self, h, gap_keep=1.0, hang=21, burst_mode='gated', soft=0.3, gn_smooth=False, shelf=None,
-                 gap_mask=True):
+                 gap_mask=True, phase_smooth=0, phase_shrink=1.0):
         super().__init__(); self.h = h; self.st = ConvSTFT(h.n_fft, h.hop); self.sb = ConvSTFT(150, 75)
         self.register_buffer('k', torch.arange(1, h.K + 1).float()[None, :, None])
         self.register_buffer('fr', torch.linspace(0, SR / 2, h.nb)[None, :, None])
         self.gap_keep, self.hang, self.burst_mode, self.soft = gap_keep, hang, burst_mode, soft
         self.gap_mask = gap_mask
         self.gn_smooth = gn_smooth
+        self.phase_smooth = phase_smooth
+        self.phase_shrink = phase_shrink
         if shelf is not None:
             self.register_buffer('shelf', torch.tensor(shelf, dtype=torch.float32)[None, None, :])
         else:
@@ -119,6 +123,14 @@ class HeadX(nn.Module):
         if self.gn_smooth:
             gn = F.avg_pool1d(gn, 3, 1, 1, count_include_pad=False)
         um = torch.sqrt(g[:, 1] ** 2 + g[:, 2] ** 2).clamp_min(1e-4); ur, ui = g[:, 1] / um, g[:, 2] / um
+        if self.phase_smooth > 1:
+            k = self.phase_smooth
+            ur = F.avg_pool1d(ur, k, 1, k // 2, count_include_pad=False)
+            ui = F.avg_pool1d(ui, k, 1, k // 2, count_include_pad=False)
+            um = torch.sqrt(ur ** 2 + ui ** 2).clamp_min(1e-4); ur, ui = ur / um, ui / um
+        if self.phase_shrink != 1.0:
+            ph = torch.atan2(ui, ur) * self.phase_shrink
+            ur, ui = torch.cos(ph), torch.sin(ph)
         # sine bank: running phase in float64 at frame rate, wrapped, then interpolated between frame centres
         r = f0.double() * FHOP / SR; c = torch.cumsum(r, 1); c = (c - torch.floor(c)).float()
         d = torch.cat([r[:, 1:], torch.zeros_like(r[:, :1])], 1).float()
@@ -203,7 +215,8 @@ def make_shelf(db, fc, taps=127):
 
 SHELF = make_shelf(A.air_db, A.air_fc) if A.air_db else None
 HEAD = dict(gap_keep=A.gap_keep, hang=A.hang, burst_mode=A.burst, soft=A.soft,
-            gn_smooth=A.gn_smooth, shelf=SHELF, gap_mask=not A.no_gap_mask)
+            gn_smooth=A.gn_smooth, shelf=SHELF, gap_mask=not A.no_gap_mask,
+            phase_smooth=A.phase_smooth, phase_shrink=A.phase_shrink)
 
 
 class Paradee2(nn.Module):

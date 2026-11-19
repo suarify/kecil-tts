@@ -551,3 +551,12 @@
 - `scripts/make_sota_p1_page.py`: builds the blind, RMS-matched, shuffled 12-sentence owner page with label reveal, "pick cleaner" + "watery" ticks and P1>=8/12 tally. Smoke-tested.
 - v0.4.1 export recipe verified from the published ONNX: default FIX H (K=64, hang=21, burst gated, gap_keep=1, no air/no smoothing); P1 will be exported with identical settings for a fair A/B.
 - NEXT: when kernel completes -> download `text_f0uv.pt` -> export with `--uv-text` + FIX H -> webgpu patch (0 float64) -> sota_eval (Gate 1 automatic) -> if pass, build `runs/listen/sota_p1.html` for owner.
+
+## 2026-11-19 Space UI polish (ready for the P1 voice rollout)
+- `scripts/polish_space.py` (idempotent) updates `runs/local_v041/index.html`:
+  - Sleeker type: Plus Jakarta Sans body + Outfit display (replaces Inter/Sora).
+  - Live speed-highlight strip as the top row above the textarea: shows realtime factor, a progress bar, and a "+X% vs <previous version>" comparison. On every generation it updates with the measured speed for that run. Benchmarks are per-model in a SPEED map.
+  - Sample-text chips now fill the textarea AND immediately trigger Speak.
+  - Adds `Suarify/kecil-tts-yati-v0.5.0` ("v0.5 (SOTA P1)") to the Yati version dropdown (name is an assumption; confirm with owner before publish).
+- `scripts/verify_space.py` smoke-checks all six changes. Space upload is deferred until P1 passes Gate 1 + owner A/B.
+- Owner's rollout instruction: publish the P1 model, add the voice to the HF Space dropdown, and apply the UI polish. Publishing still gated on automatic + owner Gate 1.

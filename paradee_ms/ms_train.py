@@ -323,8 +323,9 @@ if A.gan:
     D = Discriminators().to(DEV)
     optD = torch.optim.AdamW(D.parameters(), lr=A.dlr, betas=(0.8, 0.99), weight_decay=A.wd)
 opt = torch.optim.AdamW(model.parameters(), lr=LR, betas=(0.8, 0.99), weight_decay=A.wd)
-AMP = A.gan and DEV == 'cuda'   # REVIEW Phase 3: fp16 for the GAN stage
+AMP = A.gan and DEV == 'cuda'   # REVIEW Phase 3: fp16 ONLY for the generator forward, not the GAN losses
 scaler = torch.cuda.amp.GradScaler(enabled=AMP)
+nan_count = 0
 
 
 def jitter(x, sigma, voiced=None):
@@ -384,25 +385,34 @@ while step < A.steps and (time.time() - T0) / 60 < A.max_minutes:
     adv = fm = ld = None
     with torch.autocast(device_type=DEV, dtype=torch.float16, enabled=AMP):
         y = model(asr, F0_in, N_in, c0=c0)
-        lm, ls = spec_losses(y, au)
-        lh = harm_loss(y, au, F0, weights=wg)
-        lmod = mod_loss(y, au, model.head.last['cyc'], model.head.last['uv'], weights=wg)
-        if A.gan:
-            ld = d_loss(D, au, y.detach())
-            if not warm:
-                for p in D.parameters():
-                    p.requires_grad_(False)
-                adv, fm = g_loss(D, au, y)
-                for p in D.parameters():
-                    p.requires_grad_(True)
-                loss = A.mel_weight * (lm + ls) + adv + 2.0 * fm + 2.0 * lh + 5.0 * lmod
-            else:
-                loss = torch.zeros((), device=DEV)   # D warm-up: G is frozen
-        else:
-            loss = lm + ls + 2.0 * lh + 5.0 * lmod
+    y = y.float()   # GAN losses (squared LSGAN terms) MUST be fp32 - they overflow in fp16
+    lm, ls = spec_losses(y, au)
+    lh = harm_loss(y, au, F0, weights=wg)
+    lmod = mod_loss(y, au, model.head.last['cyc'], model.head.last['uv'], weights=wg)
     if A.gan:
+        ld = d_loss(D, au, y.detach())
+        if not warm:
+            for p in D.parameters():
+                p.requires_grad_(False)
+            adv, fm = g_loss(D, au, y)
+            for p in D.parameters():
+                p.requires_grad_(True)
+            loss = A.mel_weight * (lm + ls) + adv + 2.0 * fm + 2.0 * lh + 5.0 * lmod
+        else:
+            loss = torch.zeros((), device=DEV)   # D warm-up: G is frozen
+    else:
+        loss = lm + ls + 2.0 * lh + 5.0 * lmod
+    bad = A.gan and (not torch.isfinite(ld) or not torch.isfinite(loss))
+    if bad:
+        nan_count += 1
+        print(f'NONFINITE step {step} d={ld.item()} g={loss.item()} count={nan_count}', flush=True)
+        if nan_count > 20:
+            raise SystemExit('GAN diverged: too many non-finite steps')
+    if A.gan and not bad:
         optD.zero_grad()
         scaler.scale(ld).backward()
+        scaler.unscale_(optD)
+        torch.nn.utils.clip_grad_norm_(D.parameters(), 5.0)
         scaler.step(optD)
         if not warm:
             opt.zero_grad()
@@ -411,7 +421,7 @@ while step < A.steps and (time.time() - T0) / 60 < A.max_minutes:
             torch.nn.utils.clip_grad_norm_(model.parameters(), 5.0)
             scaler.step(opt)
         scaler.update()
-    else:
+    elif not A.gan:
         opt.zero_grad()
         loss.backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), 5.0)

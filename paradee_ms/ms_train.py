@@ -40,6 +40,7 @@ ap.add_argument('--smooth', action='store_true', help='median/moving-average the
 ap.add_argument('--aug', type=float, default=0.0, help='decoder: strength of smooth F0/N jitter on the inputs (0 = off)')
 ap.add_argument('--eval-every', type=int, default=250)
 ap.add_argument('--score', choices=['sum', 'dur_asr'], default='sum', help='text side: which held-out losses pick the checkpoint')
+ap.add_argument('--uv-text', action='store_true', help='text side: log-F0 + voiced/unvoiced head (REVIEW Phase 1)')
 ap.add_argument('--gan', action='store_true', help='decoder: adversarial stage (Paradee stage two)')
 ap.add_argument('--mel-weight', type=float, default=3.0)
 ap.add_argument('--patience', type=int, default=8)
@@ -71,6 +72,7 @@ def cosine(step, total, warm=50):
 # ================================================================ text side
 if A.which == 'text':
     LR = A.lr or 5e-4
+    UV = A.uv_text
 
     def collate(batch):
         B = len(batch)
@@ -97,17 +99,47 @@ if A.which == 'text':
         tm = torch.arange(T)[None] < L[:, None]
         return [x.to(DEV) for x in (ids, L, dur, ten, aln, F0, N, tm, fm)]
 
-    def losses(model, batch):
-        ids, L, dur, ten, aln, F0, N, tm, fm = batch
-        pd_, pF0, pN, pasr = model(ids, L, aln)
-        l_dur = (F.l1_loss(torch.log(pd_.clamp_min(1e-3)), torch.log(dur.clamp_min(1e-3)), reduction='none') * tm).sum() / tm.sum()
-        l_f0 = (F.l1_loss(pF0, F0, reduction='none') * fm).sum() / fm.sum() / 100
-        l_n = (F.l1_loss(pN, N, reduction='none') * fm).sum() / fm.sum()
-        l_asr = (F.l1_loss(pasr, ten, reduction='none') * tm[:, None]).sum() / tm.sum() / 512
-        return l_dur, l_f0, l_n, l_asr
+    if UV:
+        from student_uv import TextStudentUV, set_lf0_stats, reinit_f0_proj
+        model = TextStudentUV('s+mlp').to(DEV)
+        model.load_state_dict(torch.load(A.init, map_location=DEV, weights_only=False)['model'], strict=False)
+        reinit_f0_proj(model)                 # old F0_proj emitted Hz, new one predicts normalised log-F0
+        set_lf0_stats(model, train)           # mu/sd of log-F0 over voiced training frames
+        print(f'UV text side: lf0 mu/sd {model.lf0_mu.item():.3f}/{model.lf0_sd.item():.3f}', flush=True)
 
-    model = TextStudent('s+mlp').to(DEV)
-    model.load_state_dict(torch.load(A.init, map_location=DEV)['model'])
+        def lf0_target(F0hz):
+            v = F0hz > 50
+            lf0 = torch.where(v, torch.log(F0hz.clamp_min(1)), torch.zeros_like(F0hz))
+            return (lf0 - model.lf0_mu) / model.lf0_sd, v.float()
+
+        def losses(model, batch):
+            ids, L, dur, ten, aln, F0, N, tm, fm = batch
+            pd_, plf0, puv, pN, pasr = model(ids, L, aln)
+            tgt_lf0, tgt_uv = lf0_target(F0)
+            w = torch.where(tgt_uv > 0.5, 1.0, 0.1)   # 1.0 voiced, 0.1 unvoiced (F0 irrelevant where unvoiced)
+            l_dur = (F.l1_loss(torch.log(pd_.clamp_min(1e-3)), torch.log(dur.clamp_min(1e-3)), reduction='none') * tm).sum() / tm.sum()
+            l_f0 = (F.l1_loss(plf0, tgt_lf0, reduction='none') * fm * w).sum() / (fm * w).sum().clamp_min(1)
+            l_uv = (F.binary_cross_entropy_with_logits(puv, tgt_uv, reduction='none') * fm).sum() / fm.sum()
+            l_n = (F.l1_loss(pN, N, reduction='none') * fm).sum() / fm.sum()
+            l_asr = (F.l1_loss(pasr, ten, reduction='none') * tm[:, None]).sum() / tm.sum() / 512
+            return [l_dur, l_f0, l_n, l_asr, l_uv]
+
+        NLOSS = 5
+    else:
+        model = TextStudent('s+mlp').to(DEV)
+        model.load_state_dict(torch.load(A.init, map_location=DEV, weights_only=False)['model'])
+
+        def losses(model, batch):
+            ids, L, dur, ten, aln, F0, N, tm, fm = batch
+            pd_, pF0, pN, pasr = model(ids, L, aln)
+            l_dur = (F.l1_loss(torch.log(pd_.clamp_min(1e-3)), torch.log(dur.clamp_min(1e-3)), reduction='none') * tm).sum() / tm.sum()
+            l_f0 = (F.l1_loss(pF0, F0, reduction='none') * fm).sum() / fm.sum() / 100
+            l_n = (F.l1_loss(pN, N, reduction='none') * fm).sum() / fm.sum()
+            l_asr = (F.l1_loss(pasr, ten, reduction='none') * tm[:, None]).sum() / tm.sum() / 512
+            return [l_dur, l_f0, l_n, l_asr]
+
+        NLOSS = 4
+
     opt = torch.optim.AdamW(model.parameters(), lr=LR, weight_decay=A.wd)
 
     @torch.no_grad()
@@ -119,13 +151,16 @@ if A.which == 'text':
         for r in held:
             ids = r['ids'][None].to(DEV)
             L = torch.tensor([len(r['ids'])], device=DEV)
-            pd_, _, _, _ = model(ids, L)
+            pd_ = model(ids, L)[0]   # forward returns (dur, lf0n, uv, N, asr) in UV mode
             p = torch.round(pd_[0]).clamp(min=1).cpu()
             mae.append((p - r['pred_dur'].float()).abs().mean().item())
             ratio.append(float(p.sum() / r['pred_dur'].sum()))
         model.train()
-        return dict(l_dur=ls[0], l_f0=ls[1], l_n=ls[2], l_asr=ls[3], dur_mae_frames=sum(mae) / len(mae),
-                    length_ratio=sum(ratio) / len(ratio))
+        d = dict(l_dur=ls[0], l_f0=ls[1], l_n=ls[2], l_asr=ls[3], dur_mae_frames=sum(mae) / len(mae),
+                 length_ratio=sum(ratio) / len(ratio))
+        if UV:
+            d['l_uv'] = ls[4]
+        return d
 
     step = 0
     best = [float('inf'), 0, None]
@@ -144,7 +179,10 @@ if A.which == 'text':
         step += 1
         if step % A.eval_every == 0:
             ev_ = evaluate()
-            sc_ = ev_['l_dur'] + ev_['l_asr'] if A.score == 'dur_asr' else ev_['l_dur'] + ev_['l_f0'] + ev_['l_n'] + ev_['l_asr']
+            if UV:
+                sc_ = ev_['l_dur'] + ev_['l_asr'] + ev_['l_uv']   # REVIEW Phase 1: selection includes V/UV loss
+            else:
+                sc_ = ev_['l_dur'] + ev_['l_asr'] if A.score == 'dur_asr' else ev_['l_dur'] + ev_['l_f0'] + ev_['l_n'] + ev_['l_asr']
             print('EVAL', step, json.dumps({k: round(v, 3) for k, v in ev_.items()}), 'score', round(sc_, 3), flush=True)
             if sc_ < best[0]:
                 best[:] = [sc_, step, {k: v.detach().clone() for k, v in model.state_dict().items()}]
@@ -152,7 +190,8 @@ if A.which == 'text':
                 print('early stop, best step', best[1], flush=True)
                 break
         if step % 100 == 0:
-            print(f'step {step} loss {loss.item():.4f} dur {ls[0].item():.3f} f0 {ls[1].item():.3f} n {ls[2].item():.3f} asr {ls[3].item():.3f} {(time.time() - T0) / step:.2f}s/step', flush=True)
+            uvmsg = f' uv {ls[4].item():.3f}' if UV else ''
+            print(f'step {step} loss {loss.item():.4f} dur {ls[0].item():.3f} f0 {ls[1].item():.3f} n {ls[2].item():.3f} asr {ls[3].item():.3f}{uvmsg} {(time.time() - T0) / step:.2f}s/step', flush=True)
     if best[2] is not None:
         model.load_state_dict(best[2])
     ev = evaluate()

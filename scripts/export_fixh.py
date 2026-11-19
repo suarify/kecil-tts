@@ -17,6 +17,7 @@ import warnings
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '.stubs'))
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'paradee_ms'))
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'g2p'))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'kaggle', 'ds_pms'))
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 warnings.filterwarnings('ignore')
 
@@ -50,6 +51,7 @@ ap.add_argument('--gn-smooth', action='store_true', help='3-frame smoothing of t
 ap.add_argument('--phase-smooth', type=int, default=0, help='frame window for circular smoothing of harmonic phase u (0=off)')
 ap.add_argument('--phase-shrink', type=float, default=1.0, help='multiply harmonic phase angles by this factor (1=off)')
 ap.add_argument('--text', default='runs/k16_final/textA_c4_last.pt')
+ap.add_argument('--uv-text', action='store_true', help='text ckpt is a TextStudentUV (REVIEW Phase 1): use learned log-F0 + UV head instead of F0Ntrain')
 ap.add_argument('--out', default='runs/k16_final/fixh_export')
 A = ap.parse_args()
 os.makedirs(A.out, exist_ok=True)
@@ -223,6 +225,7 @@ class Paradee2(nn.Module):
     def __init__(self, ts, vd):
         super().__init__(); self.ts, self.vd, self.head = ts, vd, HeadX(vd.head, **HEAD)
         self.cmin, self.cmax = A.clamp_lo, (A.clamp_hi if A.clamp_hi else 10 ** 6)
+        self.uv_text = A.uv_text
 
     def text(self, ids):
         t = self.ts; p = t.predictor; s = t.style
@@ -256,11 +259,17 @@ class Paradee2(nn.Module):
         n = torch.clamp(torch.round(dur / speed), min=self.cmin, max=self.cmax).long()
         end = torch.cumsum(n, 0); start = end - n; f = torch.arange(end[-1])[None]
         aln = ((f >= start[:, None]) & (f < end[:, None])).float()[None]
-        F0, N = self.ts.predictor.F0Ntrain(d.transpose(-1, -2) @ aln, self.ts.style)
+        en = d.transpose(-1, -2) @ aln
+        if self.uv_text:
+            lf0n, uv_logit, N = self.ts.prosody(en, self.ts.style)
+            F0 = self.ts.f0_hz(lf0n, uv_logit)
+        else:
+            F0, N = self.ts.predictor.F0Ntrain(en, self.ts.style)
         return self.head(self.trunk(asr_tok @ aln, F0, N), F0)
 
 
 if A.state:
+    assert not A.uv_text, '--uv-text is not supported with --state (rebuilt ONNX state); export from the --text checkpoint instead'
     # weights rebuilt from a compiled ONNX (already stripped of weight-norm parametrization)
     ck = torch.load(A.state, map_location='cpu')
     ts = TextStudent('s+mlp').eval(); strip(ts)
@@ -271,7 +280,13 @@ if A.state:
     vd.head.M.copy_(ck['M']); vd.head.Mb.copy_(ck['Mb'])
     print('loaded rebuilt state from', A.state)
 else:
-    ts = TextStudent('s+mlp').eval(); ts.load_state_dict(torch.load(A.text, map_location='cpu')['model'])
+    if A.uv_text:
+        from student_uv import TextStudentUV
+        ts = TextStudentUV('s+mlp').eval()
+        ts.load_state_dict(torch.load(A.text, map_location='cpu', weights_only=False)['model'], strict=True)
+        print(f'UV text side loaded from {A.text}: lf0 mu/sd {ts.lf0_mu.item():.3f}/{ts.lf0_sd.item():.3f}')
+    else:
+        ts = TextStudent('s+mlp').eval(); ts.load_state_dict(torch.load(A.text, map_location='cpu')['model'])
     vd = VDecoder(head='v2', K=A.k, dim=A.dim, blocks=A.blocks).eval(); vd.load_ckpt(A.dec); strip(ts); strip(vd)
 m = Paradee2(ts, vd).eval()
 held = torch.load(sorted(glob.glob('data/teacher/shard_*.pt'))[0])[:4]

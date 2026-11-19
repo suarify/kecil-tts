@@ -517,3 +517,9 @@
 
 ## 2026-11-19 HANDOFF.md written for the other agent
 - Comprehensive dated handoff: project, published state, Kaggle/env traps, full chronology 11-14..11-19, key decisions (FIX H, loudness matching, ms_rows flags, rejected no-training fixes), active files/kernels, pending work. Reviewer should read HANDOFF.md first.
+
+
+## 2026-11-19 FULL 12k Path-B student exported — final gate open
+- sm-15e-full COMPLETE: dec step 12000, text step 5000 (early stop). Pulled after freeing 3 GB of old kernel caches.
+- Exported runs/nicole_full_export/paradee_int8_webgpu.onnx (8.47 MB, FIX H + air6 + gn smoothing, webgpu patch 0 float64).
+- Final page runs/listen/nicole_full.html (localhost:8931/nicole_full.html): TEACHER (Path B) vs FULL 12k, 8 sentences, loudness-matched. Owner verdict needed: publish as 8 MB voice only if clean (no soft/watery/phasey).

@@ -568,3 +568,9 @@
 - Diagnostic with TEACHER-FORCED alignment (removes free-running duration drift): base dropout 10.4%/uverr 17.9%, P1 dropout 11.7%/uverr 18.5% => the explicit UV head did not improve voicing prediction; free-running alignment adds ~7 points of error for both models.
 - REVIEW.md rule: fail -> report numbers, try ONCE with l_uv weight 2.0 and unvoiced-F0 weight 0.0, then stop and report. Owner approval for that retry is pending (standing rule: every GPU step needs explicit yes).
 - IMPORTANT: no publishing / no owner listening page until a gate passes. The Space UI polish (nicole speaker, chips auto-speak, big stats + waveform) is staged locally but NOT uploaded yet.
+
+## 2026-11-19 REVIEW Phase 1 owner A/B page (owner chose to skip the automatic gate + retry)
+- Owner explicitly chose "Skip to owner A/B" over the REVIEW-prescribed retry and over stopping Phase 1. The automatic Gate 1 remains FAILED; no publish decision yet.
+- Built `runs/listen/sota_p1.html` via `scripts/make_sota_p1_page.py --baseline runs/sota/yati_v041 --p1 runs/sota/p1 --n 12`: 12 sentences (6 general / 3 codeswitch / 3 numbers), A/B shuffled per row, loudness-matched to equal RMS, "pick cleaner" + "watery" ticks, labels revealed only after pressing Reveal, P1>=8/12 tally. 24 wavs verified (24 kHz, non-empty).
+- Page opened in the Review pane for the owner. Await owner verdict before ANY publish or Space upload.
+- Space UI v2 staged locally (NOT uploaded): `scripts/polish_space2.py` adds Nicole as a real third speaker (version dropdown underneath), auto-speaking sample chips (already in v1), a large render-stats panel (realtime factor / time taken / first audio / audio length / device + comparison bar) and a live waveform canvas with a moving playhead; JS syntax checked with `node --check`.

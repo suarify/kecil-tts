@@ -509,3 +509,8 @@
 - Owner: probe student level OK, some words a bit phasey. No code until thinking done; decided (1) full training stabilizes phase, (2) free export-level phase knobs untested.
 - export_fixh.py gained --phase-smooth N (circular-average u over N frames) and --phase-shrink F (multiply phase angles). Exported two variants from the 2k probe ckpts (FIX H + air6 base).
 - Page runs/listen/probe_phase.html (localhost:8931/probe_phase.html): TEACHER vs probe current / phase smooth5 / phase x0.5, loudness-matched. Owner to pick; if a phase variant matches TEACHER, bake it into the full 12k export.
+
+## 2026-11-19 Full 12k Path-B training approved and launched
+- Owner verdict on phase stabilization: smooth5 and phase x0.5 both WORSE than current -> learned phase is useful; phasey texture is undertrained-head, not a knob. Explicit approval for full run.
+- Kernel suarifymalaysia/sm-15e-full: same Path-B data (948 converted clips via sm15c kernel source), decoder 12,000 steps + text 10,000 steps from Yati init (~40 min GPU). Outputs dec_nicoleb_full.pt / text_nicoleb_full.pt.
+- After: export FIX H + air6 (proven recipe), loudness-match to Path-B teacher, final listening gate -> publish as 8 MB voice only if clean.

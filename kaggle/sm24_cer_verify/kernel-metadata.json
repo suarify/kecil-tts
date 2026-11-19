@@ -1,0 +1,17 @@
+{
+ "id": "suarifymalaysia/sm-24-cer-verify",
+ "title": "sm 24 cer verify",
+ "code_file": "sm24_cer_verify.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_tpu": false,
+ "enable_internet": true,
+ "keywords": ["gpu"],
+ "dataset_sources": ["suarifymalaysia/sm24-cer-verify-in"],
+ "kernel_sources": [],
+ "competition_sources": [],
+ "model_sources": [],
+ "machine_shape": "NvidiaTeslaT4"
+}

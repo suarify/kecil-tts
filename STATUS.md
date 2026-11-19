@@ -637,3 +637,8 @@
 - Warning in the log: Chatterbox T3 hit token-repetition and forced EOS on some clips - a known source of truncation/poor CER on long dense sentences. The 15 test sentences are the greedily-selected dense ones (percentages, proper nouns), which are harder than the conversational teacher set.
 - CER may be a scorer artifact: my kernel used direct WhisperForConditionalGeneration.generate(language=malay), whereas the project-validated k18 scorer uses the HF sr pipeline with generate_kwargs. Teacher clips normally score ~1.9% median. Need to re-score the SAME generated wavs with the k18 scorer before concluding generation is bad.
 - Owner approval needed before any full 3,400-clip generation (REVIEW rule). No generation committed.
+
+## 2026-11-19 Phase 4 CER scorer verification (owner approved) - submitted
+- Kernel suarifymalaysia/sm-24-cer-verify QUEUED. Re-scores the SAME 15 generated wavs (from sm23 config A) two ways: the project-validated k18 HF sr pipeline scorer (generate_kwargs language=malay) and the direct WhisperForConditionalGeneration scorer used in sm23. Prints per-clip hypotheses + CERs and aggregate medians/means.
+- Dataset suarifymalaysia/sm24-cer-verify-in: 15 flat wavs + refs.tsv, status ready.
+- If the pipeline scorer gives ~2% CER, the sm23 gate failure was a scorer artifact -> proceed with full generation planning (11.5 GPU-h for baseline). If it still gives ~9%, generation quality is genuinely below the 2.5% gate -> stop and report.

@@ -631,3 +631,9 @@
 - Owner explicitly approved the timing kernel. Dataset suarifymalaysia/sm23-p4-timing-in uploaded (50 texts from eval/p4_new_texts_final.tsv + ref_ms.wav), status ready.
 - Kernel suarifymalaysia/sm-23-p4-timing pushed and QUEUED. Tests 3 configs on 15 clips each: A baseline (audio_prompt_path per call), B prepare_conditionals once, C conditionals once + top_p 0.9. Measures generation s/clip, clips/hour, projected GPU-h for all 3,400, and Whisper large-v3 CER (language=malay, capped 1.0, median + capped mean). Fastest config with CER median <=2.5% wins.
 - IMPORTANT: owner must approve the reported total GPU-h BEFORE the full 3,400-clip generation is committed (REVIEW rule).
+
+## 2026-11-19 Phase 4 step 2 result: timing done, CER gate NOT met
+- Kernel suarifymalaysia/sm-23-p4-timing COMPLETE. Results on 15 clips/config: A baseline 12.14 s/clip, CER median 0.0949 / capped mean 0.1243 -> 297 clips/h, 11.5 GPU-h for 3,400. B conditionals-once 12.58 s/clip, same CER -> 11.9 GPU-h. C cond+top_p0.9 12.61 s/clip, CER 0.1136/0.1366 -> 11.9 GPU-h. NONE meets the REVIEW <=2.5% CER gate; conditionals-once gave NO speedup (actually slightly slower).
+- Warning in the log: Chatterbox T3 hit token-repetition and forced EOS on some clips - a known source of truncation/poor CER on long dense sentences. The 15 test sentences are the greedily-selected dense ones (percentages, proper nouns), which are harder than the conversational teacher set.
+- CER may be a scorer artifact: my kernel used direct WhisperForConditionalGeneration.generate(language=malay), whereas the project-validated k18 scorer uses the HF sr pipeline with generate_kwargs. Teacher clips normally score ~1.9% median. Need to re-score the SAME generated wavs with the k18 scorer before concluding generation is bad.
+- Owner approval needed before any full 3,400-clip generation (REVIEW rule). No generation committed.

@@ -28,6 +28,8 @@ ap = argparse.ArgumentParser()
 ap.add_argument('onnx')
 ap.add_argument('--tag', required=True)
 ap.add_argument('--text', default=None, help='text checkpoint for predicted-F0 health')
+ap.add_argument('--uv-text', action='store_true', help='--text is a TextStudentUV checkpoint')
+ap.add_argument('--held', type=int, default=60, help='use the first N rows (the training held-out set)')
 ap.add_argument('--rows', default='data/teacher/shard_0000.pt')
 ap.add_argument('--utmos-only', action='store_true')
 ap.add_argument('--wavdir', default=None)
@@ -116,12 +118,16 @@ for key in ('voiced_frac', 'jumps_gt25', 'span'):
 # ---------- predicted vs measured F0 on held rows ----------
 if A.text:
     import torch.nn as nn
-    from student import TextStudent
-    ts = TextStudent('s+mlp').eval()
+    if A.uv_text:
+        from student_uv import TextStudentUV
+        ts = TextStudentUV('s+mlp').eval()
+    else:
+        from student import TextStudent
+        ts = TextStudent('s+mlp').eval()
     ts.load_state_dict(torch.load(A.text, map_location='cpu', weights_only=False)['model'])
     rows = torch.load(A.rows, map_location='cpu', weights_only=False)
-    # held = rows not in the eval set by id/text; use the last 60 to avoid train overlap
-    held = [r for r in rows if r['id'] not in {x['id'] for x in eval_rows}][-60:]
+    # held = first N rows: exactly the ones ms_train.py holds out (--held N)
+    held = rows[:A.held]
     dropouts, uv_err, jumps, spans = [], [], [], []
     with torch.no_grad():
         for r in held:
@@ -140,8 +146,13 @@ if A.text:
             end = torch.cumsum(n, 0); start = end - n
             f = torch.arange(int(end[-1]))[None]
             aln = ((f >= start[:, None]) & (f < end[:, None])).float()[None]
-            F0p, _ = p.F0Ntrain(d.transpose(-1, -2) @ aln, s)
-            F0p = F0p[0].numpy()
+            en = d.transpose(-1, -2) @ aln
+            if A.uv_text:
+                lf0n, uv_logit, Np = t.prosody(en, s)
+                F0p = t.f0_hz(lf0n, uv_logit)[0].numpy()
+            else:
+                F0p, _ = p.F0Ntrain(en, s)
+                F0p = F0p[0].numpy()
             F0m = r['F0'].numpy()
             L = min(len(F0p), len(F0m))
             a, b = F0p[:L], F0m[:L]

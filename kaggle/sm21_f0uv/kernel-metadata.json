@@ -1,0 +1,17 @@
+{
+ "id": "suarifymalaysia/sm-21-f0uv-text-head",
+ "title": "sm 21 f0uv text head",
+ "code_file": "sm21_f0uv.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_tpu": false,
+ "enable_internet": true,
+ "keywords": ["gpu"],
+ "dataset_sources": ["suarifymalaysia/sm21-f0uv-in"],
+ "kernel_sources": [],
+ "competition_sources": [],
+ "model_sources": [],
+ "machine_shape": "NvidiaTeslaT4"
+}

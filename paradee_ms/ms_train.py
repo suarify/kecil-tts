@@ -41,6 +41,8 @@ ap.add_argument('--aug', type=float, default=0.0, help='decoder: strength of smo
 ap.add_argument('--eval-every', type=int, default=250)
 ap.add_argument('--score', choices=['sum', 'dur_asr'], default='sum', help='text side: which held-out losses pick the checkpoint')
 ap.add_argument('--uv-text', action='store_true', help='text side: log-F0 + voiced/unvoiced head (REVIEW Phase 1)')
+ap.add_argument('--uv-unvoiced-weight', type=float, default=0.1, help='UV text: l_f0 weight on unvoiced frames (Gate 1 retry uses 0.0)')
+ap.add_argument('--uv-uv-weight', type=float, default=1.0, help='UV text: l_uv weight (Gate 1 retry uses 2.0)')
 ap.add_argument('--gan', action='store_true', help='decoder: adversarial stage (Paradee stage two)')
 ap.add_argument('--mel-weight', type=float, default=3.0)
 ap.add_argument('--patience', type=int, default=8)
@@ -108,18 +110,31 @@ if A.which == 'text':
         print(f'UV text side: lf0 mu/sd {model.lf0_mu.item():.3f}/{model.lf0_sd.item():.3f}', flush=True)
 
         def lf0_target(F0hz):
-            v = F0hz > 50
-            lf0 = torch.where(v, torch.log(F0hz.clamp_min(1)), torch.zeros_like(F0hz))
-            return (lf0 - model.lf0_mu) / model.lf0_sd, v.float()
+            """v = F0>0; log-F0 linearly interpolated across unvoiced gaps (edges held constant) -> normalised."""
+            import numpy as np
+            f = F0hz.detach().cpu().numpy()
+            B, Fr = f.shape
+            v = f > 0
+            lf0c = np.empty_like(f)
+            idx = np.arange(Fr)
+            mu = float(model.lf0_mu)
+            for b in range(B):
+                vi = np.where(v[b])[0]
+                if len(vi) == 0:
+                    lf0c[b] = mu
+                else:
+                    lf0c[b] = np.interp(idx, vi, np.log(f[b, vi]))  # holds edges constant
+            lf0c = torch.as_tensor(lf0c, device=F0hz.device, dtype=F0hz.dtype)
+            return (lf0c - model.lf0_mu) / model.lf0_sd, torch.as_tensor(v, device=F0hz.device, dtype=F0hz.dtype)
 
         def losses(model, batch):
             ids, L, dur, ten, aln, F0, N, tm, fm = batch
             pd_, plf0, puv, pN, pasr = model(ids, L, aln)
             tgt_lf0, tgt_uv = lf0_target(F0)
-            w = torch.where(tgt_uv > 0.5, 1.0, 0.1)   # 1.0 voiced, 0.1 unvoiced (F0 irrelevant where unvoiced)
+            w = torch.where(tgt_uv > 0.5, 1.0, A.uv_unvoiced_weight)
             l_dur = (F.l1_loss(torch.log(pd_.clamp_min(1e-3)), torch.log(dur.clamp_min(1e-3)), reduction='none') * tm).sum() / tm.sum()
             l_f0 = (F.l1_loss(plf0, tgt_lf0, reduction='none') * fm * w).sum() / (fm * w).sum().clamp_min(1)
-            l_uv = (F.binary_cross_entropy_with_logits(puv, tgt_uv, reduction='none') * fm).sum() / fm.sum()
+            l_uv = A.uv_uv_weight * (F.binary_cross_entropy_with_logits(puv, tgt_uv, reduction='none') * fm).sum() / fm.sum()
             l_n = (F.l1_loss(pN, N, reduction='none') * fm).sum() / fm.sum()
             l_asr = (F.l1_loss(pasr, ten, reduction='none') * tm[:, None]).sum() / tm.sum() / 512
             return [l_dur, l_f0, l_n, l_asr, l_uv]

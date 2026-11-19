@@ -574,3 +574,7 @@
 - Built `runs/listen/sota_p1.html` via `scripts/make_sota_p1_page.py --baseline runs/sota/yati_v041 --p1 runs/sota/p1 --n 12`: 12 sentences (6 general / 3 codeswitch / 3 numbers), A/B shuffled per row, loudness-matched to equal RMS, "pick cleaner" + "watery" ticks, labels revealed only after pressing Reveal, P1>=8/12 tally. 24 wavs verified (24 kHz, non-empty).
 - Page opened in the Review pane for the owner. Await owner verdict before ANY publish or Space upload.
 - Space UI v2 staged locally (NOT uploaded): `scripts/polish_space2.py` adds Nicole as a real third speaker (version dropdown underneath), auto-speaking sample chips (already in v1), a large render-stats panel (realtime factor / time taken / first audio / audio length / device + comparison bar) and a live waveform canvas with a moving playhead; JS syntax checked with `node --check`.
+
+## 2026-11-19 Phase 1 verdict + Phase 2 approved
+- Owner listened to the blind page (`runs/listen/sota_p1.html`) and said "both almost the same" -> P1 is NOT published; v0.4.1 remains the released voice. Consistent with the flat objective numbers (UTMOS +0.03, voicing unchanged).
+- Owner explicitly approved Phase 2 GTA with Kaggle GPU: fine-tune the Yati v0.4.1 decoder on its own text-model-predicted F0/N (the second root cause in REVIEW.md: the decoder only ever saw measured inputs). 3k steps, bs16, seg64, lr1e-4.

@@ -680,3 +680,8 @@
 - (4) Keywords card is visually hidden (`.seo-hidden`: height .1px, opacity .001) with all 37 keywords written as one sentence inside for SEO.
 - (5) The 'Need custom software...' CTA section card was removed; its content now sits in a footer row (`.cta-row`) and 'Contact Suarify → suarify.my/contact-form' is a plain sentence with an inline link, not a button.
 - Verified live in browser: model loads ("Model ready on webgpu in 5.5 s"), Speak active, 3 speakers, stats/wave hidden, modal opens/closes, keywords opacity .001, CTA row present, no CTA button, zero JS errors.
+
+## 2026-11-20 Space UI v4: smaller info icon + streaming timing clarified
+- Owner: info icon 30% smaller and floating top-right after the Kecil-TTS word -> .infobtn 30->21px, font 17->12px, translateY(-4px), margin 8px (verified live 21px).
+- Owner: "why time taken >2s even in streaming" -> two causes fixed: (a) the timer t0 was started before `await ensureAudio()` (AudioContext resume + FX chain build) and phonemize(), so setup time was counted as synthesis; moved t0 to just before generation. (b) Streaming only speeds FIRST audio, not total synthesis; the stats panel now swaps labels in streaming mode: "Time taken" -> "Time to audio" (shows firstT) and "First audio" -> "Total gen" (shows total), with an explanatory note in the info line.
+- Verified live after generation in streaming mode: "Time to audio 554 ms", "Total gen 554 ms", render speed 5.6x, no JS errors. Longer sentences will show first-audio < total gen.

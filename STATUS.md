@@ -514,3 +514,6 @@
 - Owner verdict on phase stabilization: smooth5 and phase x0.5 both WORSE than current -> learned phase is useful; phasey texture is undertrained-head, not a knob. Explicit approval for full run.
 - Kernel suarifymalaysia/sm-15e-full: same Path-B data (948 converted clips via sm15c kernel source), decoder 12,000 steps + text 10,000 steps from Yati init (~40 min GPU). Outputs dec_nicoleb_full.pt / text_nicoleb_full.pt.
 - After: export FIX H + air6 (proven recipe), loudness-match to Path-B teacher, final listening gate -> publish as 8 MB voice only if clean.
+
+## 2026-11-19 HANDOFF.md written for the other agent
+- Comprehensive dated handoff: project, published state, Kaggle/env traps, full chronology 11-14..11-19, key decisions (FIX H, loudness matching, ms_rows flags, rejected no-training fixes), active files/kernels, pending work. Reviewer should read HANDOFF.md first.

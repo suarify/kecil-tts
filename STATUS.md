@@ -523,3 +523,7 @@
 - sm-15e-full COMPLETE: dec step 12000, text step 5000 (early stop). Pulled after freeing 3 GB of old kernel caches.
 - Exported runs/nicole_full_export/paradee_int8_webgpu.onnx (8.47 MB, FIX H + air6 + gn smoothing, webgpu patch 0 float64).
 - Final page runs/listen/nicole_full.html (localhost:8931/nicole_full.html): TEACHER (Path B) vs FULL 12k, 8 sentences, loudness-matched. Owner verdict needed: publish as 8 MB voice only if clean (no soft/watery/phasey).
+
+## 2026-11-19 Nicole v0.1 published (owner allowed) + REVIEW.md adopted
+- Published https://huggingface.co/Suarify/kecil-tts-nicole-v0.1 from the full 12k Path-B export (8.47 MB, sha match, 0 float64, 44 files); samples from the model, card documents the known residual watery/phasey limitation and that CER is not yet measured. Space dropdown gained nicole v0.1.
+- Owner instructed: follow REVIEW.md phase by phase; it supersedes HANDOFF 7 items 2-3 (no fenrir / further nicole work until Phase 3). REVIEW root-cause: the residual murk is F0 prediction (17.4% voiced dropouts, 0/200Hz regression + decoder never sees predicted inputs), not the 8M head. Plan: P0 eval harness, P1 log-F0+uv text side, P2 GTA decoder, P3 real adversarial stage, P4 data, P5 rollout.

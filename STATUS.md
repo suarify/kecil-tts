@@ -594,3 +594,12 @@
 - `sota_eval.py` p2: UTMOS 2.0101/1.5395 vs P1 2.1799/1.7647 (and v0.4.1 2.1579/1.7383). Gate 2 automatic threshold >= P1+0.1 (2.28) FAILS decisively. F0 health unchanged (text model unchanged: dropout 17.89%, uv_err 27.69%, span 3.348).
 - Insight: GTA fine-tuning trains the decoder on the text model's own predicted F0/N, but those inputs still carry ~18% voicing dropout, so the decoder learned to reproduce the artifacts and got worse. Phase 2 was doomed by Phase 1's unresolved F0 problem; GTA only helps once the text-side F0 is genuinely clean.
 - REVIEW says if both Gate 2 paths fail, keep P1's decoder and still go to Phase 3 (use GTA inputs there anyway). Nothing published; v0.4.1 remains the live voice. Owner decision pending (blind P2 A/B vs Phase 3 vs stop).
+
+## 2026-11-19 REVIEW Phase 3 (CPU) DONE: GAN stage implemented + kernel submitted
+- Owner approved Phase 3 after both P1 and P2 were judged "almost the same" in blind A/Bs. Nothing published; v0.4.1 remains live.
+- REVIEW Phase 3 recipe implemented in `ms_train.py --gan`: discriminator warm-up 500 steps (G frozen), then 8k joint steps; G lr 1e-4, D lr 2e-4 (`--dlr`), betas (0.8,0.99); fp16 autocast + GradScaler on CUDA; GTA prob 0.7 with harm/mod losses zeroed on GTA items (per-item weights); s/step printed at step 50 for the profiling gate; checkpoints every 1k; 12 held sentences rendered at 2k/4k/8k. Smoke-tested 4 steps on CPU.
+- Init from the **v0.4.1 decoder** (`dec_c4_last.pt`), per REVIEW: "if neither Gate 2 path passes, keep P1's decoder" — P2's decoder was objectively worse (UTMOS 2.01), so starting from it would be a regression. Documented deviation from the literal "from the Phase-2 decoder" wording.
+- `suarifymalaysia/sm22-gta-in` dataset re-versioned with the GAN-capable trainer (verified Kaggle ms_train.py bytes == local 20416).
+- Kernel `suarifymalaysia/sm-21-gan` pushed and RUNNING: 8500 steps total (500 warmup + 8000 joint), bs16, seg32, max 100 min; saves dec_gan.pt + step2k/4k/6k/8k checkpoints for UTMOS selection.
+- Profiling gate: if step-50 s/step > 0.8, stop and report instead of burning quota.
+- Next on completion: pick checkpoint by UTMOS on the 80-sentence set -> export with --uv-text + FIX H -> webgpu patch -> Gate 3 3-way blind page {v0.4.1, P2, P3} (pass = P3 >=8/12 and watery <=2/12) -> publish Yati v0.5 only after owner gate.

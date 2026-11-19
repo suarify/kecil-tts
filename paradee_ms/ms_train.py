@@ -44,6 +44,8 @@ ap.add_argument('--uv-text', action='store_true', help='text side: log-F0 + voic
 ap.add_argument('--uv-unvoiced-weight', type=float, default=0.1, help='UV text: l_f0 weight on unvoiced frames (Gate 1 retry uses 0.0)')
 ap.add_argument('--uv-uv-weight', type=float, default=1.0, help='UV text: l_uv weight (Gate 1 retry uses 2.0)')
 ap.add_argument('--gan', action='store_true', help='decoder: adversarial stage (Paradee stage two)')
+ap.add_argument('--gan-warmup', type=int, default=0, help='GAN: update D only for this many steps first (REVIEW Phase 3: 500)')
+ap.add_argument('--dlr', type=float, default=2e-4, help='GAN: discriminator learning rate')
 ap.add_argument('--gta-p', type=float, default=0.0, help='decoder: probability of using the text model\'s own (GTA) F0/N/asr inputs (REVIEW Phase 2)')
 ap.add_argument('--mel-weight', type=float, default=3.0)
 ap.add_argument('--patience', type=int, default=8)
@@ -319,8 +321,10 @@ model.load_ckpt(A.init, DEV)
 if A.gan:
     from discriminators import Discriminators, d_loss, g_loss
     D = Discriminators().to(DEV)
-    optD = torch.optim.AdamW(D.parameters(), lr=LR, betas=(0.8, 0.99), weight_decay=A.wd)
+    optD = torch.optim.AdamW(D.parameters(), lr=A.dlr, betas=(0.8, 0.99), weight_decay=A.wd)
 opt = torch.optim.AdamW(model.parameters(), lr=LR, betas=(0.8, 0.99), weight_decay=A.wd)
+AMP = A.gan and DEV == 'cuda'   # REVIEW Phase 3: fp16 for the GAN stage
+scaler = torch.cuda.amp.GradScaler(enabled=AMP)
 
 
 def jitter(x, sigma, voiced=None):
@@ -349,6 +353,20 @@ def evaluate(save=False):
     return dict(held_spec_loss=tot / max(n, 1))
 
 
+@torch.no_grad()
+def render_gate(stepn):
+    """Render the first held sentences at a checkpoint step for quick listening."""
+    model.eval()
+    d = os.path.join(A.out, f'gate_{stepn}')
+    os.makedirs(d, exist_ok=True)
+    for i, r in enumerate(held[:12]):
+        asr, F0, N, au = full(r)
+        torch.manual_seed(i)
+        y = model(asr[None].to(DEV), F0[None].to(DEV), N[None].to(DEV)).squeeze().cpu()
+        sf.write(os.path.join(d, f'{i + 1}.wav'), y.numpy(), 24000)
+    model.train()
+
+
 step = 0
 model.train()
 before = evaluate()
@@ -362,26 +380,50 @@ while step < A.steps and (time.time() - T0) / 60 < A.max_minutes:
         N_in = N + jitter(N, 0.4 * A.aug)
     else:
         F0_in, N_in = F0, N
-    y = model(asr, F0_in, N_in, c0=c0)
-    lm, ls = spec_losses(y, au)
-    lh = harm_loss(y, au, F0, weights=wg)
-    lmod = mod_loss(y, au, model.head.last['cyc'], model.head.last['uv'], weights=wg)
+    warm = A.gan and step < A.gan_warmup
+    adv = fm = ld = None
+    with torch.autocast(device_type=DEV, dtype=torch.float16, enabled=AMP):
+        y = model(asr, F0_in, N_in, c0=c0)
+        lm, ls = spec_losses(y, au)
+        lh = harm_loss(y, au, F0, weights=wg)
+        lmod = mod_loss(y, au, model.head.last['cyc'], model.head.last['uv'], weights=wg)
+        if A.gan:
+            ld = d_loss(D, au, y.detach())
+            if not warm:
+                for p in D.parameters():
+                    p.requires_grad_(False)
+                adv, fm = g_loss(D, au, y)
+                for p in D.parameters():
+                    p.requires_grad_(True)
+                loss = A.mel_weight * (lm + ls) + adv + 2.0 * fm + 2.0 * lh + 5.0 * lmod
+            else:
+                loss = torch.zeros((), device=DEV)   # D warm-up: G is frozen
+        else:
+            loss = lm + ls + 2.0 * lh + 5.0 * lmod
     if A.gan:
-        ld = d_loss(D, au, y)
         optD.zero_grad()
-        ld.backward()
-        optD.step()
-        adv, fm = g_loss(D, au, y)
-        loss = A.mel_weight * (lm + ls) + adv + 2.0 * fm + 2.0 * lh + 5.0 * lmod
+        scaler.scale(ld).backward()
+        scaler.step(optD)
+        if not warm:
+            opt.zero_grad()
+            scaler.scale(loss).backward()
+            scaler.unscale_(opt)
+            torch.nn.utils.clip_grad_norm_(model.parameters(), 5.0)
+            scaler.step(opt)
+        scaler.update()
     else:
-        loss = lm + ls + 2.0 * lh + 5.0 * lmod
-    opt.zero_grad()
-    loss.backward()
-    torch.nn.utils.clip_grad_norm_(model.parameters(), 5.0)
-    opt.step()
+        opt.zero_grad()
+        loss.backward()
+        torch.nn.utils.clip_grad_norm_(model.parameters(), 5.0)
+        opt.step()
     step += 1
-    if step % 100 == 0:
-        print(f'step {step} loss {loss.item():.4f} mel {lm.item():.3f} stft {ls.item():.3f} harm {lh.item():.3f} mod {lmod.item():.3f}' + (f' adv {adv.item():.3f} fm {fm.item():.3f} d {ld.item():.3f}' if A.gan else '') + f' {(time.time() - T0) / step:.2f}s/step', flush=True)
+    if step % 1000 == 0:
+        torch.save({'model': model.state_dict(), 'step': step}, os.path.join(A.out, f'step{step}.pt'))
+    if A.gan and step in (2000, 4000, 8000):
+        render_gate(step)
+    if step % 100 == 0 or step == 50:
+        gmsg = '' if adv is None else f' adv {adv.item():.3f} fm {fm.item():.3f} d {ld.item():.3f}'
+        print(f'step {step} loss {loss.item():.4f} mel {lm.item():.3f} stft {ls.item():.3f} harm {lh.item():.3f} mod {lmod.item():.3f}{gmsg}' + (' WARM' if warm else '') + f' {(time.time() - T0) / step:.2f}s/step', flush=True)
     if step % 500 == 0:
         print('EVAL', json.dumps(evaluate()), flush=True)
 after = evaluate(save=True)

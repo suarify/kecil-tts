@@ -609,3 +609,7 @@
 - Root cause: autocast wrapped the whole loss computation including the squared LSGAN terms `((r-1)**2)` / `f**2`, which overflow fp16.
 - Fix in `ms_train.py` (smoke-tested 6 CPU steps, generator now changes: mean abs diff 1.3e-05): fp16 autocast now covers ONLY the generator forward; `y = y.float()` before all losses; D and G adversarial losses computed in fp32; D grad clipping after `scaler.unscale_(optD)`; explicit NONFINITE detection with abort after 20 consecutive bad steps.
 - Need owner's explicit GPU yes before re-uploading the fixed trainer + re-running the ~50 min kernel. No publishing; v0.4.1 remains live.
+
+## 2026-11-19 Phase 3 rerun submitted (owner approved)
+- Re-uploaded the fixed trainer to suarifymalaysia/sm22-gta-in (verified Kaggle ms_train.py bytes == local 20920, NONFINITE guard present). Kernel suarifymalaysia/sm-21-gan re-pushed and RUNNING with the corrected fp32 GAN losses. Same recipe: 500 D warmup + 8k joint steps, bs16 seg32, 0.34 s/step measured previously.
+- Watch for NONFINITE lines in the log; if the fp32 fix failed to stop the divergence, report rather than burning more quota.

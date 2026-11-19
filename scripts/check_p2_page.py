@@ -1,0 +1,5 @@
+s = open('runs/listen/p2_smoke.html', encoding='utf-8').read()
+print('LABELP1 gone:', 'LABELP1' not in s)
+print('P2 label present:', "'P2'" in s or 'P2 chosen' in s)
+print('P1 label present:', 'P1 chosen' in s)
+print('title:', s.split('<title>')[1].split('</title>')[0])

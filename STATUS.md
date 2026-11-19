@@ -578,3 +578,12 @@
 ## 2026-11-19 Phase 1 verdict + Phase 2 approved
 - Owner listened to the blind page (`runs/listen/sota_p1.html`) and said "both almost the same" -> P1 is NOT published; v0.4.1 remains the released voice. Consistent with the flat objective numbers (UTMOS +0.03, voicing unchanged).
 - Owner explicitly approved Phase 2 GTA with Kaggle GPU: fine-tune the Yati v0.4.1 decoder on its own text-model-predicted F0/N (the second root cause in REVIEW.md: the decoder only ever saw measured inputs). 3k steps, bs16, seg64, lr1e-4.
+
+## 2026-11-19 REVIEW Phase 2 (CPU) DONE: GTA inputs + decoder trainer + Kaggle kernel prepared
+- Owner chose "Phase 2 GTA" (after initially saying "retry" then clarifying), with explicit GPU approval already given for Phase 2.
+- `scripts/make_gta.py`: ran the P1 text model (TextStudentUV, `runs/kaggle_sm21/text_f0uv.pt`) over all 1,281 rows with MEASURED durations, stored `gta_F0` (Hz via f0_hz), `gta_N`, `gta_asr` = asr_tok @ aln -> `data/teacher_gta/shard_0000.pt` (785 MB).
+- `ms_train.py decoder` gains `--gta-p`: per batch item, with prob gta_p uses GTA inputs; c0 from the INPUT F0; harm_loss/mod_loss now per-item and weighted 0 for GTA items (their pitch no longer matches the target audio), mel+STFT unchanged. Intermediate checkpoints saved every 1k steps. Old path (gta_p=0) unchanged. Smoke-tested 2 steps OK (fixed a vm reduction shape bug).
+- Dataset `suarifymalaysia/sm22-gta-in` uploaded and verified ready with all 17 files (GTA shard + dec_c4_last.pt + scripts).
+- Kernel `suarifymalaysia/sm-22-gta` pushed and QUEUED: `dec --gta-p 0.7 --held 60 --steps 3000 --bs 16 --seg 64 --lr 1e-4 --eval-every 500`, saves `dec_gta.pt`.
+- `scripts/make_sota_p1_page.py` parameterized with `--label-base`/`--label-p1` so it can build the P2-vs-P1 page; JS syntax checked.
+- NEXT on completion: download dec_gta.pt -> export with `--uv-text` + identical FIX H -> webgpu patch (0 float64) -> sota_eval tag p2 -> Gate 2 (UTMOS >= P1+0.1 OR owner picks P2 >=8/12) -> publish only after owner gate.

@@ -20,6 +20,8 @@ ap.add_argument('--p1', required=True)
 ap.add_argument('--out', default='runs/listen/sota_p1.html')
 ap.add_argument('--n', type=int, default=12)
 ap.add_argument('--seed', type=int, default=11)
+ap.add_argument('--label-base', default='v0.4.1', help='label for the --baseline wavs')
+ap.add_argument('--label-p1', default='P1', help='label for the --p1 wavs')
 A = ap.parse_args()
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -62,7 +64,7 @@ for r in sel:
     # blind: which file is A (0 = baseline, 1 = P1)
     flip = rng.random() < 0.5
     wa, wb = (b, a) if flip else (a, b)
-    la, lb = ('P1', 'v0.4.1') if flip else ('v0.4.1', 'P1')
+    la, lb = (A.label_p1, A.label_base) if flip else (A.label_base, A.label_p1)
     n = min(len(wa), len(wb))
     wa, wb = wa[:n], wb[:n]
     sf.write(f'{WAVOUT}/{id_}_A.wav', wa, sr)
@@ -88,7 +90,7 @@ for i, p in enumerate(pairs):
         f'<label><input type="checkbox" name="watery{i}" value="B"> B watery</label></td>'
         f'<td class="rev" id="rev{i}">?</td></tr>')
 
-page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><title>SOTA Phase 1 - blind A/B</title>
+page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><title>{A.label_p1} blind A/B</title>
 <style>
 body{{font:15px/1.5 Inter,'Segoe UI',sans-serif;background:#0d1b26;color:#dcebf4;margin:0;padding:32px 16px 60px}}
 main{{max-width:1250px;margin:0 auto}} h1{{font-family:Sora,Inter,sans-serif;font-size:23px}} h1 span{{color:#5fd6d6}}
@@ -101,10 +103,10 @@ button.p:hover{{border-color:var(--c);color:var(--c)}} button.p.on{{background:v
 #result{{background:#12242f;border:1px solid #2c4a5e;border-radius:10px;padding:16px;margin-top:18px;font-size:15px}}
 #result b{{color:#5fd6d6}}
 </style></head><body><main>
-<h1>Kecil-TTS <span>SOTA Phase 1</span> &mdash; blind A/B ({len(pairs)} sentences)</h1>
+<h1>Kecil-TTS <span>{A.label_p1} vs {A.label_base}</span> &mdash; blind A/B ({len(pairs)} sentences)</h1>
 <p class="note">Loudness-matched (equal RMS), A/B shuffled per row. For each sentence play A and B, pick the
 <b>cleaner</b> one, and tick <b>watery</b> for any sample with a watery/phasey texture. Labels are hidden until you
-press <b>Reveal</b>. <b>Pass = P1 picked &ge; 8/{len(pairs)}.</b></p>
+press <b>Reveal</b>. <b>Pass = {A.label_p1} picked &ge; 8/{len(pairs)}.</b></p>
 <table>{''.join(trs)}</table>
 <p><button class="p" style="--c:#5fd6d6" onclick="reveal()">Reveal labels &amp; score</button></p>
 <div id="result" hidden></div>
@@ -122,17 +124,18 @@ function reveal(){{
     const lab=LABELS[i];
     document.getElementById('rev'+i).textContent='A='+lab[0]+' B='+lab[1]+(r?' | '+r.value:'');
     if(!r)continue; done++;
-    const chosenIsP1=(r.value==='A')?lab[0]==='P1':lab[1]==='P1';
+    const chosenIsP1=(r.value==='A')?lab[0]==='LABELP1':lab[1]==='LABELP1';
     if(chosenIsP1)p1++;
     const w=document.querySelectorAll(`input[name="watery${{i}}"]:checked`);
-    w.forEach(x=>{{if((x.value==='A'&&lab[0]==='P1')||(x.value==='B'&&lab[1]==='P1'))wateryP++;
+    w.forEach(x=>{{if((x.value==='A'&&lab[0]==='LABELP1')||(x.value==='B'&&lab[1]==='LABELP1'))wateryP++;
                    else wateryV++;}});
   }}
   const d=document.getElementById('result');d.hidden=false;
-  d.innerHTML=`P1 chosen <b>${{p1}}/${{done}}</b> (need &ge;8/${{NT}}) &nbsp;|&nbsp; watery ticks: P1 <b>${{wateryP}}</b>, v0.4.1 <b>${{wateryV}}</b>`
+  d.innerHTML=`{A.label_p1} chosen <b>${{p1}}/${{done}}</b> (need &ge;8/${{NT}}) &nbsp;|&nbsp; watery ticks: {A.label_p1} <b>${{wateryP}}</b>, {A.label_base} <b>${{wateryV}}</b>`
     +`<br>Pass = <b>${{p1>=8&&done===NT?'YES':'NO'}}</b>`;
 }}
 </script></body></html>
 '''
+page = page.replace('LABELP1', A.label_p1)
 open(A.out, 'w', encoding='utf-8').write(page)
 print(f'wrote {A.out} with {len(pairs)} pairs -> {WAVOUT}')

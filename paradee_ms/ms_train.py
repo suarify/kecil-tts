@@ -44,6 +44,7 @@ ap.add_argument('--uv-text', action='store_true', help='text side: log-F0 + voic
 ap.add_argument('--uv-unvoiced-weight', type=float, default=0.1, help='UV text: l_f0 weight on unvoiced frames (Gate 1 retry uses 0.0)')
 ap.add_argument('--uv-uv-weight', type=float, default=1.0, help='UV text: l_uv weight (Gate 1 retry uses 2.0)')
 ap.add_argument('--gan', action='store_true', help='decoder: adversarial stage (Paradee stage two)')
+ap.add_argument('--gta-p', type=float, default=0.0, help='decoder: probability of using the text model\'s own (GTA) F0/N/asr inputs (REVIEW Phase 2)')
 ap.add_argument('--mel-weight', type=float, default=3.0)
 ap.add_argument('--patience', type=int, default=8)
 ap.add_argument('--wd', type=float, default=0.01)
@@ -222,15 +223,18 @@ from vhead import VDecoder  # noqa: E402
 LR = A.lr or 2e-4
 
 
-def full(r):
+def full(r, gta=False):
     aln = alignment(r['pred_dur'])
-    asr = r['t_en'].float() @ aln
     Fr = aln.shape[1]
+    if gta and 'gta_F0' in r:   # REVIEW Phase 2: train on the text model's own predicted inputs
+        return r['gta_asr'][:, :Fr], r['gta_F0'][:2 * Fr], r['gta_N'][:2 * Fr], r['audio'][:600 * Fr].float() / 32767
+    asr = r['t_en'].float() @ aln
     return asr, r['F0'][:2 * Fr], r['N'][:2 * Fr], r['audio'][:600 * Fr].float() / 32767
 
 
 def segment(r, seg):
-    asr, F0, N, au = full(r)
+    gta = A.gta_p > 0 and 'gta_F0' in r and random.random() < A.gta_p
+    asr, F0, N, au = full(r, gta)
     Fr = asr.shape[1]
     if Fr <= seg:
         pad = seg - Fr
@@ -241,13 +245,16 @@ def segment(r, seg):
         a = 0
     else:
         a = random.randint(0, Fr - seg)
-    c0 = (F0[:2 * a].double() * 300 / 24000).sum() % 1
-    return asr[:, a:a + seg], F0[2 * a:2 * (a + seg)], N[2 * a:2 * (a + seg)], au[600 * a:600 * (a + seg)], c0.float()
+    c0 = (F0[:2 * a].double() * 300 / 24000).sum() % 1   # phase from the INPUT F0 (GTA when gta)
+    w = 0.0 if gta else 1.0   # GTA items: harm/mod losses off (their pitch no longer matches the target audio)
+    return asr[:, a:a + seg], F0[2 * a:2 * (a + seg)], N[2 * a:2 * (a + seg)], au[600 * a:600 * (a + seg)], c0.float(), w
 
 
 def collate_dec(batch, seg):
     x = [segment(r, seg) for r in batch]
-    return [torch.stack([t[i] for t in x]).to(DEV) for i in range(5)]
+    out = [torch.stack([t[i] for t in x]).to(DEV) for i in range(5)]
+    out.append(torch.tensor([t[5] for t in x], device=DEV))
+    return out
 
 
 mel = torchaudio.transforms.MelSpectrogram(24000, n_fft=1024, hop_length=256, n_mels=80).to(DEV)
@@ -265,7 +272,7 @@ def spec_losses(y, t):
     return lm, ls / len(SZ)
 
 
-def harm_loss(y, t, f0, n=2048, hop=512):
+def harm_loss(y, t, f0, weights=None, n=2048, hop=512):
     w = torch.hann_window(n, device=DEV)
     nfr = y.shape[-1] // hop + 1
     idx = (torch.arange(nfr, device=DEV) * hop // 300).clamp(max=f0.shape[1] - 1)
@@ -282,13 +289,14 @@ def harm_loss(y, t, f0, n=2048, hop=512):
     for x in (y, t):
         P = torch.stft(x, n, hop, window=w, return_complex=True).abs().pow(2)
         out.append(torch.log((torch.einsum('bft,kf->bkt', P * mh, bands) + 1e-8) / (torch.einsum('bft,kf->bkt', P * mi, bands) + 1e-8)))
-    return ((out[0] - out[1]).abs() * v[:, None]).sum() / (v.sum() * 8).clamp_min(1)
+    per = ((out[0] - out[1]).abs() * v[:, None]).sum((1, 2)) / (v.sum(1) * 8).clamp_min(1)
+    return per.mean() if weights is None else (per * weights).sum() / weights.sum().clamp_min(1)
 
 
 MODB = [(4, 8), (8, 12), (12, 16), (16, 21), (21, 29)]
 
 
-def mod_loss(y, t, cyc, uv, n=64, hop=16, win=75):
+def mod_loss(y, t, cyc, uv, weights=None, n=64, hop=16, win=75):
     w = torch.hann_window(n, device=DEV)
     k = y.shape[-1] // hop + 1
     ph = 2 * torch.pi * F.pad(cyc, (0, hop))[:, ::hop][:, :k]
@@ -302,7 +310,8 @@ def mod_loss(y, t, cyc, uv, n=64, hop=16, win=75):
         den = F.avg_pool1d(e, win, win // 2).clamp_min(1e-5)
         D.append(2 * num.view(e.shape[0], 5, 4, -1) / den[:, :, None])
     vm = (F.avg_pool1d(v[:, None], win, win // 2) > 0.99).float()[:, :, None]
-    return ((D[0] - D[1]).abs() * vm).sum() / (vm.sum() * 20).clamp_min(1)
+    per = ((D[0] - D[1]).abs() * vm).sum((1, 2, 3)) / (vm.sum((1, 2, 3)) * 20).clamp_min(1)
+    return per.mean() if weights is None else (per * weights).sum() / weights.sum().clamp_min(1)
 
 
 model = VDecoder(head='v2', dim=160, blocks=4).to(DEV)
@@ -345,7 +354,7 @@ model.train()
 before = evaluate()
 print('before:', json.dumps(before), flush=True)
 while step < A.steps and (time.time() - T0) / 60 < A.max_minutes:
-    asr, F0, N, au, c0 = collate_dec(random.sample(train, min(A.bs, len(train))) if len(train) >= A.bs else [random.choice(train) for _ in range(A.bs)], A.seg)
+    asr, F0, N, au, c0, wg = collate_dec(random.sample(train, min(A.bs, len(train))) if len(train) >= A.bs else [random.choice(train) for _ in range(A.bs)], A.seg)
     for g in opt.param_groups:
         g['lr'] = LR * cosine(step, A.steps)
     if A.aug > 0:
@@ -355,8 +364,8 @@ while step < A.steps and (time.time() - T0) / 60 < A.max_minutes:
         F0_in, N_in = F0, N
     y = model(asr, F0_in, N_in, c0=c0)
     lm, ls = spec_losses(y, au)
-    lh = harm_loss(y, au, F0)
-    lmod = mod_loss(y, au, model.head.last['cyc'], model.head.last['uv'])
+    lh = harm_loss(y, au, F0, weights=wg)
+    lmod = mod_loss(y, au, model.head.last['cyc'], model.head.last['uv'], weights=wg)
     if A.gan:
         ld = d_loss(D, au, y)
         optD.zero_grad()

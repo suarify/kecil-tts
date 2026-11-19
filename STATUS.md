@@ -654,3 +654,10 @@
 - scripts/make_p4_cer50.py -> eval/p4_cer50.tsv: 20 general / 10 conversational / 10 codeswitch / 10 numbers, stratified from the 3,400 final sentences.
 - Dataset suarifymalaysia/sm25-cer50-in uploaded (50 texts + ref_ms.wav). Kernel suarifymalaysia/sm-25-cer50 QUEUED: baseline Chatterbox config on all 50, CER via the validated k18 pipeline scorer, per-category medians, s/clip and projected GPU-h for 3,400.
 - Decision rule: if CER median <=2.5% -> owner approves the reported GPU-h then full generation. If still high -> stop Phase 4 and report.
+
+## 2026-11-19 Phase 4 representative CER retest result - overall gate still FAILED
+- Kernel suarifymalaysia/sm-25-cer50 COMPLETE: 50 stratified sentences, baseline config. Speed 8.59 s/clip, 419 clips/h, 8.11 GPU-h for 3,400.
+- Raw CER (my scorer omitted normalize()): general 1.69%, conversational 1.93%, codeswitch 14.9%, numbers 56.9%, overall median 5.05%.
+- Re-scored locally WITH the correct k18 clean_txt (normalize() first): general 2.16%, conversational 1.93%, codeswitch 10.75%, numbers 43.78%, overall median 4.1%. Still above the 2.5% gate. Some number errors are genuine mis-transcriptions (e.g. 'lima perpuluhan lapan peratus' -> '5 masan proper pilihan'), not just digit/word formatting.
+- Conclusion: the 2,551 general+conversational new sentences are clean (~2% CER); the 849 numbers+codeswitch sentences are noisy and would teach wrong pronunciations if used as teacher data.
+- Owner decision pending: generate only the clean 2,551 (~6 GPU-h), generate all 3,400 (~8.1 GPU-h) accepting noise, or stop Phase 4.

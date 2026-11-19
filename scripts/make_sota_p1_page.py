@@ -26,7 +26,7 @@ A = ap.parse_args()
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
-WAVOUT = 'runs/listen/sota_p1'
+WAVOUT = os.path.splitext(A.out)[0].replace('\\', '/')   # wavs live next to the page, e.g. runs/listen/sota_p2/
 shutil.rmtree(WAVOUT, ignore_errors=True)
 os.makedirs(WAVOUT, exist_ok=True)
 

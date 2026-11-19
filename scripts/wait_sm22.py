@@ -13,7 +13,16 @@ TERMINAL = {'COMPLETE', 'ERROR', 'CANCEL_ACKNOWLEDGED'}
 t0 = time.time()
 last = None
 while time.time() - t0 < 3 * 3600:
-    s = api.kernels_status(REF)
+    s = None
+    for attempt in range(6):
+        try:
+            s = api.kernels_status(REF)
+            break
+        except Exception as e:
+            print(f'[{time.strftime("%H:%M:%S")}] status retry {attempt}: {type(e).__name__}', flush=True)
+            time.sleep(30)
+    if s is None:
+        continue
     status = getattr(s.status, 'name', None) or str(s.status)
     fail = getattr(s, 'failureMessage', None) or getattr(s, 'failure_message', None)
     if status != last:

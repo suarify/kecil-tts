@@ -20,6 +20,6 @@ json.dump({"title": "sm22 gta in", "id": "suarifymalaysia/sm22-gta-in",
           open(f'{STAGE}/dataset-metadata.json', 'w'), indent=2)
 print('staged', len(os.listdir(STAGE)))
 api = KaggleApi(); api.authenticate()
-r = api.dataset_create_version(folder=STAGE, version_notes='GAN-capable trainer for Phase 3',
+r = api.dataset_create_version(folder=STAGE, version_notes='Phase 3 fix: fp32 GAN losses + NaN guard',
                                dir_mode='skip', convert_to_csv=False)
 print('RESULT', r)

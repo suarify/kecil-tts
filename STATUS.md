@@ -788,3 +788,9 @@
 - Compare: old Nicole v0.1 UTMOS 2.1799, Yati v0.5 2.2748. New Nicole is objectively LOWER UTMOS but the loudness fix worked (RMS 0.052 vs old ~0.02-0.035) and F0 dropout improved vs Firdaus (28% vs 33%). Owner's ears decide publish vs keep old.
 - Built `runs/listen/nicole_v05_gate.html` blind 3-way {Yati v0.5, Nicole v0.1 old, Nicole v0.5 new}, 12 loudness-matched shuffled sentences, rendered old Nicole wavs from runs/nicole_v010_repo for the comparison. Opened for owner.
 - Note: GitHub source was pushed to suarify/kecil-tts main earlier this session (after stripping large .pt blobs).
+
+## 2026-11-20 Nicole v0.2 PUBLISHED (+25% gain, correct version numbering) + Space updated
+- Owner: "make the 0.5 louder 25%... abit too soft" and "why no 0.2/0.3 in space, straight 0.5". Clarified: the new Nicole was mislabeled v0.5 (after its Yati v0.5 source); semantically it is Nicole v0.2 (next after v0.1). Renamed accordingly.
+- Added `--gain` to `scripts/export_fixh.py` (constant multiplier baked into HeadX output, so it flows through ONNX). Exported `nicole_gan.pt` with --gain 1.25 -> `runs/nicole_v02_gain_export/paradee_int8_webgpu.onnx`. Verified: RMS 0.0575 -> 0.0719 (exactly x1.25), peak 0.405 safe, 0 float64, 8.47 MB. Note the head no-op parity check now legitimately differs (gain is intentional).
+- sota_eval tag nicole_v02: UTMOS 1.939/1.514, F0 dropout 28.1%, uv_err 32.5%. Card honest: objective UTMOS lower than v0.1 (2.18) but loudness fixed (v0.1 was RMS 0.02-0.035; now ~0.052-0.072).
+- Published `Suarify/kecil-tts-nicole-v0.2` (38 files, sha match, 0 float64, new `kecil_tts-0.2.0` wheel). Space: Nicole card link -> v0.2, dropdown v0.2 (latest) + v0.1, speed map + footer updated, verified live (correct order, no JS errors).

@@ -45,6 +45,7 @@ ap.add_argument('--no-gap-mask', action='store_true', help='leave the noise spec
 ap.add_argument('--soft', type=float, default=0.3, help='burst gain inside voiced frames for --burst soft')
 ap.add_argument('--clamp-lo', type=int, default=1, help='minimum phoneme duration in frames')
 ap.add_argument('--clamp-hi', type=int, default=0, help='maximum phoneme duration in frames (0 = no cap)')
+ap.add_argument('--gain', type=float, default=1.0, help='constant output-volume multiplier baked into the graph (e.g. 1.25 = +25%%)')
 ap.add_argument('--air-db', type=float, default=0.0, help='high-shelf boost above --air-fc (dB) baked as a linear-phase FIR')
 ap.add_argument('--air-fc', type=float, default=6500.0, help='shelf corner in Hz')
 ap.add_argument('--gn-smooth', action='store_true', help='3-frame smoothing of the noise gains')
@@ -105,6 +106,7 @@ class HeadX(nn.Module):
         self.register_buffer('fr', torch.linspace(0, SR / 2, h.nb)[None, :, None])
         self.gap_keep, self.hang, self.burst_mode, self.soft = gap_keep, hang, burst_mode, soft
         self.gap_mask = gap_mask
+        self.gain = HEAD_GAIN
         self.gn_smooth = gn_smooth
         self.phase_smooth = phase_smooth
         self.phase_shrink = phase_shrink
@@ -201,6 +203,8 @@ class HeadX(nn.Module):
             y = y + self.sb.inverse(br * gb, bi * gb)
         if self.shelf is not None:
             y = F.conv1d(F.pad(y[:, None], (self.shelf.shape[-1] // 2,) * 2, mode='replicate'), self.shelf)[:, 0]
+        if self.gain != 1.0:
+            y = y * self.gain
         return y
 
 
@@ -216,6 +220,7 @@ def make_shelf(db, fc, taps=127):
 
 
 SHELF = make_shelf(A.air_db, A.air_fc) if A.air_db else None
+HEAD_GAIN = A.gain
 HEAD = dict(gap_keep=A.gap_keep, hang=A.hang, burst_mode=A.burst, soft=A.soft,
             gn_smooth=A.gn_smooth, shelf=SHELF, gap_mask=not A.no_gap_mask,
             phase_smooth=A.phase_smooth, phase_shrink=A.phase_shrink)

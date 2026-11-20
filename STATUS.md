@@ -745,3 +745,8 @@
 - Nicole: dataset suarifymalaysia/sm28-nicole-vc-in uploaded (Yati v0.5 clips bundle + ref_nicole + texts), kernel sm-28-nicole-vc RUNNING (VC to af_nicole, loudness-normalized RMS 0.07).
 - Prepared: sm-29-nicole-train kernel (female voice af_nicole, default f0 settings - fixed a bad find/replace that had left am_nicole + male f0 flags). Will build suarifymalaysia/sm29-nicole-train-in dataset from the VC output, then push. Same recipe: rows -> text 10k UV -> GTA -> decoder 12k -> GAN 2k from Yati v0.5 inits.
 - Next: export/eval, blind page, owner gate before publishing.
+
+## 2026-11-20 Nicole VC done + training submitted; alt-account finding
+- VC kernel sm-28-nicole-vc COMPLETE: 1,281 clips, 0 failures, 33 min, RMS 0.07 (loudness fixed). Dataset sm29-nicole-train-in uploaded (20 files). Training kernel sm-29-nicole-train QUEUED (female af_nicole, default f0, text 10k UV -> GTA -> decoder 12k -> GAN 2k from Yati v0.5 inits).
+- Alt Kaggle token investigation: the owner-provided token `KGAT_be0b...` authenticates but belongs to the SAME account (suarifymalaysia) - a throwaway kernel pushed with it returned /code/suarifymalaysia/...; deleted the probe kernel. Token saved at ~/.kaggle/kaggle-alt.json as a spare credential. Quota MCP tool: 17h used of 30h, ~13h left, resets 2026-11-21T00:00Z - enough for Nicole + Michael.
+- Owner's 3 points answered: (1) new Nicole will sound like af_nicole and be at Yati loudness (RMS 0.07) not soft; (2) alt account is the same account, no switch possible/needed; (3) Michael watery/phasey -> plan after Nicole: pYIN fmin=50 + Phase 1-3 recipe from his v0.3.1 weights.

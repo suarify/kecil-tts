@@ -766,3 +766,10 @@
 - Fixed stale `js/suaradee.js` default repo (`Suarify/kecil-tts-yati` -> each repo's full id) for the 3 repos that have that file.
 - Michael's card had a stale quick-start (kecil_tts/KecilTTS + a wheel URL that doesn't exist - his repo has no dist/ wheel). Fixed import to `suaradee`/`Suaradee` and removed the non-existent wheel install line (from_pretrained still works).
 - Verified all 5 cards now: suaradee import present, no stale KecilTTS, wheel refs correct.
+
+## 2026-11-20 Python package renamed suaradee -> kecil-tts (owner approved, full rename + shim)
+- Owner asked to change the name suaradee to kecil-tts. Chose full rename with backwards-compatible shim.
+- Local: `python/suaradee/` -> `python/kecil_tts/` (real package), class `Suaradee` -> `KecilTTS`; `python/suaradee/` is now a tiny shim re-exporting `KecilTTS`/`SAMPLE_RATE` and aliasing `Suaradee = KecilTTS` so old code still works. pyproject distribution now `kecil-tts` with both packages. Verified imports locally.
+- Rebuilt wheels for all 5 repos: `kecil_tts-<ver>-py3-none-any.whl` (contains both `kecil_tts` and `suaradee` shim), uploaded to dist/ (old suaradee wheels left in place).
+- Updated all 5 cards + python examples to `from kecil_tts import SAMPLE_RATE, KecilTTS` / `KecilTTS.from_pretrained` + new wheel URLs. Verified: all cards new API, no stale Suaradee/Suaradee.from_pretrained, new wheel present with both modules.
+- Space JS: added `export const KecilTTS = Suaradee` to kecil.js + suaradee.js, re-uploaded. Verified live: both exports present and identical, 4 speakers, zero JS errors.

@@ -1,3 +1,5 @@
-from .tts import SAMPLE_RATE, Suaradee
+"""Backwards-compatible shim: use `from kecil_tts import SAMPLE_RATE, KecilTTS` instead."""
+from kecil_tts import SAMPLE_RATE, KecilTTS
 
-__all__ = ['Suaradee', 'SAMPLE_RATE']
+Suaradee = KecilTTS  # old name still works
+__all__ = ["KecilTTS", "Suaradee", "SAMPLE_RATE"]

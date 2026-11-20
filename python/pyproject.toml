@@ -1,5 +1,5 @@
 [project]
-name = "suaradee"
+name = "kecil-tts"
 version = "0.3.0"
 description = "Tiny Malay text-to-speech (8M-parameter ONNX), onnxruntime + numpy only"
 requires-python = ">=3.9"
@@ -10,7 +10,8 @@ requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-packages = ["suaradee"]
+packages = ["kecil_tts", "suaradee"]
 
 [tool.setuptools.package-data]
+kecil_tts = ["*.json", "*.onnx"]
 suaradee = ["*.json", "*.onnx"]

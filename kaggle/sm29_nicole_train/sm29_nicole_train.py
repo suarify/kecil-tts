@@ -65,7 +65,7 @@ sys.path.insert(0, f'{OUT}/stubs')
 SCRIPTS = glob.glob('/kaggle/input/**/ms_train.py', recursive=True)[0]
 SDIR = os.path.dirname(SCRIPTS)
 G2P = os.path.dirname(glob.glob('/kaggle/input/**/ms_g2p.py', recursive=True)[0])
-VC = glob.glob('/kaggle/input/**/nicoleB.pt', recursive=True)[0]
+VC = glob.glob('/kaggle/input/**/nicoleB_v05.pt', recursive=True)[0]
 TEXTS = glob.glob('/kaggle/input/**/texts.tsv', recursive=True)[0]
 TINIT = glob.glob('/kaggle/input/**/text_init.pt', recursive=True)[0]
 DINIT = glob.glob('/kaggle/input/**/dec_init.pt', recursive=True)[0]

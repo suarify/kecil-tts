@@ -120,3 +120,6 @@ export class Suaradee {
     return { audio, sampleRate: SAMPLE_RATE };
   }
 }
+
+// Renamed export alias (Suaradee kept for backwards compatibility).
+export const KecilTTS = Suaradee;

@@ -773,3 +773,9 @@
 - Rebuilt wheels for all 5 repos: `kecil_tts-<ver>-py3-none-any.whl` (contains both `kecil_tts` and `suaradee` shim), uploaded to dist/ (old suaradee wheels left in place).
 - Updated all 5 cards + python examples to `from kecil_tts import SAMPLE_RATE, KecilTTS` / `KecilTTS.from_pretrained` + new wheel URLs. Verified: all cards new API, no stale Suaradee/Suaradee.from_pretrained, new wheel present with both modules.
 - Space JS: added `export const KecilTTS = Suaradee` to kecil.js + suaradee.js, re-uploaded. Verified live: both exports present and identical, 4 speakers, zero JS errors.
+
+## 2026-11-20 Source pushed to GitHub (suarify/kecil-tts)
+- Owner asked "source commit n push". Initially blocked: cached GitHub credential was dragonjump (403), and HTTPS push of large .pt files rejected (>100MB each).
+- Used the owner-provided SSH profile `github-suarify` (id_ed25519_suarify) - authenticated as suarify.
+- Large generated data files (data/teacher/shard_0000.pt 328MB, data/teacher_gta/shard_0000.pt 749MB, kaggle/ds_k15clips/cb_clips2.pt 189MB, kaggle/ds_rows_v02/shard_0000.pt 179MB) were untracked and .gitignore extended (*.pt, *.bin). Used git-filter-repo to strip them from all 165 commits' history (verified 0 blobs >100MB).
+- Remote `main` already had an older clean v0.4-era source repo (8 commits, 33 files) - owner approved force-push. Force-pushed local main -> remote main (dfd6d9a -> 813ce79). Verified `git ls-remote origin main` matches local HEAD.

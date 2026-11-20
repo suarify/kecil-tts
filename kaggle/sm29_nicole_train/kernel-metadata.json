@@ -1,0 +1,17 @@
+{
+ "id": "suarifymalaysia/sm-29-nicole-train",
+ "title": "sm 29 nicole train",
+ "code_file": "sm29_nicole_train.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_tpu": false,
+ "enable_internet": true,
+ "keywords": ["gpu"],
+ "dataset_sources": ["suarifymalaysia/sm29-nicole-train-in", "suarifymalaysia/sm-g2p"],
+ "kernel_sources": [],
+ "competition_sources": [],
+ "model_sources": [],
+ "machine_shape": "NvidiaTeslaT4"
+}

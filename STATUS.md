@@ -739,3 +739,9 @@
 - Card is honest: early/rough release, owner found it robotic, UTMOS table (teacher 3.553, Yati v0.5 2.275, Nicole 2.180, Firdaus 1.843, Michael 1.813), F0 health dropout 33%/uverr 36%/span 2.35, stats correctly re-centered to male 122 Hz so not a setup bug, non-GAN checkpoint was worse (1.27).
 - Space updated: Firdaus added as a 4th speaker with its own dropdown + model detection + speed map. Verified live: speakers Yati/Michael/Firdaus/Nicole, zero JS errors.
 - Nicole pipeline remains prepared but paused (owner wanted Firdaus gated first).
+
+## 2026-11-20 Nicole pipeline STARTED (owner approved after Firdaus gate)
+- Firdaus v0.1 published and added to Space (4th speaker). Owner accepted robotic quality for v0.1.
+- Nicole: dataset suarifymalaysia/sm28-nicole-vc-in uploaded (Yati v0.5 clips bundle + ref_nicole + texts), kernel sm-28-nicole-vc RUNNING (VC to af_nicole, loudness-normalized RMS 0.07).
+- Prepared: sm-29-nicole-train kernel (female voice af_nicole, default f0 settings - fixed a bad find/replace that had left am_nicole + male f0 flags). Will build suarifymalaysia/sm29-nicole-train-in dataset from the VC output, then push. Same recipe: rows -> text 10k UV -> GTA -> decoder 12k -> GAN 2k from Yati v0.5 inits.
+- Next: export/eval, blind page, owner gate before publishing.

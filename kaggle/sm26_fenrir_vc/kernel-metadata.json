@@ -1,0 +1,17 @@
+{
+ "id": "suarifymalaysia/sm-26-fenrir-vc",
+ "title": "sm 26 fenrir vc",
+ "code_file": "sm26_fenrir_vc.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_tpu": false,
+ "enable_internet": true,
+ "keywords": ["gpu"],
+ "dataset_sources": ["suarifymalaysia/sm26-fenrir-vc-in"],
+ "kernel_sources": [],
+ "competition_sources": [],
+ "model_sources": [],
+ "machine_shape": "NvidiaTeslaT4"
+}

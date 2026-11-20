@@ -1,0 +1,17 @@
+{
+ "id": "suarifymalaysia/sm-27-fenrir-train",
+ "title": "sm 27 fenrir train",
+ "code_file": "sm27_fenrir_train.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_tpu": false,
+ "enable_internet": true,
+ "keywords": ["gpu"],
+ "dataset_sources": ["suarifymalaysia/sm27-fenrir-train-in", "suarifymalaysia/sm-g2p"],
+ "kernel_sources": [],
+ "competition_sources": [],
+ "model_sources": [],
+ "machine_shape": "NvidiaTeslaT4"
+}

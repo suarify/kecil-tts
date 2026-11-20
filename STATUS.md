@@ -701,3 +701,9 @@
 - Dataset `suarifymalaysia/sm26-fenrir-vc-in` uploaded (bundled ONE .pt of 1,281 clips, ref_fenrir.wav, texts.tsv - avoids the 948/1281 wav-folder mount bug). Kernel `sm-26-fenrir-vc` RUNNING: ChatterboxVC to am_fenrir + loudness normalization -> `fenrirB.pt`.
 - Kernel `sm-27-fenrir-train` prepared: rows (ms_rows with `--voice am_fenrir --f0-min 50 --f0-max 300`, male settings) -> text 10k UV from Yati v0.5 text -> GTA rows -> decoder 12k GTA from Yati v0.5 decoder -> short GAN 2k (D warmup 100, D lr 1e-4 to avoid the D-wins problem). Saves fenrir_text/dec/gan.pt.
 - Inits: text from `runs/text_f0uv.pt`, decoder from `runs/kaggle_sm21gan/dec_gan.pt` (the Yati v0.5 weights).
+
+## 2026-11-20 Space UI v7 (owner request while Fenrir trains)
+- Effects lab is now a modal popup (`.modal-wrap#fxModal`), opened only by a new ⚙ gear icon beside the speed/stream row; closes via ×, backdrop click, or Escape.
+- Speak + Replay buttons moved to their own row BELOW the speed/stream row.
+- The status sentence ("first audio after ... on webgpu ...") and Phonemes line moved ABOVE the textarea (right under the waveform) and shrunk to 10px micro text.
+- Verified live: gear opens/closes the modal, info font-size 10px, info above textarea, model loads normally, zero JS errors.

@@ -712,3 +712,9 @@
 - (1) The "first audio... / Phonemes" micro line hidden (elements kept with `hidden` attr so JS refs stay valid - removing them broke load() with a null textContent error, fixed and re-verified).
 - (2) Benchmarks card is now a `<details id="benchd"><summary>` collapsible, collapsed by default (no `open` attr).
 - Verified live: infoVisible false, phVisible false, benchOpen false, model loads, 3 speakers, zero JS errors.
+
+## 2026-11-20 Fenrir VC done + training submitted; Nicole prepared (awaiting gate)
+- VC kernel sm-26-fenrir-vc COMPLETE: 1,281 clips, 0 failures, 31.5 min. Output RMS mean 0.069 (target 0.07) - the loudness fix worked, clips no longer soft.
+- Dataset suarifymalaysia/sm27-fenrir-train-in uploaded (20 files: fenrirB.pt, ms_train.py UV+GAN, ms_rows.py with male f0 settings, make_gta_cli.py, text_init.pt/dec_init.pt from Yati v0.5, texts.tsv). Kernel sm-27-fenrir-train QUEUED: rows -> text 10k UV -> GTA -> decoder 12k -> GAN 2k.
+- Prepared ahead (NOT pushed): Nicole VC dataset builder + kernel (sm-28-nicole-vc). Will push only after the owner's Fenrir gate.
+- scripts/export_fenrir.py ready: export best checkpoint with FIX H + webgpu patch + sota_eval.

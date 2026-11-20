@@ -1,0 +1,17 @@
+{
+ "id": "suarifymalaysia/sm-28-nicole-vc",
+ "title": "sm 28 nicole vc",
+ "code_file": "sm28_nicole_vc.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_tpu": false,
+ "enable_internet": true,
+ "keywords": ["gpu"],
+ "dataset_sources": ["suarifymalaysia/sm28-nicole-vc-in"],
+ "kernel_sources": [],
+ "competition_sources": [],
+ "model_sources": [],
+ "machine_shape": "NvidiaTeslaT4"
+}

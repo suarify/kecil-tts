@@ -759,3 +759,10 @@
 - Owner: change licensing from open source (Apache-2.0) to Creative Commons Attribution 4.0 (CC BY 4.0).
 - Updated all 5 repos (yati v0.5, v0.4.1, michael v0.3.1, nicole v0.1, firdaus v0.1): README license tag `apache-2.0` -> `cc-by-4.0`, all body references Apache-2.0 -> CC BY 4.0, and replaced/added the LICENSE file with the official CC BY 4.0 legal code (fetched from creativecommons.org).
 - Verified remotely: all 5 show license ['cc-by-4.0'], LICENSE present, no 'apache' left in cards.
+
+## 2026-11-20 Model card quick-start fix (owner question: "is `from suaradee import` legit?")
+- Verified: the published wheels DO install the `suaradee` module (`suaradee/__init__.py` -> `Suaradee`, `SAMPLE_RATE`) and their default REPO points to the correct model. So the README quick-start `from suaradee import SAMPLE_RATE, Suaradee` / `Suaradee.from_pretrained(...)` IS legit and correct.
+- The STALE parts were the `examples/*.py` files, which imported a non-existent `kecil_tts`/`KecilTTS` and referenced an old wheel URL (michael-v0.2). Fixed all example files across the 5 repos to use the real `suaradee` module, correct wheel filenames and correct repo ids.
+- Fixed stale `js/suaradee.js` default repo (`Suarify/kecil-tts-yati` -> each repo's full id) for the 3 repos that have that file.
+- Michael's card had a stale quick-start (kecil_tts/KecilTTS + a wheel URL that doesn't exist - his repo has no dist/ wheel). Fixed import to `suaradee`/`Suaradee` and removed the non-existent wheel install line (from_pretrained still works).
+- Verified all 5 cards now: suaradee import present, no stale KecilTTS, wheel refs correct.

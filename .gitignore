@@ -25,3 +25,6 @@ python/build/
 python/*.egg-info/
 python/dist/
 hf_*/
+# large generated datasets (regenerate from scripts / Kaggle)
+*.pt
+*.bin

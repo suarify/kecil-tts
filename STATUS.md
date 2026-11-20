@@ -718,3 +718,9 @@
 - Dataset suarifymalaysia/sm27-fenrir-train-in uploaded (20 files: fenrirB.pt, ms_train.py UV+GAN, ms_rows.py with male f0 settings, make_gta_cli.py, text_init.pt/dec_init.pt from Yati v0.5, texts.tsv). Kernel sm-27-fenrir-train QUEUED: rows -> text 10k UV -> GTA -> decoder 12k -> GAN 2k.
 - Prepared ahead (NOT pushed): Nicole VC dataset builder + kernel (sm-28-nicole-vc). Will push only after the owner's Fenrir gate.
 - scripts/export_fenrir.py ready: export best checkpoint with FIX H + webgpu patch + sota_eval.
+
+## 2026-11-20 Fenrir training COMPLETE - export/eval in progress
+- Kernel sm-27-fenrir-train COMPLETE in 84.8 min. Stages: rows 16.6m (1,281 rows), text 8.6m (early-stopped best step 4,500), GTA 1.4m, decoder 16.3m (12k steps), GAN 38.1m (2.1k steps). Checkpoints downloaded: fenrir_text.pt (step 4500), fenrir_dec.pt (12000), fenrir_gan.pt (2100).
+- GAN log: no NONFINITE; D loss ~3.8 vs G adv ~2.0 (D still winning but finite); held spec loss before 3.747 -> after 2.527 (improved substantially during GAN).
+- Owner: rename fenrir -> FIRDAUS for the public voice name (keep internal ids as fenrir). Build `scripts/make_fenrir_page.py` blind 3-way page {Yati v0.5, Nicole, Firdaus}.
+- Exporting fenrir_gan.pt with the identical FIX H recipe + webgpu patch + sota_eval (running). Next: pick best checkpoint by UTMOS, build the blind page, owner gate before Nicole.

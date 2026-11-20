@@ -779,3 +779,12 @@
 - Used the owner-provided SSH profile `github-suarify` (id_ed25519_suarify) - authenticated as suarify.
 - Large generated data files (data/teacher/shard_0000.pt 328MB, data/teacher_gta/shard_0000.pt 749MB, kaggle/ds_k15clips/cb_clips2.pt 189MB, kaggle/ds_rows_v02/shard_0000.pt 179MB) were untracked and .gitignore extended (*.pt, *.bin). Used git-filter-repo to strip them from all 165 commits' history (verified 0 blobs >100MB).
 - Remote `main` already had an older clean v0.4-era source repo (8 commits, 33 files) - owner approved force-push. Force-pushed local main -> remote main (dfd6d9a -> 813ce79). Verified `git ls-remote origin main` matches local HEAD.
+
+## 2026-11-20 Nicole v0.5 training + export DONE - blind gate open
+- Kernel sm-29-nicole-train COMPLETE (rows 1,281, text early-stop, decoder 12k, GAN 2.1k, no NaN; held spec 3.37->2.45). Checkpoints downloaded.
+- Exported both with identical FIX H + webgpu patch:
+  - nicole_v05_gan: UTMOS 1.9669/1.4944, F0 dropout 28.1%, uv_err 32.5%, output RMS 0.052
+  - nicole_v05_dec (no GAN): UTMOS 1.7387/1.3988 -> GAN kept.
+- Compare: old Nicole v0.1 UTMOS 2.1799, Yati v0.5 2.2748. New Nicole is objectively LOWER UTMOS but the loudness fix worked (RMS 0.052 vs old ~0.02-0.035) and F0 dropout improved vs Firdaus (28% vs 33%). Owner's ears decide publish vs keep old.
+- Built `runs/listen/nicole_v05_gate.html` blind 3-way {Yati v0.5, Nicole v0.1 old, Nicole v0.5 new}, 12 loudness-matched shuffled sentences, rendered old Nicole wavs from runs/nicole_v010_repo for the comparison. Opened for owner.
+- Note: GitHub source was pushed to suarify/kecil-tts main earlier this session (after stripping large .pt blobs).

@@ -707,3 +707,8 @@
 - Speak + Replay buttons moved to their own row BELOW the speed/stream row.
 - The status sentence ("first audio after ... on webgpu ...") and Phonemes line moved ABOVE the textarea (right under the waveform) and shrunk to 10px micro text.
 - Verified live: gear opens/closes the modal, info font-size 10px, info above textarea, model loads normally, zero JS errors.
+
+## 2026-11-20 Space UI v8 (owner request while Fenrir trains)
+- (1) The "first audio... / Phonemes" micro line hidden (elements kept with `hidden` attr so JS refs stay valid - removing them broke load() with a null textContent error, fixed and re-verified).
+- (2) Benchmarks card is now a `<details id="benchd"><summary>` collapsible, collapsed by default (no `open` attr).
+- Verified live: infoVisible false, phVisible false, benchOpen false, model loads, 3 speakers, zero JS errors.
